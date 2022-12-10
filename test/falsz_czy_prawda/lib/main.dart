@@ -107,7 +107,9 @@ class SecondPage extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text("Wróć do papy!"),
+                child: result == true
+                    ? Text("Popraw się dzbanie!")
+                    : Text("Dobrze, oby tak dalej!"),
                 style: ElevatedButton.styleFrom(
                   primary: (result == true ? Colors.red : Colors.green),
                 ),
