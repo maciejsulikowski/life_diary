@@ -37,6 +37,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.teal,
       appBar: AppBar(
         centerTitle: true,
         title: const Text('TO DO LIST'),
@@ -101,13 +102,13 @@ class CategoryWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text(
-        title,
-        style: GoogleFonts.openSans(fontSize: 25, color: Colors.yellow),
-      ),
       padding: EdgeInsets.all(40),
       margin: EdgeInsets.all(20),
       color: Colors.purple,
+      child: Text(
+        title,
+        style: GoogleFonts.openSans(fontSize: 26, color: Colors.yellow),
+      ),
     );
   }
 }
