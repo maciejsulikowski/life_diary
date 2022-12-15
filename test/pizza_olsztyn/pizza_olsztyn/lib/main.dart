@@ -43,7 +43,7 @@ class RootPage extends StatelessWidget {
             return LoginPage();
           }
           return HomePage(user: user);
-        });
+        },);
   }
 }
 
