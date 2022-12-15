@@ -29,6 +29,13 @@
             {
               "client_id": "87709005556-u14tjmp14p3sb9bj0lmj6fvr2osi5od4.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "87709005556-nllu2pj8uh84gu8nctpa5gtufksffqu5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.maciejsulikowski.pizzaOlsztyn"
+              }
             }
           ]
         }
