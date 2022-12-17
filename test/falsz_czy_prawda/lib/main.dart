@@ -54,7 +54,7 @@ class FirstPage extends StatelessWidget {
                   );
                 },
                 child: Text("CHECK!"),
-                style: ElevatedButton.styleFrom(primary: Colors.yellow)),
+                style: ElevatedButton.styleFrom(primary: Colors.purple)),
           ],
         ),
       ),
