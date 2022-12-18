@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class RestaurantsPageContent extends StatelessWidget {
   const RestaurantsPageContent({
@@ -26,24 +27,50 @@ class RestaurantsPageContent extends StatelessWidget {
           return ListView(
             children: [
               for (final document in documents) ...[
-                Padding(
-                  padding: const EdgeInsets.all(25.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                Dismissible(
+                  key: ValueKey(document.id),
+                  onDismissed: (_) {
+                    FirebaseFirestore.instance
+                        .collection('restaurants')
+                        .doc(document.id)
+                        .delete();
+                  },
+                  child: Container(
+                    color: Colors.blue[400],
+                    child: Padding(
+                      padding: const EdgeInsets.all(25.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(document['name']),
-                          Text(document['pizza']),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                document['name'],
+                                style: GoogleFonts.anton(
+                                  fontSize: 20,
+                                  color: Colors.purple[700],
+                                ),
+                              ),
+                              Text(
+                                document['pizza'],
+                                style: GoogleFonts.anton(
+                                  fontSize: 20,
+                                  color: Colors.yellow[400],
+                                ),
+                              ),
+                            ],
+                          ),
+                          Text(
+                            document['rating'].toString(),
+                            style: GoogleFonts.lato(fontSize: 30),
+                          ),
                         ],
                       ),
-                      Text(
-                        document['rating'].toString(),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
+                SizedBox(height: 10),
               ],
             ],
           );
