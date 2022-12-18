@@ -23,7 +23,13 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('THE BEST PIZZA IN OLSZTYN'),
+        centerTitle: true,
+        title: const Text(
+          'THE BEST PIZZA IN OLSZTYN',
+          style: TextStyle(
+            color: Colors.black,
+          ),
+        ),
       ),
       body: Builder(builder: (context) {
         if (currentIndex == 0) {
