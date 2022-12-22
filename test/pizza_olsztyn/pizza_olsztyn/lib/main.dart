@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:pizza_olsztyn/app/home/home_page.dart';
-import 'package:pizza_olsztyn/app/login/login_page.dart';
+import 'package:pizza_olsztyn/app/features/home/home_page.dart';
+import 'package:pizza_olsztyn/app/features/login/login_page.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -36,16 +36,14 @@ class RootPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<User?>(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (context, snapshot) {
-          final user = snapshot.data;
-          if (user == null) {
-            return LoginPage();
-          }
-          return HomePage(user: user);
-        },);
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (context, snapshot) {
+        final user = snapshot.data;
+        if (user == null) {
+          return LoginPage();
+        }
+        return HomePage(user: user);
+      },
+    );
   }
 }
-
-
-
