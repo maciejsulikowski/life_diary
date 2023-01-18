@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lifediary_project/app/login/login_page.dart';
 import 'package:lifediary_project/app/welcome/second_welcome_page.dart';
+import 'package:lifediary_project/app/welcome/third_welcome_page.dart';
 
 class MyStatelessWidget extends StatelessWidget {
   const MyStatelessWidget({super.key});
@@ -15,6 +17,8 @@ class MyStatelessWidget extends StatelessWidget {
       children: const <Widget>[
         FirstWelcomePage(),
         SecondWelcomePage(),
+        ThirdWelcomePage(),
+        LoginPage(),
       ],
     );
   }
@@ -59,11 +63,11 @@ class FirstWelcomePage extends StatelessWidget {
                 children: const [
                   Image(
                     image: AssetImage('images/magic-wand.png'),
-                    width: 100,
+                    width: 120,
                   ),
                   Image(
                     image: AssetImage('images/magic-wand2.png'),
-                    width: 100,
+                    width: 120,
                   ),
                 ],
               ),
