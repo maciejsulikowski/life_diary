@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "187894505069",
+    "project_id": "lifediary-project-5882",
+    "storage_bucket": "lifediary-project-5882.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:187894505069:android:3b1f89d28f5cf98a8f2964",
+        "android_client_info": {
+          "package_name": "com.maciejsulikowski.lifediary_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "187894505069-q1t8rma5ithu90dpk2i6o5bf5kqtjp6r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_X1q6FaxhmC_iLt76lNze6FZ6rCbgUx8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "187894505069-q1t8rma5ithu90dpk2i6o5bf5kqtjp6r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

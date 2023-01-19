@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>187894505069-53p82jn1ebac5l912pk8d4etaid11tvi.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.187894505069-53p82jn1ebac5l912pk8d4etaid11tvi</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAtB9hUDbI3dwr7L2irO8kdS4g_TgEp6dQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>187894505069</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.maciejsulikowski.lifediaryProject</string>
+	<key>PROJECT_ID</key>
+	<string>lifediary-project-5882</string>
+	<key>STORAGE_BUCKET</key>
+	<string>lifediary-project-5882.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:187894505069:ios:4e857b797a01f0908f2964</string>
+</dict>
+</plist>

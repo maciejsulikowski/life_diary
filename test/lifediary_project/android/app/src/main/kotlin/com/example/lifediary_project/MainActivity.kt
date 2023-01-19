@@ -1,4 +1,4 @@
-package com.example.lifediary_project
+package com.maciejsulikowski.lifediary_project
 
 import io.flutter.embedding.android.FlutterActivity
 
