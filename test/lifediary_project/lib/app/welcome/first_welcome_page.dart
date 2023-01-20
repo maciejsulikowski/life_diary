@@ -14,7 +14,7 @@ class MyStatelessWidget extends StatelessWidget {
       /// [PageView.scrollDirection] defaults to [Axis.horizontal].
       /// Use [Axis.vertical] to scroll vertically.
       controller: controller,
-      children: const <Widget>[
+      children: <Widget>[
         FirstWelcomePage(),
         SecondWelcomePage(),
         ThirdWelcomePage(),
