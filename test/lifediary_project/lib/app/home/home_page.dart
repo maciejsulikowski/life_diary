@@ -22,31 +22,52 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'LIFEDIARY',
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.blue,
-      ),
       body: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Text('Zalogowano!'),
-          const SizedBox(height: 20),
-          ElevatedButton(
-              onPressed: () {
-                FirebaseAuth.instance.signOut();
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => LoginPage(),
-                  ),
-                );
-              },
-              child: const Text('Wyloguj')),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text('Zalogowano!'),
+            const SizedBox(height: 20),
+            ElevatedButton(
+                onPressed: () {
+                  FirebaseAuth.instance.signOut();
+                  //moveToLogin();
+                  //Navigator.of(context).pop();
+                  // Navigator.pushNamed(context, '/login');
+                },
+                child: const Text('Wyloguj')),
+          ],
+        ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Konto',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.book),
+            label: 'Dziennik',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.sports_gymnastics_rounded),
+            label: 'Trening',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.water_drop),
+            label: 'Woda',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.list_alt),
+            label: 'To Do List',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.lock_clock),
+            label: 'Plan dnia',
+          ),
         ],
-      )),
+        type: BottomNavigationBarType.fixed,
+      ),
     );
   }
 }
