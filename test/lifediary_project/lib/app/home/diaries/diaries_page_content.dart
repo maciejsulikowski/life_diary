@@ -24,7 +24,7 @@ class _DiariesPageContentState extends State<DiariesPageContent> {
         onPressed: () {
           if (currentDiaryCounter < maxDiaryCount) {
             setState(() {
-              newDiaries.add(NewDiary());
+              newDiaries.add(const NewDiary());
               currentDiaryCounter++;
             });
           } else {
@@ -49,15 +49,13 @@ class _DiariesPageContentState extends State<DiariesPageContent> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          SizedBox(height: 20),
-          Center(
-            child: Container(
-              child: Text(
-                'Utwórz dziennik, klikając przycisk poniżej',
-              ),
+          const SizedBox(height: 20),
+          const Center(
+            child: Text(
+              'Utwórz dziennik, klikając przycisk poniżej',
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 30),
           ListView.builder(
             shrinkWrap: true,
             itemCount: newDiaries.length,
@@ -65,7 +63,7 @@ class _DiariesPageContentState extends State<DiariesPageContent> {
               return Column(
                 children: [
                   newDiaries[index],
-                  SizedBox(height: 20),
+                  const SizedBox(height: 40),
                 ],
               );
             },
@@ -94,7 +92,7 @@ class NewDiary extends StatelessWidget {
       ),
       child: Center(
         child: Wrap(
-          children: [
+          children: const [
             Icon(Icons.add, size: 60),
           ],
         ),

@@ -18,6 +18,8 @@ class ThirdWelcomePage extends StatelessWidget {
       '"Ludzie, którzy tracą czas czekając, aż zaistnieją najbardziej sprzyjające warunki, nigdy nic nie zdziałają. Najlepszy czas na działanie jest teraz!" Mark Fisher'
     ];
     final element = list[random.nextInt(list.length)];
+    final list2 = ['images/rocky.jpg', 'images/lion.jpg'];
+    final randomImage = list2[random.nextInt(list2.length)];
 
     return Scaffold(
         appBar: AppBar(
@@ -33,9 +35,9 @@ class ThirdWelcomePage extends StatelessWidget {
         ),
         body: Stack(children: <Widget>[
           Container(
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("images/rocky.jpg"),
+                image: AssetImage(randomImage.toString()),
                 fit: BoxFit.cover,
               ),
             ),
@@ -45,6 +47,7 @@ class ThirdWelcomePage extends StatelessWidget {
             child: Text(
               element,
               style: GoogleFonts.lato(
+                color: Colors.purple[600],
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
