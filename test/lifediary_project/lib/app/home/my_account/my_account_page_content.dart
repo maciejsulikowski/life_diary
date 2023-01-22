@@ -12,6 +12,7 @@ class MyAccountPageContent extends StatelessWidget {
   }) : super(key: key);
 
   final String? email;
+  
   LoginPage moveToLogin() {
     return LoginPage();
   }

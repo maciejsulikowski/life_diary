@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lifediary_project/app/home/diaries/diaries_page_content.dart';
 import 'package:lifediary_project/app/home/my_account/my_account_page_content.dart';
 import 'package:lifediary_project/app/home/to_do_list/to_do_list_content.dart';
 import 'package:lifediary_project/app/login/login_page.dart';
@@ -30,9 +31,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: Builder(builder: (context) {
         if (currentIndex == 1) {
-          return Center(
-            child: Text('2'),
-          );
+          return DiariesPageContent();
         }
         if (currentIndex == 2) {
           return Center(
@@ -92,3 +91,4 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
