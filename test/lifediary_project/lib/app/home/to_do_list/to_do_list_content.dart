@@ -1,9 +1,9 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lifediary_project/app/home/to_do_list/cubit/to_do_list_cubit.dart';
 
 class ToDoListContent extends StatelessWidget {
   ToDoListContent({
@@ -46,18 +46,20 @@ class ToDoListContent extends StatelessWidget {
         },
         child: const Icon(Icons.add),
       ),
-      body: StreamBuilder<QuerySnapshot>(
-          stream:
-              FirebaseFirestore.instance.collection('categories').snapshots(),
-          builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              return const Text('Wystapil blad');
+      body: BlocProvider(
+        create: (context) => ToDoListCubit()..start(),
+        child: BlocBuilder<ToDoListCubit, ToDoListState>(
+          builder: (context, state) {
+            if (state.errorMessage.isNotEmpty) {
+              return Text('Wystapil blad: ${state.errorMessage}');
             }
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Text('Prosze czekac, trwa ladowanie');
+            if (state.isLoading) {
+              return Center(
+                child: const CircularProgressIndicator(),
+              );
             }
 
-            final documents = snapshot.data!.docs;
+            final documents = state.documents;
             return ListView(
               children: [
                 for (final document in documents) ...[
@@ -84,7 +86,15 @@ class ToDoListContent extends StatelessWidget {
                 ),
               ],
             );
-          }),
+
+            return StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection('categories')
+                    .snapshots(),
+                builder: (context, snapshot) {});
+          },
+        ),
+      ),
     );
   }
 }
