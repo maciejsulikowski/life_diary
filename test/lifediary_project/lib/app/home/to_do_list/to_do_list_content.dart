@@ -54,8 +54,8 @@ class ToDoListContent extends StatelessWidget {
               return Text('Wystapil blad: ${state.errorMessage}');
             }
             if (state.isLoading) {
-              return Center(
-                child: const CircularProgressIndicator(),
+              return const Center(
+                child: CircularProgressIndicator(),
               );
             }
 
