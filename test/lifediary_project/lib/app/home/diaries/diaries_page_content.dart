@@ -1,7 +1,12 @@
 import 'dart:math';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lifediary_project/app/add_page/add_page.dart';
+import 'package:lifediary_project/app/home/diaries/cubit/diares_cubit.dart';
 
 class DiariesPageContent extends StatefulWidget {
   const DiariesPageContent({
@@ -13,30 +18,12 @@ class DiariesPageContent extends StatefulWidget {
 }
 
 class _DiariesPageContentState extends State<DiariesPageContent> {
-  List<NewDiary> newDiaries = [];
   int maxDiaryCount = 4;
   int currentDiaryCounter = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          if (currentDiaryCounter < maxDiaryCount) {
-            setState(() {
-              newDiaries.add(const NewDiary());
-              currentDiaryCounter++;
-            });
-          } else {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text("Możesz maksymalnie mieć 4 dzienniki."),
-              ),
-            );
-          }
-        },
-        child: const Icon(Icons.add),
-      ),
       appBar: AppBar(
         title: Text(
           'LIFEDIARY',
@@ -46,54 +33,152 @@ class _DiariesPageContentState extends State<DiariesPageContent> {
         centerTitle: true,
         backgroundColor: Colors.blue,
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          const SizedBox(height: 20),
-          const Center(
-            child: Text(
-              'Utwórz dziennik, klikając przycisk poniżej',
+      body: _NewDiary(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const AddPage(),
+              fullscreenDialog: true,
             ),
-          ),
-          const SizedBox(height: 30),
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: newDiaries.length,
-            itemBuilder: (context, index) {
-              return Column(
-                children: [
-                  newDiaries[index],
-                  const SizedBox(height: 40),
-                ],
-              );
-            },
-          )
-        ],
+          );
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }
 }
 
-class NewDiary extends StatelessWidget {
-  const NewDiary({
+class _NewDiary extends StatelessWidget {
+  const _NewDiary({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 100,
-      width: 100,
-      decoration: const BoxDecoration(
-        color: Colors.amber,
-        borderRadius: BorderRadius.all(
-          Radius.circular(20.0),
-        ),
+    return BlocProvider(
+      create: (context) => DiaresCubit()..start(),
+      child: BlocBuilder<DiaresCubit, DiaresState>(
+        builder: (context, state) {
+          final docs = state.items?.docs;
+          if (docs == null) {
+            return const SizedBox.shrink();
+          }
+          return ListView(
+            children: [
+              for (final doc in docs)
+                Dismissible(
+                  key: ValueKey(doc.id),
+                  background: const DecoratedBox(
+                    decoration: BoxDecoration(color: Colors.red),
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Padding(
+                        padding: EdgeInsets.only(right: 32.0),
+                        child: Icon(
+                          Icons.delete,
+                        ),
+                      ),
+                    ),
+                  ),
+                  confirmDismiss: (direction) async {
+                    return direction == DismissDirection.endToStart;
+                  },
+                  onDismissed: (direction) {
+                    context.read<DiaresCubit>().remove(documentID: doc.id);
+                  },
+                  child: ListViewItem(
+                    document: doc,
+                  ),
+                ),
+            ],
+          );
+        },
       ),
-      child: Center(
-        child: Wrap(
-          children: const [
-            Icon(Icons.add, size: 60),
+    );
+  }
+}
+
+class ListViewItem extends StatelessWidget {
+  const ListViewItem({
+    Key? key,
+    required this.document,
+  }) : super(key: key);
+
+  final QueryDocumentSnapshot<Map<String, dynamic>> document;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        vertical: 10,
+        horizontal: 30,
+      ),
+      child: Container(
+        decoration: const BoxDecoration(
+          color: Colors.black12,
+        ),
+        child: Column(
+          children: [
+            Container(
+              height: 80,
+              decoration: BoxDecoration(
+                color: Colors.black12,
+                image: DecorationImage(
+                  image: NetworkImage(
+                    document['image_url'],
+                  ),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    margin: const EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text(
+                          document['title'],
+                          style: const TextStyle(
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          (document['release_date'] as Timestamp)
+                              .toDate()
+                              .toString(),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.white70,
+                  ),
+                  margin: const EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
+                  child: Column(
+                    children: [
+                      Text(
+                        '0',
+                        style: const TextStyle(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const Text('days left'),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),
