@@ -7,6 +7,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lifediary_project/app/add_page/add_page.dart';
 import 'package:lifediary_project/app/home/diaries/cubit/diares_cubit.dart';
+import 'package:lifediary_project/app/models/item_model.dart';
+
+int maxDiaryCount = 3;
+int currentDiaryCounter = 0;
 
 class DiariesPageContent extends StatefulWidget {
   const DiariesPageContent({
@@ -18,9 +22,6 @@ class DiariesPageContent extends StatefulWidget {
 }
 
 class _DiariesPageContentState extends State<DiariesPageContent> {
-  int maxDiaryCount = 4;
-  int currentDiaryCounter = 0;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,6 +43,7 @@ class _DiariesPageContentState extends State<DiariesPageContent> {
               fullscreenDialog: true,
             ),
           );
+          currentDiaryCounter++;
         },
         child: const Icon(Icons.add),
       ),
@@ -60,15 +62,15 @@ class _NewDiary extends StatelessWidget {
       create: (context) => DiaresCubit()..start(),
       child: BlocBuilder<DiaresCubit, DiaresState>(
         builder: (context, state) {
-          final docs = state.items?.docs;
-          if (docs == null) {
+          final itemModels = state.items;
+          if (itemModels.isEmpty) {
             return const SizedBox.shrink();
           }
           return ListView(
             children: [
-              for (final doc in docs)
+              for (final itemModel in itemModels)
                 Dismissible(
-                  key: ValueKey(doc.id),
+                  key: ValueKey(itemModel.id),
                   background: const DecoratedBox(
                     decoration: BoxDecoration(color: Colors.red),
                     child: Align(
@@ -85,10 +87,12 @@ class _NewDiary extends StatelessWidget {
                     return direction == DismissDirection.endToStart;
                   },
                   onDismissed: (direction) {
-                    context.read<DiaresCubit>().remove(documentID: doc.id);
+                    context
+                        .read<DiaresCubit>()
+                        .remove(documentID: itemModel.id);
                   },
                   child: ListViewItem(
-                    document: doc,
+                    itemModel: itemModel,
                   ),
                 ),
             ],
@@ -102,10 +106,10 @@ class _NewDiary extends StatelessWidget {
 class ListViewItem extends StatelessWidget {
   const ListViewItem({
     Key? key,
-    required this.document,
+    required this.itemModel,
   }) : super(key: key);
 
-  final QueryDocumentSnapshot<Map<String, dynamic>> document;
+  final ItemModel itemModel;
 
   @override
   Widget build(BuildContext context) {
@@ -126,7 +130,7 @@ class ListViewItem extends StatelessWidget {
                 color: Colors.black12,
                 image: DecorationImage(
                   image: NetworkImage(
-                    document['image_url'],
+                    itemModel.imageURL,
                   ),
                   fit: BoxFit.cover,
                 ),
@@ -142,7 +146,7 @@ class ListViewItem extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Text(
-                          document['title'],
+                          itemModel.title,
                           style: const TextStyle(
                             fontSize: 20.0,
                             fontWeight: FontWeight.bold,
@@ -150,9 +154,7 @@ class ListViewItem extends StatelessWidget {
                         ),
                         const SizedBox(height: 10),
                         Text(
-                          (document['release_date'] as Timestamp)
-                              .toDate()
-                              .toString(),
+                          itemModel.releaseDate.toString(),
                         ),
                       ],
                     ),

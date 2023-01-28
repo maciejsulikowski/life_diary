@@ -3,11 +3,13 @@ part of 'diares_cubit.dart';
 @immutable
 class DiaresState {
   DiaresState({
-    this.items,
+    this.items = const [],
     this.loadingErrorOccured = false,
     this.removingErrorOccured = false,
+    this.maxdiary = 4,
   });
-  final QuerySnapshot<Map<String, dynamic>>? items;
+  final List<ItemModel> items;
   final bool loadingErrorOccured;
   final bool removingErrorOccured;
+  int maxdiary = 4;
 }
