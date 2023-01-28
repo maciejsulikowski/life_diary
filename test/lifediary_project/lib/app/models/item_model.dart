@@ -20,4 +20,5 @@ class ItemModel {
   String releaseDateFormatted() {
     return DateFormat.yMMMEd().format(releaseDate);
   }
+
 }

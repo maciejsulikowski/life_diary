@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lifediary_project/app/home/to_do_list/to_do_list_content.dart';
 import 'package:lifediary_project/app/login/login_page.dart';
+import 'package:lifediary_project/app/login/user_profile.dart';
 
 class MyAccountPageContent extends StatelessWidget {
   const MyAccountPageContent({
@@ -12,7 +13,7 @@ class MyAccountPageContent extends StatelessWidget {
   }) : super(key: key);
 
   final String? email;
-  
+
   LoginPage moveToLogin() {
     return LoginPage();
   }
@@ -24,6 +25,23 @@ class MyAccountPageContent extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text('Zalogowano jako $email! '),
+          const SizedBox(height: 20),
+          CircleAvatar(
+            child: IconButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => UserProfile(),
+                    
+                  ),
+                );
+              },
+              icon: const Icon(
+                Icons.person,
+                color: Colors.amber,
+              ),
+            ),
+          ),
           const SizedBox(height: 20),
           ElevatedButton(
               onPressed: () {
