@@ -1,12 +1,15 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:lifediary_project/app/home/diaries/diaries_page_content.dart';
+import 'package:lifediary_project/app/repositories/items_repository.dart';
 import 'package:meta/meta.dart';
 
 part 'add_state.dart';
 
 class AddCubit extends Cubit<AddState> {
-  AddCubit() : super(AddState());
+  AddCubit(this._itemsRepository) : super(AddState());
+
+  final ItemsRepository _itemsRepository;
 
   Future<void> add(
     String title,
@@ -14,11 +17,7 @@ class AddCubit extends Cubit<AddState> {
     DateTime releaseDate,
   ) async {
     try {
-      await FirebaseFirestore.instance.collection('items').add({
-        'title': title,
-        'image_url': imageURL,
-        'release_date': releaseDate,
-      });
+      await _itemsRepository.add(title, imageURL, releaseDate);
       emit(
         const AddState(saved: true),
       );

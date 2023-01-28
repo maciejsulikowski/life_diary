@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lifediary_project/app/add_page/add_page.dart';
 import 'package:lifediary_project/app/home/diaries/cubit/diares_cubit.dart';
 import 'package:lifediary_project/app/models/item_model.dart';
+import 'package:lifediary_project/app/repositories/items_repository.dart';
 
 int maxDiaryCount = 3;
 int currentDiaryCounter = 0;
@@ -59,7 +60,7 @@ class _NewDiary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => DiaresCubit()..start(),
+      create: (context) => DiaresCubit(ItemsRepository())..start(),
       child: BlocBuilder<DiaresCubit, DiaresState>(
         builder: (context, state) {
           final itemModels = state.items;
@@ -169,7 +170,7 @@ class ListViewItem extends StatelessWidget {
                   child: Column(
                     children: [
                       Text(
-                        '0',
+                        itemModel.daysLeft(),
                         style: const TextStyle(
                           fontSize: 20.0,
                           fontWeight: FontWeight.bold,
