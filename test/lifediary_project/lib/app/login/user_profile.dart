@@ -6,11 +6,21 @@ class UserProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const ProfileScreen(
-      providerConfigs: [
-        EmailProviderConfiguration(),
-      ],
-      avatarSize: 24,
+    return Scaffold(
+      appBar: AppBar(),
+      body: ProfileScreen(
+        providerConfigs: [
+          EmailProviderConfiguration(),
+        ],
+        actions: [
+          SignedOutAction(
+            (context) {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+        avatarSize: 24,
+      ),
     );
   }
 }
