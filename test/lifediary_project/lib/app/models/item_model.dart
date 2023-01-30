@@ -20,5 +20,14 @@ class ItemModel {
   String releaseDateFormatted() {
     return DateFormat.yMMMEd().format(releaseDate);
   }
+}
 
+class ItemModelToDoList {
+  ItemModelToDoList({
+    required this.id,
+    required this.title,
+  });
+
+  final String id;
+  final String title;
 }

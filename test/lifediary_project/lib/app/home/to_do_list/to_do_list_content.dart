@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lifediary_project/app/home/to_do_list/cubit/to_do_list_cubit.dart';
+import 'package:lifediary_project/app/models/item_model.dart';
+import 'package:lifediary_project/app/repositories/items_repository.dart';
 
 class ToDoListContent extends StatelessWidget {
   ToDoListContent({
@@ -17,6 +19,48 @@ class ToDoListContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: BlocProvider(
+        create: (context) => ToDoListCubit(ItemsRepository())..start(),
+        child: BlocBuilder<ToDoListCubit, ToDoListState>(
+          builder: (context, state) {
+            final itemModels = state.documents;
+            if (state.errorMessage.isNotEmpty) {
+              return Text('Wystapil blad: ${state.errorMessage}');
+            }
+            if (state.isLoading) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return ListView(
+              children: [
+                for (final itemModel in itemModels) ...[
+                  Dismissible(
+                    key: ValueKey(itemModel.id),
+                    onDismissed: (_) {
+                      FirebaseFirestore.instance
+                          .collection('users')
+                          .doc(itemModel.id)
+                          .delete();
+                    },
+                    child: CategoryWidget(
+                      itemModel,
+                    ),
+                  ),
+                ],
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: TextField(
+                    controller: controller,
+                    decoration: const InputDecoration(
+                        hintText: 'Tu wpisz nazwę zadania'),
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
+      ),
       appBar: AppBar(
         title: Text(
           'LIFEDIARY',
@@ -36,64 +80,11 @@ class ToDoListContent extends StatelessWidget {
             );
             return;
           }
-          FirebaseFirestore.instance.collection('categories').add(
-            {
-              'title': controller.text,
-            },
-          );
+          context.read<ToDoListCubit>().addtask(controller.text);
 
           controller.clear();
         },
         child: const Icon(Icons.add),
-      ),
-      body: BlocProvider(
-        create: (context) => ToDoListCubit()..start(),
-        child: BlocBuilder<ToDoListCubit, ToDoListState>(
-          builder: (context, state) {
-            if (state.errorMessage.isNotEmpty) {
-              return Text('Wystapil blad: ${state.errorMessage}');
-            }
-            if (state.isLoading) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-
-            final documents = state.documents;
-            return ListView(
-              children: [
-                for (final document in documents) ...[
-                  Dismissible(
-                    key: ValueKey(document.id),
-                    onDismissed: (_) {
-                      FirebaseFirestore.instance
-                          .collection('categories')
-                          .doc(document.id)
-                          .delete();
-                    },
-                    child: CategoryWidget(
-                      document['title'],
-                    ),
-                  ),
-                ],
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: TextField(
-                    controller: controller,
-                    decoration: const InputDecoration(
-                        hintText: 'Tu wpisz nazwę zadania'),
-                  ),
-                ),
-              ],
-            );
-
-            return StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance
-                    .collection('categories')
-                    .snapshots(),
-                builder: (context, snapshot) {});
-          },
-        ),
       ),
     );
   }
@@ -101,11 +92,11 @@ class ToDoListContent extends StatelessWidget {
 
 class CategoryWidget extends StatelessWidget {
   const CategoryWidget(
-    this.title, {
+    this.itemModel, {
     Key? key,
   }) : super(key: key);
 
-  final String title;
+  final ItemModelToDoList itemModel;
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +104,7 @@ class CategoryWidget extends StatelessWidget {
       color: Colors.amber,
       padding: EdgeInsets.all(20),
       margin: EdgeInsets.all(10),
-      child: Text(title),
+      child: Text(itemModel.title),
     );
   }
 }

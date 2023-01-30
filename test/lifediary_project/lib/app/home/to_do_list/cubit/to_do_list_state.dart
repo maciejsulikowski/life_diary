@@ -2,12 +2,14 @@ part of 'to_do_list_cubit.dart';
 
 @immutable
 class ToDoListState {
-  final List<QueryDocumentSnapshot<Object?>> documents;
+  final List<ItemModelToDoList> documents;
   final bool isLoading;
   final String errorMessage;
+  final bool saved;
 
   const ToDoListState(
-      {required this.documents,
-      required this.isLoading,
-      required this.errorMessage});
+      {this.documents = const [],
+      this.isLoading = false,
+      this.errorMessage = '',
+      this.saved = false});
 }

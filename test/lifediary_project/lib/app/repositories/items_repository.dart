@@ -28,6 +28,28 @@ class ItemsRepository {
     });
   }
 
+  Stream<List<ItemModelToDoList>> getTasksStream() {
+    final userID = FirebaseAuth.instance.currentUser?.uid;
+    if (userID == null) {
+      throw Exception('User is not logged in');
+    }
+    return FirebaseFirestore.instance
+        .collection('users')
+        .doc(userID)
+        .collection('tasks')
+        .snapshots()
+        .map((querySnapshot) {
+      return querySnapshot.docs.map(
+        (doc) {
+          return ItemModelToDoList(
+            id: doc.id,
+            title: doc['task'],
+          );
+        },
+      ).toList();
+    });
+  }
+
   Future<void> delete({required String id}) {
     final userID = FirebaseAuth.instance.currentUser?.uid;
     if (userID == null) {
@@ -37,6 +59,19 @@ class ItemsRepository {
         .collection('users')
         .doc(userID)
         .collection('items')
+        .doc(id)
+        .delete();
+  }
+
+  Future<void> deletetask({required String id}) {
+    final userID = FirebaseAuth.instance.currentUser?.uid;
+    if (userID == null) {
+      throw Exception('User is not logged in');
+    }
+    return FirebaseFirestore.instance
+        .collection('users')
+        .doc(userID)
+        .collection('tasks')
         .doc(id)
         .delete();
   }
@@ -77,6 +112,22 @@ class ItemsRepository {
       'title': title,
       'image_url': imageURL,
       'release_date': releaseDate,
+    });
+  }
+
+  Future<void> addtask(
+    String title,
+  ) async {
+    final userID = FirebaseAuth.instance.currentUser?.uid;
+    if (userID == null) {
+      throw Exception('User is not logged in');
+    }
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userID)
+        .collection('tasks')
+        .add({
+      'task': title,
     });
   }
 }

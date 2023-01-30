@@ -2,53 +2,93 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:lifediary_project/app/models/item_model.dart';
+import 'package:lifediary_project/app/repositories/items_repository.dart';
 import 'package:meta/meta.dart';
 
 part 'to_do_list_state.dart';
 
 class ToDoListCubit extends Cubit<ToDoListState> {
-  ToDoListCubit()
-      : super(
-          const ToDoListState(
-            documents: [],
-            errorMessage: '',
-            isLoading: false,
-          ),
-        );
+  ToDoListCubit(this._itemsRepository) : super(ToDoListState());
+
+  final ItemsRepository _itemsRepository;
 
   StreamSubscription? _streamSubscription;
 
   Future<void> start() async {
-    emit(
-      const ToDoListState(
-        documents: [],
-        errorMessage: '',
-        isLoading: true,
-      ),
-    );
-
-    _streamSubscription = FirebaseFirestore.instance
-        .collection('categories')
-        .snapshots()
-        .listen((data) {
-      emit(
-        ToDoListState(
-          documents: data.docs,
-          isLoading: false,
-          errorMessage: '',
-        ),
+    _streamSubscription = _itemsRepository.getTasksStream().listen(
+      (documents) {
+        emit(ToDoListState(documents: documents));
+      },
+    )..onError(
+        (error) {
+          emit(ToDoListState(errorMessage: 'error'));
+        },
       );
-    })
-      ..onError((error) {
-        emit(
-          ToDoListState(
-            documents: [],
-            isLoading: false,
-            errorMessage: error.toString(),
-          ),
-        );
-      });
   }
+
+  Future<void> addtask(
+    String title,
+  ) async {
+    try {
+      await _itemsRepository.addtask(title);
+      emit(
+        const ToDoListState(saved: true),
+      );
+    } catch (error) {
+      emit(ToDoListState(errorMessage: error.toString()));
+    }
+  }
+
+  Future<void> remove({required String documentID}) async {
+    try {
+      await _itemsRepository.delete(id: documentID);
+    } catch (error) {
+      emit(
+        ToDoListState(errorMessage: 'Something went wrong'),
+      );
+      start();
+    }
+  }
+
+  // Future<void> start() async {
+  //   final userID = FirebaseAuth.instance.currentUser?.uid;
+  //   if (userID == null) {
+  //     throw Exception('User is not logged in');
+  //   }
+  //   emit(
+  //     const ToDoListState(
+  //       documents: [],
+  //       errorMessage: '',
+  //       isLoading: true,
+  //     ),
+  //   );
+
+  //   _streamSubscription = FirebaseFirestore.instance
+  //       .collection('users')
+  //       .doc(userID)
+  //       .collection('tasks')
+  //       .snapshots()
+  //       .listen((data) {
+  //     emit(
+  //       ToDoListState(
+  //         documents: [],
+  //         isLoading: false,
+  //         errorMessage: '',
+  //       ),
+  //     );
+  //   })
+  //     ..onError((error) {
+  //       emit(
+  //         ToDoListState(
+  //           documents: [],
+  //           isLoading: false,
+  //           errorMessage: error.toString(),
+  //         ),
+  //       );
+  //     });
+  // }
 
   @override
   Future<void> close() {
