@@ -53,6 +53,7 @@ class _AddPageState extends State<AddPage> {
                                   _title!,
                                   _imageURL!,
                                   _releaseDate!,
+                                
                                 );
                           },
                     icon: const Icon(Icons.check),

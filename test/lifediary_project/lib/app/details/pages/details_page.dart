@@ -44,7 +44,7 @@ class DetailsPageContent extends StatelessWidget {
             }
             return ListView(
               children: [
-                ListViewItem(
+                _ListViewItem(
                   itemModel: itemModel,
                 ),
               ],
@@ -56,30 +56,8 @@ class DetailsPageContent extends StatelessWidget {
   }
 }
 
-@override
-Widget build(BuildContext context) {
-  return BlocProvider(
-    create: (context) => DetailsCubit(ItemsRepository()),
-    child: BlocBuilder<DetailsCubit, DetailsState>(
-      builder: (context, state) {
-        final itemModel = state.itemModel;
-        if (itemModel == null) {
-          return Center(child: CircularProgressIndicator());
-        }
-        return ListView(
-          children: [
-            ListViewItem(
-              itemModel: itemModel,
-            ),
-          ],
-        );
-      },
-    ),
-  );
-}
-
-class ListViewItem extends StatelessWidget {
-  const ListViewItem({
+class _ListViewItem extends StatelessWidget {
+  const _ListViewItem({
     Key? key,
     required this.itemModel,
   }) : super(key: key);
@@ -100,7 +78,7 @@ class ListViewItem extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              height: 80,
+              height: 150,
               decoration: BoxDecoration(
                 color: Colors.black12,
                 image: DecorationImage(
@@ -111,51 +89,19 @@ class ListViewItem extends StatelessWidget {
                 ),
               ),
             ),
-            Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    margin: const EdgeInsets.all(10),
-                    padding: const EdgeInsets.all(10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Text(
-                          itemModel.title,
-                          style: const TextStyle(
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          itemModel.releaseDateFormatted(),
-                        ),
-                      ],
-                    ),
-                  ),
+            Container(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(itemModel.title),
+                    Icon(Icons.book, color: Colors.black),
+                  ],
                 ),
-                Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.white70,
-                  ),
-                  margin: const EdgeInsets.all(10),
-                  padding: const EdgeInsets.all(10),
-                  child: Column(
-                    children: [
-                      Text(
-                        itemModel.daysLeft(),
-                        style: const TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const Text('days left'),
-                    ],
-                  ),
-                ),
-              ],
+              ),
             ),
+// Text(itemModel.text)
           ],
         ),
       ),

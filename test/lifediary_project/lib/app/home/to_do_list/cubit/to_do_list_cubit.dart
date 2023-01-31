@@ -41,9 +41,21 @@ class ToDoListCubit extends Cubit<ToDoListState> {
     }
   }
 
+  Future<void> gettask(
+  ) async {
+    try {
+      await _itemsRepository.getTasksStream();
+      emit(
+        const ToDoListState(saved: true),
+      );
+    } catch (error) {
+      emit(ToDoListState(errorMessage: error.toString()));
+    }
+  }
+
   Future<void> remove({required String documentID}) async {
     try {
-      await _itemsRepository.delete(id: documentID);
+      await _itemsRepository.deletetask(id: documentID);
     } catch (error) {
       emit(
         ToDoListState(errorMessage: 'Something went wrong'),
@@ -51,44 +63,6 @@ class ToDoListCubit extends Cubit<ToDoListState> {
       start();
     }
   }
-
-  // Future<void> start() async {
-  //   final userID = FirebaseAuth.instance.currentUser?.uid;
-  //   if (userID == null) {
-  //     throw Exception('User is not logged in');
-  //   }
-  //   emit(
-  //     const ToDoListState(
-  //       documents: [],
-  //       errorMessage: '',
-  //       isLoading: true,
-  //     ),
-  //   );
-
-  //   _streamSubscription = FirebaseFirestore.instance
-  //       .collection('users')
-  //       .doc(userID)
-  //       .collection('tasks')
-  //       .snapshots()
-  //       .listen((data) {
-  //     emit(
-  //       ToDoListState(
-  //         documents: [],
-  //         isLoading: false,
-  //         errorMessage: '',
-  //       ),
-  //     );
-  //   })
-  //     ..onError((error) {
-  //       emit(
-  //         ToDoListState(
-  //           documents: [],
-  //           isLoading: false,
-  //           errorMessage: error.toString(),
-  //         ),
-  //       );
-  //     });
-  // }
 
   @override
   Future<void> close() {

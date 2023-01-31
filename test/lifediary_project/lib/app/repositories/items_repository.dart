@@ -22,6 +22,7 @@ class ItemsRepository {
             title: doc['title'],
             imageURL: doc['image_url'],
             releaseDate: (doc['release_date'] as Timestamp).toDate(),
+            // text: doc['text'],
           );
         },
       ).toList();
@@ -92,8 +93,27 @@ class ItemsRepository {
       title: doc['title'],
       imageURL: doc['image_url'],
       releaseDate: (doc['release_date'] as Timestamp).toDate(),
+      // text: doc['text'],
     );
   }
+
+  Future<ItemModelToDoList> gettasks({required String id, required String title}) async {
+    final userID = FirebaseAuth.instance.currentUser?.uid;
+    if (userID == null) {
+      throw Exception('User is not logged in');
+    }
+    final doc = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userID)
+        .collection('tasks')
+        .doc(id)
+        .get();
+    return ItemModelToDoList(
+      id: doc.id,
+      title: doc['title'],
+    );
+  }
+  
 
   Future<void> add(
     String title,
@@ -130,4 +150,6 @@ class ItemsRepository {
       'task': title,
     });
   }
+
+  getToDoListItems() {}
 }
