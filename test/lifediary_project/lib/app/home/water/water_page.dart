@@ -8,13 +8,25 @@ import 'package:lifediary_project/app/home/to_do_list/to_do_list_content.dart';
 import 'package:lifediary_project/app/home/water/water_page.dart';
 import 'package:lifediary_project/app/login/login_page.dart';
 
-class WaterPage extends StatelessWidget {
+class WaterPage extends StatefulWidget {
   WaterPage({
     Key? key,
   }) : super(key: key);
 
-  final first_controller = TextEditingController();
-  final second_controller = TextEditingController();
+  @override
+  State<WaterPage> createState() => _WaterPageState();
+}
+
+class _WaterPageState extends State<WaterPage> {
+  final heightController = TextEditingController();
+
+  final weightController = TextEditingController();
+
+  var result = 0;
+  var glass_result = 0;
+  var glass = 330;
+
+  var isAnswered = false;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +63,7 @@ class WaterPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(
-                controller: first_controller,
+                controller: heightController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Tutaj napisz swój wzrost',
@@ -62,13 +74,45 @@ class WaterPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(
-                controller: second_controller,
+                controller: weightController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Tutaj napisz swoją wagę',
                 ),
               ),
             ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  isAnswered = true;
+                  result = (30 * double.parse(weightController.text)).toInt();
+                  glass_result = (result / glass).floor();
+                });
+              },
+              child: Text('Oblicz!'),
+            ),
+            SizedBox(height: 20),
+            if (isAnswered == true) ...[
+              Center(
+                child: Text(
+                  'Powinieneś pić około: $result ml wody!',
+                  style: GoogleFonts.lato(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20),
+                ),
+              ),
+              Center(
+                child: Text(
+                  'Co daje gdzieś $glass_result szklanek wody dziennie!',
+                  style: GoogleFonts.lato(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20),
+                ),
+              )
+            ]
           ],
         ),
       ),
