@@ -13,6 +13,7 @@ import 'package:lifediary_project/app/repositories/items_repository.dart';
 
 int maxDiaryCount = 3;
 int currentDiaryCounter = 0;
+final controller = TextEditingController();
 
 class DetailsPageContent extends StatelessWidget {
   const DetailsPageContent({
@@ -24,31 +25,53 @@ class DetailsPageContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'LIFEDIARY',
-          style: GoogleFonts.lato(
-              color: Colors.black, fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.blue,
-      ),
-      body: BlocProvider(
-        create: (context) => DetailsCubit(ItemsRepository())..getItemWithID(id),
+    return BlocProvider(
+      create: (context) => DetailsCubit(ItemsRepository())..getItemWithID(id),
+      child: BlocListener<DetailsCubit, DetailsState>(
+        listener: (context, state) {},
         child: BlocBuilder<DetailsCubit, DetailsState>(
           builder: (context, state) {
             final itemModel = state.itemModel;
             if (itemModel == null) {
               return Center(child: CircularProgressIndicator());
             }
-            return ListView(
-              children: [
-                _ListViewItem(
-                  itemModel: itemModel,
+            
+
+            return Scaffold(
+                appBar: AppBar(
+                  title: Text(
+                    'LIFEDIARY',
+                    style: GoogleFonts.lato(
+                        color: Colors.black, fontWeight: FontWeight.bold),
+                  ),
+                  centerTitle: true,
+                  backgroundColor: Colors.blue,
                 ),
-              ],
-            );
+                floatingActionButton: FloatingActionButton(
+                  onPressed: () {
+                    if (controller.text.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text("Wprowadź jakieś zadanie!"),
+                        ),
+                      );
+                      return;
+                    
+                    } else {
+                      context.read<DetailsCubit>().addtext(controller.text);
+                      
+                    }
+                  },
+                  child: const Icon(Icons.add),
+                ),
+                body: ListView(
+                  children: [
+                    _ListViewItem(
+                      itemModel: itemModel,
+                    ),
+                    _DiaryPage(itemModel: itemModel)
+                  ],
+                ));
           },
         ),
       ),
@@ -101,7 +124,47 @@ class _ListViewItem extends StatelessWidget {
                 ),
               ),
             ),
-// Text(itemModel.text)
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _DiaryPage extends StatefulWidget {
+  const _DiaryPage({
+    Key? key,
+    required this.itemModel,
+  }) : super(key: key);
+
+  final ItemModel itemModel;
+
+  @override
+  _DiaryPageState createState() => _DiaryPageState();
+}
+
+class _DiaryPageState extends State<_DiaryPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        vertical: 10,
+        horizontal: 30,
+      ),
+      child: Container(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: controller,
+                maxLines: 200,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Write something here...',
+                ),
+              ),
+            ),
           ],
         ),
       ),

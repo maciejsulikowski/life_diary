@@ -53,7 +53,6 @@ class _AddPageState extends State<AddPage> {
                                   _title!,
                                   _imageURL!,
                                   _releaseDate!,
-                                
                                 );
                           },
                     icon: const Icon(Icons.check),
@@ -89,7 +88,7 @@ class _AddPageState extends State<AddPage> {
 }
 
 class _AddPageBody extends StatelessWidget {
-  const _AddPageBody({
+  _AddPageBody({
     Key? key,
     required this.onTitleChanged,
     required this.onImageUrlChanged,
@@ -101,6 +100,9 @@ class _AddPageBody extends StatelessWidget {
   final Function(String) onImageUrlChanged;
   final Function(DateTime?) onDateChanged;
   final String? selectedDateFormatted;
+  final TextEditingController controller = TextEditingController(
+      text:
+          'Np: https://cdn.pixabay.com/photo/2012/04/13/14/16/address-32567_960_720.png');
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +116,7 @@ class _AddPageBody extends StatelessWidget {
           onChanged: onTitleChanged,
           decoration: const InputDecoration(
             border: OutlineInputBorder(),
-            hintText: 'Matrix 5',
+            hintText: 'Np. Dziennik Treningowy',
             label: Text('Title'),
           ),
         ),
@@ -123,7 +125,8 @@ class _AddPageBody extends StatelessWidget {
           onChanged: onImageUrlChanged,
           decoration: const InputDecoration(
             border: OutlineInputBorder(),
-            hintText: 'http:// ... .jpg',
+            hintText:
+                'https://cdn.pixabay.com/photo/2012/04/13/14/16/address-32567_960_720.png',
             label: Text('Image URL'),
           ),
         ),

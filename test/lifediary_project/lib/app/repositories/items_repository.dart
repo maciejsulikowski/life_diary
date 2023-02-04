@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:lifediary_project/app/details/pages/details_page.dart';
 import 'package:lifediary_project/app/models/item_model.dart';
 
 class ItemsRepository {
@@ -97,7 +98,8 @@ class ItemsRepository {
     );
   }
 
-  Future<ItemModelToDoList> gettasks({required String id, required String title}) async {
+  Future<ItemModelToDoList> gettasks(
+      {required String id, required String title}) async {
     final userID = FirebaseAuth.instance.currentUser?.uid;
     if (userID == null) {
       throw Exception('User is not logged in');
@@ -113,7 +115,6 @@ class ItemsRepository {
       title: doc['title'],
     );
   }
-  
 
   Future<void> add(
     String title,
@@ -151,5 +152,19 @@ class ItemsRepository {
     });
   }
 
-  getToDoListItems() {}
+  Future<void> addtext(
+    String text,
+  ) async {
+    final userID = FirebaseAuth.instance.currentUser?.uid;
+    if (userID == null) {
+      throw Exception('User is not logged in');
+    }
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userID)
+        .collection('items')
+        .add({
+      'text': text,
+    });
+  }
 }

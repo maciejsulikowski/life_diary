@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lifediary_project/app/home/diaries/diaries_page_content.dart';
 import 'package:lifediary_project/app/home/my_account/my_account_page_content.dart';
 import 'package:lifediary_project/app/home/to_do_list/to_do_list_content.dart';
+import 'package:lifediary_project/app/home/water/water_page.dart';
 import 'package:lifediary_project/app/login/login_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -40,7 +41,7 @@ class _HomePageState extends State<HomePage> {
         }
         if (currentIndex == 3) {
           return Center(
-            child: Text('4'),
+            child: WaterPage(),
           );
         }
         if (currentIndex == 4) {
@@ -91,4 +92,5 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
 

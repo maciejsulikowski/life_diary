@@ -29,6 +29,8 @@ class DiaresCubit extends Cubit<DiaresState> {
       );
   }
 
+
+
   Future<void> remove({required String documentID}) async {
     try {
       await _itemsRepository.delete(id: documentID);
