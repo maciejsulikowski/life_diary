@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lifediary_project/app/home/diaries/diaries_page_content.dart';
 import 'package:lifediary_project/app/home/my_account/my_account_page_content.dart';
 import 'package:lifediary_project/app/home/to_do_list/to_do_list_content.dart';
+import 'package:lifediary_project/app/home/training/training_page_content.dart';
 import 'package:lifediary_project/app/home/water/water_page.dart';
 import 'package:lifediary_project/app/login/login_page.dart';
 
@@ -36,7 +37,7 @@ class _HomePageState extends State<HomePage> {
         }
         if (currentIndex == 2) {
           return Center(
-            child: Text('3'),
+            child: TrainingPageContent(),
           );
         }
         if (currentIndex == 3) {
@@ -92,5 +93,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-
