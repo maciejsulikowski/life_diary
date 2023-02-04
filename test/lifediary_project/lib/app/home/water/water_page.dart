@@ -66,7 +66,7 @@ class _WaterPageState extends State<WaterPage> {
                 controller: heightController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  hintText: 'Tutaj napisz swój wzrost',
+                  hintText: 'Tutaj napisz swój wzrost w cm np. 180',
                 ),
               ),
             ),
@@ -77,18 +77,27 @@ class _WaterPageState extends State<WaterPage> {
                 controller: weightController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  hintText: 'Tutaj napisz swoją wagę',
+                  hintText: 'Tutaj napisz swoją wagę w kg np. 80',
                 ),
               ),
             ),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                setState(() {
-                  isAnswered = true;
-                  result = (30 * double.parse(weightController.text)).toInt();
-                  glass_result = (result / glass).floor();
-                });
+                if (heightController.text.isEmpty ||
+                    weightController.text.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("Wprowadź wszystkie dane!"),
+                    ),
+                  );
+                  return;
+                } else
+                  setState(() {
+                    isAnswered = true;
+                    result = (30 * double.parse(weightController.text)).toInt();
+                    glass_result = (result / glass).floor();
+                  });
               },
               child: Text('Oblicz!'),
             ),
