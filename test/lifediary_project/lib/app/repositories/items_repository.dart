@@ -23,7 +23,8 @@ class ItemsRepository {
             title: doc['title'],
             imageURL: doc['image_url'],
             releaseDate: (doc['release_date'] as Timestamp).toDate(),
-            // text: doc['text'],
+            text: doc['text'],
+            
           );
         },
       ).toList();
@@ -94,7 +95,7 @@ class ItemsRepository {
       title: doc['title'],
       imageURL: doc['image_url'],
       releaseDate: (doc['release_date'] as Timestamp).toDate(),
-      // text: doc['text'],
+      text: doc['text'],
     );
   }
 
@@ -153,6 +154,7 @@ class ItemsRepository {
   }
 
   Future<void> addtext(
+    String id,
     String text,
   ) async {
     final userID = FirebaseAuth.instance.currentUser?.uid;
@@ -163,8 +165,12 @@ class ItemsRepository {
         .collection('users')
         .doc(userID)
         .collection('items')
-        .add({
-      'text': text,
-    });
+        .doc(id)
+        .set(
+      {
+        'text': text,
+      },
+      SetOptions(merge: true),
+    );
   }
 }

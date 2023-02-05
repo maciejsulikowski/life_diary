@@ -119,7 +119,7 @@ class ListViewItem extends StatelessWidget {
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => DetailsPageContent(id: itemModel.id),
+            builder: (context) => DetailsPageContent(id: itemModel.id, itemModel: itemModel,),
           ),
         );
       },

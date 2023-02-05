@@ -36,24 +36,25 @@ class DetailsCubit extends Cubit<DetailsState> {
       },
     );
 
-    Future<void> addtext(
-      String title,
-    ) async {
-      await _itemsRepository.addtext(title);
-      emit(
-        DetailsState(
-            itemModel: null, isLoading: true, errorMessage: '', saved: true),
-      );
-    }
+    // Future<void> addtext(
+    //   String title,
+    // ) async {
+    //   await _itemsRepository.addtext(title);
+    //   emit(
+    //     DetailsState(
+    //         itemModel: null, isLoading: true, errorMessage: '', saved: true),
+    //   );
+    // }
 
-    emit(DetailsState(
-        itemModel: null, isLoading: false, errorMessage: '', saved: false));
+    // emit(DetailsState(
+    //     itemModel: null, isLoading: false, errorMessage: '', saved: false));
   }
 
   Future<void> addtext(
+    String id,
     String title,
   ) async {
-    await _itemsRepository.addtext(title);
+    await _itemsRepository.addtext(id, title);
     emit(
       DetailsState(
           itemModel: null, isLoading: true, errorMessage: '', saved: true),

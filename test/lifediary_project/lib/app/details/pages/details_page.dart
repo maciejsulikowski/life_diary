@@ -13,29 +13,45 @@ import 'package:lifediary_project/app/repositories/items_repository.dart';
 
 int maxDiaryCount = 3;
 int currentDiaryCounter = 0;
-final controller = TextEditingController();
 
-class DetailsPageContent extends StatelessWidget {
+class DetailsPageContent extends StatefulWidget {
   const DetailsPageContent({
+    required this.itemModel,
     required this.id,
+    // required this.itemModelText
     Key? key,
   }) : super(key: key);
 
+// final ItemModelText itemModelText;
+  final ItemModel itemModel;
   final String id;
+
+  @override
+  State<DetailsPageContent> createState() => _DetailsPageContentState();
+}
+
+class _DetailsPageContentState extends State<DetailsPageContent> {
+  final controller = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    controller.text = widget.itemModel.text;
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => DetailsCubit(ItemsRepository())..getItemWithID(id),
+      create: (context) =>
+          DetailsCubit(ItemsRepository())..getItemWithID(widget.id),
       child: BlocListener<DetailsCubit, DetailsState>(
         listener: (context, state) {},
         child: BlocBuilder<DetailsCubit, DetailsState>(
           builder: (context, state) {
             final itemModel = state.itemModel;
-            if (itemModel == null) {
+            if (state.isLoading == true) {
               return Center(child: CircularProgressIndicator());
             }
-            
 
             return Scaffold(
                 appBar: AppBar(
@@ -56,20 +72,22 @@ class DetailsPageContent extends StatelessWidget {
                         ),
                       );
                       return;
-                    
                     } else {
-                      context.read<DetailsCubit>().addtext(controller.text);
-                      
+                      context
+                          .read<DetailsCubit>()
+                          .addtext(widget.id, controller.text);
                     }
                   },
                   child: const Icon(Icons.add),
                 ),
                 body: ListView(
                   children: [
-                    _ListViewItem(
-                      itemModel: itemModel,
-                    ),
-                    _DiaryPage(itemModel: itemModel)
+                    if (itemModel != null) ...[
+                      _ListViewItem(
+                        itemModel: itemModel,
+                      ),
+                      _DiaryPage(itemModel: itemModel, controller: controller),
+                    ]
                   ],
                 ));
           },
@@ -132,12 +150,12 @@ class _ListViewItem extends StatelessWidget {
 }
 
 class _DiaryPage extends StatefulWidget {
-  const _DiaryPage({
-    Key? key,
-    required this.itemModel,
-  }) : super(key: key);
+  const _DiaryPage(
+      {Key? key, required this.itemModel, required this.controller})
+      : super(key: key);
 
   final ItemModel itemModel;
+  final TextEditingController controller;
 
   @override
   _DiaryPageState createState() => _DiaryPageState();
@@ -157,7 +175,7 @@ class _DiaryPageState extends State<_DiaryPage> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(
-                controller: controller,
+                controller: widget.controller,
                 maxLines: 200,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),

@@ -7,6 +7,7 @@ class ItemModel {
     required this.title,
     required this.imageURL,
     required this.releaseDate,
+    required this.text,
   });
 
   // final String text;
@@ -14,6 +15,7 @@ class ItemModel {
   final String title;
   final String imageURL;
   final DateTime releaseDate;
+  String text = '';
 
   String daysLeft() {
     return releaseDate.difference(DateTime.now()).inDays.toString();
@@ -34,4 +36,10 @@ class ItemModelToDoList {
   final String title;
 }
 
+class ItemModelText {
+  ItemModelText({
+    required this.text,
+  });
 
+  final String text;
+}
