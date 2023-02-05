@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lifediary_project/app/home/daily_plan/daily_plan_page_content.dart';
 import 'package:lifediary_project/app/home/diaries/diaries_page_content.dart';
 import 'package:lifediary_project/app/home/my_account/my_account_page_content.dart';
 import 'package:lifediary_project/app/home/to_do_list/to_do_list_content.dart';
@@ -50,7 +51,7 @@ class _HomePageState extends State<HomePage> {
         }
         if (currentIndex == 5) {
           return Center(
-            child: Text('6'),
+            child: DailyPlanPageContent(),
           );
         }
         return MyAccountPageContent(email: widget.user.email);
@@ -93,3 +94,5 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+
