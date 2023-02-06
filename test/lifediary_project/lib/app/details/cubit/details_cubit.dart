@@ -55,9 +55,17 @@ class DetailsCubit extends Cubit<DetailsState> {
     String title,
   ) async {
     await _itemsRepository.addtext(id, title);
+    final itemModel = await _itemsRepository.get(id: id);
     emit(
       DetailsState(
           itemModel: null, isLoading: true, errorMessage: '', saved: true),
+    );
+    emit(
+      DetailsState(
+          itemModel: itemModel,
+          isLoading: false,
+          errorMessage: '',
+          saved: true),
     );
   }
 

@@ -76,6 +76,11 @@ class _DetailsPageContentState extends State<DetailsPageContent> {
                       context
                           .read<DetailsCubit>()
                           .addtext(widget.id, controller.text);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text("Wprowadzono zmiany!"),
+                        ),
+                      );
                     }
                   },
                   child: const Icon(Icons.add),
@@ -150,9 +155,11 @@ class _ListViewItem extends StatelessWidget {
 }
 
 class _DiaryPage extends StatefulWidget {
-  const _DiaryPage(
-      {Key? key, required this.itemModel, required this.controller})
-      : super(key: key);
+  const _DiaryPage({
+    Key? key,
+    required this.itemModel,
+    required this.controller,
+  }) : super(key: key);
 
   final ItemModel itemModel;
   final TextEditingController controller;
