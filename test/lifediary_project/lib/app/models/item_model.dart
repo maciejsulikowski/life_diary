@@ -35,11 +35,3 @@ class ItemModelToDoList {
   final String id;
   final String title;
 }
-
-class ItemModelText {
-  ItemModelText({
-    required this.text,
-  });
-
-  final String text;
-}

@@ -2,12 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lifediary_project/app/home/diaries/diaries_page_content.dart';
-import 'package:lifediary_project/app/home/my_account/my_account_page_content.dart';
-import 'package:lifediary_project/app/home/to_do_list/to_do_list_content.dart';
-import 'package:lifediary_project/app/home/training/training_page_content.dart';
-import 'package:lifediary_project/app/home/water/water_page.dart';
-import 'package:lifediary_project/app/login/login_page.dart';
 
 class DailyPlanPageContent extends StatefulWidget {
   DailyPlanPageContent({
@@ -19,6 +13,10 @@ class DailyPlanPageContent extends StatefulWidget {
 }
 
 class _DailyPlanPageContentState extends State<DailyPlanPageContent> {
+  List<TextEditingController> _controller =
+      List.generate(21, (i) => TextEditingController());
+  
+
   int currentHour = 6;
   int newHour = 0;
   @override
@@ -33,17 +31,42 @@ class _DailyPlanPageContentState extends State<DailyPlanPageContent> {
         centerTitle: true,
         backgroundColor: Colors.blue,
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: const Icon(Icons.add),
+      ),
       body: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: ConstrainedBox(
-          constraints: new BoxConstraints(
-            maxWidth: 80,
+          constraints: BoxConstraints(
+            minWidth: 80,
+            maxWidth: 400,
           ),
           child: ListView(
             children: [
               for (var i = 0; i < 19; i++) ...[
-                TimeContainer(currentHour: currentHour + i),
-              ]
+                Row(
+                  children: [
+                    Column(
+                      children: [
+                        TimeContainer(
+                          currentHour: currentHour + i,
+                        ),
+                      ],
+                    ),
+                    Expanded(
+                      child: Column(
+                        children: [
+                          PartOfPlanning(
+                            controller: _controller,
+                            index: i,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ],
           ),
         ),
@@ -63,10 +86,37 @@ class TimeContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: 20,
-        color: Colors.amber,
+        width: 80,
+        height: 88,
+        color: Colors.green,
         padding: EdgeInsets.all(20),
         margin: EdgeInsets.only(top: 10),
         child: Text('$currentHour:00'));
+  }
+}
+
+class PartOfPlanning extends StatelessWidget {
+  PartOfPlanning({
+    required this.controller,
+    required this.index,
+    Key? key,
+  }) : super(key: key);
+
+  List<TextEditingController> controller =
+      List.generate(18, (i) => TextEditingController());
+  final index;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 300,
+      color: Colors.amber,
+      padding: EdgeInsets.all(20),
+      margin: EdgeInsets.only(top: 10),
+      child: TextField(
+        controller: controller[index],
+        decoration: InputDecoration(hintText: 'Wpisz swój plan tutaj.. '),
+      ),
+    );
   }
 }
