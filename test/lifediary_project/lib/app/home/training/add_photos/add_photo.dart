@@ -50,7 +50,7 @@ class _AddPhotoState extends State<AddPhoto> {
                             _releaseDate == null
                         ? null
                         : () {
-                            context.read<AddPhotoCubit>().add(
+                            context.read<AddPhotoCubit>().addphoto(
                                   _title!,
                                   _imageURL!,
                                   _releaseDate!,

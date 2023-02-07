@@ -57,15 +57,15 @@ class NewPhoto extends StatelessWidget {
       create: (context) => TrainingCubit(ItemsRepository())..start(),
       child: BlocBuilder<TrainingCubit, TrainingState>(
         builder: (context, state) {
-          final itemModels = state.items;
-          if (itemModels.isEmpty) {
+          final photosModels = state.photos;
+          if (photosModels.isEmpty) {
             return const SizedBox.shrink();
           }
           return ListView(
             children: [
-              for (final itemModel in itemModels)
+              for (final photoModel in photosModels)
                 Dismissible(
-                  key: ValueKey(itemModel.id),
+                  key: ValueKey(photoModel.id),
                   background: const DecoratedBox(
                     decoration: BoxDecoration(color: Colors.red),
                     child: Align(
@@ -84,10 +84,10 @@ class NewPhoto extends StatelessWidget {
                   onDismissed: (direction) {
                     context
                         .read<TrainingCubit>()
-                        .remove(documentID: itemModel.id);
+                        .remove(documentID: photoModel.id);
                   },
                   child: ListViewItem(
-                    itemModel: itemModel,
+                    photoModel: photoModel,
                   ),
                 ),
             ],
@@ -101,10 +101,10 @@ class NewPhoto extends StatelessWidget {
 class ListViewItem extends StatelessWidget {
   const ListViewItem({
     Key? key,
-    required this.itemModel,
+    required this.photoModel,
   }) : super(key: key);
 
-  final ItemModel itemModel;
+  final PhotosModel photoModel;
 
   @override
   Widget build(BuildContext context) {
@@ -120,14 +120,14 @@ class ListViewItem extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              height: 80,
+              height: 200,
               decoration: BoxDecoration(
                 color: Colors.black12,
                 image: DecorationImage(
                   image: NetworkImage(
-                    itemModel.imageURL,
+                    photoModel.imageURL,
                   ),
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fill,
                 ),
               ),
             ),
@@ -135,43 +135,22 @@ class ListViewItem extends StatelessWidget {
               children: [
                 Expanded(
                   child: Container(
-                    margin: const EdgeInsets.all(10),
-                    padding: const EdgeInsets.all(10),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          itemModel.title,
+                          'Zdjęcie nr.1, Waga: 80kg i 10% fat',
                           style: const TextStyle(
                             fontSize: 20.0,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         const SizedBox(height: 10),
-                        Text(
-                          itemModel.releaseDateFormatted(),
-                        ),
+                        // Text(
+                        //   photoModel.releaseDateFormatted(),
+                        // ),
                       ],
                     ),
-                  ),
-                ),
-                Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.white70,
-                  ),
-                  margin: const EdgeInsets.all(10),
-                  padding: const EdgeInsets.all(10),
-                  child: Column(
-                    children: [
-                      Text(
-                        itemModel.daysLeft(),
-                        style: const TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const Text('days left'),
-                    ],
                   ),
                 ),
               ],

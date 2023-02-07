@@ -9,13 +9,14 @@ class AddPhotoCubit extends Cubit<AddPhotoState> {
 
   final ItemsRepository _itemsRepository;
 
-  Future<void> add(
+  Future<void> addphoto(
     String title,
     String imageURL,
     DateTime releaseDate,
+    
   ) async {
     try {
-      await _itemsRepository.add(title, imageURL, releaseDate);
+      await _itemsRepository.addphoto(title, imageURL, releaseDate);
       emit(
         const AddPhotoState(saved: true),
       );

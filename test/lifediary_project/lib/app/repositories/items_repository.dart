@@ -24,7 +24,31 @@ class ItemsRepository {
             imageURL: doc['image_url'],
             releaseDate: (doc['release_date'] as Timestamp).toDate(),
             text: doc['text'],
-            
+          );
+        },
+      ).toList();
+    });
+  }
+
+  Stream<List<PhotosModel>> getPhotosStream() {
+    final userID = FirebaseAuth.instance.currentUser?.uid;
+    if (userID == null) {
+      throw Exception('User is not logged in');
+    }
+    return FirebaseFirestore.instance
+        .collection('users')
+        .doc(userID)
+        .collection('photos')
+        .orderBy('release_date')
+        .snapshots()
+        .map((querySnapshot) {
+      return querySnapshot.docs.map(
+        (doc) {
+          return PhotosModel(
+            id: doc.id,
+            title: doc['title'],
+            imageURL: doc['image_url'],
+            releaseDate: (doc['release_date'] as Timestamp).toDate(),
           );
         },
       ).toList();
@@ -79,6 +103,19 @@ class ItemsRepository {
         .delete();
   }
 
+  Future<void> deletephoto({required String id}) {
+    final userID = FirebaseAuth.instance.currentUser?.uid;
+    if (userID == null) {
+      throw Exception('User is not logged in');
+    }
+    return FirebaseFirestore.instance
+        .collection('users')
+        .doc(userID)
+        .collection('photos')
+        .doc(id)
+        .delete();
+  }
+
   Future<ItemModel> get({required String id}) async {
     final userID = FirebaseAuth.instance.currentUser?.uid;
     if (userID == null) {
@@ -117,7 +154,48 @@ class ItemsRepository {
     );
   }
 
+  Future<PhotosModel> getphotos({required String id}) async {
+    final userID = FirebaseAuth.instance.currentUser?.uid;
+    if (userID == null) {
+      throw Exception('User is not logged in');
+    }
+    final doc = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userID)
+        .collection('photos')
+        .doc(id)
+        .get();
+    return PhotosModel(
+      id: doc.id,
+      title: doc['title'],
+      imageURL: doc['image_url'],
+      releaseDate: (doc['release_date'] as Timestamp).toDate(),
+    );
+  }
+
   Future<void> add(
+    String title,
+    String imageURL,
+    DateTime releaseDate,
+    String text,
+  ) async {
+    final userID = FirebaseAuth.instance.currentUser?.uid;
+    if (userID == null) {
+      throw Exception('User is not logged in');
+    }
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userID)
+        .collection('items')
+        .add({
+      'title': title,
+      'image_url': imageURL,
+      'release_date': releaseDate,
+      'text': text,
+    });
+  }
+
+  Future<void> addphoto(
     String title,
     String imageURL,
     DateTime releaseDate,
@@ -129,7 +207,7 @@ class ItemsRepository {
     await FirebaseFirestore.instance
         .collection('users')
         .doc(userID)
-        .collection('items')
+        .collection('photos')
         .add({
       'title': title,
       'image_url': imageURL,

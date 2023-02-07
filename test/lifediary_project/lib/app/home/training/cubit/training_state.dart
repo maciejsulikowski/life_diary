@@ -3,12 +3,15 @@ part of 'training_cubit.dart';
 class TrainingState {
 
   TrainingState({
-    this.items = const [],
+    this.photoModel,
+    this.photos = const [],
     this.loadingErrorOccured = false,
     this.removingErrorOccured = false,
     this.maxdiary = 4,
   });
-  final List<ItemModel> items;
+
+  final PhotosModel? photoModel;
+  final List<PhotosModel> photos;
   final bool loadingErrorOccured;
   final bool removingErrorOccured;
   int maxdiary = 4;

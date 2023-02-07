@@ -15,9 +15,9 @@ class TrainingCubit extends Cubit<TrainingState> {
   StreamSubscription? _streamSubscription;
 
   Future<void> start() async {
-    _streamSubscription = _itemsRepository.getItemsStream().listen(
-      (items) {
-        emit(TrainingState(items: items));
+    _streamSubscription = _itemsRepository.getPhotosStream().listen(
+      (photos) {
+        emit(TrainingState(photos: photos));
       },
     )..onError(
         (error) {
@@ -26,9 +26,18 @@ class TrainingCubit extends Cubit<TrainingState> {
       );
   }
 
+  Future<void> getPhotoWithID(String id) async {
+    final photoModel = await _itemsRepository.getphotos(id: id);
+    emit(
+      TrainingState(
+        photoModel: photoModel,
+      ),
+    );
+  }
+
   Future<void> remove({required String documentID}) async {
     try {
-      await _itemsRepository.delete(id: documentID);
+      await _itemsRepository.deletephoto(id: documentID);
     } catch (error) {
       emit(
         TrainingState(removingErrorOccured: true),
@@ -43,4 +52,3 @@ class TrainingCubit extends Cubit<TrainingState> {
     return super.close();
   }
 }
-

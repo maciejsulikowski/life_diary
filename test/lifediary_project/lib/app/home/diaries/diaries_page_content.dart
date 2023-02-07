@@ -119,7 +119,10 @@ class ListViewItem extends StatelessWidget {
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => DetailsPageContent(id: itemModel.id, itemModel: itemModel,),
+            builder: (context) => DetailsPageContent(
+              id: itemModel.id,
+              itemModel: itemModel,
+            ),
           ),
         );
       },
@@ -168,25 +171,6 @@ class ListViewItem extends StatelessWidget {
                           ),
                         ],
                       ),
-                    ),
-                  ),
-                  Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.white70,
-                    ),
-                    margin: const EdgeInsets.all(10),
-                    padding: const EdgeInsets.all(10),
-                    child: Column(
-                      children: [
-                        Text(
-                          itemModel.daysLeft(),
-                          style: const TextStyle(
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const Text('days left'),
-                      ],
                     ),
                   ),
                 ],

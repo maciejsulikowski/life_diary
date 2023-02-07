@@ -17,7 +17,7 @@ class _AddPageState extends State<AddPage> {
   String? _imageURL;
   String? _title;
   DateTime? _releaseDate;
-
+  String text = '';
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -49,11 +49,9 @@ class _AddPageState extends State<AddPage> {
                             _releaseDate == null
                         ? null
                         : () {
-                            context.read<AddCubit>().add(
-                                  _title!,
-                                  _imageURL!,
-                                  _releaseDate!,
-                                );
+                            context
+                                .read<AddCubit>()
+                                .add(_title!, _imageURL!, _releaseDate!, text);
                           },
                     icon: const Icon(Icons.check),
                   ),
