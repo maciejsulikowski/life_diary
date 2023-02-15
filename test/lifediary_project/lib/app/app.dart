@@ -42,6 +42,7 @@ class RootPage extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           }
+          
           return HomePage(user: user);
         },
       ),

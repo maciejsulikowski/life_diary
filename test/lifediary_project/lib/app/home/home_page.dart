@@ -9,6 +9,7 @@ import 'package:lifediary_project/app/home/to_do_list/to_do_list_content.dart';
 import 'package:lifediary_project/app/home/training/training_page_content.dart';
 import 'package:lifediary_project/app/home/water/water_page.dart';
 import 'package:lifediary_project/app/login/login_page.dart';
+import 'package:lifediary_project/app/models/item_model.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
@@ -94,5 +95,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-

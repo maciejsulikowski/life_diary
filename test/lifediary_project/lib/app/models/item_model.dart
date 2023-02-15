@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class ItemModel {
@@ -36,15 +37,30 @@ class ItemModelToDoList {
   final String title;
 }
 
-
 class PhotosModel {
-
-PhotosModel({required this.id, required this.title, required this.imageURL, required this.releaseDate});
+  PhotosModel({
+    required this.id,
+    required this.title,
+    required this.imageURL,
+    required this.releaseDate,
+  });
 
   final String id;
   final String title;
   final String imageURL;
   final DateTime releaseDate;
 
-  
+  String releaseDateFormatted() {
+    return DateFormat.yMMMEd().format(releaseDate);
+  }
+}
+
+class DailyPlanModel {
+  DailyPlanModel({
+    required this.id,
+    required this.text,
+  });
+
+  final String id;
+  String text = '';
 }

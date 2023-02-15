@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:lifediary_project/app/login/login_page.dart';
 import 'package:meta/meta.dart';
 
 part 'root_state.dart';
@@ -46,6 +48,11 @@ class RootCubit extends Cubit<RootState> {
               ),
             );
           });
+  }
+
+  Future<void> signOut() async {
+    FirebaseAuth.instance.signOut();
+    
   }
 
   @override

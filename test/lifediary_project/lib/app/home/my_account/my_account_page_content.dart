@@ -2,9 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lifediary_project/app/cubit/root_cubit.dart';
 import 'package:lifediary_project/app/home/to_do_list/to_do_list_content.dart';
 import 'package:lifediary_project/app/login/login_page.dart';
 import 'package:lifediary_project/app/login/user_profile.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MyAccountPageContent extends StatelessWidget {
   const MyAccountPageContent({
@@ -32,7 +34,6 @@ class MyAccountPageContent extends StatelessWidget {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => UserProfile(),
-                    
                   ),
                 );
               },
@@ -45,10 +46,7 @@ class MyAccountPageContent extends StatelessWidget {
           const SizedBox(height: 20),
           ElevatedButton(
               onPressed: () {
-                FirebaseAuth.instance.signOut();
-                //moveToLogin();
-                //Navigator.of(context).pop();
-                //Navigator.pushNamed(context, '/login');
+                context.read<RootCubit>().signOut();
               },
               child: const Text('Wyloguj')),
         ],

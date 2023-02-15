@@ -1,7 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lifediary_project/app/home/daily_plan/cubit/daily_plan_cubit.dart';
+import 'package:lifediary_project/app/models/item_model.dart';
+import 'package:lifediary_project/app/repositories/items_repository.dart';
 
 class DailyPlanPageContent extends StatefulWidget {
   DailyPlanPageContent({
@@ -13,62 +17,102 @@ class DailyPlanPageContent extends StatefulWidget {
 }
 
 class _DailyPlanPageContentState extends State<DailyPlanPageContent> {
-  List<TextEditingController> _controller =
-      List.generate(21, (i) => TextEditingController());
-  
+  final List<TextEditingController> controllers =
+      List.generate(19, (i) => TextEditingController());
+
+  var controller = TextEditingController();
+  int index = 0;
+  @override
+  void initState() {
+    super.initState();
+    controller = controllers[index];
+    index++;
+  }
 
   int currentHour = 6;
   int newHour = 0;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'PLAN DNIA',
-          style: GoogleFonts.lato(
-              color: Colors.black, fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.blue,
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: const Icon(Icons.add),
-      ),
-      body: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: ConstrainedBox(
-          constraints: BoxConstraints(
-            minWidth: 80,
-            maxWidth: 400,
-          ),
-          child: ListView(
-            children: [
-              for (var i = 0; i < 19; i++) ...[
-                Row(
-                  children: [
-                    Column(
-                      children: [
-                        TimeContainer(
-                          currentHour: currentHour + i,
+    return BlocProvider(
+      create: (context) => DailyPlanCubit(ItemsRepository()),
+      child: BlocListener<DailyPlanCubit, DailyPlanState>(
+        listener: (context, state) {
+          if (state.saved) {
+            context.read<DailyPlanCubit>().start();
+          }
+        },
+        child: BlocBuilder<DailyPlanCubit, DailyPlanState>(
+          builder: (context, state) {
+            final dailyPlanModel = state.list;
+            return Scaffold(
+              appBar: AppBar(
+                title: Text(
+                  'PLAN DNIA',
+                  style: GoogleFonts.lato(
+                      color: Colors.black, fontWeight: FontWeight.bold),
+                ),
+                centerTitle: true,
+                backgroundColor: Colors.blue,
+              ),
+              floatingActionButton: FloatingActionButton(
+                onPressed: () {
+                  if (controller.text.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("Wprowadź jakieś zadanie!"),
+                      ),
+                    );
+                    return;
+                  }
+                  context.read<DailyPlanCubit>().addplan(controller.text);
+                  setState(() {
+                    controller = controllers[index];
+                    index++;
+                  });
+                },
+                child: const Icon(Icons.add),
+              ),
+              body: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    minWidth: 80,
+                    maxWidth: 400,
+                  ),
+                  child: ListView(
+                    children: [
+                      for (var index = 0;
+                          index < controllers.length;
+                          index++) ...[
+                        Row(
+                          children: [
+                            Column(
+                              children: [
+                                TimeContainer(
+                                  currentHour: currentHour + index,
+                                ),
+                              ],
+                            ),
+                            Expanded(
+                              child: Column(
+                                children: [
+                                  PartOfPlanning(
+                                    controllers: controllers,
+                                    index: index,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ],
-                    ),
-                    Expanded(
-                      child: Column(
-                        children: [
-                          PartOfPlanning(
-                            controller: _controller,
-                            index: i,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ],
-            ],
-          ),
+              ),
+            );
+          },
         ),
       ),
     );
@@ -95,17 +139,22 @@ class TimeContainer extends StatelessWidget {
   }
 }
 
-class PartOfPlanning extends StatelessWidget {
+class PartOfPlanning extends StatefulWidget {
   PartOfPlanning({
-    required this.controller,
     required this.index,
+    required this.controllers,
     Key? key,
   }) : super(key: key);
 
-  List<TextEditingController> controller =
-      List.generate(18, (i) => TextEditingController());
-  final index;
+  final List<TextEditingController> controllers;
+  // final TextEditingController controller = TextEditingController();
+  final int index;
 
+  @override
+  State<PartOfPlanning> createState() => _PartOfPlanningState();
+}
+
+class _PartOfPlanningState extends State<PartOfPlanning> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -114,8 +163,14 @@ class PartOfPlanning extends StatelessWidget {
       padding: EdgeInsets.all(20),
       margin: EdgeInsets.only(top: 10),
       child: TextField(
-        controller: controller[index],
-        decoration: InputDecoration(hintText: 'Wpisz swój plan tutaj.. '),
+        controller: widget.controllers[widget.index],
+        onChanged: (value) {
+          // final dailyPlanCubit = context.read<DailyPlanCubit>();
+          // dailyPlanCubit.updateplan(value, widget.index);
+        },
+        decoration: InputDecoration(
+          hintText: 'Wpisz swój plan tutaj.. ',
+        ),
       ),
     );
   }

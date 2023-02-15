@@ -33,7 +33,7 @@ class _WaterPageState extends State<WaterPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'LIFEDIARY',
+          'WODA',
           style: GoogleFonts.lato(
               color: Colors.black, fontWeight: FontWeight.bold),
         ),

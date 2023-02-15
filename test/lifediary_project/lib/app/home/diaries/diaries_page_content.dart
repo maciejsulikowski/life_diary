@@ -29,7 +29,7 @@ class _DiariesPageContentState extends State<DiariesPageContent> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'LIFEDIARY',
+          'DZIENNIKI',
           style: GoogleFonts.lato(
               color: Colors.black, fontWeight: FontWeight.bold),
         ),

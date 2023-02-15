@@ -16,7 +16,6 @@ class ToDoListContent extends StatefulWidget {
   State<ToDoListContent> createState() => _ToDoListContentState();
 }
 
-
 class _ToDoListContentState extends State<ToDoListContent> {
   final controller = TextEditingController();
 
@@ -38,7 +37,7 @@ class _ToDoListContentState extends State<ToDoListContent> {
             return Scaffold(
               appBar: AppBar(
                 title: Text(
-                  'LIFEDIARY',
+                  'TODOLIST',
                   style: GoogleFonts.lato(
                       color: Colors.black, fontWeight: FontWeight.bold),
                 ),

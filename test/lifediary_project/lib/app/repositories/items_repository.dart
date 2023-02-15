@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:lifediary_project/app/details/pages/details_page.dart';
 import 'package:lifediary_project/app/models/item_model.dart';
 
@@ -23,6 +24,28 @@ class ItemsRepository {
             title: doc['title'],
             imageURL: doc['image_url'],
             releaseDate: (doc['release_date'] as Timestamp).toDate(),
+            text: doc['text'],
+          );
+        },
+      ).toList();
+    });
+  }
+
+  Stream<List<DailyPlanModel>> getDailyPlansStream() {
+    final userID = FirebaseAuth.instance.currentUser?.uid;
+    if (userID == null) {
+      throw Exception('User is not logged in');
+    }
+    return FirebaseFirestore.instance
+        .collection('users')
+        .doc(userID)
+        .collection('plans')
+        .snapshots()
+        .map((querySnapshot) {
+      return querySnapshot.docs.map(
+        (doc) {
+          return DailyPlanModel(
+            id: doc.id,
             text: doc['text'],
           );
         },
@@ -173,6 +196,23 @@ class ItemsRepository {
     );
   }
 
+  Future<DailyPlanModel> getplans({required String id}) async {
+    final userID = FirebaseAuth.instance.currentUser?.uid;
+    if (userID == null) {
+      throw Exception('User is not logged in');
+    }
+    final doc = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userID)
+        .collection('plans')
+        .doc(id)
+        .get();
+    return DailyPlanModel(
+      id: doc.id,
+      text: doc['title'],
+    );
+  }
+
   Future<void> add(
     String title,
     String imageURL,
@@ -230,6 +270,37 @@ class ItemsRepository {
       'task': title,
     });
   }
+
+  Future<void> addplan(
+    String text,
+  ) async {
+    final userID = FirebaseAuth.instance.currentUser?.uid;
+    if (userID == null) {
+      throw Exception('User is not logged in');
+    }
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userID)
+        .collection('plans')
+        .add({
+      'plan': text,
+    });
+  }
+
+  Future<void> updatePlan(String text, int index) async {
+    final userID = FirebaseAuth.instance.currentUser?.uid;
+    if (userID == null) {
+      throw Exception('User is not logged in');
+    }
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userID)
+        .collection('plans')
+        .doc(index.toString())
+        .set({'plan': text}, SetOptions(merge: true));
+  }
+
 
   Future<void> addtext(
     String id,

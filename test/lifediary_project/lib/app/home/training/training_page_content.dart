@@ -23,7 +23,7 @@ class TrainingPageContent extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'LIFEDIARY',
+          'TRENING',
           style: GoogleFonts.lato(
               color: Colors.black, fontWeight: FontWeight.bold),
         ),
@@ -139,16 +139,16 @@ class ListViewItem extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          'Zdjęcie nr.1, Waga: 80kg i 10% fat',
+                          photoModel.title,
                           style: const TextStyle(
                             fontSize: 20.0,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         const SizedBox(height: 10),
-                        // Text(
-                        //   photoModel.releaseDateFormatted(),
-                        // ),
+                        Text(
+                          photoModel.releaseDateFormatted(),
+                        ),
                       ],
                     ),
                   ),

@@ -18,11 +18,11 @@ class DetailsPageContent extends StatefulWidget {
   const DetailsPageContent({
     required this.itemModel,
     required this.id,
-    // required this.itemModelText
+    
     Key? key,
   }) : super(key: key);
 
-// final ItemModelText itemModelText;
+
   final ItemModel itemModel;
   final String id;
 
