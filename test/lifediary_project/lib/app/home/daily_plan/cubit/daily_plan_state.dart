@@ -1,6 +1,4 @@
-
 part of 'daily_plan_cubit.dart';
-
 
 class DailyPlanState {
   DailyPlanState({
@@ -10,7 +8,7 @@ class DailyPlanState {
     this.errorMessage = '',
   });
 
-  final List<DailyPlanModel>? list;
+  final List<DailyPlanModel> list;
   final bool isLoading;
   final bool saved;
   final String errorMessage;

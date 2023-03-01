@@ -46,7 +46,8 @@ class ItemsRepository {
         (doc) {
           return DailyPlanModel(
             id: doc.id,
-            text: doc['text'],
+            text: doc['title'],
+            time: doc['time'],
           );
         },
       ).toList();
@@ -209,7 +210,8 @@ class ItemsRepository {
         .get();
     return DailyPlanModel(
       id: doc.id,
-      text: doc['title'],
+      text: doc['plan'],
+      time: doc['time'],
     );
   }
 
@@ -273,6 +275,7 @@ class ItemsRepository {
 
   Future<void> addplan(
     String text,
+    String time,
   ) async {
     final userID = FirebaseAuth.instance.currentUser?.uid;
     if (userID == null) {
@@ -282,25 +285,29 @@ class ItemsRepository {
         .collection('users')
         .doc(userID)
         .collection('plans')
-        .add({
-      'plan': text,
-    });
+        .add(
+      {
+        'title': text,
+        'time': time,
+      },
+    );
   }
 
-  Future<void> updatePlan(String text, int index) async {
-    final userID = FirebaseAuth.instance.currentUser?.uid;
-    if (userID == null) {
-      throw Exception('User is not logged in');
-    }
+  // Future<void> updatePlan(String text, int index) async {
+  //   final userID = FirebaseAuth.instance.currentUser?.uid;
+  //   if (userID == null) {
+  //     throw Exception('User is not logged in');
+  //   }
 
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userID)
-        .collection('plans')
-        .doc(index.toString())
-        .set({'plan': text}, SetOptions(merge: true));
-  }
-
+  //   await FirebaseFirestore.instance
+  //       .collection('users')
+  //       .doc(userID)
+  //       .collection('plans')
+  //       .doc(index.toString())
+  //       .update(
+  //     {'plan': text},
+  //   );
+  // }
 
   Future<void> addtext(
     String id,

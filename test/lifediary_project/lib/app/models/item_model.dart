@@ -58,9 +58,12 @@ class PhotosModel {
 class DailyPlanModel {
   DailyPlanModel({
     required this.id,
-    required this.text,
+    this.text = '',
+    required this.time, 
   });
 
   final String id;
-  String text = '';
+  String text;
+  final String time;
+ 
 }

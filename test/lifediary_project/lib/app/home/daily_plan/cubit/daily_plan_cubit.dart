@@ -18,7 +18,8 @@ class DailyPlanCubit extends Cubit<DailyPlanState> {
   Future<void> start() async {
     _streamSubscription = _itemsRepository.getDailyPlansStream().listen(
       (list) {
-        emit(DailyPlanState(list: list));
+        emit(DailyPlanState(
+            list: list, isLoading: false, saved: false, errorMessage: ''));
       },
     )..onError((error) {
         emit(DailyPlanState(errorMessage: error));
@@ -26,35 +27,44 @@ class DailyPlanCubit extends Cubit<DailyPlanState> {
   }
 
   Future<void> addplan(
-    String text,
+    String title,
+    String time,
   ) async {
     try {
-      await _itemsRepository.addplan(text);
+      await _itemsRepository.addplan(title, time);
       emit(
-        DailyPlanState(errorMessage: ''),
+        DailyPlanState(saved: true),
       );
     } catch (error) {
       emit(DailyPlanState(errorMessage: error.toString()));
     }
   }
+  // Future<void> updatePlan(
+  //   int index,
+  //   String text,
+  // ) async {
+  //   try {
+  //     await _itemsRepository.updatePlan(text, index);
+  //     emit(DailyPlanState(saved: true, errorMessage: ''));
+  //   } catch (error) {
+  //     emit(DailyPlanState(saved: false, errorMessage: error.toString()));
+  //   }
+  // }
 
-  Future<void> updatePlan(String text, int index) async {
-    try {
-      await _itemsRepository.updatePlan(text, index);
-      emit(DailyPlanState(saved: true, errorMessage: ''));
-    } catch (error) {
-      emit(DailyPlanState(saved: false, errorMessage: error.toString()));
-    }
-  }
+  // Future<void> getplan() async {
+  //   try {
+  //     await _itemsRepository.getDailyPlansStream();
+  //     emit(
+  //       DailyPlanState(errorMessage: ''),
+  //     );
+  //   } catch (error) {
+  //     emit(DailyPlanState(errorMessage: 'error'));
+  //   }
+  // }
 
-  Future<void> getplan() async {
-    try {
-      await _itemsRepository.getDailyPlansStream();
-      emit(
-        DailyPlanState(errorMessage: ''),
-      );
-    } catch (error) {
-      emit(DailyPlanState(errorMessage: 'error'));
-    }
+  @override
+  Future<void> close() {
+    _streamSubscription?.cancel();
+    return super.close();
   }
 }

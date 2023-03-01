@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,25 +18,15 @@ class DailyPlanPageContent extends StatefulWidget {
 }
 
 class _DailyPlanPageContentState extends State<DailyPlanPageContent> {
-  final List<TextEditingController> controllers =
-      List.generate(19, (i) => TextEditingController());
-
+  late List<TextEditingController> controllers;
+  late final String time;
   var controller = TextEditingController();
   int index = 0;
-  @override
-  void initState() {
-    super.initState();
-    controller = controllers[index];
-    index++;
-  }
-
-  int currentHour = 6;
-  int newHour = 0;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => DailyPlanCubit(ItemsRepository()),
+      create: (context) => DailyPlanCubit(ItemsRepository())..start(),
       child: BlocListener<DailyPlanCubit, DailyPlanState>(
         listener: (context, state) {
           if (state.saved) {
@@ -44,7 +35,7 @@ class _DailyPlanPageContentState extends State<DailyPlanPageContent> {
         },
         child: BlocBuilder<DailyPlanCubit, DailyPlanState>(
           builder: (context, state) {
-            final dailyPlanModel = state.list;
+            final dailyPlanModels = state.list;
             return Scaffold(
               appBar: AppBar(
                 title: Text(
@@ -55,66 +46,101 @@ class _DailyPlanPageContentState extends State<DailyPlanPageContent> {
                 centerTitle: true,
                 backgroundColor: Colors.blue,
               ),
-              floatingActionButton: FloatingActionButton(
-                onPressed: () {
-                  if (controller.text.isEmpty) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text("Wprowadź jakieś zadanie!"),
-                      ),
-                    );
-                    return;
-                  }
-                  context.read<DailyPlanCubit>().addplan(controller.text);
-                  setState(() {
-                    controller = controllers[index];
-                    index++;
-                  });
-                },
-                child: const Icon(Icons.add),
-              ),
-              body: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    minWidth: 80,
-                    maxWidth: 400,
-                  ),
-                  child: ListView(
-                    children: [
-                      for (var index = 0;
-                          index < controllers.length;
-                          index++) ...[
-                        Row(
-                          children: [
-                            Column(
-                              children: [
-                                TimeContainer(
-                                  currentHour: currentHour + index,
-                                ),
-                              ],
-                            ),
-                            Expanded(
-                              child: Column(
-                                children: [
-                                  PartOfPlanning(
-                                    controllers: controllers,
-                                    index: index,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ],
-                  ),
-                ),
+              body: DailyPlanBody(
+                dailyPlanModels: dailyPlanModels,
               ),
             );
           },
         ),
       ),
+    );
+  }
+}
+
+class DailyPlanBody extends StatelessWidget {
+  DailyPlanBody({required this.dailyPlanModels, super.key});
+
+  List<DailyPlanModel> dailyPlanModels;
+
+  @override
+  Widget build(BuildContext context) {
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        minWidth: 80,
+        maxWidth: 400,
+      ),
+      child: ListView(
+        children: [
+          for (var index = 0; index < 19; index++) ...[
+            Builder(builder: (context) {
+              final currentHour = 600 + index * 100;
+              final itemModel = dailyPlanModels.firstWhereOrNull(
+                  (item) => item.time == currentHour.toString());
+              return MyListTileItemWidget(
+                currentHour: currentHour,
+                itemModel: itemModel,
+              );
+            }),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+class MyListTileItemWidget extends StatefulWidget {
+  MyListTileItemWidget(
+      {super.key, required this.currentHour, required this.itemModel});
+
+  final int currentHour;
+  final DailyPlanModel? itemModel;
+
+  @override
+  State<MyListTileItemWidget> createState() => _MyListTileItemWidgetState();
+}
+
+class _MyListTileItemWidgetState extends State<MyListTileItemWidget> {
+  late String text;
+  late TextEditingController controller;
+
+  @override
+  void initState() {
+    text = widget.itemModel?.text ?? '';
+    controller = TextEditingController(text: text);
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Column(
+          children: [
+            TimeContainer(
+              currentHour: widget.currentHour,
+            ),
+          ],
+        ),
+        Expanded(
+          child: Column(
+            children: [
+              PartOfPlanning(
+                controller: controller =
+                    TextEditingController(text: widget.itemModel?.text),
+              ),
+            ],
+          ),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            text = widget.itemModel?.text ?? '';
+            context
+                .read<DailyPlanCubit>()
+                .addplan(controller.text, widget.currentHour.toString());
+          },
+          child: Text('+'),
+        ),
+      ],
     );
   }
 }
@@ -135,26 +161,18 @@ class TimeContainer extends StatelessWidget {
         color: Colors.green,
         padding: EdgeInsets.all(20),
         margin: EdgeInsets.only(top: 10),
-        child: Text('$currentHour:00'));
+        child: Text('${(currentHour)}'));
   }
 }
 
-class PartOfPlanning extends StatefulWidget {
-  PartOfPlanning({
-    required this.index,
-    required this.controllers,
+class PartOfPlanning extends StatelessWidget {
+  const PartOfPlanning({
+    required this.controller,
     Key? key,
   }) : super(key: key);
 
-  final List<TextEditingController> controllers;
-  // final TextEditingController controller = TextEditingController();
-  final int index;
+  final TextEditingController controller;
 
-  @override
-  State<PartOfPlanning> createState() => _PartOfPlanningState();
-}
-
-class _PartOfPlanningState extends State<PartOfPlanning> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -163,11 +181,7 @@ class _PartOfPlanningState extends State<PartOfPlanning> {
       padding: EdgeInsets.all(20),
       margin: EdgeInsets.only(top: 10),
       child: TextField(
-        controller: widget.controllers[widget.index],
-        onChanged: (value) {
-          // final dailyPlanCubit = context.read<DailyPlanCubit>();
-          // dailyPlanCubit.updateplan(value, widget.index);
-        },
+        controller: controller,
         decoration: InputDecoration(
           hintText: 'Wpisz swój plan tutaj.. ',
         ),
