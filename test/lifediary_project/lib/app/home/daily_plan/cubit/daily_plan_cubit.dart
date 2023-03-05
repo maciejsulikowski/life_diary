@@ -15,6 +15,13 @@ class DailyPlanCubit extends Cubit<DailyPlanState> {
 
   StreamSubscription? _streamSubscription;
 
+  Future<void> getPlanWithID(String id) async {
+    final dailyplanmodel = await _itemsRepository.getplans(id: id);
+    emit(
+      DailyPlanState(list: [dailyplanmodel]),
+    );
+  }
+
   Future<void> start() async {
     _streamSubscription = _itemsRepository.getDailyPlansStream().listen(
       (list) {
@@ -27,11 +34,13 @@ class DailyPlanCubit extends Cubit<DailyPlanState> {
   }
 
   Future<void> addplan(
+    // String id,
     String title,
     String time,
   ) async {
     try {
       await _itemsRepository.addplan(title, time);
+      // final itemModel = await _itemsRepository.getplans(id: id);
       emit(
         DailyPlanState(saved: true),
       );
@@ -39,12 +48,12 @@ class DailyPlanCubit extends Cubit<DailyPlanState> {
       emit(DailyPlanState(errorMessage: error.toString()));
     }
   }
-  // Future<void> updatePlan(
-  //   int index,
-  //   String text,
+  // Future<void> getplan(
+  //   String title,
+  //   String time,
   // ) async {
   //   try {
-  //     await _itemsRepository.updatePlan(text, index);
+  //     await _itemsRepository.getplans(title, time);
   //     emit(DailyPlanState(saved: true, errorMessage: ''));
   //   } catch (error) {
   //     emit(DailyPlanState(saved: false, errorMessage: error.toString()));
@@ -67,4 +76,6 @@ class DailyPlanCubit extends Cubit<DailyPlanState> {
     _streamSubscription?.cancel();
     return super.close();
   }
+
+  getDailyPlansStream() {}
 }

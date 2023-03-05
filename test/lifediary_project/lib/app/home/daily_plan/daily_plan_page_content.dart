@@ -18,6 +18,7 @@ class DailyPlanPageContent extends StatefulWidget {
 }
 
 class _DailyPlanPageContentState extends State<DailyPlanPageContent> {
+  late String id;
   late List<TextEditingController> controllers;
   late final String time;
   var controller = TextEditingController();
@@ -58,8 +59,12 @@ class _DailyPlanPageContentState extends State<DailyPlanPageContent> {
 }
 
 class DailyPlanBody extends StatelessWidget {
-  DailyPlanBody({required this.dailyPlanModels, super.key});
-
+  DailyPlanBody({
+    // required this.id,
+    required this.dailyPlanModels,
+    Key? key,
+  }) : super(key: key);
+  // late String id;
   List<DailyPlanModel> dailyPlanModels;
 
   @override
@@ -76,6 +81,9 @@ class DailyPlanBody extends StatelessWidget {
               final currentHour = 600 + index * 100;
               final itemModel = dailyPlanModels.firstWhereOrNull(
                   (item) => item.time == currentHour.toString());
+              final hourString = currentHour.toString().padLeft(4, '0');
+              final formattedHourString =
+                  '${hourString.substring(0, 2)}:${hourString.substring(2)}';
               return MyListTileItemWidget(
                 currentHour: currentHour,
                 itemModel: itemModel,
@@ -92,6 +100,7 @@ class MyListTileItemWidget extends StatefulWidget {
   MyListTileItemWidget(
       {super.key, required this.currentHour, required this.itemModel});
 
+  // final String id;
   final int currentHour;
   final DailyPlanModel? itemModel;
 
@@ -133,10 +142,11 @@ class _MyListTileItemWidgetState extends State<MyListTileItemWidget> {
         ),
         ElevatedButton(
           onPressed: () {
-            text = widget.itemModel?.text ?? '';
-            context
-                .read<DailyPlanCubit>()
-                .addplan(controller.text, widget.currentHour.toString());
+            // text = widget.itemModel?.text ?? '';
+            context.read<DailyPlanCubit>().addplan(
+                  controller.text,
+                  widget.currentHour.toString(),
+                ); //widget.itemModel.id
           },
           child: Text('+'),
         ),
@@ -155,13 +165,16 @@ class TimeContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final hourString = currentHour.toString().padLeft(4, '0');
+    final formattedHourString =
+        '${hourString.substring(0, 2)}:${hourString.substring(2)}';
     return Container(
         width: 80,
         height: 88,
         color: Colors.green,
         padding: EdgeInsets.all(20),
         margin: EdgeInsets.only(top: 10),
-        child: Text('${(currentHour)}'));
+        child: Text('${(formattedHourString)}'));
   }
 }
 

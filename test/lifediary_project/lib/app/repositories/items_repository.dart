@@ -274,6 +274,7 @@ class ItemsRepository {
   }
 
   Future<void> addplan(
+    // String id,
     String text,
     String time,
   ) async {
@@ -281,17 +282,47 @@ class ItemsRepository {
     if (userID == null) {
       throw Exception('User is not logged in');
     }
+    // final docs = await FirebaseFirestore.instance
+    //     .collection('users')
+    //     .doc(userID)
+    //     .collection('plans')
+    //     .where('time', isEqualTo: time) // zwroci wszystkie dokumenty z time
+    //     .get();
+
+    // w zaleznosci od ilosci dokumentow wywolac update albo add
     await FirebaseFirestore.instance
         .collection('users')
         .doc(userID)
         .collection('plans')
-        .add(
+        .doc(time)
+        .set(
       {
         'title': text,
         'time': time,
       },
+      SetOptions(merge: true),
     );
   }
+
+  // Future<void> getplan(
+  //   String text,
+  //   String time,
+  // ) async {
+  //   final userID = FirebaseAuth.instance.currentUser?.uid;
+  //   if (userID == null) {
+  //     throw Exception('User is not logged in');
+  //   }
+  //   await FirebaseFirestore.instance
+  //       .collection('users')
+  //       .doc(userID)
+  //       .collection('plans')
+  //       .get(
+  //     {
+  //       'title': text,
+  //       'time': time,
+  //     },
+  //   );
+  // }
 
   // Future<void> updatePlan(String text, int index) async {
   //   final userID = FirebaseAuth.instance.currentUser?.uid;

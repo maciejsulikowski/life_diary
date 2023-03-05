@@ -59,11 +59,10 @@ class DailyPlanModel {
   DailyPlanModel({
     required this.id,
     this.text = '',
-    required this.time, 
+    required this.time,
   });
 
   final String id;
   String text;
   final String time;
- 
 }
