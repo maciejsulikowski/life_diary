@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/auth.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class UserProfile extends StatelessWidget {
   const UserProfile({super.key});
@@ -7,7 +8,15 @@ class UserProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text(
+          'USER PAGE',
+          style: GoogleFonts.lato(
+              color: Colors.black, fontWeight: FontWeight.bold),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.blue,
+      ),
       body: ProfileScreen(
         providerConfigs: [
           EmailProviderConfiguration(),

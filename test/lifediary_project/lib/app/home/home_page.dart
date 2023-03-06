@@ -34,6 +34,9 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Builder(builder: (context) {
+        if (currentIndex == 0) {
+          return MyAccountPageContent(email: widget.user.email);
+        }
         if (currentIndex == 1) {
           return DiariesPageContent();
         }
@@ -74,7 +77,7 @@ class _HomePageState extends State<HomePage> {
             label: 'Dziennik',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.sports_gymnastics_rounded),
+            icon: Icon(Icons.sports_martial_arts_sharp),
             label: 'Trening',
           ),
           BottomNavigationBarItem(

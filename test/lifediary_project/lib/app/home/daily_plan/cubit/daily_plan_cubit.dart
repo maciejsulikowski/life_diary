@@ -34,13 +34,12 @@ class DailyPlanCubit extends Cubit<DailyPlanState> {
   }
 
   Future<void> addplan(
-    // String id,
     String title,
     String time,
   ) async {
     try {
       await _itemsRepository.addplan(title, time);
-      // final itemModel = await _itemsRepository.getplans(id: id);
+
       emit(
         DailyPlanState(saved: true),
       );
@@ -48,28 +47,6 @@ class DailyPlanCubit extends Cubit<DailyPlanState> {
       emit(DailyPlanState(errorMessage: error.toString()));
     }
   }
-  // Future<void> getplan(
-  //   String title,
-  //   String time,
-  // ) async {
-  //   try {
-  //     await _itemsRepository.getplans(title, time);
-  //     emit(DailyPlanState(saved: true, errorMessage: ''));
-  //   } catch (error) {
-  //     emit(DailyPlanState(saved: false, errorMessage: error.toString()));
-  //   }
-  // }
-
-  // Future<void> getplan() async {
-  //   try {
-  //     await _itemsRepository.getDailyPlansStream();
-  //     emit(
-  //       DailyPlanState(errorMessage: ''),
-  //     );
-  //   } catch (error) {
-  //     emit(DailyPlanState(errorMessage: 'error'));
-  //   }
-  // }
 
   @override
   Future<void> close() {
