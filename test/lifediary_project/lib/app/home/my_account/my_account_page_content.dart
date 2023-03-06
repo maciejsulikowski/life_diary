@@ -55,6 +55,13 @@ class MyAccountPageContent extends StatelessWidget {
                 ),
                 const SizedBox(height: 100),
                 ElevatedButton.icon(
+                  style: ButtonStyle(
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                    ),
+                  ),
                   icon: const Icon(Icons.person, color: Colors.amber),
                   label: Text('Panel użytkownika'),
                   onPressed: () {
@@ -66,6 +73,13 @@ class MyAccountPageContent extends StatelessWidget {
                   },
                 ),
                 ElevatedButton.icon(
+                  style: ButtonStyle(
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                    ),
+                  ),
                   icon: const Icon(Icons.pageview, color: Colors.amber),
                   label: Text('Instrukcja obsługi'),
                   onPressed: () {
