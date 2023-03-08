@@ -26,9 +26,9 @@ class MyAccountPageContent extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'USER PAGE',
+          'MAIN PAGE',
           style: GoogleFonts.lato(
-              color: Colors.black, fontWeight: FontWeight.bold),
+              color: Colors.amber, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
         backgroundColor: Colors.blue,
@@ -46,16 +46,11 @@ class MyAccountPageContent extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text(
-                  'Zalogowano jako $email! ',
-                  style: GoogleFonts.lato(
-                      color: Colors.yellow,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 19),
-                ),
                 const SizedBox(height: 100),
                 ElevatedButton.icon(
                   style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all(Colors.blueAccent[700]),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0),
@@ -63,7 +58,13 @@ class MyAccountPageContent extends StatelessWidget {
                     ),
                   ),
                   icon: const Icon(Icons.person, color: Colors.amber),
-                  label: Text('Panel użytkownika'),
+                  label: Text(
+                    'Panel użytkownika',
+                    style: GoogleFonts.lato(
+                        color: Colors.amber,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20),
+                  ),
                   onPressed: () {
                     Navigator.push(
                       context,
@@ -74,6 +75,8 @@ class MyAccountPageContent extends StatelessWidget {
                 ),
                 ElevatedButton.icon(
                   style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all(Colors.blueAccent[700]),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0),
@@ -81,7 +84,13 @@ class MyAccountPageContent extends StatelessWidget {
                     ),
                   ),
                   icon: const Icon(Icons.pageview, color: Colors.amber),
-                  label: Text('Instrukcja obsługi'),
+                  label: Text(
+                    'Instrukcja obsługi',
+                    style: GoogleFonts.lato(
+                        color: Colors.amber,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20),
+                  ),
                   onPressed: () {
                     Navigator.push(
                       context,
@@ -91,11 +100,39 @@ class MyAccountPageContent extends StatelessWidget {
                   },
                 ),
                 const SizedBox(height: 100),
-                ElevatedButton(
-                    onPressed: () {
-                      context.read<RootCubit>().signOut();
-                    },
-                    child: const Text('Wyloguj')),
+                ElevatedButton.icon(
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all(Colors.blueAccent[700]),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                    ),
+                  ),
+                  icon: const Icon(Icons.logout, color: Colors.amber),
+                  label: Text(
+                    'Wyloguj się',
+                    style: GoogleFonts.lato(
+                        color: Colors.amber,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20),
+                  ),
+                  onPressed: () {
+                    context.read<RootCubit>().signOut();
+                  },
+                ),
+                SizedBox(height: 250),
+                Container(
+                  color: Colors.amber,
+                  child: Text(
+                    'Zalogowano jako $email! ',
+                    style: GoogleFonts.lato(
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 19),
+                  ),
+                ),
               ],
             ),
           ),

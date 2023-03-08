@@ -39,25 +39,35 @@ class _ToDoListContentState extends State<ToDoListContent> {
                 title: Text(
                   'TODOLIST',
                   style: GoogleFonts.lato(
-                      color: Colors.black, fontWeight: FontWeight.bold),
+                      color: Colors.amber, fontWeight: FontWeight.bold),
                 ),
                 centerTitle: true,
                 backgroundColor: Colors.blue,
-              ),
-              floatingActionButton: FloatingActionButton(
-                onPressed: () {
-                  if (controller.text.isEmpty) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text("Wprowadź jakieś zadanie!"),
-                      ),
-                    );
-                    return;
-                  }
-                  context.read<ToDoListCubit>().addtask(controller.text);
-                  controller.clear();
-                },
-                child: const Icon(Icons.add),
+                actions: [
+                  ElevatedButton.icon(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.amber),
+                    ),
+                    icon: const Icon(Icons.add, color: Colors.blue),
+                    label: Text(
+                      'Dodaj zadanie',
+                      style: GoogleFonts.lato(
+                          color: Colors.blue, fontWeight: FontWeight.bold),
+                    ),
+                    onPressed: () {
+                      if (controller.text.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text("Wprowadź jakieś zadanie!"),
+                          ),
+                        );
+                        return;
+                      }
+                      context.read<ToDoListCubit>().addtask(controller.text);
+                      controller.clear();
+                    },
+                  ),
+                ],
               ),
               body: state.errorMessage.isNotEmpty
                   ? Text('Wystapil blad: ${state.errorMessage}')
@@ -65,30 +75,49 @@ class _ToDoListContentState extends State<ToDoListContent> {
                       ? const Center(
                           child: CircularProgressIndicator(),
                         )
-                      : ListView(
-                          children: [
-                            for (final itemModel in itemModels) ...[
-                              Dismissible(
-                                key: ValueKey(itemModel.id),
-                                onDismissed: (_) {
-                                  context
-                                      .read<ToDoListCubit>()
-                                      .remove(documentID: itemModel.id);
-                                },
-                                child: CategoryWidget(
-                                  itemModel: itemModel,
+                      : Container(
+                          color: Colors.blueAccent[700],
+                          child: ListView(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(20.0),
+                                child: TextField(
+                                  style: const TextStyle(
+                                      color: Colors.amber, fontSize: 20),
+                                  controller: controller,
+                                  textAlign: TextAlign.center,
+                                  decoration: const InputDecoration(
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Colors.amber, width: 2.0),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Colors.amber, width: 2.0),
+                                    ),
+                                    hintText: 'Tu wpisz nazwę zadania',
+                                    hintStyle: TextStyle(
+                                      fontSize: 20.0,
+                                      color: Colors.amber,
+                                    ),
+                                  ),
                                 ),
                               ),
+                              for (final itemModel in itemModels) ...[
+                                Dismissible(
+                                  key: ValueKey(itemModel.id),
+                                  onDismissed: (_) {
+                                    context
+                                        .read<ToDoListCubit>()
+                                        .remove(documentID: itemModel.id);
+                                  },
+                                  child: CategoryWidget(
+                                    itemModel: itemModel,
+                                  ),
+                                ),
+                              ],
                             ],
-                            Padding(
-                              padding: const EdgeInsets.all(20.0),
-                              child: TextField(
-                                controller: controller,
-                                decoration: const InputDecoration(
-                                    hintText: 'Tu wpisz nazwę zadania'),
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
             );
           },
@@ -112,7 +141,10 @@ class CategoryWidget extends StatelessWidget {
       color: Colors.amber,
       padding: EdgeInsets.all(20),
       margin: EdgeInsets.all(10),
-      child: Text(itemModel.title),
+      child: Text(
+        itemModel.title,
+        style: TextStyle(color: Colors.blue[900], fontSize: 20),
+      ),
     );
   }
 }

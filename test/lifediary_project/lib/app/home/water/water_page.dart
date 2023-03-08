@@ -35,7 +35,7 @@ class _WaterPageState extends State<WaterPage> {
         title: Text(
           'WODA',
           style: GoogleFonts.lato(
-              color: Colors.black, fontWeight: FontWeight.bold),
+              color: Colors.amber, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
         backgroundColor: Colors.blue,
@@ -54,9 +54,9 @@ class _WaterPageState extends State<WaterPage> {
                 child: Text(
                   'Ile szklanek wody powinieneś pić dziennie?',
                   style: GoogleFonts.lato(
-                      color: Colors.black,
+                      color: Colors.blueAccent,
                       fontWeight: FontWeight.bold,
-                      fontSize: 16),
+                      fontSize: 18),
                 ),
               ),
             ),
@@ -64,9 +64,16 @@ class _WaterPageState extends State<WaterPage> {
               padding: const EdgeInsets.all(8.0),
               child: TextField(
                 controller: heightController,
+                style: const TextStyle(color: Colors.amber, fontSize: 20),
                 decoration: const InputDecoration(
+                  filled: true,
+                  fillColor: Colors.blue,
                   border: OutlineInputBorder(),
                   hintText: 'Tutaj napisz swój wzrost w cm np. 180',
+                  hintStyle: TextStyle(
+                    fontSize: 20.0,
+                    color: Colors.amber,
+                  ),
                 ),
               ),
             ),
@@ -75,9 +82,16 @@ class _WaterPageState extends State<WaterPage> {
               padding: const EdgeInsets.all(8.0),
               child: TextField(
                 controller: weightController,
+                style: const TextStyle(color: Colors.amber, fontSize: 20),
                 decoration: const InputDecoration(
+                  filled: true,
+                  fillColor: Colors.blue,
                   border: OutlineInputBorder(),
                   hintText: 'Tutaj napisz swoją wagę w kg np. 80',
+                  hintStyle: TextStyle(
+                    fontSize: 20.0,
+                    color: Colors.amber,
+                  ),
                 ),
               ),
             ),
@@ -99,15 +113,18 @@ class _WaterPageState extends State<WaterPage> {
                     glass_result = (result / glass).floor();
                   });
               },
-              child: Text('Oblicz!'),
+              child: Text(
+                'Oblicz!',
+                style: TextStyle(color: Colors.amber, fontSize: 20),
+              ),
             ),
             SizedBox(height: 20),
             if (isAnswered == true) ...[
               Center(
                 child: Text(
-                  'Powinieneś pić około: $result ml wody!',
+                  'Powinieneś pić około $result ml wody!',
                   style: GoogleFonts.lato(
-                      color: Colors.black,
+                      color: Colors.blueAccent,
                       fontWeight: FontWeight.bold,
                       fontSize: 20),
                 ),
@@ -116,7 +133,7 @@ class _WaterPageState extends State<WaterPage> {
                 child: Text(
                   'Co daje gdzieś $glass_result szklanek wody dziennie!',
                   style: GoogleFonts.lato(
-                      color: Colors.black,
+                      color: Colors.blueAccent,
                       fontWeight: FontWeight.bold,
                       fontSize: 20),
                 ),

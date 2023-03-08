@@ -18,9 +18,9 @@ class InstructionPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'USER PAGE',
+          'INSTRUCTION PAGE',
           style: GoogleFonts.lato(
-              color: Colors.black, fontWeight: FontWeight.bold),
+              color: Colors.amber, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
         backgroundColor: Colors.blue,

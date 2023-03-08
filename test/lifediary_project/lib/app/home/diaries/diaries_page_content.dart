@@ -28,27 +28,48 @@ class _DiariesPageContentState extends State<DiariesPageContent> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'DZIENNIKI',
-          style: GoogleFonts.lato(
-              color: Colors.black, fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.blue,
-      ),
-      body: _NewDiary(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => const AddPage(),
-              fullscreenDialog: true,
+          title: Text(
+            'DZIENNIKI',
+            style: GoogleFonts.lato(
+                color: Colors.amber, fontWeight: FontWeight.bold),
+          ),
+          centerTitle: true,
+          backgroundColor: Colors.blue,
+          actions: [
+            ElevatedButton.icon(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.amber),
+              ),
+              icon: const Icon(Icons.add, color: Colors.blue),
+              label: Text(
+                'Dodaj dziennik',
+                style: GoogleFonts.lato(
+                    color: Colors.blue, fontWeight: FontWeight.bold),
+              ),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const AddPage(),
+                    fullscreenDialog: true,
+                  ),
+                );
+              },
             ),
-          );
-          currentDiaryCounter++;
-        },
-        child: const Icon(Icons.add),
-      ),
+          ]),
+      body: _NewDiary(),
+
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     Navigator.of(context).push(
+      //       MaterialPageRoute(
+      //         builder: (context) => const AddPage(),
+      //         fullscreenDialog: true,
+      //       ),
+      //     );
+      //     currentDiaryCounter++;
+      //   },
+      //   child: const Icon(Icons.add),
+      // ),
     );
   }
 }
@@ -68,36 +89,39 @@ class _NewDiary extends StatelessWidget {
           if (itemModels.isEmpty) {
             return const SizedBox.shrink();
           }
-          return ListView(
-            children: [
-              for (final itemModel in itemModels)
-                Dismissible(
-                  key: ValueKey(itemModel.id),
-                  background: const DecoratedBox(
-                    decoration: BoxDecoration(color: Colors.red),
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: Padding(
-                        padding: EdgeInsets.only(right: 32.0),
-                        child: Icon(
-                          Icons.delete,
+          return Container(
+            color: Colors.blueAccent[700],
+            child: ListView(
+              children: [
+                for (final itemModel in itemModels)
+                  Dismissible(
+                    key: ValueKey(itemModel.id),
+                    background: const DecoratedBox(
+                      decoration: BoxDecoration(color: Colors.red),
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Padding(
+                          padding: EdgeInsets.only(right: 32.0),
+                          child: Icon(
+                            Icons.delete,
+                          ),
                         ),
                       ),
                     ),
+                    confirmDismiss: (direction) async {
+                      return direction == DismissDirection.endToStart;
+                    },
+                    onDismissed: (direction) {
+                      context
+                          .read<DiaresCubit>()
+                          .remove(documentID: itemModel.id);
+                    },
+                    child: ListViewItem(
+                      itemModel: itemModel,
+                    ),
                   ),
-                  confirmDismiss: (direction) async {
-                    return direction == DismissDirection.endToStart;
-                  },
-                  onDismissed: (direction) {
-                    context
-                        .read<DiaresCubit>()
-                        .remove(documentID: itemModel.id);
-                  },
-                  child: ListViewItem(
-                    itemModel: itemModel,
-                  ),
-                ),
-            ],
+              ],
+            ),
           );
         },
       ),
@@ -138,7 +162,7 @@ class ListViewItem extends StatelessWidget {
           child: Column(
             children: [
               Container(
-                height: 80,
+                height: 180,
                 decoration: BoxDecoration(
                   color: Colors.black12,
                   image: DecorationImage(
@@ -153,21 +177,27 @@ class ListViewItem extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Container(
-                      margin: const EdgeInsets.all(10),
-                      padding: const EdgeInsets.all(10),
+                      color: Colors.amber,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          Text(
-                            itemModel.title,
-                            style: const TextStyle(
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.bold,
+                          Center(
+                            child: Text(
+                              itemModel.title,
+                              style: const TextStyle(
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blueAccent),
                             ),
                           ),
                           const SizedBox(height: 10),
-                          Text(
-                            itemModel.releaseDateFormatted(),
+                          Center(
+                            child: Text(
+                              itemModel.releaseDateFormatted(),
+                              style: TextStyle(
+                                  color: Colors.blue,
+                                  fontWeight: FontWeight.bold),
+                            ),
                           ),
                         ],
                       ),

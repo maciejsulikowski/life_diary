@@ -12,7 +12,7 @@ class UserProfile extends StatelessWidget {
         title: Text(
           'USER PAGE',
           style: GoogleFonts.lato(
-              color: Colors.black, fontWeight: FontWeight.bold),
+              color: Colors.amber, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
         backgroundColor: Colors.blue,

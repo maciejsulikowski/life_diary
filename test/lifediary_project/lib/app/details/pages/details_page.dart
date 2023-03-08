@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutterfire_ui/auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lifediary_project/app/add_page/add_page.dart';
 import 'package:lifediary_project/app/details/cubit/details_cubit.dart';
@@ -18,10 +19,8 @@ class DetailsPageContent extends StatefulWidget {
   const DetailsPageContent({
     required this.itemModel,
     required this.id,
-    
     Key? key,
   }) : super(key: key);
-
 
   final ItemModel itemModel;
   final String id;
@@ -58,32 +57,43 @@ class _DetailsPageContentState extends State<DetailsPageContent> {
                   title: Text(
                     'LIFEDIARY',
                     style: GoogleFonts.lato(
-                        color: Colors.black, fontWeight: FontWeight.bold),
+                        color: Colors.amber, fontWeight: FontWeight.bold),
                   ),
+                  actions: [
+                    ElevatedButton.icon(
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.amber),
+                      ),
+                      icon: const Icon(Icons.add, color: Colors.blue),
+                      label: Text(
+                        'Dodaj tekst',
+                        style: GoogleFonts.lato(
+                            color: Colors.blue, fontWeight: FontWeight.bold),
+                      ),
+                      onPressed: () {
+                        if (controller.text.isEmpty) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text("Wprowadź jakieś zadanie!"),
+                            ),
+                          );
+                          return;
+                        } else {
+                          context
+                              .read<DetailsCubit>()
+                              .addtext(widget.id, controller.text);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text("Wprowadzono zmiany!"),
+                            ),
+                          );
+                        }
+                      },
+                    ),
+                  ],
                   centerTitle: true,
                   backgroundColor: Colors.blue,
-                ),
-                floatingActionButton: FloatingActionButton(
-                  onPressed: () {
-                    if (controller.text.isEmpty) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text("Wprowadź jakieś zadanie!"),
-                        ),
-                      );
-                      return;
-                    } else {
-                      context
-                          .read<DetailsCubit>()
-                          .addtext(widget.id, controller.text);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text("Wprowadzono zmiany!"),
-                        ),
-                      );
-                    }
-                  },
-                  child: const Icon(Icons.add),
                 ),
                 body: ListView(
                   children: [
@@ -112,42 +122,51 @@ class _ListViewItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: 10,
-        horizontal: 30,
-      ),
-      child: Container(
-        decoration: const BoxDecoration(
-          color: Colors.black12,
+    return Container(
+      color: Colors.blueAccent[700],
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: 10,
+          horizontal: 30,
         ),
-        child: Column(
-          children: [
-            Container(
-              height: 150,
-              decoration: BoxDecoration(
-                color: Colors.black12,
-                image: DecorationImage(
-                  image: NetworkImage(
-                    itemModel.imageURL,
+        child: Container(
+          decoration: const BoxDecoration(
+            color: Colors.amber,
+          ),
+          child: Column(
+            children: [
+              Container(
+                height: 150,
+                decoration: BoxDecoration(
+                  color: Colors.black12,
+                  image: DecorationImage(
+                    image: NetworkImage(
+                      itemModel.imageURL,
+                    ),
+                    fit: BoxFit.cover,
                   ),
-                  fit: BoxFit.cover,
                 ),
               ),
-            ),
-            Container(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(itemModel.title),
-                    Icon(Icons.book, color: Colors.black),
-                  ],
+              Container(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        itemModel.title,
+                        style: TextStyle(
+                            color: Colors.blue,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Icon(Icons.book, color: Colors.black),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -171,26 +190,30 @@ class _DiaryPage extends StatefulWidget {
 class _DiaryPageState extends State<_DiaryPage> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: 10,
-        horizontal: 30,
-      ),
-      child: Container(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                controller: widget.controller,
-                maxLines: 200,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Write something here...',
+    return Container(
+      color: Colors.white,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: 10,
+          horizontal: 20,
+        ),
+        child: Container(
+          color: Colors.white,
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  controller: widget.controller,
+                  maxLines: 200,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Write something here...',
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

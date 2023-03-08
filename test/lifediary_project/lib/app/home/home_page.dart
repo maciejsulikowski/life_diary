@@ -61,6 +61,8 @@ class _HomePageState extends State<HomePage> {
         return MyAccountPageContent(email: widget.user.email);
       }),
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.black,
+        unselectedItemColor: Colors.white,
         currentIndex: currentIndex,
         onTap: (newIndex) {
           setState(() {

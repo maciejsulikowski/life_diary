@@ -22,26 +22,46 @@ class TrainingPageContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'TRENING',
-          style: GoogleFonts.lato(
-              color: Colors.black, fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.blue,
-      ),
-      body: NewPhoto(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => const AddPhoto(),
-              fullscreenDialog: true,
+          title: Text(
+            'TRENING',
+            style: GoogleFonts.lato(
+                color: Colors.amber, fontWeight: FontWeight.bold),
+          ),
+          centerTitle: true,
+          backgroundColor: Colors.blue,
+          actions: [
+            ElevatedButton.icon(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.amber),
+              ),
+              icon: const Icon(Icons.add, color: Colors.blue),
+              label: Text(
+                'Dodaj zdjęcie',
+                style: GoogleFonts.lato(
+                    color: Colors.blue, fontWeight: FontWeight.bold),
+              ),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const AddPhoto(),
+                    fullscreenDialog: true,
+                  ),
+                );
+              },
             ),
-          );
-        },
-        child: const Icon(Icons.add),
-      ),
+          ]),
+      body: NewPhoto(),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     Navigator.of(context).push(
+      //       MaterialPageRoute(
+      //         builder: (context) => const AddPhoto(),
+      //         fullscreenDialog: true,
+      //       ),
+      //     );
+      //   },
+      //   child: const Icon(Icons.add),
+      // ),
     );
   }
 }
@@ -61,36 +81,39 @@ class NewPhoto extends StatelessWidget {
           if (photosModels.isEmpty) {
             return const SizedBox.shrink();
           }
-          return ListView(
-            children: [
-              for (final photoModel in photosModels)
-                Dismissible(
-                  key: ValueKey(photoModel.id),
-                  background: const DecoratedBox(
-                    decoration: BoxDecoration(color: Colors.red),
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: Padding(
-                        padding: EdgeInsets.only(right: 32.0),
-                        child: Icon(
-                          Icons.delete,
+          return Container(
+            color: Colors.blueAccent[700],
+            child: ListView(
+              children: [
+                for (final photoModel in photosModels)
+                  Dismissible(
+                    key: ValueKey(photoModel.id),
+                    background: const DecoratedBox(
+                      decoration: BoxDecoration(color: Colors.red),
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Padding(
+                          padding: EdgeInsets.only(right: 32.0),
+                          child: Icon(
+                            Icons.delete,
+                          ),
                         ),
                       ),
                     ),
+                    confirmDismiss: (direction) async {
+                      return direction == DismissDirection.endToStart;
+                    },
+                    onDismissed: (direction) {
+                      context
+                          .read<TrainingCubit>()
+                          .remove(documentID: photoModel.id);
+                    },
+                    child: ListViewItem(
+                      photoModel: photoModel,
+                    ),
                   ),
-                  confirmDismiss: (direction) async {
-                    return direction == DismissDirection.endToStart;
-                  },
-                  onDismissed: (direction) {
-                    context
-                        .read<TrainingCubit>()
-                        .remove(documentID: photoModel.id);
-                  },
-                  child: ListViewItem(
-                    photoModel: photoModel,
-                  ),
-                ),
-            ],
+              ],
+            ),
           );
         },
       ),
@@ -111,7 +134,7 @@ class ListViewItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(
         vertical: 10,
-        horizontal: 30,
+        horizontal: 20,
       ),
       child: Container(
         decoration: const BoxDecoration(
@@ -120,7 +143,7 @@ class ListViewItem extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              height: 200,
+              height: 250,
               decoration: BoxDecoration(
                 color: Colors.black12,
                 image: DecorationImage(
@@ -135,19 +158,22 @@ class ListViewItem extends StatelessWidget {
               children: [
                 Expanded(
                   child: Container(
+                    color: Colors.amber,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
                           photoModel.title,
                           style: const TextStyle(
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
-                          ),
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue),
                         ),
                         const SizedBox(height: 10),
                         Text(
                           photoModel.releaseDateFormatted(),
+                          style: TextStyle(
+                              color: Colors.blue, fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
