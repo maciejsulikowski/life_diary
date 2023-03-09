@@ -135,8 +135,8 @@ class _MyListTileItemWidgetState extends State<MyListTileItemWidget> {
                 top: 30,
                 right: 10,
                 child: Container(
-                  width: 40,
-                  height: 40,
+                  width: 41,
+                  height: 41,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         primary: Colors.blueAccent[700]),
@@ -146,8 +146,8 @@ class _MyListTileItemWidgetState extends State<MyListTileItemWidget> {
                             widget.currentHour.toString(),
                           );
                     },
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 20.0),
+                    child: const Padding(
+                      padding: EdgeInsets.only(right: 20.0),
                       child: Align(
                         alignment: Alignment.center,
                         child: Text(
@@ -217,7 +217,7 @@ class PartOfPlanning extends StatelessWidget {
       child: TextField(
         style: TextStyle(
             color: Color.fromARGB(255, 1, 71, 192),
-            fontSize: 20,
+            fontSize: 18,
             fontWeight: FontWeight.bold),
         controller: controller,
         decoration: InputDecoration(

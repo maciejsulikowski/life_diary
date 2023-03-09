@@ -42,7 +42,11 @@ class _AddPhotoState extends State<AddPhoto> {
           builder: (context, state) {
             return Scaffold(
               appBar: AppBar(
-                title: const Text('Add new upcoming title'),
+                centerTitle: true,
+                title: const Text(
+                  'DODAJ NOWE ZDJĘCIE',
+                  style: TextStyle(color: Colors.amber),
+                ),
                 actions: [
                   IconButton(
                     onPressed: _imageURL == null ||
@@ -107,46 +111,63 @@ class _AddPhotoBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 30,
-        vertical: 20,
-      ),
-      children: [
-        TextField(
-          onChanged: onTitleChanged,
-          decoration: const InputDecoration(
-            border: OutlineInputBorder(),
-            hintText: 'Np. Dziennik Treningowy',
-            label: Text('Title'),
-          ),
+    return Container(
+      color: Colors.amber,
+      child: ListView(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 30,
+          vertical: 20,
         ),
-        const SizedBox(height: 20),
-        TextField(
-          onChanged: onImageUrlChanged,
-          decoration: const InputDecoration(
-            border: OutlineInputBorder(),
-            hintText:
-                'https://cdn.pixabay.com/photo/2012/04/13/14/16/address-32567_960_720.png',
-            label: Text('Image URL'),
-          ),
-        ),
-        const SizedBox(height: 20),
-        ElevatedButton(
-          onPressed: () async {
-            final selectedDate = await showDatePicker(
-              context: context,
-              initialDate: DateTime.now(),
-              firstDate: DateTime.now(),
-              lastDate: DateTime.now().add(
-                const Duration(days: 365 * 10),
+        children: [
+          TextField(
+            onChanged: onTitleChanged,
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              hintText: 'Np. Zdjęcie nr. 1 ',
+              label: Text(
+                'Tytuł',
+                style: TextStyle(color: Colors.blueAccent, fontSize: 20),
               ),
-            );
-            onDateChanged(selectedDate);
-          },
-          child: Text(selectedDateFormatted ?? 'Choose release date'),
-        ),
-      ],
+              hintStyle: TextStyle(
+                  fontSize: 20.0,
+                  color: Colors.blueAccent,
+                  fontWeight: FontWeight.normal),
+            ),
+          ),
+          const SizedBox(height: 20),
+          TextField(
+            onChanged: onImageUrlChanged,
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              hintText:
+                  'https://cdn.pixabay.com/photo/2012/04/13/14/16/address-32567_960_720.png',
+              label: Text(
+                'Link URL obrazu',
+                style: TextStyle(color: Colors.blueAccent, fontSize: 20),
+              ),
+              hintStyle: TextStyle(
+                  fontSize: 20.0,
+                  color: Colors.blueAccent,
+                  fontWeight: FontWeight.normal),
+            ),
+          ),
+          const SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: () async {
+              final selectedDate = await showDatePicker(
+                context: context,
+                initialDate: DateTime.now(),
+                firstDate: DateTime.now(),
+                lastDate: DateTime.now().add(
+                  const Duration(days: 365 * 10),
+                ),
+              );
+              onDateChanged(selectedDate);
+            },
+            child: Text(selectedDateFormatted ?? 'Wybierz datę zdjęcia'),
+          ),
+        ],
+      ),
     );
   }
 }

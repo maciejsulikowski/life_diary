@@ -206,7 +206,7 @@ class _DiaryPageState extends State<_DiaryPage> {
                 child: TextField(
                   controller: widget.controller,
                   maxLines: 200,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     hintText: 'Write something here...',
                   ),
