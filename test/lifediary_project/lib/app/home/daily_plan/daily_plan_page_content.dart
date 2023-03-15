@@ -8,6 +8,14 @@ import 'package:lifediary_project/app/home/daily_plan/cubit/daily_plan_cubit.dar
 import 'package:lifediary_project/app/models/item_model.dart';
 import 'package:lifediary_project/app/repositories/items_repository.dart';
 
+//ikonka jakas kozacka
+//sprawdzic na innych telefonach, devicepreview
+// sprobowac w planie dnia add bar
+// czyli wdzedzie te same padingi i marginy
+// graficznie udoskonalic, ogarnac
+// zamiast plusa check np.
+//firebase storage, imagepicker - do zdjec do wrzucania
+// zapisz
 class DailyPlanPageContent extends StatefulWidget {
   DailyPlanPageContent({
     Key? key,
@@ -133,10 +141,9 @@ class _MyListTileItemWidgetState extends State<MyListTileItemWidget> {
               ),
               Positioned(
                 top: 30,
-                right: 10,
+                right: 5,
                 child: Container(
-                  width: 41,
-                  height: 41,
+                  width: 45,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         primary: Colors.blueAccent[700]),
@@ -148,14 +155,11 @@ class _MyListTileItemWidgetState extends State<MyListTileItemWidget> {
                     },
                     child: const Padding(
                       padding: EdgeInsets.only(right: 20.0),
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Text(
-                          '+',
-                          style: TextStyle(
-                            color: Colors.amber,
-                            fontSize: 20,
-                          ),
+                      child: Text(
+                        '✓',
+                        style: TextStyle(
+                          color: Colors.amber,
+                          fontSize: 20,
                         ),
                       ),
                     ),
