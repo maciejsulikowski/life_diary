@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lifediary_project/app/cubit/root_cubit.dart';
-import 'package:lifediary_project/app/home/home_page.dart';
-import 'package:lifediary_project/app/welcome/first_welcome_page.dart';
+import 'package:lifediary_project/app/features/home/home_page.dart';
+import 'package:lifediary_project/app/features/welcome/first_welcome_page.dart';
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
