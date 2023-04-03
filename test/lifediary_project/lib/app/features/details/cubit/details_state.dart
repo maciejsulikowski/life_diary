@@ -2,7 +2,7 @@ part of 'details_cubit.dart';
 
 @immutable
 class DetailsState {
-  DetailsState(
+  const DetailsState(
       {required this.itemModel,
       required this.isLoading ,
       required this.errorMessage ,

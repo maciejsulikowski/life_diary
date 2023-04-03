@@ -46,18 +46,8 @@ class TrainingPageContent extends StatelessWidget {
               },
             ),
           ]),
-      body: NewPhoto(),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     Navigator.of(context).push(
-      //       MaterialPageRoute(
-      //         builder: (context) => const AddPhoto(),
-      //         fullscreenDialog: true,
-      //       ),
-      //     );
-      //   },
-      //   child: const Icon(Icons.add),
-      // ),
+      body: const NewPhoto(),
+      
     );
   }
 }

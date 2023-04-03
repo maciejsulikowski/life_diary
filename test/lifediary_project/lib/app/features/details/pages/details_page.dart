@@ -49,7 +49,7 @@ class _DetailsPageContentState extends State<DetailsPageContent> {
           builder: (context, state) {
             final itemModel = state.itemModel;
             if (state.isLoading == true) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             }
 
             return Scaffold(
@@ -147,22 +147,20 @@ class _ListViewItem extends StatelessWidget {
                   ),
                 ),
               ),
-              Container(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        itemModel.title,
-                        style: TextStyle(
-                            color: Colors.blue,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Icon(Icons.book, color: Colors.black),
-                    ],
-                  ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      itemModel.title,
+                      style: const TextStyle(
+                          color: Colors.blue,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    const Icon(Icons.book, color: Colors.black),
+                  ],
                 ),
               ),
             ],

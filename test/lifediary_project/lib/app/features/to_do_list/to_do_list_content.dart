@@ -9,7 +9,7 @@ import 'package:lifediary_project/app/domain/models/item_model.dart';
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
 
 class ToDoListContent extends StatefulWidget {
-  ToDoListContent({
+  const ToDoListContent({
     Key? key,
   }) : super(key: key);
 
@@ -140,8 +140,8 @@ class CategoryWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.amber,
-      padding: EdgeInsets.all(20),
-      margin: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(20),
+      margin: const EdgeInsets.all(10),
       child: Text(
         itemModel.title,
         style: TextStyle(color: Colors.blue[900], fontSize: 20),

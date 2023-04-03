@@ -23,7 +23,11 @@ class ToDoListCubit extends Cubit<ToDoListState> {
       },
     )..onError(
         (error) {
-          emit(ToDoListState(errorMessage: 'error'));
+          emit(
+            ToDoListState(
+              errorMessage: error.toString(),
+            ),
+          );
         },
       );
   }
@@ -41,8 +45,7 @@ class ToDoListCubit extends Cubit<ToDoListState> {
     }
   }
 
-  Future<void> gettask(
-  ) async {
+  Future<void> gettask() async {
     try {
       await _itemsRepository.getTasksStream();
       emit(

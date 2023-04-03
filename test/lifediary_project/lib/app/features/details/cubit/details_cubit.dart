@@ -10,7 +10,7 @@ part 'details_state.dart';
 class DetailsCubit extends Cubit<DetailsState> {
   DetailsCubit(
     this._itemsRepository,
-  ) : super(DetailsState(
+  ) : super(const DetailsState(
             itemModel: null, isLoading: false, errorMessage: '', saved: false));
 
   final ItemsRepository _itemsRepository;
@@ -31,23 +31,11 @@ class DetailsCubit extends Cubit<DetailsState> {
   Future<void> start() async {
     _streamSubscription = _itemsRepository.getItemsStream().listen(
       (itemModel) {
-        emit(DetailsState(
+        emit(const DetailsState(
             itemModel: null, isLoading: false, errorMessage: '', saved: false));
       },
     );
 
-    // Future<void> addtext(
-    //   String title,
-    // ) async {
-    //   await _itemsRepository.addtext(title);
-    //   emit(
-    //     DetailsState(
-    //         itemModel: null, isLoading: true, errorMessage: '', saved: true),
-    //   );
-    // }
-
-    // emit(DetailsState(
-    //     itemModel: null, isLoading: false, errorMessage: '', saved: false));
   }
 
   Future<void> addtext(
@@ -57,7 +45,7 @@ class DetailsCubit extends Cubit<DetailsState> {
     await _itemsRepository.addtext(id, title);
     final itemModel = await _itemsRepository.get(id: id);
     emit(
-      DetailsState(
+      const DetailsState(
           itemModel: null, isLoading: true, errorMessage: '', saved: true),
     );
     emit(

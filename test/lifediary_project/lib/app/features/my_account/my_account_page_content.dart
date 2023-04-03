@@ -126,7 +126,7 @@ class MyAccountPageContent extends StatelessWidget {
                     // );
                   },
                 ),
-                SizedBox(height: 250),
+                const SizedBox(height: 250),
                 Container(
                   color: Colors.amber,
                   child: Text(

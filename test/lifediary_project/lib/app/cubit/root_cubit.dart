@@ -9,8 +9,6 @@ import 'package:meta/meta.dart';
 
 part 'root_state.dart';
 
-var error = '';
-
 class RootCubit extends Cubit<RootState> {
   RootCubit()
       : super(
@@ -60,12 +58,6 @@ class RootCubit extends Cubit<RootState> {
           errorMessage: error.toString(),
         ),
       );
-
-      // SnackBar(
-      //   content: Text(
-      //     error.toString(),
-      //   ),
-      // );
     }
   }
 

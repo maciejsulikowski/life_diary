@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,9 +10,6 @@ import 'package:lifediary_project/app/features/details/pages/details_page.dart';
 import 'package:lifediary_project/app/features/diaries/cubit/diares_cubit.dart';
 
 import '../../domain/repositories/items_repository.dart';
-
-
-
 
 class DiariesPageContent extends StatefulWidget {
   const DiariesPageContent({
@@ -57,9 +53,7 @@ class _DiariesPageContentState extends State<DiariesPageContent> {
               },
             ),
           ]),
-      body: _NewDiary(),
-
-      
+      body: const _NewDiary(),
     );
   }
 }
@@ -184,7 +178,7 @@ class ListViewItem extends StatelessWidget {
                           Center(
                             child: Text(
                               itemModel.releaseDateFormatted(),
-                              style: TextStyle(
+                              style: const TextStyle(
                                   color: Colors.blue,
                                   fontWeight: FontWeight.bold),
                             ),
