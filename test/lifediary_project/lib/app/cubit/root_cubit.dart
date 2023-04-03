@@ -3,10 +3,13 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:lifediary_project/app/features/login/login_page.dart';
 
 import 'package:meta/meta.dart';
 
 part 'root_state.dart';
+
+var error = '';
 
 class RootCubit extends Cubit<RootState> {
   RootCubit()
@@ -19,6 +22,56 @@ class RootCubit extends Cubit<RootState> {
         );
 
   StreamSubscription? _streamSubscription;
+
+  Future<void> createAccount(
+    TextEditingController email,
+    TextEditingController password,
+  ) async {
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email.text,
+        password: password.text,
+      );
+    } catch (error) {
+      emit(
+        RootState(
+          user: null,
+          isLoading: false,
+          errorMessage: error.toString(),
+        ),
+      );
+    }
+  }
+
+  Future<void> signIn(
+    TextEditingController email,
+    TextEditingController password,
+  ) async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email.text,
+        password: password.text,
+      );
+    } catch (error) {
+      emit(
+        RootState(
+          user: null,
+          isLoading: false,
+          errorMessage: error.toString(),
+        ),
+      );
+
+      // SnackBar(
+      //   content: Text(
+      //     error.toString(),
+      //   ),
+      // );
+    }
+  }
+
+  Future<void> signOut() async {
+    await FirebaseAuth.instance.signOut();
+  }
 
   Future<void> start() async {
     emit(
@@ -48,11 +101,6 @@ class RootCubit extends Cubit<RootState> {
               ),
             );
           });
-  }
-
-  Future<void> signOut() async {
-    FirebaseAuth.instance.signOut();
-    
   }
 
   @override

@@ -120,6 +120,10 @@ class MyAccountPageContent extends StatelessWidget {
                   ),
                   onPressed: () {
                     context.read<RootCubit>().signOut();
+                    // Navigator.pushReplacement(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => LoginPage()),
+                    // );
                   },
                 ),
                 SizedBox(height: 250),

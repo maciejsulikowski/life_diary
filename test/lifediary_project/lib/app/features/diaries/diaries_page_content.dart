@@ -13,8 +13,7 @@ import 'package:lifediary_project/app/features/diaries/cubit/diares_cubit.dart';
 import '../../domain/repositories/items_repository.dart';
 
 
-int maxDiaryCount = 3;
-int currentDiaryCounter = 0;
+
 
 class DiariesPageContent extends StatefulWidget {
   const DiariesPageContent({
@@ -60,18 +59,7 @@ class _DiariesPageContentState extends State<DiariesPageContent> {
           ]),
       body: _NewDiary(),
 
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     Navigator.of(context).push(
-      //       MaterialPageRoute(
-      //         builder: (context) => const AddPage(),
-      //         fullscreenDialog: true,
-      //       ),
-      //     );
-      //     currentDiaryCounter++;
-      //   },
-      //   child: const Icon(Icons.add),
-      // ),
+      
     );
   }
 }

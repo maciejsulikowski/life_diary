@@ -18,7 +18,7 @@ class UserProfile extends StatelessWidget {
         backgroundColor: Colors.blue,
       ),
       body: ProfileScreen(
-        providerConfigs: [
+        providerConfigs: const [
           EmailProviderConfiguration(),
         ],
         actions: [
