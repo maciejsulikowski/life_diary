@@ -55,7 +55,7 @@ class ItemsRepository {
       id: document.id,
       name: document['name'],
       pizza: document['pizza'],
-      rating: document['rating'],
+      rating: (document['rating']).toDouble(),
       releaseDate: (document['release_date'] as Timestamp).toDate(),
     );
   }

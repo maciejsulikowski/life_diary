@@ -21,6 +21,8 @@ class RestaurantsCubit extends Cubit<RestaurantsState> {
 
   StreamSubscription? _streamSubscription;
 
+
+
   Future<void> start() async {
     emit(
       const RestaurantsState(

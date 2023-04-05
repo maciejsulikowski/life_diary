@@ -32,8 +32,11 @@ class DetailsPage extends StatelessWidget {
             Colors.green
           ];
 
-          return Expanded(
-            child: ListView(
+          return Scaffold(
+            appBar: AppBar(
+              title: Text('cos tam'),
+            ),
+            body: Column(
               children: [
                 Container(
                   color: Colors.amber,
