@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "392276335159",
+    "project_id": "live5882",
+    "storage_bucket": "live5882.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:392276335159:android:e2db7a72d9ca36c2073db2",
+        "android_client_info": {
+          "package_name": "com.maciejsulikowski.live"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "392276335159-2nb1qq6qhh44900rebce0ht6ktu9q2hh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-tOBBEiMgjcOh7SHMOFgfkwXMLEkp1uI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "392276335159-2nb1qq6qhh44900rebce0ht6ktu9q2hh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
