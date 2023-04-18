@@ -11,7 +11,6 @@ class ItemModel {
     required this.text,
   });
 
-  // final String text;
   final String id;
   final String title;
   final String imageURL;

@@ -7,13 +7,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-
 import 'package:lifediary_project/app/domain/models/item_model.dart';
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
 import 'package:lifediary_project/app/features/details/cubit/details_cubit.dart';
-
-int maxDiaryCount = 3;
-int currentDiaryCounter = 0;
 
 class DetailsPageContent extends StatefulWidget {
   const DetailsPageContent({
@@ -53,6 +49,13 @@ class _DetailsPageContentState extends State<DetailsPageContent> {
             }
 
             return Scaffold(
+                floatingActionButton: FloatingActionButton(
+                  onPressed: () {
+                    _DiaryPage;
+                  },
+                  backgroundColor: Colors.green,
+                  child: const Icon(Icons.navigation),
+                ),
                 appBar: AppBar(
                   title: Text(
                     'LIFEDIARY',
@@ -101,8 +104,12 @@ class _DetailsPageContentState extends State<DetailsPageContent> {
                       _ListViewItem(
                         itemModel: itemModel,
                       ),
-                      _DiaryPage(itemModel: itemModel, controller: controller),
-                    ]
+                      _DiaryPage(
+                        itemModel: itemModel,
+                        controller: controller,
+                        // page: i,
+                      ),
+                    ],
                   ],
                 ));
           },
@@ -172,14 +179,16 @@ class _ListViewItem extends StatelessWidget {
 }
 
 class _DiaryPage extends StatefulWidget {
-  const _DiaryPage({
+  _DiaryPage({
     Key? key,
     required this.itemModel,
     required this.controller,
+    this.isBold = false,
   }) : super(key: key);
 
   final ItemModel itemModel;
   final TextEditingController controller;
+  bool isBold;
 
   @override
   _DiaryPageState createState() => _DiaryPageState();
@@ -188,30 +197,77 @@ class _DiaryPage extends StatefulWidget {
 class _DiaryPageState extends State<_DiaryPage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          vertical: 10,
-          horizontal: 20,
-        ),
-        child: Container(
-          color: Colors.white,
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextField(
-                  controller: widget.controller,
-                  maxLines: 200,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Write something here...',
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        vertical: 10,
+        horizontal: 20,
+      ),
+      child: Container(
+        color: Colors.amber,
+        child: Column(
+          children: [
+            Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  ElevatedButton.icon(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.white),
+                    ),
+                    icon: const Icon(Icons.border_color_sharp,
+                        color: Colors.black),
+                    label: Text(
+                      'Gruba czcionka',
+                      style: GoogleFonts.lato(
+                          color: Colors.black, fontWeight: FontWeight.bold),
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        widget.isBold = true;
+                      });
+                    },
                   ),
-                ),
+                  ElevatedButton.icon(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.white),
+                    ),
+                    icon: const Icon(Icons.border_color_sharp,
+                        color: Colors.black),
+                    label: Text(
+                      'Cieńsza czcionkę',
+                      style: GoogleFonts.lato(
+                          color: Colors.black, fontWeight: FontWeight.bold),
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        widget.isBold = false;
+                      });
+                    },
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+            TextField(
+              controller: widget.controller,
+              style: TextStyle(
+                  fontWeight:
+                      widget.isBold ? FontWeight.bold : FontWeight.normal),
+              maxLines: 20,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Write something here...',
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  color: Colors.grey,
+                  height: 20,
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

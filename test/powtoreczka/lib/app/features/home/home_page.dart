@@ -3,8 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:powtoreczka/app/features/home/add_opinion/add_opinion_page.dart';
-import 'package:powtoreczka/app/features/home/all_things/all_things_page.dart';
-import 'package:powtoreczka/app/features/home/all_things/cubit/all_things_cubit.dart';
 import 'package:powtoreczka/app/features/home/my_account/my_account_page.dart';
 import 'package:powtoreczka/app/features/home/restaurants/restaurants_page.dart';
 
@@ -42,9 +40,7 @@ class _HomePageState extends State<HomePage> {
             },
           ));
         }
-        if (currentIndex == 3) {
-          return AllThingsPage();
-        }
+
         return MyAccount(email: widget.user.email);
       }),
       bottomNavigationBar: BottomNavigationBar(
