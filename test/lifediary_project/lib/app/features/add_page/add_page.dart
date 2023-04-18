@@ -134,6 +134,30 @@ class _AddPageBody extends StatelessWidget {
                   fontWeight: FontWeight.normal),
             ),
           ),
+          SizedBox(
+            height: 20,
+          ),
+          ElevatedButton.icon(
+            onPressed: () async {
+              final selectedDate = await showDatePicker(
+                context: context,
+                initialDate: DateTime.now(),
+                firstDate: DateTime.now(),
+                lastDate: DateTime.now().add(
+                  const Duration(days: 365 * 10),
+                ),
+              );
+              onDateChanged(selectedDate);
+            },
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(Colors.blue),
+            ),
+            icon: const Icon(Icons.camera_alt, color: Colors.black),
+            label: const Text(
+              'Dodaj zdjęcie',
+              style: TextStyle(fontSize: 20),
+            ),
+          ),
           const SizedBox(height: 20),
           TextField(
             onChanged: onImageUrlChanged,
@@ -154,15 +178,15 @@ class _AddPageBody extends StatelessWidget {
           const SizedBox(height: 20),
           ElevatedButton(
             onPressed: () async {
-              final selectedDate = await showDatePicker(
-                context: context,
-                initialDate: DateTime.now(),
-                firstDate: DateTime.now(),
-                lastDate: DateTime.now().add(
-                  const Duration(days: 365 * 10),
-                ),
-              );
-              onDateChanged(selectedDate);
+              // final selectedDate = await showDatePicker(
+              //   context: context,
+              //   initialDate: DateTime.now(),
+              //   firstDate: DateTime.now(),
+              //   lastDate: DateTime.now().add(
+              //     const Duration(days: 365 * 10),
+              //   ),
+              // );
+              // onDateChanged(selectedDate);
             },
             child: Text(
               selectedDateFormatted ?? 'Wybierz datę utworzenia dziennika',
