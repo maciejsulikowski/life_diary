@@ -1,9 +1,14 @@
+import 'dart:io';
+
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'dart:core';
 
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
 import 'package:lifediary_project/app/features/add_page/cubit/add_cubit.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class AddPage extends StatefulWidget {
   const AddPage({
@@ -15,7 +20,7 @@ class AddPage extends StatefulWidget {
 }
 
 class _AddPageState extends State<AddPage> {
-  String? _imageURL;
+  String? imageURL;
   String? _title;
   DateTime? _releaseDate;
   String text = '';
@@ -51,14 +56,14 @@ class _AddPageState extends State<AddPage> {
                 ),
                 actions: [
                   IconButton(
-                    onPressed: _imageURL == null ||
+                    onPressed: imageURL == null ||
                             _title == null ||
                             _releaseDate == null
                         ? null
                         : () {
                             context
                                 .read<AddCubit>()
-                                .add(_title!, _imageURL!, _releaseDate!, text);
+                                .add(_title!, imageURL!, _releaseDate!, text);
                           },
                     icon: const Icon(Icons.check),
                   ),
@@ -72,7 +77,7 @@ class _AddPageState extends State<AddPage> {
                 },
                 onImageUrlChanged: (newValue) {
                   setState(() {
-                    _imageURL = newValue;
+                    imageURL = newValue;
                   });
                 },
                 onDateChanged: (newValue) {
@@ -102,13 +107,13 @@ class _AddPageBody extends StatelessWidget {
   }) : super(key: key);
 
   final Function(String) onTitleChanged;
-  final Function(String) onImageUrlChanged;
+  Function(String) onImageUrlChanged;
   final Function(DateTime?) onDateChanged;
   final String? selectedDateFormatted;
   final TextEditingController controller = TextEditingController(
       text:
           'Np: https://cdn.pixabay.com/photo/2012/04/13/14/16/address-32567_960_720.png');
-
+  late String imageURL;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -139,15 +144,28 @@ class _AddPageBody extends StatelessWidget {
           ),
           ElevatedButton.icon(
             onPressed: () async {
-              final selectedDate = await showDatePicker(
-                context: context,
-                initialDate: DateTime.now(),
-                firstDate: DateTime.now(),
-                lastDate: DateTime.now().add(
-                  const Duration(days: 365 * 10),
-                ),
-              );
-              onDateChanged(selectedDate);
+              final imagePicker = ImagePicker();
+              final XFile? file =
+                  await imagePicker.pickImage(source: ImageSource.camera);
+
+              if (file == null) return;
+
+              final String uniqueFileName =
+                  DateTime.now().millisecondsSinceEpoch.toString();
+
+              final Reference referenceRoot = FirebaseStorage.instance.ref();
+              final Reference referenceDirImages =
+                  referenceRoot.child(uniqueFileName);
+
+              final Reference referenceImageToUpload =
+                  referenceDirImages.child(uniqueFileName);
+
+              try {
+                await referenceImageToUpload.putFile(File(file!.path));
+
+                imageURL = await referenceImageToUpload.getDownloadURL();
+                onImageUrlChanged(imageURL);
+              } catch (error) {}
             },
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(Colors.blue),
@@ -159,34 +177,34 @@ class _AddPageBody extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          TextField(
-            onChanged: onImageUrlChanged,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              hintText:
-                  'https://cdn.pixabay.com/photo/2012/04/13/14/16/address-32567_960_720.png',
-              label: Text(
-                'Link URL obrazu',
-                style: TextStyle(color: Colors.blueAccent, fontSize: 20),
-              ),
-              hintStyle: TextStyle(
-                  fontSize: 20.0,
-                  color: Colors.blueAccent,
-                  fontWeight: FontWeight.normal),
-            ),
-          ),
+          // TextField(
+          //   onChanged: onImageUrlChanged,
+          //   decoration: const InputDecoration(
+          //     border: OutlineInputBorder(),
+          //     hintText:
+          //         'https://cdn.pixabay.com/photo/2012/04/13/14/16/address-32567_960_720.png',
+          //     label: Text(
+          //       'Link URL obrazu',
+          //       style: TextStyle(color: Colors.blueAccent, fontSize: 20),
+          //     ),
+          //     hintStyle: TextStyle(
+          //         fontSize: 20.0,
+          //         color: Colors.blueAccent,
+          //         fontWeight: FontWeight.normal),
+          //   ),
+          // ),
           const SizedBox(height: 20),
           ElevatedButton(
             onPressed: () async {
-              // final selectedDate = await showDatePicker(
-              //   context: context,
-              //   initialDate: DateTime.now(),
-              //   firstDate: DateTime.now(),
-              //   lastDate: DateTime.now().add(
-              //     const Duration(days: 365 * 10),
-              //   ),
-              // );
-              // onDateChanged(selectedDate);
+              final selectedDate = await showDatePicker(
+                context: context,
+                initialDate: DateTime.now(),
+                firstDate: DateTime.now(),
+                lastDate: DateTime.now().add(
+                  const Duration(days: 365 * 10),
+                ),
+              );
+              onDateChanged(selectedDate);
             },
             child: Text(
               selectedDateFormatted ?? 'Wybierz datę utworzenia dziennika',
