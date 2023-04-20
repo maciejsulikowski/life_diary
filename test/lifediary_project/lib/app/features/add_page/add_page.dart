@@ -48,12 +48,6 @@ class _AddPageState extends State<AddPage> {
             return Scaffold(
               appBar: AppBar(
                 centerTitle: true,
-                title: const Text(
-                  'ADDING NEW DIARY',
-                  style: TextStyle(
-                    color: Colors.amber,
-                  ),
-                ),
                 actions: [
                   IconButton(
                     onPressed: imageURL == null ||
@@ -97,7 +91,7 @@ class _AddPageState extends State<AddPage> {
   }
 }
 
-class _AddPageBody extends StatelessWidget {
+class _AddPageBody extends StatefulWidget {
   _AddPageBody({
     Key? key,
     required this.onTitleChanged,
@@ -110,10 +104,18 @@ class _AddPageBody extends StatelessWidget {
   Function(String) onImageUrlChanged;
   final Function(DateTime?) onDateChanged;
   final String? selectedDateFormatted;
-  final TextEditingController controller = TextEditingController(
-      text:
-          'Np: https://cdn.pixabay.com/photo/2012/04/13/14/16/address-32567_960_720.png');
+
+  @override
+  State<_AddPageBody> createState() => _AddPageBodyState();
+}
+
+class _AddPageBodyState extends State<_AddPageBody> {
   late String imageURL;
+  bool isHide = true;
+  bool isTextFilled = false;
+  bool isImageAdded = false;
+  bool isTimeAdded = false;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -124,21 +126,47 @@ class _AddPageBody extends StatelessWidget {
           vertical: 20,
         ),
         children: [
-          TextField(
-            onChanged: onTitleChanged,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: 'Np. Dziennik Treningowy',
-              label: Text(
-                'Tytuł',
-                style: TextStyle(color: Colors.blueAccent, fontSize: 20),
-              ),
-              hintStyle: TextStyle(
-                  fontSize: 20.0,
-                  color: Colors.blueAccent,
-                  fontWeight: FontWeight.normal),
+          ElevatedButton.icon(
+            onPressed: () async {
+              setState(() {
+                isHide = false;
+              });
+            },
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(
+                  isTextFilled ? Colors.green : Colors.red),
+            ),
+            icon: const Icon(Icons.book, color: Colors.black),
+            label: const Text(
+              'Dodaj tytuł dziennika',
+              style: TextStyle(fontSize: 20),
             ),
           ),
+          SizedBox(height: 20),
+          if (isHide == false) ...[
+            TextField(
+              onChanged: (newValue) {
+                widget.onTitleChanged(newValue);
+                setState(() {
+                  isTextFilled = newValue
+                      .isNotEmpty; // ustawiamy zmienną na true, jeśli tekst jest wprowadzany
+                });
+              },
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Np. Dziennik Treningowy',
+                label: Text(
+                  'Dodaj tytuł dziennika',
+                  style: TextStyle(color: Colors.blueAccent, fontSize: 20),
+                ),
+                hintStyle: TextStyle(
+                    fontSize: 20.0,
+                    color: Colors.blueAccent,
+                    fontWeight: FontWeight.normal),
+              ),
+            ),
+          ],
+
           SizedBox(
             height: 20,
           ),
@@ -146,7 +174,7 @@ class _AddPageBody extends StatelessWidget {
             onPressed: () async {
               final imagePicker = ImagePicker();
               final XFile? file =
-                  await imagePicker.pickImage(source: ImageSource.camera);
+                  await imagePicker.pickImage(source: ImageSource.gallery);
 
               if (file == null) return;
 
@@ -161,14 +189,18 @@ class _AddPageBody extends StatelessWidget {
                   referenceDirImages.child(uniqueFileName);
 
               try {
-                await referenceImageToUpload.putFile(File(file!.path));
+                await referenceImageToUpload.putFile(File(file.path));
 
                 imageURL = await referenceImageToUpload.getDownloadURL();
-                onImageUrlChanged(imageURL);
+                widget.onImageUrlChanged(imageURL);
+                setState(() {
+                  isImageAdded = imageURL.isNotEmpty;
+                });
               } catch (error) {}
             },
             style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Colors.blue),
+              backgroundColor: MaterialStateProperty.all(
+                  isImageAdded ? Colors.green : Colors.red),
             ),
             icon: const Icon(Icons.camera_alt, color: Colors.black),
             label: const Text(
@@ -194,7 +226,7 @@ class _AddPageBody extends StatelessWidget {
           //   ),
           // ),
           const SizedBox(height: 20),
-          ElevatedButton(
+          ElevatedButton.icon(
             onPressed: () async {
               final selectedDate = await showDatePicker(
                 context: context,
@@ -204,11 +236,19 @@ class _AddPageBody extends StatelessWidget {
                   const Duration(days: 365 * 10),
                 ),
               );
-              onDateChanged(selectedDate);
+              widget.onDateChanged(selectedDate);
+              setState(() {
+                isTimeAdded = selectedDate.toString().isNotEmpty;
+              });
             },
-            child: Text(
-              selectedDateFormatted ?? 'Wybierz datę utworzenia dziennika',
-              style: TextStyle(color: Colors.amber, fontSize: 18),
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(
+                  isTimeAdded ? Colors.green : Colors.red),
+            ),
+            icon: Icon(Icons.timer, color: Colors.black),
+            label: Text(
+              widget.selectedDateFormatted ??
+                  'Wybierz datę utworzenia dziennika',
             ),
           ),
         ],

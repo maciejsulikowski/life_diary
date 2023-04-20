@@ -139,57 +139,60 @@ class ListViewItem extends StatelessWidget {
           vertical: 10,
           horizontal: 30,
         ),
-        child: Container(
-          decoration: const BoxDecoration(
-            color: Colors.black12,
-          ),
-          child: Column(
-            children: [
-              Container(
-                height: 180,
-                decoration: BoxDecoration(
-                  color: Colors.black12,
-                  image: DecorationImage(
-                    image: NetworkImage(
-                      itemModel.imageURL,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: Container(
+            decoration: const BoxDecoration(
+              color: Colors.black12,
+            ),
+            child: Column(
+              children: [
+                Container(
+                  height: 180,
+                  decoration: BoxDecoration(
+                    color: Colors.black12,
+                    image: DecorationImage(
+                      image: NetworkImage(
+                        itemModel.imageURL,
+                      ),
+                      fit: BoxFit.cover,
                     ),
-                    fit: BoxFit.cover,
                   ),
                 ),
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      color: Colors.amber,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Center(
-                            child: Text(
-                              itemModel.title,
-                              style: const TextStyle(
-                                  fontSize: 20.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.blueAccent),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        color: Colors.amber,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Center(
+                              child: Text(
+                                itemModel.title,
+                                style: const TextStyle(
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.blueAccent),
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 10),
-                          Center(
-                            child: Text(
-                              itemModel.releaseDateFormatted(),
-                              style: const TextStyle(
-                                  color: Colors.blue,
-                                  fontWeight: FontWeight.bold),
+                            const SizedBox(height: 10),
+                            Center(
+                              child: Text(
+                                itemModel.releaseDateFormatted(),
+                                style: const TextStyle(
+                                    color: Colors.blue,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -136,41 +136,43 @@ class _ListViewItem extends StatelessWidget {
           vertical: 10,
           horizontal: 30,
         ),
-        child: Container(
-          decoration: const BoxDecoration(
-            color: Colors.amber,
-          ),
-          child: Column(
-            children: [
-              Container(
-                height: 150,
-                decoration: BoxDecoration(
-                  color: Colors.black12,
-                  image: DecorationImage(
-                    image: NetworkImage(
-                      itemModel.imageURL,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: Container(
+            decoration: const BoxDecoration(
+              color: Colors.white,
+            ),
+            child: Column(
+              children: [
+                Container(
+                  height: 150,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage(
+                        itemModel.imageURL,
+                      ),
+                      fit: BoxFit.cover,
                     ),
-                    fit: BoxFit.cover,
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      itemModel.title,
-                      style: const TextStyle(
-                          color: Colors.blue,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    const Icon(Icons.book, color: Colors.black),
-                  ],
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        itemModel.title,
+                        style: const TextStyle(
+                            color: Colors.blue,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      const Icon(Icons.book, color: Colors.black),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
