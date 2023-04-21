@@ -49,13 +49,6 @@ class _DetailsPageContentState extends State<DetailsPageContent> {
             }
 
             return Scaffold(
-                floatingActionButton: FloatingActionButton(
-                  onPressed: () {
-                    _DiaryPage;
-                  },
-                  backgroundColor: Colors.green,
-                  child: const Icon(Icons.navigation),
-                ),
                 appBar: AppBar(
                   title: Text(
                     'LIFEDIARY',

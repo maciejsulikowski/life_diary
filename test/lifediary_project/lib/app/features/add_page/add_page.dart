@@ -111,10 +111,17 @@ class _AddPageBody extends StatefulWidget {
 
 class _AddPageBodyState extends State<_AddPageBody> {
   late String imageURL;
-  bool isHide = true;
+  bool isTextHide = true;
+  bool isPhotoHide = true;
   bool isTextFilled = false;
   bool isImageAdded = false;
   bool isTimeAdded = false;
+
+  @override
+  void initState() {
+    super.initState();
+    imageURL = '';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +136,7 @@ class _AddPageBodyState extends State<_AddPageBody> {
           ElevatedButton.icon(
             onPressed: () async {
               setState(() {
-                isHide = false;
+                isTextHide = false;
               });
             },
             style: ButtonStyle(
@@ -143,13 +150,12 @@ class _AddPageBodyState extends State<_AddPageBody> {
             ),
           ),
           SizedBox(height: 20),
-          if (isHide == false) ...[
+          if (isTextHide == false) ...[
             TextField(
               onChanged: (newValue) {
                 widget.onTitleChanged(newValue);
                 setState(() {
-                  isTextFilled = newValue
-                      .isNotEmpty; // ustawiamy zmienną na true, jeśli tekst jest wprowadzany
+                  isTextFilled = newValue.isNotEmpty;
                 });
               },
               decoration: const InputDecoration(
@@ -172,6 +178,9 @@ class _AddPageBodyState extends State<_AddPageBody> {
           ),
           ElevatedButton.icon(
             onPressed: () async {
+              setState(() {
+                isPhotoHide = false;
+              });
               final imagePicker = ImagePicker();
               final XFile? file =
                   await imagePicker.pickImage(source: ImageSource.gallery);
@@ -209,6 +218,21 @@ class _AddPageBodyState extends State<_AddPageBody> {
             ),
           ),
           const SizedBox(height: 20),
+          if (isPhotoHide == false) ...[
+            Container(
+              height: 200,
+              width: 100,
+              decoration: BoxDecoration(
+                color: Colors.black12,
+                image: DecorationImage(
+                  image: NetworkImage(
+                    imageURL,
+                  ),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          ],
           // TextField(
           //   onChanged: onImageUrlChanged,
           //   decoration: const InputDecoration(
