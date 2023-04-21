@@ -49,17 +49,29 @@ class _AddPageState extends State<AddPage> {
               appBar: AppBar(
                 centerTitle: true,
                 actions: [
-                  IconButton(
-                    onPressed: imageURL == null ||
+                  Container(
+                    color: imageURL == null ||
                             _title == null ||
                             _releaseDate == null
-                        ? null
-                        : () {
-                            context
-                                .read<AddCubit>()
-                                .add(_title!, imageURL!, _releaseDate!, text);
-                          },
-                    icon: const Icon(Icons.check),
+                        ? Colors.red
+                        : Colors.green,
+                    child: IconButton(
+                      onPressed: imageURL == null ||
+                              _title == null ||
+                              _releaseDate == null
+                          ? null
+                          : () {
+                              context
+                                  .read<AddCubit>()
+                                  .add(_title!, imageURL!, _releaseDate!, text);
+                            },
+                      icon: Icon(Icons.check,
+                          color: imageURL == null ||
+                                  _title == null ||
+                                  _releaseDate == null
+                              ? Color.fromARGB(255, 148, 14, 5)
+                              : Color.fromARGB(255, 0, 76, 3)),
+                    ),
                   ),
                 ],
               ),
@@ -172,7 +184,6 @@ class _AddPageBodyState extends State<_AddPageBody> {
               ),
             ),
           ],
-
           SizedBox(
             height: 20,
           ),
@@ -212,8 +223,8 @@ class _AddPageBodyState extends State<_AddPageBody> {
                   isImageAdded ? Colors.green : Colors.red),
             ),
             icon: const Icon(Icons.camera_alt, color: Colors.black),
-            label: const Text(
-              'Dodaj zdjęcie',
+            label: Text(
+              isImageAdded ? 'Zmień zdjęcie' : 'Dodaj zdjęcie',
               style: TextStyle(fontSize: 20),
             ),
           ),
@@ -233,22 +244,6 @@ class _AddPageBodyState extends State<_AddPageBody> {
               ),
             ),
           ],
-          // TextField(
-          //   onChanged: onImageUrlChanged,
-          //   decoration: const InputDecoration(
-          //     border: OutlineInputBorder(),
-          //     hintText:
-          //         'https://cdn.pixabay.com/photo/2012/04/13/14/16/address-32567_960_720.png',
-          //     label: Text(
-          //       'Link URL obrazu',
-          //       style: TextStyle(color: Colors.blueAccent, fontSize: 20),
-          //     ),
-          //     hintStyle: TextStyle(
-          //         fontSize: 20.0,
-          //         color: Colors.blueAccent,
-          //         fontWeight: FontWeight.normal),
-          //   ),
-          // ),
           const SizedBox(height: 20),
           ElevatedButton.icon(
             onPressed: () async {
