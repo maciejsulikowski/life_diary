@@ -1,9 +1,11 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:lifediary_project/app/domain/models/item_model.dart';
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
 import 'package:meta/meta.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 part 'details_state.dart';
 
@@ -11,7 +13,12 @@ class DetailsCubit extends Cubit<DetailsState> {
   DetailsCubit(
     this._itemsRepository,
   ) : super(const DetailsState(
-            itemModel: null, isLoading: false, errorMessage: '', saved: false));
+          itemModel: null,
+          isLoading: false,
+          errorMessage: '',
+          saved: false,
+          fontWeight: 0,
+        ));
 
   final ItemsRepository _itemsRepository;
 
@@ -21,10 +28,12 @@ class DetailsCubit extends Cubit<DetailsState> {
     final itemModel = await _itemsRepository.get(id: id);
     emit(
       DetailsState(
-          itemModel: itemModel,
-          isLoading: false,
-          errorMessage: '',
-          saved: false),
+        itemModel: itemModel,
+        isLoading: false,
+        errorMessage: '',
+        saved: false,
+        fontWeight: 0,
+      ),
     );
   }
 
@@ -32,10 +41,14 @@ class DetailsCubit extends Cubit<DetailsState> {
     _streamSubscription = _itemsRepository.getItemsStream().listen(
       (itemModel) {
         emit(const DetailsState(
-            itemModel: null, isLoading: false, errorMessage: '', saved: false));
+          itemModel: null,
+          isLoading: false,
+          errorMessage: '',
+          saved: false,
+          fontWeight: 0,
+        ));
       },
     );
-
   }
 
   Future<void> addtext(
@@ -46,16 +59,26 @@ class DetailsCubit extends Cubit<DetailsState> {
     final itemModel = await _itemsRepository.get(id: id);
     emit(
       const DetailsState(
-          itemModel: null, isLoading: true, errorMessage: '', saved: true),
+        itemModel: null,
+        isLoading: true,
+        errorMessage: '',
+        saved: true,
+        fontWeight: 0,
+      ),
     );
     emit(
       DetailsState(
-          itemModel: itemModel,
-          isLoading: false,
-          errorMessage: '',
-          saved: true),
+        itemModel: itemModel,
+        isLoading: false,
+        errorMessage: '',
+        saved: true,
+        fontWeight: 0,
+      ),
     );
   }
+
+  
+
 
   @override
   Future<void> close() {

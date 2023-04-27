@@ -178,93 +178,125 @@ class _DiaryPage extends StatefulWidget {
     Key? key,
     required this.itemModel,
     required this.controller,
-    this.isBold = false,
   }) : super(key: key);
 
   final ItemModel itemModel;
   final TextEditingController controller;
-  bool isBold;
 
   @override
   _DiaryPageState createState() => _DiaryPageState();
 }
 
 class _DiaryPageState extends State<_DiaryPage> {
+  bool isBold = false;
+  bool isColored = false;
+
+  // List<TextSpan> _textSpans = [];
+
+  // List<TextSpan> _buildTextSpans(String text) {
+  //   List<TextSpan> textSpans = [];
+
+  //   for (int i = 0; i < text.length; i++) {
+  //     String char = text[i];
+  //     FontWeight fontWeight = isBold ? FontWeight.bold : FontWeight.normal;
+  //     Color color = isColored ? Colors.green : Colors.black;
+  //     if (char == 'a') {
+  //       fontWeight = FontWeight.bold;
+  //     } else if (char == 'd') {
+  //       color = Colors.green;
+  //     }
+  //     textSpans.add(TextSpan(
+  //       text: char,
+  //       style: TextStyle(
+  //         fontWeight: fontWeight,
+  //         color: color,
+  //       ),
+  //     ));
+  //   }
+
+  //   return textSpans;
+  // }
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _textSpans = _buildTextSpans(widget.controller.text);
+  // }
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: 10,
-        horizontal: 20,
-      ),
-      child: Container(
-        color: Colors.amber,
-        child: Column(
-          children: [
-            Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  ElevatedButton.icon(
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.white),
-                    ),
-                    icon: const Icon(Icons.border_color_sharp,
-                        color: Colors.black),
-                    label: Text(
-                      'Gruba czcionka',
-                      style: GoogleFonts.lato(
-                          color: Colors.black, fontWeight: FontWeight.bold),
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        widget.isBold = true;
-                      });
-                    },
-                  ),
-                  ElevatedButton.icon(
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.white),
-                    ),
-                    icon: const Icon(Icons.border_color_sharp,
-                        color: Colors.black),
-                    label: Text(
-                      'Cieńsza czcionkę',
-                      style: GoogleFonts.lato(
-                          color: Colors.black, fontWeight: FontWeight.bold),
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        widget.isBold = false;
-                      });
-                    },
-                  ),
-                ],
-              ),
-            ),
-            TextField(
-              controller: widget.controller,
-              style: TextStyle(
-                  fontWeight:
-                      widget.isBold ? FontWeight.bold : FontWeight.normal),
-              maxLines: 20,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Write something here...',
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+    return BlocBuilder<DetailsCubit, DetailsState>(
+      builder: (context, state) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(
+            vertical: 10,
+            horizontal: 20,
+          ),
+          child: Container(
+            color: Colors.amber,
+            child: Column(
               children: [
                 Container(
-                  color: Colors.grey,
-                  height: 20,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          setState(() {
+                            isBold = !isBold;
+                          });
+                        },
+                        icon: Icon(
+                          Icons.format_bold,
+                          color: isBold ? Colors.grey : Colors.black,
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          setState(() {
+                            isColored = !isColored;
+                          });
+                        },
+                        icon: Icon(
+                          Icons.color_lens,
+                          color: isColored ? Colors.grey : Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                TextField(
+                  controller: widget.controller,
+                  style: TextStyle(
+                      fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+                      color: isColored
+                          ? Colors.green
+                          : Colors.black), // przekazanie null do kontrolera
+                  // buildCounter: (BuildContext context,
+                  //     {int? currentLength,
+                  //     int? maxLength,
+                  //     bool? isFocused,
+                  //     TextEditingController? controller}) {
+                  //   widget.controller.value = TextEditingValue(
+                  //       text: _textSpans
+                  //           .map((e) => e.text)
+                  //           .join('')); // aktualizacja wartości kontrolera
+                  //   return RichText(
+                  //     text: TextSpan(children: _textSpans),
+                  //   );
+                  // },
+                  maxLines: 20,
+
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Write something here...',
+                  ),
                 ),
               ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

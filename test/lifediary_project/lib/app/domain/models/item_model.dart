@@ -8,14 +8,16 @@ class ItemModel {
     required this.title,
     required this.imageURL,
     required this.releaseDate,
-    required this.text,
+    this.text = '',
+    this.fontWeight = 0,
   });
 
   final String id;
   final String title;
   final String imageURL;
   final DateTime releaseDate;
-  String text = '';
+  final String text;
+  final int fontWeight;
 
   String daysLeft() {
     return releaseDate.difference(DateTime.now()).inDays.toString();

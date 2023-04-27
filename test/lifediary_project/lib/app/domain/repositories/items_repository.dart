@@ -157,6 +157,7 @@ class ItemsRepository {
       imageURL: doc['image_url'],
       releaseDate: (doc['release_date'] as Timestamp).toDate(),
       text: doc['text'],
+      fontWeight: doc['font_weight'] ?? 0,
     );
   }
 
@@ -220,6 +221,7 @@ class ItemsRepository {
     String imageURL,
     DateTime releaseDate,
     String text,
+    int fontWeight,
   ) async {
     final userID = FirebaseAuth.instance.currentUser?.uid;
     if (userID == null) {
@@ -234,6 +236,23 @@ class ItemsRepository {
       'image_url': imageURL,
       'release_date': releaseDate,
       'text': text,
+      'font_weight': fontWeight,
+    });
+  }
+
+  Future<void> setFontWeight( 
+    int newValue,
+  ) async {
+    final userID = FirebaseAuth.instance.currentUser?.uid;
+    if (userID == null) {
+      throw Exception('User is not logged in');
+    }
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userID)
+        .collection('items')
+        .add({
+      'font_weight': newValue,
     });
   }
 
@@ -282,14 +301,6 @@ class ItemsRepository {
     if (userID == null) {
       throw Exception('User is not logged in');
     }
-    // final docs = await FirebaseFirestore.instance
-    //     .collection('users')
-    //     .doc(userID)
-    //     .collection('plans')
-    //     .where('time', isEqualTo: time) // zwroci wszystkie dokumenty z time
-    //     .get();
-
-    // w zaleznosci od ilosci dokumentow wywolac update albo add
     await FirebaseFirestore.instance
         .collection('users')
         .doc(userID)
@@ -304,41 +315,7 @@ class ItemsRepository {
     );
   }
 
-  // Future<void> getplan(
-  //   String text,
-  //   String time,
-  // ) async {
-  //   final userID = FirebaseAuth.instance.currentUser?.uid;
-  //   if (userID == null) {
-  //     throw Exception('User is not logged in');
-  //   }
-  //   await FirebaseFirestore.instance
-  //       .collection('users')
-  //       .doc(userID)
-  //       .collection('plans')
-  //       .get(
-  //     {
-  //       'title': text,
-  //       'time': time,
-  //     },
-  //   );
-  // }
-
-  // Future<void> updatePlan(String text, int index) async {
-  //   final userID = FirebaseAuth.instance.currentUser?.uid;
-  //   if (userID == null) {
-  //     throw Exception('User is not logged in');
-  //   }
-
-  //   await FirebaseFirestore.instance
-  //       .collection('users')
-  //       .doc(userID)
-  //       .collection('plans')
-  //       .doc(index.toString())
-  //       .update(
-  //     {'plan': text},
-  //   );
-  // }
+ 
 
   Future<void> addtext(
     String id,

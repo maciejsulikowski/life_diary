@@ -16,9 +16,11 @@ class AddCubit extends Cubit<AddState> {
     String imageURL,
     DateTime releaseDate,
     String text,
+    int fontWeight,
   ) async {
     try {
-      await _itemsRepository.add(title, imageURL, releaseDate, text);
+      await _itemsRepository.add(
+          title, imageURL, releaseDate, text, fontWeight);
       emit(
         const AddState(saved: true),
       );
