@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lifediary_project/app/features/details_photo/cubit/details_photo_cubit.dart';
+import 'package:lifediary_project/app/features/details_photo/pages/details_photo_page.dart';
 import 'package:lifediary_project/app/features/login/login_page.dart';
 import 'package:lifediary_project/app/domain/models/item_model.dart';
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
@@ -47,7 +49,6 @@ class TrainingPageContent extends StatelessWidget {
             ),
           ]),
       body: const NewPhoto(),
-      
     );
   }
 }
@@ -117,57 +118,70 @@ class ListViewItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: 10,
-        horizontal: 20,
-      ),
-      child: Container(
-        decoration: const BoxDecoration(
-          color: Colors.black12,
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => DetailsPhotoPageContent(
+              id: photoModel.id,
+              photoModel: photoModel,
+            ),
+          ),
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: 10,
+          horizontal: 20,
         ),
-        child: Column(
-          children: [
-            Container(
-              height: 250,
-              decoration: BoxDecoration(
-                color: Colors.black12,
-                image: DecorationImage(
-                  image: NetworkImage(
-                    photoModel.imageURL,
+        child: Container(
+          decoration: const BoxDecoration(
+            color: Colors.black12,
+          ),
+          child: Column(
+            children: [
+              Container(
+                height: 250,
+                decoration: BoxDecoration(
+                  color: Colors.black12,
+                  image: DecorationImage(
+                    image: NetworkImage(
+                      photoModel.imageURL,
+                    ),
+                    fit: BoxFit.fill,
                   ),
-                  fit: BoxFit.fill,
                 ),
               ),
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    color: Colors.amber,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          photoModel.title,
-                          style: const TextStyle(
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.blue),
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          photoModel.releaseDateFormatted(),
-                          style: TextStyle(
-                              color: Colors.blue, fontWeight: FontWeight.bold),
-                        ),
-                      ],
+              Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      color: Colors.amber,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            photoModel.title,
+                            style: const TextStyle(
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.blue),
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            photoModel.releaseDateFormatted(),
+                            style: TextStyle(
+                                color: Colors.blue,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
