@@ -22,7 +22,9 @@ class DetailsPhotoPageContent extends StatefulWidget {
 }
 
 class _DetailsPhotoPageContentState extends State<DetailsPhotoPageContent> {
-  final controller = TextEditingController();
+  final weightController = TextEditingController();
+  final heightController = TextEditingController();
+  final newController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -39,10 +41,27 @@ class _DetailsPhotoPageContentState extends State<DetailsPhotoPageContent> {
           return Scaffold(
             appBar: AppBar(
               title: Text('lysy'),
+              actions: [
+                ElevatedButton.icon(
+                  onPressed: () async {
+                    setState(() {});
+                  },
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.green),
+                  ),
+                  icon: const Icon(Icons.check, color: Colors.black),
+                  label: Text(
+                    'Zapisz zmiany',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
+              ],
             ),
             body: _ListViewItem(
               photoModel: photoModel,
-              controller: controller,
+              weightController: weightController,
+              heightController: heightController,
+              newController: newController,
             ),
           );
         },
@@ -55,17 +74,21 @@ class _ListViewItem extends StatelessWidget {
   const _ListViewItem({
     Key? key,
     required this.photoModel,
-    required this.controller,
+    required this.weightController,
+    required this.heightController,
+    required this.newController,
   }) : super(key: key);
 
   final PhotosModel? photoModel;
-  final TextEditingController controller;
+  final TextEditingController weightController;
+  final TextEditingController heightController;
+  final TextEditingController newController;
 
   @override
   Widget build(BuildContext context) {
     return ListView(children: [
       Container(
-        color: Colors.blueAccent[700],
+        color: Colors.blue,
         child: Padding(
           padding: const EdgeInsets.symmetric(
             vertical: 10,
@@ -118,11 +141,19 @@ class _ListViewItem extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 20),
-                WriteSentence(controller: controller),
+                WeightSentence(
+                  weightController: weightController,
+                ),
                 SizedBox(height: 20),
-                WriteSentence(controller: controller),
-                SizedBox(height: 20),
-                WriteSentence(controller: controller),
+                HeightSentence(
+                  heightController: heightController,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                NewSentence(
+                  newController: newController,
+                ),
               ],
             ),
           ),
@@ -132,26 +163,71 @@ class _ListViewItem extends StatelessWidget {
   }
 }
 
-class WriteSentence extends StatelessWidget {
-  const WriteSentence({
+class WeightSentence extends StatelessWidget {
+  const WeightSentence({
     super.key,
-    required this.controller,
+    required this.weightController,
   });
 
-  final TextEditingController controller;
+  final TextEditingController weightController;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        TextField(
-          controller: controller,
-          decoration: const InputDecoration(
-            border: OutlineInputBorder(),
-            hintText: 'Write something here...',
-          ),
+    return Container(
+      color: Colors.green,
+      child: TextField(
+        controller: weightController,
+        decoration: const InputDecoration(
+          border: OutlineInputBorder(),
+          hintText: 'Podaj swoją wagę',
         ),
-      ],
+      ),
+    );
+  }
+}
+
+class HeightSentence extends StatelessWidget {
+  const HeightSentence({
+    super.key,
+    required this.heightController,
+  });
+
+  final TextEditingController heightController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.green,
+      child: TextField(
+        controller: heightController,
+        decoration: const InputDecoration(
+          border: OutlineInputBorder(),
+          hintText: 'Podaj swój wzrost',
+        ),
+      ),
+    );
+  }
+}
+
+class NewSentence extends StatelessWidget {
+  const NewSentence({
+    super.key,
+    required this.newController,
+  });
+
+  final TextEditingController newController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.green,
+      child: TextField(
+        controller: newController,
+        decoration: const InputDecoration(
+          border: OutlineInputBorder(),
+          hintText: 'Napisz swój cel',
+        ),
+      ),
     );
   }
 }
