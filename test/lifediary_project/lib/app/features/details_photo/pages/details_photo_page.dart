@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -86,55 +88,64 @@ class _ListViewItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(children: [
-      Container(
-        color: Colors.blue,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: 10,
-            horizontal: 20,
-          ),
+    return Column(children: [
+      Expanded(
+        child: Container(
+          color: Colors.blue,
           child: Container(
             decoration: const BoxDecoration(
               color: Colors.black12,
             ),
             child: Column(
               children: [
-                Container(
-                  height: 250,
-                  decoration: BoxDecoration(
-                    color: Colors.black12,
-                    image: DecorationImage(
-                      image: NetworkImage(
-                        photoModel!.imageURL,
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 8,
+                    left: 8,
+                    right: 8,
+                  ),
+                  child: Container(
+                    height: 250,
+                    decoration: BoxDecoration(
+                      color: Colors.black12,
+                      image: DecorationImage(
+                        image: NetworkImage(
+                          photoModel!.imageURL,
+                        ),
+                        fit: BoxFit.fill,
                       ),
-                      fit: BoxFit.fill,
                     ),
                   ),
                 ),
                 Row(
                   children: [
                     Expanded(
-                      child: Container(
-                        color: Colors.amber,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              photoModel!.title,
-                              style: const TextStyle(
-                                  fontSize: 20.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.blue),
-                            ),
-                            const SizedBox(height: 10),
-                            Text(
-                              photoModel!.releaseDateFormatted(),
-                              style: TextStyle(
-                                  color: Colors.blue,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ],
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          left: 8,
+                          right: 8,
+                        ),
+                        child: Container(
+                          color: Colors.amber,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                photoModel!.title,
+                                style: const TextStyle(
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.blue),
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                photoModel!.releaseDateFormatted(),
+                                style: TextStyle(
+                                    color: Colors.blue,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -154,6 +165,13 @@ class _ListViewItem extends StatelessWidget {
                 NewSentence(
                   newController: newController,
                 ),
+                SizedBox(
+                  height: 10,
+                ),
+                Expanded(
+                  flex: 1,
+                  child: QuoteSentence(),
+                )
               ],
             ),
           ),
@@ -173,13 +191,16 @@ class WeightSentence extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.green,
-      child: TextField(
-        controller: weightController,
-        decoration: const InputDecoration(
-          border: OutlineInputBorder(),
-          hintText: 'Podaj swoją wagę',
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        color: Colors.green,
+        child: TextField(
+          controller: weightController,
+          decoration: const InputDecoration(
+            border: OutlineInputBorder(),
+            hintText: 'Podaj swoją wagę',
+          ),
         ),
       ),
     );
@@ -196,13 +217,16 @@ class HeightSentence extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.green,
-      child: TextField(
-        controller: heightController,
-        decoration: const InputDecoration(
-          border: OutlineInputBorder(),
-          hintText: 'Podaj swój wzrost',
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        color: Colors.green,
+        child: TextField(
+          controller: heightController,
+          decoration: const InputDecoration(
+            border: OutlineInputBorder(),
+            hintText: 'Podaj swój wzrost',
+          ),
         ),
       ),
     );
@@ -219,15 +243,76 @@ class NewSentence extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.green,
-      child: TextField(
-        controller: newController,
-        decoration: const InputDecoration(
-          border: OutlineInputBorder(),
-          hintText: 'Napisz swój cel',
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        color: Colors.green,
+        child: TextField(
+          controller: newController,
+          decoration: const InputDecoration(
+            border: OutlineInputBorder(),
+            hintText: 'Napisz swój cel',
+          ),
         ),
       ),
+    );
+  }
+}
+
+class QuoteSentence extends StatelessWidget {
+  QuoteSentence({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final random = Random();
+    final quotes = [
+      'Człowiek staje się tym, o czym myśli. Ralph Waldo Emerson',
+      'Prawdziwe szczęście jest rzeczą wysiłku, odwagi i pracy. Honore de Balzac',
+      'Początek jest najważniejszą częścią pracy. Platon',
+      'Zwycięzcy robią to, czego przegranym się nie chciało. Jonathan Carroll',
+      'Z uśmiechem na twarzy człowiek podwaja swoje możliwości. Przysłowie japońskie',
+    ];
+    final randomQuote = quotes[random.nextInt(quotes.length)];
+    final parts = randomQuote.split('.');
+    final quoteText = parts.first.trim() + '.';
+    final author = parts.last.trim();
+
+    final quoteSpans = <TextSpan>[
+      TextSpan(text: quoteText),
+      TextSpan(text: ' '),
+      TextSpan(text: author, style: TextStyle(color: Colors.grey)),
+    ];
+    return Column(
+      children: [
+        Expanded(
+          flex: 1,
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              color: Colors.black,
+              border: Border.all(
+                color: Colors.white,
+                width: 2,
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Center(
+                child: RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                      children: quoteSpans,
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontStyle: FontStyle.italic,
+                          color: Colors.white)),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
