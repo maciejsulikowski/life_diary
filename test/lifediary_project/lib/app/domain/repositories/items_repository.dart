@@ -105,11 +105,11 @@ class ItemsRepository {
     });
   }
 
-  Future<void> addPhotoData(
+  Future<void> savePhotoData(
     String id,
-    TextEditingController weight,
-    TextEditingController height,
-    TextEditingController goals,
+    String weight,
+    String height,
+    String goals,
   ) async {
     final userID = FirebaseAuth.instance.currentUser?.uid;
     if (userID == null) {
@@ -118,13 +118,15 @@ class ItemsRepository {
     await FirebaseFirestore.instance
         .collection('users')
         .doc(userID)
-        .collection('photos_data')
-        .add(
+        .collection('photos')
+        .doc(id)
+        .set(
       {
         'weight': weight,
         'height': height,
         'goals': goals,
       },
+      SetOptions(merge: true),
     );
   }
 
@@ -222,9 +224,9 @@ class ItemsRepository {
       title: doc['title'],
       imageURL: doc['image_url'],
       releaseDate: (doc['release_date'] as Timestamp).toDate(),
-      height: doc['height'] ?? '',
-      weight: doc['weight'] ?? '',
-      goals: doc['goals'] ?? '',
+      height: doc['height'],
+      weight: doc['weight'],
+      goals: doc['goals'],
     );
   }
 
@@ -270,22 +272,6 @@ class ItemsRepository {
     });
   }
 
-  Future<void> setFontWeight(
-    int newValue,
-  ) async {
-    final userID = FirebaseAuth.instance.currentUser?.uid;
-    if (userID == null) {
-      throw Exception('User is not logged in');
-    }
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userID)
-        .collection('items')
-        .add({
-      'font_weight': newValue,
-    });
-  }
-
   Future<void> addphoto(
     String title,
     String imageURL,
@@ -306,9 +292,9 @@ class ItemsRepository {
       'title': title,
       'image_url': imageURL,
       'release_date': releaseDate,
-      'weight' : weight,
-      'height' : height,
-      'goals' : goals,
+      'weight': weight,
+      'height': height,
+      'goals': goals,
     });
   }
 

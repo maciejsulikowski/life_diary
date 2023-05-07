@@ -9,13 +9,7 @@ import 'package:lifediary_project/app/domain/models/item_model.dart';
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
 import 'package:lifediary_project/app/features/daily_plan/cubit/daily_plan_cubit.dart';
 
-//ikonka jakas kozacka
-//sprawdzic na innych telefonach, devicepreview
-// sprobowac w planie dnia add bar
-// czyli wdzedzie te same padingi i marginy
-// graficznie udoskonalic, ogarnac
-//firebase storage, imagepicker - do zdjec do wrzucania
-// zapisz
+
 class DailyPlanPageContent extends StatefulWidget {
   DailyPlanPageContent({
     Key? key,

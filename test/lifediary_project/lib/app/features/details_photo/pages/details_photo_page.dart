@@ -27,14 +27,13 @@ class _DetailsPhotoPageContentState extends State<DetailsPhotoPageContent> {
   final weightController = TextEditingController();
   final heightController = TextEditingController();
   final newController = TextEditingController();
-  String text = '';
 
   @override
   void initState() {
-    super.initState();
     weightController.text = widget.photoModel.weight;
     heightController.text = widget.photoModel.height;
     newController.text = widget.photoModel.goals;
+    super.initState();
   }
 
   @override
@@ -56,8 +55,18 @@ class _DetailsPhotoPageContentState extends State<DetailsPhotoPageContent> {
                 ElevatedButton.icon(
                   onPressed: () async {
                     setState(() {
-                      context.read<DetailsPhotoCubit>().savePhotoData(widget.id,
-                          weightController, heightController, newController,);
+                      context.read<DetailsPhotoCubit>().savePhotoData(
+                            widget.id,
+                            
+                            weightController.text,
+                            heightController.text,
+                            newController.text,
+                          );
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text("Wprowadzono zmiany!"),
+                        ),
+                      );
                     });
                   },
                   style: ButtonStyle(
@@ -85,7 +94,7 @@ class _DetailsPhotoPageContentState extends State<DetailsPhotoPageContent> {
 }
 
 class _ListViewItem extends StatelessWidget {
-  const _ListViewItem({
+  _ListViewItem({
     Key? key,
     required this.photoModel,
     required this.weightController,

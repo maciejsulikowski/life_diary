@@ -51,13 +51,14 @@ class DetailsPhotoCubit extends Cubit<DetailsPhotoState> {
 
   Future<void> savePhotoData(
     String id,
-    TextEditingController weight,
-    TextEditingController height,
-    TextEditingController goals,
-    
+   
+    String weight,
+    String height,
+    String goals,
   ) async {
     try {
-      await _itemsRepository.addPhotoData(id, weight, height, goals);
+      await _itemsRepository.savePhotoData(
+          id, weight, height, goals);
       final photosModel = await _itemsRepository.getphotos(id: id);
 
       emit(
