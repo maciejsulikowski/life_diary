@@ -27,6 +27,15 @@ class _DetailsPhotoPageContentState extends State<DetailsPhotoPageContent> {
   final weightController = TextEditingController();
   final heightController = TextEditingController();
   final newController = TextEditingController();
+  String text = '';
+
+  @override
+  void initState() {
+    super.initState();
+    weightController.text = widget.photoModel.weight;
+    heightController.text = widget.photoModel.height;
+    newController.text = widget.photoModel.goals;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +55,10 @@ class _DetailsPhotoPageContentState extends State<DetailsPhotoPageContent> {
               actions: [
                 ElevatedButton.icon(
                   onPressed: () async {
-                    setState(() {});
+                    setState(() {
+                      context.read<DetailsPhotoCubit>().savePhotoData(widget.id,
+                          weightController, heightController, newController,);
+                    });
                   },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(Colors.green),
@@ -199,7 +211,7 @@ class WeightSentence extends StatelessWidget {
           controller: weightController,
           decoration: const InputDecoration(
             border: OutlineInputBorder(),
-            hintText: 'Podaj swoją wagę',
+            hintText: 'Podaj swoją wagę w kg',
           ),
         ),
       ),
@@ -225,7 +237,7 @@ class HeightSentence extends StatelessWidget {
           controller: heightController,
           decoration: const InputDecoration(
             border: OutlineInputBorder(),
-            hintText: 'Podaj swój wzrost',
+            hintText: 'Podaj swój wzrost w cm',
           ),
         ),
       ),

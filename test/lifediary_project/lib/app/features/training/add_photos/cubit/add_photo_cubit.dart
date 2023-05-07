@@ -13,10 +13,13 @@ class AddPhotoCubit extends Cubit<AddPhotoState> {
     String title,
     String imageURL,
     DateTime releaseDate,
-    
+    String weight,
+    String height,
+    String goals,
   ) async {
     try {
-      await _itemsRepository.addphoto(title, imageURL, releaseDate);
+      await _itemsRepository.addphoto(
+          title, imageURL, releaseDate, weight, height, goals);
       emit(
         const AddPhotoState(saved: true),
       );

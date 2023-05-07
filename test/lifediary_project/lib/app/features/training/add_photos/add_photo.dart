@@ -19,6 +19,9 @@ class _AddPhotoState extends State<AddPhoto> {
   String? _imageURL;
   String? _title;
   DateTime? _releaseDate;
+  String weight = '';
+  String height = '';
+  String goals = '';
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +62,9 @@ class _AddPhotoState extends State<AddPhoto> {
                                   _title!,
                                   _imageURL!,
                                   _releaseDate!,
+                                  weight,
+                                  height,
+                                  goals,
                                 );
                           },
                     icon: const Icon(Icons.check),

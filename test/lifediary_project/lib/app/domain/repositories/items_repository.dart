@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:lifediary_project/app/domain/models/item_model.dart';
+import 'package:lifediary_project/app/features/details_photo/pages/details_photo_page.dart';
 
 class ItemsRepository {
   Stream<List<ItemModel>> getItemsStream() {
@@ -73,6 +74,9 @@ class ItemsRepository {
             title: doc['title'],
             imageURL: doc['image_url'],
             releaseDate: (doc['release_date'] as Timestamp).toDate(),
+            height: doc['height'] ?? '',
+            weight: doc['weight'] ?? '',
+            goals: doc['goals'] ?? '',
           );
         },
       ).toList();
@@ -99,6 +103,29 @@ class ItemsRepository {
         },
       ).toList();
     });
+  }
+
+  Future<void> addPhotoData(
+    String id,
+    TextEditingController weight,
+    TextEditingController height,
+    TextEditingController goals,
+  ) async {
+    final userID = FirebaseAuth.instance.currentUser?.uid;
+    if (userID == null) {
+      throw Exception('User is not logged in');
+    }
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userID)
+        .collection('photos_data')
+        .add(
+      {
+        'weight': weight,
+        'height': height,
+        'goals': goals,
+      },
+    );
   }
 
   Future<void> delete({required String id}) {
@@ -195,6 +222,9 @@ class ItemsRepository {
       title: doc['title'],
       imageURL: doc['image_url'],
       releaseDate: (doc['release_date'] as Timestamp).toDate(),
+      height: doc['height'] ?? '',
+      weight: doc['weight'] ?? '',
+      goals: doc['goals'] ?? '',
     );
   }
 
@@ -240,7 +270,7 @@ class ItemsRepository {
     });
   }
 
-  Future<void> setFontWeight( 
+  Future<void> setFontWeight(
     int newValue,
   ) async {
     final userID = FirebaseAuth.instance.currentUser?.uid;
@@ -260,6 +290,9 @@ class ItemsRepository {
     String title,
     String imageURL,
     DateTime releaseDate,
+    String weight,
+    String height,
+    String goals,
   ) async {
     final userID = FirebaseAuth.instance.currentUser?.uid;
     if (userID == null) {
@@ -273,6 +306,9 @@ class ItemsRepository {
       'title': title,
       'image_url': imageURL,
       'release_date': releaseDate,
+      'weight' : weight,
+      'height' : height,
+      'goals' : goals,
     });
   }
 
@@ -314,8 +350,6 @@ class ItemsRepository {
       SetOptions(merge: true),
     );
   }
-
- 
 
   Future<void> addtext(
     String id,

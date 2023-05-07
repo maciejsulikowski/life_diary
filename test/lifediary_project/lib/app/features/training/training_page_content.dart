@@ -97,6 +97,7 @@ class NewPhoto extends StatelessWidget {
                     },
                     child: ListViewItem(
                       photoModel: photoModel,
+                      
                     ),
                   ),
               ],
@@ -112,9 +113,11 @@ class ListViewItem extends StatelessWidget {
   const ListViewItem({
     Key? key,
     required this.photoModel,
+    
   }) : super(key: key);
 
   final PhotosModel photoModel;
+  
 
   @override
   Widget build(BuildContext context) {
@@ -125,6 +128,7 @@ class ListViewItem extends StatelessWidget {
             builder: (context) => DetailsPhotoPageContent(
               id: photoModel.id,
               photoModel: photoModel,
+              
             ),
           ),
         );
