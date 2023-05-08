@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,6 +26,12 @@ class _AddPhotoState extends State<AddPhoto> {
   String weight = '';
   String height = '';
   String goals = '';
+  late String imageURL;
+  bool isTextHide = true;
+
+  bool isTextFilled = false;
+  bool isImageAdded = false;
+  bool isTimeAdded = false;
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +109,7 @@ class _AddPhotoState extends State<AddPhoto> {
   }
 }
 
-class _AddPhotoBody extends StatelessWidget {
+class _AddPhotoBody extends StatefulWidget {
   _AddPhotoBody({
     Key? key,
     required this.onTitleChanged,
@@ -112,9 +122,24 @@ class _AddPhotoBody extends StatelessWidget {
   final Function(String) onImageUrlChanged;
   final Function(DateTime?) onDateChanged;
   final String? selectedDateFormatted;
-  final TextEditingController controller = TextEditingController(
-      text:
-          'Np: https://cdn.pixabay.com/photo/2012/04/13/14/16/address-32567_960_720.png');
+
+  @override
+  State<_AddPhotoBody> createState() => _AddPhotoBodyState();
+}
+
+class _AddPhotoBodyState extends State<_AddPhotoBody> {
+  bool isPhotoHide = true;
+  late String imageURL;
+  bool isTextHide = true;
+
+  bool isTextFilled = false;
+  bool isImageAdded = false;
+  bool isTimeAdded = false;
+  @override
+  void initState() {
+    super.initState();
+    imageURL = '';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -126,40 +151,89 @@ class _AddPhotoBody extends StatelessWidget {
           vertical: 20,
         ),
         children: [
-          TextField(
-            onChanged: onTitleChanged,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: 'Np. Zdjęcie nr. 1 ',
-              label: Text(
-                'Tytuł',
-                style: TextStyle(color: Colors.blueAccent, fontSize: 20),
-              ),
-              hintStyle: TextStyle(
-                  fontSize: 20.0,
-                  color: Colors.blueAccent,
-                  fontWeight: FontWeight.normal),
+          ElevatedButton.icon(
+            onPressed: () async {
+              setState(() {
+                isTextHide = false;
+              });
+            },
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(
+                  isTextFilled ? Colors.green : Colors.red),
+            ),
+            icon: const Icon(Icons.book, color: Colors.black),
+            label: const Text(
+              'Dodaj tytuł zdjęcia',
+              style: TextStyle(fontSize: 20),
             ),
           ),
           const SizedBox(height: 20),
-          TextField(
-            onChanged: onImageUrlChanged,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              hintText:
-                  'https://cdn.pixabay.com/photo/2012/04/13/14/16/address-32567_960_720.png',
-              label: Text(
-                'Link URL obrazu',
-                style: TextStyle(color: Colors.blueAccent, fontSize: 20),
+          if (isTextHide == false) ...[
+            TextField(
+              onChanged: (newValue) {
+                widget.onTitleChanged(newValue);
+                setState(() {
+                  isTextFilled = newValue.isNotEmpty;
+                });
+              },
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Np. Dziennik Treningowy',
+                label: Text(
+                  'Dodaj tytuł zdjęcia',
+                  style: TextStyle(color: Colors.blueAccent, fontSize: 20),
+                ),
+                hintStyle: TextStyle(
+                    fontSize: 20.0,
+                    color: Colors.blueAccent,
+                    fontWeight: FontWeight.normal),
               ),
-              hintStyle: TextStyle(
-                  fontSize: 20.0,
-                  color: Colors.blueAccent,
-                  fontWeight: FontWeight.normal),
+            ),
+          ],
+          const SizedBox(height: 20),
+          ElevatedButton.icon(
+            onPressed: () async {
+              setState(() {
+                isPhotoHide = false;
+              });
+              final imagePicker = ImagePicker();
+              final XFile? file =
+                  await imagePicker.pickImage(source: ImageSource.gallery);
+
+              if (file == null) return;
+
+              final String uniqueFileName =
+                  DateTime.now().millisecondsSinceEpoch.toString();
+
+              final Reference referenceRoot = FirebaseStorage.instance.ref();
+              final Reference referenceDirImages =
+                  referenceRoot.child(uniqueFileName);
+
+              final Reference referenceImageToUpload =
+                  referenceDirImages.child(uniqueFileName);
+
+              try {
+                await referenceImageToUpload.putFile(File(file.path));
+
+                imageURL = await referenceImageToUpload.getDownloadURL();
+                widget.onImageUrlChanged(imageURL);
+                setState(() {
+                  isImageAdded = imageURL.isNotEmpty;
+                });
+              } catch (error) {}
+            },
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(
+                  isImageAdded ? Colors.green : Colors.red),
+            ),
+            icon: const Icon(Icons.camera_alt, color: Colors.black),
+            label: Text(
+              isImageAdded ? 'Zmień zdjęcie' : 'Dodaj zdjęcie',
+              style: TextStyle(fontSize: 20),
             ),
           ),
-          const SizedBox(height: 20),
-          ElevatedButton(
+          SizedBox(height: 40),
+          ElevatedButton.icon(
             onPressed: () async {
               final selectedDate = await showDatePicker(
                 context: context,
@@ -169,9 +243,19 @@ class _AddPhotoBody extends StatelessWidget {
                   const Duration(days: 365 * 10),
                 ),
               );
-              onDateChanged(selectedDate);
+              widget.onDateChanged(selectedDate);
+              setState(() {
+                isTimeAdded = selectedDate.toString().isNotEmpty;
+              });
             },
-            child: Text(selectedDateFormatted ?? 'Wybierz datę zdjęcia'),
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(
+                  isTimeAdded ? Colors.green : Colors.red),
+            ),
+            icon: Icon(Icons.timer, color: Colors.black),
+            label: Text(
+              widget.selectedDateFormatted ?? 'Wybierz datę utworzenia zdjęcia',
+            ),
           ),
         ],
       ),
