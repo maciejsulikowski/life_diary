@@ -62,22 +62,33 @@ class _AddPhotoState extends State<AddPhoto> {
                   style: TextStyle(color: Colors.amber),
                 ),
                 actions: [
-                  IconButton(
-                    onPressed: _imageURL == null ||
+                  Container(
+                    color: _imageURL == null ||
                             _title == null ||
                             _releaseDate == null
-                        ? null
-                        : () {
-                            context.read<AddPhotoCubit>().addphoto(
-                                  _title!,
-                                  _imageURL!,
-                                  _releaseDate!,
-                                  weight,
-                                  height,
-                                  goals,
-                                );
-                          },
-                    icon: const Icon(Icons.check),
+                        ? Colors.red
+                        : Colors.green,
+                    child: IconButton(
+                        onPressed: _imageURL == null ||
+                                _title == null ||
+                                _releaseDate == null
+                            ? null
+                            : () {
+                                context.read<AddPhotoCubit>().addphoto(
+                                      _title!,
+                                      _imageURL!,
+                                      _releaseDate!,
+                                      weight,
+                                      height,
+                                      goals,
+                                    );
+                              },
+                        icon: const Icon(Icons.check),
+                        color: _imageURL == null ||
+                                _title == null ||
+                                _releaseDate == null
+                            ? Color.fromARGB(255, 148, 14, 5)
+                            : Color.fromARGB(255, 0, 76, 3)),
                   ),
                 ],
               ),
@@ -135,6 +146,8 @@ class _AddPhotoBodyState extends State<_AddPhotoBody> {
   bool isTextFilled = false;
   bool isImageAdded = false;
   bool isTimeAdded = false;
+  bool fromGallery = false;
+  bool fromPicker = false;
   @override
   void initState() {
     super.initState();
@@ -178,7 +191,7 @@ class _AddPhotoBodyState extends State<_AddPhotoBody> {
               },
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
-                hintText: 'Np. Dziennik Treningowy',
+                hintText: 'Np. Zdjęcie nr.1',
                 label: Text(
                   'Dodaj tytuł zdjęcia',
                   style: TextStyle(color: Colors.blueAccent, fontSize: 20),
@@ -191,48 +204,135 @@ class _AddPhotoBodyState extends State<_AddPhotoBody> {
             ),
           ],
           const SizedBox(height: 20),
-          ElevatedButton.icon(
-            onPressed: () async {
-              setState(() {
-                isPhotoHide = false;
-              });
-              final imagePicker = ImagePicker();
-              final XFile? file =
-                  await imagePicker.pickImage(source: ImageSource.gallery);
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              if (fromPicker == false) ...[
+                Container(
+                  width: 130,
+                  height: 100,
+                  child: ElevatedButton.icon(
+                    onPressed: () async {
+                      setState(() {
+                        isPhotoHide = false;
+                      });
+                      final imagePicker = ImagePicker();
+                      final XFile? file = await imagePicker.pickImage(
+                          source: ImageSource.camera);
 
-              if (file == null) return;
+                      if (file == null) return;
 
-              final String uniqueFileName =
-                  DateTime.now().millisecondsSinceEpoch.toString();
+                      final String uniqueFileName =
+                          DateTime.now().millisecondsSinceEpoch.toString();
 
-              final Reference referenceRoot = FirebaseStorage.instance.ref();
-              final Reference referenceDirImages =
-                  referenceRoot.child(uniqueFileName);
+                      final Reference referenceRoot =
+                          FirebaseStorage.instance.ref();
+                      final Reference referenceDirImages =
+                          referenceRoot.child(uniqueFileName);
 
-              final Reference referenceImageToUpload =
-                  referenceDirImages.child(uniqueFileName);
+                      final Reference referenceImageToUpload =
+                          referenceDirImages.child(uniqueFileName);
 
-              try {
-                await referenceImageToUpload.putFile(File(file.path));
+                      try {
+                        await referenceImageToUpload.putFile(File(file.path));
 
-                imageURL = await referenceImageToUpload.getDownloadURL();
-                widget.onImageUrlChanged(imageURL);
-                setState(() {
-                  isImageAdded = imageURL.isNotEmpty;
-                });
-              } catch (error) {}
-            },
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(
-                  isImageAdded ? Colors.green : Colors.red),
-            ),
-            icon: const Icon(Icons.camera_alt, color: Colors.black),
-            label: Text(
-              isImageAdded ? 'Zmień zdjęcie' : 'Dodaj zdjęcie',
-              style: TextStyle(fontSize: 20),
-            ),
+                        imageURL =
+                            await referenceImageToUpload.getDownloadURL();
+                        widget.onImageUrlChanged(imageURL);
+                        setState(() {
+                          isImageAdded = imageURL.isNotEmpty;
+                          if (isImageAdded) {
+                            isPhotoHide = false;
+                            fromGallery = true;
+                          }
+                        });
+                      } catch (error) {}
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                          isImageAdded ? Colors.green : Colors.red),
+                    ),
+                    icon: const Icon(Icons.camera_alt, color: Colors.black),
+                    label: Text(
+                      isImageAdded ? 'Zmień zdjęcie' : 'Zrób zdjęcie',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                ),
+              ],
+              if (fromGallery == false) ...[
+                Container(
+                  height: 100,
+                  width: 130,
+                  child: ElevatedButton.icon(
+                    onPressed: () async {
+                      setState(() {
+                        isPhotoHide = false;
+                      });
+
+                      final imagePicker = ImagePicker();
+                      final XFile? file = await imagePicker.pickImage(
+                          source: ImageSource.gallery);
+
+                      if (file == null) return;
+
+                      final String uniqueFileName =
+                          DateTime.now().millisecondsSinceEpoch.toString();
+
+                      final Reference referenceRoot =
+                          FirebaseStorage.instance.ref();
+                      final Reference referenceDirImages =
+                          referenceRoot.child(uniqueFileName);
+
+                      final Reference referenceImageToUpload =
+                          referenceDirImages.child(uniqueFileName);
+
+                      try {
+                        await referenceImageToUpload.putFile(File(file.path));
+
+                        imageURL =
+                            await referenceImageToUpload.getDownloadURL();
+                        widget.onImageUrlChanged(imageURL);
+                        setState(() {
+                          isImageAdded = imageURL.isNotEmpty;
+                          if (isImageAdded) {
+                            isPhotoHide = false;
+                            fromPicker = true;
+                          }
+                        });
+                      } catch (error) {}
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                          isImageAdded ? Colors.green : Colors.red),
+                    ),
+                    icon: const Icon(Icons.camera_alt, color: Colors.black),
+                    label: Text(
+                      isImageAdded ? 'Zmień zdjęcie' : 'Dodaj zdjęcie',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                ),
+              ]
+            ],
           ),
-          SizedBox(height: 40),
+          SizedBox(height: 20),
+          if (isPhotoHide == false) ...[
+            Container(
+              height: 200,
+              width: 200,
+              decoration: BoxDecoration(
+                color: Colors.black12,
+                image: DecorationImage(
+                  image: NetworkImage(
+                    imageURL,
+                  ),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          ],
+          SizedBox(height: 20),
           ElevatedButton.icon(
             onPressed: () async {
               final selectedDate = await showDatePicker(

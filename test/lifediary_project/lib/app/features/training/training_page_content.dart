@@ -97,7 +97,6 @@ class NewPhoto extends StatelessWidget {
                     },
                     child: ListViewItem(
                       photoModel: photoModel,
-                      
                     ),
                   ),
               ],
@@ -113,11 +112,9 @@ class ListViewItem extends StatelessWidget {
   const ListViewItem({
     Key? key,
     required this.photoModel,
-    
   }) : super(key: key);
 
   final PhotosModel photoModel;
-  
 
   @override
   Widget build(BuildContext context) {
@@ -128,7 +125,6 @@ class ListViewItem extends StatelessWidget {
             builder: (context) => DetailsPhotoPageContent(
               id: photoModel.id,
               photoModel: photoModel,
-              
             ),
           ),
         );
@@ -138,53 +134,56 @@ class ListViewItem extends StatelessWidget {
           vertical: 10,
           horizontal: 20,
         ),
-        child: Container(
-          decoration: const BoxDecoration(
-            color: Colors.black12,
-          ),
-          child: Column(
-            children: [
-              Container(
-                height: 250,
-                decoration: BoxDecoration(
-                  color: Colors.black12,
-                  image: DecorationImage(
-                    image: NetworkImage(
-                      photoModel.imageURL,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(5),
+          child: Container(
+            decoration: const BoxDecoration(
+              color: Colors.black12,
+            ),
+            child: Column(
+              children: [
+                Container(
+                  height: 250,
+                  decoration: BoxDecoration(
+                    color: Colors.black12,
+                    image: DecorationImage(
+                      image: NetworkImage(
+                        photoModel.imageURL,
+                      ),
+                      fit: BoxFit.fill,
                     ),
-                    fit: BoxFit.fill,
                   ),
                 ),
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      color: Colors.amber,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            photoModel.title,
-                            style: const TextStyle(
-                                fontSize: 20.0,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.blue),
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            photoModel.releaseDateFormatted(),
-                            style: TextStyle(
-                                color: Colors.blue,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
+                Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        color: Colors.amber,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              photoModel.title,
+                              style: const TextStyle(
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blue),
+                            ),
+                            const SizedBox(height: 10),
+                            Text(
+                              photoModel.releaseDateFormatted(),
+                              style: TextStyle(
+                                  color: Colors.blue,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
