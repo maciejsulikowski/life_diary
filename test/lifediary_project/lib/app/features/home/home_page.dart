@@ -24,10 +24,6 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-LoginPage moveToLogin() {
-  return LoginPage();
-}
-
 class _HomePageState extends State<HomePage> {
   var currentIndex = 0;
 
@@ -36,7 +32,10 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: Builder(builder: (context) {
         if (currentIndex == 0) {
-          return MyAccountPageContent(email: widget.user.email);
+          return MyAccountPageContent(
+            email: widget.user.email,
+            answer: null,
+          );
         }
         if (currentIndex == 1) {
           return DiariesPageContent();
@@ -59,7 +58,10 @@ class _HomePageState extends State<HomePage> {
             child: DailyPlanPageContent(),
           );
         }
-        return MyAccountPageContent(email: widget.user.email);
+        return MyAccountPageContent(
+          email: widget.user.email,
+          answer: null,
+        );
       }),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.black,

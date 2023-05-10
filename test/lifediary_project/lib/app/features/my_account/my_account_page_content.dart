@@ -13,10 +13,11 @@ class MyAccountPageContent extends StatelessWidget {
   const MyAccountPageContent({
     Key? key,
     required this.email,
+    required this.answer,
   }) : super(key: key);
 
   final String? email;
-
+  final String? answer;
   LoginPage moveToLogin() {
     return LoginPage();
   }
@@ -99,7 +100,11 @@ class MyAccountPageContent extends StatelessWidget {
                     );
                   },
                 ),
-                const SizedBox(height: 100),
+                const SizedBox(height: 40),
+                Container(
+                  child: Text('Pamiętaj musisz pić około:$answer'),
+                ),
+                const SizedBox(height: 40),
                 ElevatedButton.icon(
                   style: ButtonStyle(
                     backgroundColor:

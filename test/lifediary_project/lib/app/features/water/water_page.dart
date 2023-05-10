@@ -24,6 +24,7 @@ class _WaterPageState extends State<WaterPage> {
   var glass = 330;
 
   var isAnswered = false;
+  var answer = '';
 
   @override
   Widget build(BuildContext context) {
@@ -103,12 +104,17 @@ class _WaterPageState extends State<WaterPage> {
                     ),
                   );
                   return;
-                } else
-                  setState(() {
-                    isAnswered = true;
-                    result = (30 * double.parse(weightController.text)).toInt();
-                    glass_result = (result / glass).floor();
-                  });
+                }
+                setState(() {
+                  isAnswered = true;
+                  result = (30 * double.parse(weightController.text)).toInt();
+                  glass_result = (result / glass).floor();
+                  answer = glass_result.toString();
+                  //  final myAccountPageContent = MyAccountPageContent(
+                  //   email: ,
+                  //   answer: answer,
+                  // );
+                });
               },
               child: Text(
                 'Oblicz!',

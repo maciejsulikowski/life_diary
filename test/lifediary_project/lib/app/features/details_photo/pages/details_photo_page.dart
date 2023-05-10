@@ -57,7 +57,6 @@ class _DetailsPhotoPageContentState extends State<DetailsPhotoPageContent> {
                     setState(() {
                       context.read<DetailsPhotoCubit>().savePhotoData(
                             widget.id,
-                            
                             weightController.text,
                             heightController.text,
                             newController.text,
@@ -113,17 +112,18 @@ class _ListViewItem extends StatelessWidget {
       Expanded(
         child: Container(
           color: Colors.blue,
-          child: Container(
-            decoration: const BoxDecoration(
-              color: Colors.black12,
-            ),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                    top: 8,
-                    left: 8,
-                    right: 8,
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                  top: 8,
+                  left: 8,
+                  right: 8,
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10),
                   ),
                   child: Container(
                     height: 250,
@@ -138,13 +138,19 @@ class _ListViewItem extends StatelessWidget {
                     ),
                   ),
                 ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                          left: 8,
-                          right: 8,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        left: 8,
+                        right: 8,
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(10),
+                          bottomRight: Radius.circular(10),
                         ),
                         child: Container(
                           color: Colors.amber,
@@ -170,31 +176,31 @@ class _ListViewItem extends StatelessWidget {
                         ),
                       ),
                     ),
-                  ],
-                ),
-                SizedBox(height: 20),
-                WeightSentence(
-                  weightController: weightController,
-                ),
-                SizedBox(height: 20),
-                HeightSentence(
-                  heightController: heightController,
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                NewSentence(
-                  newController: newController,
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Expanded(
-                  flex: 1,
-                  child: QuoteSentence(),
-                )
-              ],
-            ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 20),
+              WeightSentence(
+                weightController: weightController,
+              ),
+              SizedBox(height: 20),
+              HeightSentence(
+                heightController: heightController,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              NewSentence(
+                newController: newController,
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Expanded(
+                flex: 1,
+                child: QuoteSentence(),
+              )
+            ],
           ),
         ),
       ),
