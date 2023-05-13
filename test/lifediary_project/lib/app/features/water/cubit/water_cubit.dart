@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
+import 'package:lifediary_project/app/domain/models/item_model.dart';
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
 import 'package:meta/meta.dart';
 
@@ -9,11 +10,7 @@ part 'water_state.dart';
 
 class WaterCubit extends Cubit<WaterState> {
   WaterCubit(this._itemsRepository)
-      : super(
-          WaterState(
-            glasses: '',
-          ),
-        );
+      : super(WaterState(glasses: WaterModel(id: '', glasses: '')));
 
   final ItemsRepository _itemsRepository;
 
@@ -22,7 +19,7 @@ class WaterCubit extends Cubit<WaterState> {
   Future<void> start() async {
     _streamSubscription = _itemsRepository.getGlassesStream().listen(
       (glasses) {
-        emit(WaterState(glasses: glasses.toString()));
+        emit(WaterState(glasses: glasses));
       },
     );
     // )..onError((error) {
@@ -35,7 +32,7 @@ class WaterCubit extends Cubit<WaterState> {
       await _itemsRepository.saveGlasses(glasses);
       // final glass = await _itemsRepository.getGlasses(id: id);
       emit(
-        WaterState(glasses: glasses, isSaved: true),
+        WaterState(glasses: WaterModel(id: '', glasses: ''), isSaved: true),
       );
     } catch (error) {}
   }

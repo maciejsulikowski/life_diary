@@ -23,139 +23,163 @@ class MyAccountPageContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => WaterCubit(ItemsRepository())..start(),
-      child: BlocBuilder<WaterCubit, WaterState>(
-        builder: (context, state) {
-          final answer = state.glasses;
-          return Scaffold(
-            appBar: AppBar(
-              title: Text(
-                'MAIN PAGE',
-                style: GoogleFonts.lato(
-                    color: Colors.amber, fontWeight: FontWeight.bold),
-              ),
-              centerTitle: true,
-              backgroundColor: Colors.blue,
-            ),
-            body: Container(
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("images/math.jpg"),
-                  fit: BoxFit.cover,
+      child: BlocListener<WaterCubit, WaterState>(
+        listener: (context, state) {
+          if (state.isSaved) {
+            context.read<WaterCubit>().start();
+          }
+        },
+        child: BlocBuilder<WaterCubit, WaterState>(
+          builder: (context, state) {
+            final answer = state.glasses;
+            return Scaffold(
+              appBar: AppBar(
+                title: Text(
+                  'MAIN PAGE',
+                  style: GoogleFonts.lato(
+                      color: Colors.amber, fontWeight: FontWeight.bold),
                 ),
+                centerTitle: true,
+                backgroundColor: Colors.blue,
               ),
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 100),
-                      ElevatedButton.icon(
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.blueAccent[700]),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20.0),
+              body: Container(
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("images/math.jpg"),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 100),
+                        ElevatedButton.icon(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                                Colors.blueAccent[700]),
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                              ),
+                            ),
+                          ),
+                          icon: const Icon(Icons.person, color: Colors.amber),
+                          label: Text(
+                            'Panel użytkownika',
+                            style: GoogleFonts.lato(
+                                color: Colors.amber,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20),
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const UserProfile()),
+                            );
+                          },
+                        ),
+                        ElevatedButton.icon(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                                Colors.blueAccent[700]),
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                              ),
+                            ),
+                          ),
+                          icon: const Icon(Icons.pageview, color: Colors.amber),
+                          label: Text(
+                            'Instrukcja obsługi',
+                            style: GoogleFonts.lato(
+                                color: Colors.amber,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20),
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const InstructionPage()),
+                            );
+                          },
+                        ),
+                        const SizedBox(height: 40),
+                        Expanded(
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.blue[700],
+                                border: Border.all(
+                                  color: Colors.blue,
+                                ),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20))),
+                            height: 30,
+                            child: Center(
+                              child: Text(
+                                answer?.glasses == null
+                                    ? 'Pamiętaj, aby pić ? szklanek wody'
+                                    : 'Pamiętaj, aby pić ${answer?.glasses} szklanek wody 💧',
+                                style: TextStyle(
+                                    color: Colors.amber, fontSize: 20),
+                              ),
                             ),
                           ),
                         ),
-                        icon: const Icon(Icons.person, color: Colors.amber),
-                        label: Text(
-                          'Panel użytkownika',
-                          style: GoogleFonts.lato(
-                              color: Colors.amber,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20),
-                        ),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const UserProfile()),
-                          );
-                        },
-                      ),
-                      ElevatedButton.icon(
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.blueAccent[700]),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20.0),
+                        const SizedBox(height: 40),
+                        ElevatedButton.icon(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                                Colors.blueAccent[700]),
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                              ),
                             ),
                           ),
+                          icon: const Icon(Icons.logout, color: Colors.amber),
+                          label: Text(
+                            'Wyloguj się',
+                            style: GoogleFonts.lato(
+                                color: Colors.amber,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20),
+                          ),
+                          onPressed: () {
+                            context.read<RootCubit>().signOut();
+                            // Navigator.pushReplacement(
+                            //   context,
+                            //   MaterialPageRoute(builder: (context) => LoginPage()),
+                            // );
+                          },
                         ),
-                        icon: const Icon(Icons.pageview, color: Colors.amber),
-                        label: Text(
-                          'Instrukcja obsługi',
-                          style: GoogleFonts.lato(
-                              color: Colors.amber,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20),
-                        ),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const InstructionPage()),
-                          );
-                        },
-                      ),
-                      const SizedBox(height: 40),
-                      Container(
-                        child: Text(answer == null
-                            ? 'Pamiętaj, aby pić ? szklanek wody'
-                            : 'Pamiętaj, aby pić $answer szklanek wody'),
-                      ),
-                      const SizedBox(height: 40),
-                      ElevatedButton.icon(
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.blueAccent[700]),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20.0),
-                            ),
+                        const SizedBox(height: 250),
+                        Container(
+                          color: Colors.amber,
+                          child: Text(
+                            'Zalogowano jako $email! ',
+                            style: GoogleFonts.lato(
+                                color: Colors.blue,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 19),
                           ),
                         ),
-                        icon: const Icon(Icons.logout, color: Colors.amber),
-                        label: Text(
-                          'Wyloguj się',
-                          style: GoogleFonts.lato(
-                              color: Colors.amber,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20),
-                        ),
-                        onPressed: () {
-                          context.read<RootCubit>().signOut();
-                          // Navigator.pushReplacement(
-                          //   context,
-                          //   MaterialPageRoute(builder: (context) => LoginPage()),
-                          // );
-                        },
-                      ),
-                      const SizedBox(height: 250),
-                      Container(
-                        color: Colors.amber,
-                        child: Text(
-                          'Zalogowano jako $email! ',
-                          style: GoogleFonts.lato(
-                              color: Colors.blue,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 19),
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }

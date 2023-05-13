@@ -105,7 +105,7 @@ class ItemsRepository {
     });
   }
 
-  Stream<List<WaterModel>> getGlassesStream() {
+  Stream<WaterModel?> getGlassesStream() {
     final userID = FirebaseAuth.instance.currentUser?.uid;
     if (userID == null) {
       throw Exception('User is not logged in');
@@ -114,16 +114,18 @@ class ItemsRepository {
         .collection('users')
         .doc(userID)
         .collection('water_glasses')
+        .doc(userID)
         .snapshots()
-        .map((querySnapshot) {
-      return querySnapshot.docs.map(
-        (doc) {
-          return WaterModel(
-            id: doc.id,
-            glasses: doc['glasses'],
-          );
-        },
-      ).toList();
+        .map((docSnapshot) {
+      if (docSnapshot.exists) {
+        final data = docSnapshot.data();
+        return WaterModel(
+          id: docSnapshot.id,
+          glasses: data?['glasses'] ?? '?',
+        );
+      } else {
+        return null;
+      }
     });
   }
 

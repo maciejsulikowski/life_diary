@@ -45,16 +45,16 @@ class ToDoListCubit extends Cubit<ToDoListState> {
     }
   }
 
-  Future<void> gettask() async {
-    try {
-      await _itemsRepository.getTasksStream();
-      emit(
-        const ToDoListState(saved: true),
-      );
-    } catch (error) {
-      emit(ToDoListState(errorMessage: error.toString()));
-    }
-  }
+  // Future<void> gettask() async {
+  //   try {
+  //     await _itemsRepository.getTasksStream();
+  //     emit(
+  //       const ToDoListState(saved: true),
+  //     );
+  //   } catch (error) {
+  //     emit(ToDoListState(errorMessage: error.toString()));
+  //   }
+  // }
 
   Future<void> remove({required String documentID}) async {
     try {

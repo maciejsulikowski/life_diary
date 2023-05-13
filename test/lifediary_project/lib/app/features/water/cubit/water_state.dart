@@ -7,6 +7,6 @@ class WaterState {
     this.isSaved = false,
   });
 
-  final String? glasses;
+  final WaterModel? glasses;
   final bool isSaved;
 }
