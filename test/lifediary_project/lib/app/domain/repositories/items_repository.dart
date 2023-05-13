@@ -105,6 +105,46 @@ class ItemsRepository {
     });
   }
 
+  Stream<List<WaterModel>> getGlassesStream() {
+    final userID = FirebaseAuth.instance.currentUser?.uid;
+    if (userID == null) {
+      throw Exception('User is not logged in');
+    }
+    return FirebaseFirestore.instance
+        .collection('users')
+        .doc(userID)
+        .collection('water_glasses')
+        .snapshots()
+        .map((querySnapshot) {
+      return querySnapshot.docs.map(
+        (doc) {
+          return WaterModel(
+            id: doc.id,
+            glasses: doc['glasses'],
+          );
+        },
+      ).toList();
+    });
+  }
+
+  Future<void> saveGlasses(String glasses) async {
+    final userID = FirebaseAuth.instance.currentUser?.uid;
+    if (userID == null) {
+      throw Exception('User is not logged in');
+    }
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userID)
+        .collection('water_glasses')
+        .doc(userID)
+        .set(
+      {
+        'glasses': glasses,
+      },
+      SetOptions(merge: true),
+    );
+  }
+
   Future<void> savePhotoData(
     String id,
     String weight,
@@ -245,6 +285,23 @@ class ItemsRepository {
       id: doc.id,
       text: doc['plan'],
       time: doc['time'],
+    );
+  }
+
+  Future<WaterModel> getGlasses({required String id}) async {
+    final userID = FirebaseAuth.instance.currentUser?.uid;
+    if (userID == null) {
+      throw Exception('User is not logged in');
+    }
+    final doc = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userID)
+        .collection('water_glasses')
+        .doc(id)
+        .get();
+    return WaterModel(
+      id: doc.id,
+      glasses: doc['glasses'] ?? '?',
     );
   }
 

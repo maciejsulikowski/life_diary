@@ -16,9 +16,11 @@ class HomePage extends StatefulWidget {
   const HomePage({
     Key? key,
     required this.user,
+    
   }) : super(key: key);
 
   final User user;
+  
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -34,7 +36,7 @@ class _HomePageState extends State<HomePage> {
         if (currentIndex == 0) {
           return MyAccountPageContent(
             email: widget.user.email,
-            answer: null,
+            
           );
         }
         if (currentIndex == 1) {
@@ -47,7 +49,7 @@ class _HomePageState extends State<HomePage> {
         }
         if (currentIndex == 3) {
           return Center(
-            child: WaterPage(),
+            child: WaterPage()
           );
         }
         if (currentIndex == 4) {
@@ -60,7 +62,7 @@ class _HomePageState extends State<HomePage> {
         }
         return MyAccountPageContent(
           email: widget.user.email,
-          answer: null,
+          
         );
       }),
       bottomNavigationBar: BottomNavigationBar(

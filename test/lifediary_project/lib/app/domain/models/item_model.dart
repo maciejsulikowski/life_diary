@@ -73,3 +73,13 @@ class DailyPlanModel {
   String text;
   final String time;
 }
+
+class WaterModel {
+  WaterModel({
+    required this.id,
+    this.glasses = '',
+  });
+
+  final String id;
+  final String glasses;
+}
