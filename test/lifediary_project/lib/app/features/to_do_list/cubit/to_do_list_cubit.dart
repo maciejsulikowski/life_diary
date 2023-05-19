@@ -34,14 +34,25 @@ class ToDoListCubit extends Cubit<ToDoListState> {
 
   Future<void> addtask(
     String title,
+    bool isChecked,
   ) async {
     try {
-      await _itemsRepository.addtask(title);
+      await _itemsRepository.addtask(title, isChecked);
       emit(
         const ToDoListState(saved: true),
       );
     } catch (error) {
       emit(ToDoListState(errorMessage: error.toString()));
+    }
+  }
+  
+  Future<void> updateTask(ItemModelToDoList itemModel) async {
+    try {
+      await _itemsRepository.updateTask(itemModel);
+    } catch (error) {
+      emit(
+        ToDoListState(errorMessage: 'Something went wrong'),
+      );
     }
   }
 

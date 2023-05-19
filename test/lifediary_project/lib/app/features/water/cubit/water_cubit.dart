@@ -22,9 +22,6 @@ class WaterCubit extends Cubit<WaterState> {
         emit(WaterState(glasses: glasses));
       },
     );
-    // )..onError((error) {
-    //     emit(DailyPlanState(errorMessage: error));
-    //   });
   }
 
   Future<void> saveGlasses(String glasses) async {

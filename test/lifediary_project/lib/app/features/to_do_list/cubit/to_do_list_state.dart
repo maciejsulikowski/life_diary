@@ -6,10 +6,12 @@ class ToDoListState {
   final bool isLoading;
   final String errorMessage;
   final bool saved;
+  final bool isChecked;
 
   const ToDoListState(
       {this.documents = const [],
       this.isLoading = false,
       this.errorMessage = '',
-      this.saved = false});
+      this.saved = false,
+      this.isChecked = false,});
 }

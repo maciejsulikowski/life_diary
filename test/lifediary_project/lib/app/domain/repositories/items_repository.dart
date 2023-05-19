@@ -99,6 +99,7 @@ class ItemsRepository {
           return ItemModelToDoList(
             id: doc.id,
             title: doc['task'],
+            isChecked: doc['isChecked'],
           );
         },
       ).toList();
@@ -167,6 +168,26 @@ class ItemsRepository {
         'weight': weight,
         'height': height,
         'goals': goals,
+      },
+      SetOptions(merge: true),
+    );
+  }
+
+  Future<void> updateTask(
+    ItemModelToDoList itemModel,
+  ) async {
+    final userID = FirebaseAuth.instance.currentUser?.uid;
+    if (userID == null) {
+      throw Exception('User is not logged in');
+    }
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userID)
+        .collection('tasks')
+        .doc(itemModel.id)
+        .set(
+      {
+        'isChecked': itemModel.isChecked,
       },
       SetOptions(merge: true),
     );
@@ -247,6 +268,7 @@ class ItemsRepository {
     return ItemModelToDoList(
       id: doc.id,
       title: doc['title'],
+      isChecked: doc['isChecked'],
     );
   }
 
@@ -359,6 +381,7 @@ class ItemsRepository {
 
   Future<void> addtask(
     String title,
+    bool isChecked,
   ) async {
     final userID = FirebaseAuth.instance.currentUser?.uid;
     if (userID == null) {
@@ -370,6 +393,7 @@ class ItemsRepository {
         .collection('tasks')
         .add({
       'task': title,
+      'isChecked': isChecked,
     });
   }
 
