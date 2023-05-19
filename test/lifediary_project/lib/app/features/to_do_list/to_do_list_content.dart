@@ -131,13 +131,6 @@ class _ToDoListContentState extends State<ToDoListContent> {
                             setState(() {
                               itemModel.isChecked = value;
                             });
-                            FirebaseFirestore.instance
-                                .collection('items')
-                                .doc(itemModel.id)
-                                .set(
-                              {'isChecked': itemModel.isChecked},
-                              SetOptions(merge: true),
-                            );
                           },
                         ),
                       ),
@@ -169,12 +162,6 @@ class CategoryWidget extends StatefulWidget {
 }
 
 class _CategoryWidgetState extends State<CategoryWidget> {
-  // @override
-  // void initState() {
-  //   widget.isCheckedClicked = widget.itemModel.isChecked;
-  //   super.initState();
-  // }
-
   void toggleButton() {
     setState(() {
       widget.itemModel.isChecked = !widget.itemModel.isChecked;
@@ -190,7 +177,14 @@ class _CategoryWidgetState extends State<CategoryWidget> {
         toggleButton();
       },
       child: Container(
-        color: Colors.amber,
+        decoration: BoxDecoration(
+          color: widget.itemModel.isChecked ? Colors.grey : Colors.amber,
+          borderRadius: BorderRadius.circular(10), // Zaokrąglenie kontenera
+          border: Border.all(
+            color: const Color.fromARGB(255, 67, 64, 64),
+            width: 3,
+          ),
+        ),
         padding: const EdgeInsets.all(20),
         margin: const EdgeInsets.all(10),
         child: Row(
