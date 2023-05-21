@@ -9,8 +9,8 @@ import 'package:lifediary_project/app/domain/models/photos_model.dart';
 import 'package:lifediary_project/app/domain/models/water_model.dart';
 import 'package:lifediary_project/app/features/details_photo/pages/details_photo_page.dart';
 
-class ItemsRepository {
-  Stream<List<ItemModel>> getItemsStream() {
+class PlansRepository {
+   Stream<List<DailyPlanModel>> getDailyPlansStream() {
     final userID = FirebaseAuth.instance.currentUser?.uid;
     if (userID == null) {
       throw Exception('User is not logged in');
@@ -18,38 +18,22 @@ class ItemsRepository {
     return FirebaseFirestore.instance
         .collection('users')
         .doc(userID)
-        .collection('items')
-        .orderBy('release_date')
+        .collection('plans')
         .snapshots()
         .map((querySnapshot) {
       return querySnapshot.docs.map(
         (doc) {
-          return ItemModel(
+          return DailyPlanModel(
             id: doc.id,
-            title: doc['title'],
-            imageURL: doc['image_url'],
-            releaseDate: (doc['release_date'] as Timestamp).toDate(),
-            text: doc['text'],
+            text: doc['title'],
+            time: doc['time'],
           );
         },
       ).toList();
     });
   }
 
-  Future<void> delete({required String id}) {
-    final userID = FirebaseAuth.instance.currentUser?.uid;
-    if (userID == null) {
-      throw Exception('User is not logged in');
-    }
-    return FirebaseFirestore.instance
-        .collection('users')
-        .doc(userID)
-        .collection('items')
-        .doc(id)
-        .delete();
-  }
-
-  Future<ItemModel> get({required String id}) async {
+  Future<DailyPlanModel> getplans({required String id}) async {
     final userID = FirebaseAuth.instance.currentUser?.uid;
     if (userID == null) {
       throw Exception('User is not logged in');
@@ -57,25 +41,18 @@ class ItemsRepository {
     final doc = await FirebaseFirestore.instance
         .collection('users')
         .doc(userID)
-        .collection('items')
+        .collection('plans')
         .doc(id)
         .get();
-    return ItemModel(
+    return DailyPlanModel(
       id: doc.id,
-      title: doc['title'],
-      imageURL: doc['image_url'],
-      releaseDate: (doc['release_date'] as Timestamp).toDate(),
-      text: doc['text'],
-      fontWeight: doc['font_weight'] ?? 0,
+      text: doc['plan'],
+      time: doc['time'],
     );
   }
-
-  Future<void> add(
-    String title,
-    String imageURL,
-    DateTime releaseDate,
+Future<void> addplan(
     String text,
-    int fontWeight,
+    String time,
   ) async {
     final userID = FirebaseAuth.instance.currentUser?.uid;
     if (userID == null) {
@@ -84,34 +61,15 @@ class ItemsRepository {
     await FirebaseFirestore.instance
         .collection('users')
         .doc(userID)
-        .collection('items')
-        .add({
-      'title': title,
-      'image_url': imageURL,
-      'release_date': releaseDate,
-      'text': text,
-      'font_weight': fontWeight,
-    });
-  }
-
-  Future<void> addtext(
-    String id,
-    String text,
-  ) async {
-    final userID = FirebaseAuth.instance.currentUser?.uid;
-    if (userID == null) {
-      throw Exception('User is not logged in');
-    }
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userID)
-        .collection('items')
-        .doc(id)
+        .collection('plans')
+        .doc(time)
         .set(
       {
-        'text': text,
+        'title': text,
+        'time': time,
       },
       SetOptions(merge: true),
     );
   }
+
 }

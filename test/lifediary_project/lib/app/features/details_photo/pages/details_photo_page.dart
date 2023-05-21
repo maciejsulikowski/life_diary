@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lifediary_project/app/domain/models/item_model.dart';
 import 'package:lifediary_project/app/domain/models/photos_model.dart';
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
+import 'package:lifediary_project/app/domain/repositories/photos_repository.dart';
 import 'package:lifediary_project/app/features/details_photo/cubit/details_photo_cubit.dart';
 
 class DetailsPhotoPageContent extends StatefulWidget {
@@ -41,7 +42,7 @@ class _DetailsPhotoPageContentState extends State<DetailsPhotoPageContent> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          DetailsPhotoCubit(ItemsRepository())..getPhotosID(widget.id),
+          DetailsPhotoCubit(PhotosRepository())..getPhotosID(widget.id),
       child: BlocBuilder<DetailsPhotoCubit, DetailsPhotoState>(
         builder: (context, state) {
           final photoModel = state.photoModel;

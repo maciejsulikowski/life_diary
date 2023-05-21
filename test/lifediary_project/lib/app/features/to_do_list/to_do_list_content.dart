@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lifediary_project/app/domain/models/item_model_to_do_list.dart';
+import 'package:lifediary_project/app/domain/repositories/tasks_repository.dart';
 import 'package:lifediary_project/app/features/to_do_list/cubit/to_do_list_cubit.dart';
 
 import 'package:lifediary_project/app/domain/models/item_model.dart';
@@ -26,7 +27,7 @@ class _ToDoListContentState extends State<ToDoListContent> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ToDoListCubit(ItemsRepository())..start(),
+      create: (context) => ToDoListCubit(TasksRepository())..start(),
       child: BlocListener<ToDoListCubit, ToDoListState>(
         listener: (context, state) {
           if (state.saved) {

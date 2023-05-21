@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
+import 'package:lifediary_project/app/domain/repositories/water_repository.dart';
 
 import 'package:lifediary_project/app/features/login/login_page.dart';
 import 'package:lifediary_project/app/features/water/cubit/water_cubit.dart';
@@ -32,7 +33,7 @@ class WaterPageState extends State<WaterPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => WaterCubit(ItemsRepository()),
+      create: (context) => WaterCubit(WaterRepository()),
       child: BlocBuilder<WaterCubit, WaterState>(
         builder: (context, state) {
           return Scaffold(

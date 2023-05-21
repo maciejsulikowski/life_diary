@@ -9,8 +9,8 @@ import 'package:lifediary_project/app/domain/models/photos_model.dart';
 import 'package:lifediary_project/app/domain/models/water_model.dart';
 import 'package:lifediary_project/app/features/details_photo/pages/details_photo_page.dart';
 
-class ItemsRepository {
-  Stream<List<ItemModel>> getItemsStream() {
+class PhotosRepository {
+  Stream<List<PhotosModel>> getPhotosStream() {
     final userID = FirebaseAuth.instance.currentUser?.uid;
     if (userID == null) {
       throw Exception('User is not logged in');
@@ -18,25 +18,52 @@ class ItemsRepository {
     return FirebaseFirestore.instance
         .collection('users')
         .doc(userID)
-        .collection('items')
+        .collection('photos')
         .orderBy('release_date')
         .snapshots()
         .map((querySnapshot) {
       return querySnapshot.docs.map(
         (doc) {
-          return ItemModel(
+          return PhotosModel(
             id: doc.id,
             title: doc['title'],
             imageURL: doc['image_url'],
             releaseDate: (doc['release_date'] as Timestamp).toDate(),
-            text: doc['text'],
+            height: doc['height'] ?? '',
+            weight: doc['weight'] ?? '',
+            goals: doc['goals'] ?? '',
           );
         },
       ).toList();
     });
   }
 
-  Future<void> delete({required String id}) {
+  Future<void> savePhotoData(
+    String id,
+    String weight,
+    String height,
+    String goals,
+  ) async {
+    final userID = FirebaseAuth.instance.currentUser?.uid;
+    if (userID == null) {
+      throw Exception('User is not logged in');
+    }
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userID)
+        .collection('photos')
+        .doc(id)
+        .set(
+      {
+        'weight': weight,
+        'height': height,
+        'goals': goals,
+      },
+      SetOptions(merge: true),
+    );
+  }
+
+  Future<void> deletephoto({required String id}) {
     final userID = FirebaseAuth.instance.currentUser?.uid;
     if (userID == null) {
       throw Exception('User is not logged in');
@@ -44,12 +71,12 @@ class ItemsRepository {
     return FirebaseFirestore.instance
         .collection('users')
         .doc(userID)
-        .collection('items')
+        .collection('photos')
         .doc(id)
         .delete();
   }
 
-  Future<ItemModel> get({required String id}) async {
+  Future<PhotosModel> getphotos({required String id}) async {
     final userID = FirebaseAuth.instance.currentUser?.uid;
     if (userID == null) {
       throw Exception('User is not logged in');
@@ -57,25 +84,27 @@ class ItemsRepository {
     final doc = await FirebaseFirestore.instance
         .collection('users')
         .doc(userID)
-        .collection('items')
+        .collection('photos')
         .doc(id)
         .get();
-    return ItemModel(
+    return PhotosModel(
       id: doc.id,
       title: doc['title'],
       imageURL: doc['image_url'],
       releaseDate: (doc['release_date'] as Timestamp).toDate(),
-      text: doc['text'],
-      fontWeight: doc['font_weight'] ?? 0,
+      height: doc['height'],
+      weight: doc['weight'],
+      goals: doc['goals'],
     );
   }
 
-  Future<void> add(
+  Future<void> addphoto(
     String title,
     String imageURL,
     DateTime releaseDate,
-    String text,
-    int fontWeight,
+    String weight,
+    String height,
+    String goals,
   ) async {
     final userID = FirebaseAuth.instance.currentUser?.uid;
     if (userID == null) {
@@ -84,34 +113,14 @@ class ItemsRepository {
     await FirebaseFirestore.instance
         .collection('users')
         .doc(userID)
-        .collection('items')
+        .collection('photos')
         .add({
       'title': title,
       'image_url': imageURL,
       'release_date': releaseDate,
-      'text': text,
-      'font_weight': fontWeight,
+      'weight': weight,
+      'height': height,
+      'goals': goals,
     });
-  }
-
-  Future<void> addtext(
-    String id,
-    String text,
-  ) async {
-    final userID = FirebaseAuth.instance.currentUser?.uid;
-    if (userID == null) {
-      throw Exception('User is not logged in');
-    }
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userID)
-        .collection('items')
-        .doc(id)
-        .set(
-      {
-        'text': text,
-      },
-      SetOptions(merge: true),
-    );
   }
 }

@@ -1,13 +1,14 @@
 import 'package:bloc/bloc.dart';
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
+import 'package:lifediary_project/app/domain/repositories/photos_repository.dart';
 import 'package:meta/meta.dart';
 
 part 'add_photo_state.dart';
 
 class AddPhotoCubit extends Cubit<AddPhotoState> {
-  AddPhotoCubit(this._itemsRepository) : super(AddPhotoState());
+  AddPhotoCubit(this._photosRepository) : super(AddPhotoState());
 
-  final ItemsRepository _itemsRepository;
+  final PhotosRepository _photosRepository;
 
   Future<void> addphoto(
     String title,
@@ -18,7 +19,7 @@ class AddPhotoCubit extends Cubit<AddPhotoState> {
     String goals,
   ) async {
     try {
-      await _itemsRepository.addphoto(
+      await _photosRepository.addphoto(
           title, imageURL, releaseDate, weight, height, goals);
       emit(
         const AddPhotoState(saved: true),

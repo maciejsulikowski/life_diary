@@ -6,19 +6,20 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lifediary_project/app/domain/models/item_model.dart';
 import 'package:lifediary_project/app/domain/models/item_model_to_do_list.dart';
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
+import 'package:lifediary_project/app/domain/repositories/tasks_repository.dart';
 import 'package:meta/meta.dart';
 
 part 'to_do_list_state.dart';
 
 class ToDoListCubit extends Cubit<ToDoListState> {
-  ToDoListCubit(this._itemsRepository) : super(ToDoListState());
+  ToDoListCubit(this._tasksRepository) : super(ToDoListState());
 
-  final ItemsRepository _itemsRepository;
+  final TasksRepository _tasksRepository;
 
   StreamSubscription? _streamSubscription;
 
   Future<void> start() async {
-    _streamSubscription = _itemsRepository.getTasksStream().listen(
+    _streamSubscription = _tasksRepository.getTasksStream().listen(
       (documents) {
         emit(ToDoListState(documents: documents));
       },
@@ -38,7 +39,7 @@ class ToDoListCubit extends Cubit<ToDoListState> {
     bool isChecked,
   ) async {
     try {
-      await _itemsRepository.addtask(title, isChecked);
+      await _tasksRepository.addtask(title, isChecked);
       emit(
         const ToDoListState(saved: true),
       );
@@ -49,7 +50,7 @@ class ToDoListCubit extends Cubit<ToDoListState> {
   
   Future<void> updateTask(ItemModelToDoList itemModel) async {
     try {
-      await _itemsRepository.updateTask(itemModel);
+      await _tasksRepository.updateTask(itemModel);
     } catch (error) {
       emit(
         ToDoListState(errorMessage: 'Something went wrong'),
@@ -57,20 +58,11 @@ class ToDoListCubit extends Cubit<ToDoListState> {
     }
   }
 
-  // Future<void> gettask() async {
-  //   try {
-  //     await _itemsRepository.getTasksStream();
-  //     emit(
-  //       const ToDoListState(saved: true),
-  //     );
-  //   } catch (error) {
-  //     emit(ToDoListState(errorMessage: error.toString()));
-  //   }
-  // }
+ 
 
   Future<void> remove({required String documentID}) async {
     try {
-      await _itemsRepository.deletetask(id: documentID);
+      await _tasksRepository.deletetask(id: documentID);
     } catch (error) {
       emit(
         ToDoListState(errorMessage: 'Something went wrong'),

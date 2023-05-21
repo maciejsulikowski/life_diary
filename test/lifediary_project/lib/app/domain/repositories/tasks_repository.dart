@@ -9,8 +9,9 @@ import 'package:lifediary_project/app/domain/models/photos_model.dart';
 import 'package:lifediary_project/app/domain/models/water_model.dart';
 import 'package:lifediary_project/app/features/details_photo/pages/details_photo_page.dart';
 
-class ItemsRepository {
-  Stream<List<ItemModel>> getItemsStream() {
+
+class TasksRepository {
+Stream<List<ItemModelToDoList>> getTasksStream() {
     final userID = FirebaseAuth.instance.currentUser?.uid;
     if (userID == null) {
       throw Exception('User is not logged in');
@@ -18,25 +19,42 @@ class ItemsRepository {
     return FirebaseFirestore.instance
         .collection('users')
         .doc(userID)
-        .collection('items')
-        .orderBy('release_date')
+        .collection('tasks')
         .snapshots()
         .map((querySnapshot) {
       return querySnapshot.docs.map(
         (doc) {
-          return ItemModel(
+          return ItemModelToDoList(
             id: doc.id,
-            title: doc['title'],
-            imageURL: doc['image_url'],
-            releaseDate: (doc['release_date'] as Timestamp).toDate(),
-            text: doc['text'],
+            title: doc['task'],
+            isChecked: doc['isChecked'],
           );
         },
       ).toList();
     });
   }
 
-  Future<void> delete({required String id}) {
+Future<void> updateTask(
+    ItemModelToDoList itemModel,
+  ) async {
+    final userID = FirebaseAuth.instance.currentUser?.uid;
+    if (userID == null) {
+      throw Exception('User is not logged in');
+    }
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userID)
+        .collection('tasks')
+        .doc(itemModel.id)
+        .set(
+      {
+        'isChecked': itemModel.isChecked,
+      },
+      SetOptions(merge: true),
+    );
+  }
+
+  Future<void> deletetask({required String id}) {
     final userID = FirebaseAuth.instance.currentUser?.uid;
     if (userID == null) {
       throw Exception('User is not logged in');
@@ -44,12 +62,13 @@ class ItemsRepository {
     return FirebaseFirestore.instance
         .collection('users')
         .doc(userID)
-        .collection('items')
+        .collection('tasks')
         .doc(id)
         .delete();
   }
 
-  Future<ItemModel> get({required String id}) async {
+  Future<ItemModelToDoList> gettasks(
+      {required String id, required String title}) async {
     final userID = FirebaseAuth.instance.currentUser?.uid;
     if (userID == null) {
       throw Exception('User is not logged in');
@@ -57,25 +76,19 @@ class ItemsRepository {
     final doc = await FirebaseFirestore.instance
         .collection('users')
         .doc(userID)
-        .collection('items')
+        .collection('tasks')
         .doc(id)
         .get();
-    return ItemModel(
+    return ItemModelToDoList(
       id: doc.id,
       title: doc['title'],
-      imageURL: doc['image_url'],
-      releaseDate: (doc['release_date'] as Timestamp).toDate(),
-      text: doc['text'],
-      fontWeight: doc['font_weight'] ?? 0,
+      isChecked: doc['isChecked'],
     );
   }
 
-  Future<void> add(
+  Future<void> addtask(
     String title,
-    String imageURL,
-    DateTime releaseDate,
-    String text,
-    int fontWeight,
+    bool isChecked,
   ) async {
     final userID = FirebaseAuth.instance.currentUser?.uid;
     if (userID == null) {
@@ -84,34 +97,10 @@ class ItemsRepository {
     await FirebaseFirestore.instance
         .collection('users')
         .doc(userID)
-        .collection('items')
+        .collection('tasks')
         .add({
-      'title': title,
-      'image_url': imageURL,
-      'release_date': releaseDate,
-      'text': text,
-      'font_weight': fontWeight,
+      'task': title,
+      'isChecked': isChecked,
     });
-  }
-
-  Future<void> addtext(
-    String id,
-    String text,
-  ) async {
-    final userID = FirebaseAuth.instance.currentUser?.uid;
-    if (userID == null) {
-      throw Exception('User is not logged in');
-    }
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userID)
-        .collection('items')
-        .doc(id)
-        .set(
-      {
-        'text': text,
-      },
-      SetOptions(merge: true),
-    );
   }
 }

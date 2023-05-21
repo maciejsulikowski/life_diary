@@ -8,6 +8,7 @@ import 'package:lifediary_project/app/domain/models/daily_plan_model.dart';
 
 import 'package:lifediary_project/app/domain/models/item_model.dart';
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
+import 'package:lifediary_project/app/domain/repositories/plans_repository.dart';
 import 'package:lifediary_project/app/features/daily_plan/cubit/daily_plan_cubit.dart';
 
 
@@ -30,7 +31,7 @@ class _DailyPlanPageContentState extends State<DailyPlanPageContent> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => DailyPlanCubit(ItemsRepository())..start(),
+      create: (context) => DailyPlanCubit(PlansRepository())..start(),
       child: BlocListener<DailyPlanCubit, DailyPlanState>(
         listener: (context, state) {
           if (state.saved) {
