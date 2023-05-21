@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lifediary_project/app/domain/models/item_model.dart';
+import 'package:lifediary_project/app/domain/models/photos_model.dart';
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
 import 'package:lifediary_project/app/features/details_photo/cubit/details_photo_cubit.dart';
 

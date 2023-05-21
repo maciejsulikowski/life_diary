@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lifediary_project/app/domain/models/photos_model.dart';
 import 'package:lifediary_project/app/features/details_photo/cubit/details_photo_cubit.dart';
 import 'package:lifediary_project/app/features/details_photo/pages/details_photo_page.dart';
 import 'package:lifediary_project/app/features/login/login_page.dart';

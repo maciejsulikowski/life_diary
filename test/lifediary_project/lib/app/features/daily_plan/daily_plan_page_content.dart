@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lifediary_project/app/domain/models/daily_plan_model.dart';
 
 import 'package:lifediary_project/app/domain/models/item_model.dart';
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
@@ -96,7 +97,7 @@ class MyListTileItemWidget extends StatefulWidget {
   MyListTileItemWidget(
       {super.key, required this.currentHour, required this.itemModel});
 
-  // final String id;
+  
   final int currentHour;
   final DailyPlanModel? itemModel;
 

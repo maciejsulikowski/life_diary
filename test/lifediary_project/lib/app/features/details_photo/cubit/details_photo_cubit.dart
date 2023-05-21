@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:lifediary_project/app/domain/models/item_model.dart';
+import 'package:lifediary_project/app/domain/models/photos_model.dart';
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
 import 'package:meta/meta.dart';
 
