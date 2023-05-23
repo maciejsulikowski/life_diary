@@ -71,7 +71,7 @@ class NewPhoto extends StatelessWidget {
             return const SizedBox.shrink();
           }
           return Container(
-            color: Colors.blueAccent[700],
+            color: Colors.black87,
             child: ListView(
               children: [
                 for (final photoModel in photosModels)
@@ -160,7 +160,7 @@ class ListViewItem extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Container(
-                        color: Colors.amber,
+                        color: Colors.blue,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
@@ -169,13 +169,13 @@ class ListViewItem extends StatelessWidget {
                               style: const TextStyle(
                                   fontSize: 20.0,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.blue),
+                                  color: Colors.yellow),
                             ),
                             const SizedBox(height: 10),
                             Text(
                               photoModel.releaseDateFormatted(),
                               style: TextStyle(
-                                  color: Colors.blue,
+                                  color: Colors.yellow,
                                   fontWeight: FontWeight.bold),
                             ),
                           ],

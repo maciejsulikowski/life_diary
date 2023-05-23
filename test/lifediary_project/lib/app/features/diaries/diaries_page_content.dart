@@ -74,7 +74,7 @@ class _NewDiary extends StatelessWidget {
             return const SizedBox.shrink();
           }
           return Container(
-            color: Colors.blueAccent[700],
+            color: Colors.black87,
             child: ListView(
               children: [
                 for (final itemModel in itemModels)
@@ -163,7 +163,7 @@ class ListViewItem extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Container(
-                        color: Colors.amber,
+                        color: Colors.blue,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
@@ -173,7 +173,7 @@ class ListViewItem extends StatelessWidget {
                                 style: const TextStyle(
                                     fontSize: 20.0,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.blueAccent),
+                                    color: Colors.yellow),
                               ),
                             ),
                             const SizedBox(height: 10),
@@ -181,7 +181,7 @@ class ListViewItem extends StatelessWidget {
                               child: Text(
                                 itemModel.releaseDateFormatted(),
                                 style: const TextStyle(
-                                    color: Colors.blue,
+                                    color: Colors.yellow,
                                     fontWeight: FontWeight.bold),
                               ),
                             ),

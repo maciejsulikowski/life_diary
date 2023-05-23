@@ -123,9 +123,10 @@ class _ListViewItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.blueAccent[700],
+      color: Colors.black87,
       child: Padding(
         padding: const EdgeInsets.symmetric(
+          
           vertical: 10,
           horizontal: 30,
         ),
@@ -227,72 +228,76 @@ class _DiaryPageState extends State<_DiaryPage> {
   Widget build(BuildContext context) {
     return BlocBuilder<DetailsCubit, DetailsState>(
       builder: (context, state) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: 10,
-            horizontal: 20,
-          ),
-          child: Container(
-            color: Colors.amber,
-            child: Column(
-              children: [
-                Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          setState(() {
-                            isBold = !isBold;
-                          });
-                        },
-                        icon: Icon(
-                          Icons.format_bold,
-                          color: isBold ? Colors.grey : Colors.black,
+        return Container(
+          color: Colors.black87,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 10,
+              horizontal: 20,
+            ),
+            child: Container(
+              color: Colors.amber,
+              child: Column(
+                children: [
+                  Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            setState(() {
+                              isBold = !isBold;
+                            });
+                          },
+                          icon: Icon(
+                            Icons.format_bold,
+                            color: isBold ? Colors.grey : Colors.black,
+                          ),
                         ),
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          setState(() {
-                            isColored = !isColored;
-                          });
-                        },
-                        icon: Icon(
-                          Icons.color_lens,
-                          color: isColored ? Colors.grey : Colors.black,
+                        IconButton(
+                          onPressed: () {
+                            setState(() {
+                              isColored = !isColored;
+                            });
+                          },
+                          icon: Icon(
+                            Icons.color_lens,
+                            color: isColored ? Colors.grey : Colors.black,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                TextField(
-                  controller: widget.controller,
-                  style: TextStyle(
-                      fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
-                      color: isColored
-                          ? Colors.green
-                          : Colors.black), // przekazanie null do kontrolera
-                  // buildCounter: (BuildContext context,
-                  //     {int? currentLength,
-                  //     int? maxLength,
-                  //     bool? isFocused,
-                  //     TextEditingController? controller}) {
-                  //   widget.controller.value = TextEditingValue(
-                  //       text: _textSpans
-                  //           .map((e) => e.text)
-                  //           .join('')); // aktualizacja wartości kontrolera
-                  //   return RichText(
-                  //     text: TextSpan(children: _textSpans),
-                  //   );
-                  // },
-                  maxLines: 20,
+                  TextField(
+                    controller: widget.controller,
+                    style: TextStyle(
+                        fontWeight:
+                            isBold ? FontWeight.bold : FontWeight.normal,
+                        color: isColored
+                            ? Colors.green
+                            : Colors.black), // przekazanie null do kontrolera
+                    // buildCounter: (BuildContext context,
+                    //     {int? currentLength,
+                    //     int? maxLength,
+                    //     bool? isFocused,
+                    //     TextEditingController? controller}) {
+                    //   widget.controller.value = TextEditingValue(
+                    //       text: _textSpans
+                    //           .map((e) => e.text)
+                    //           .join('')); // aktualizacja wartości kontrolera
+                    //   return RichText(
+                    //     text: TextSpan(children: _textSpans),
+                    //   );
+                    // },
+                    maxLines: 20,
 
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Write something here...',
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'Write something here...',
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         );

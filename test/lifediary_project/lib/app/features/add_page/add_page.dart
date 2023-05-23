@@ -143,7 +143,7 @@ class _AddPageBodyState extends State<_AddPageBody> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.amber,
+      color: Colors.black87,
       child: ListView(
         padding: const EdgeInsets.symmetric(
           horizontal: 30,

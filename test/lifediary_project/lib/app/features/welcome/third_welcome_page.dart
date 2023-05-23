@@ -49,7 +49,7 @@ class ThirdWelcomePage extends StatelessWidget {
             child: Text(
               element,
               style: GoogleFonts.lato(
-                color: Colors.purple[600],
+                color: Colors.grey[700],
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),

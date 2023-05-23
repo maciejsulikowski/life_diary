@@ -60,7 +60,7 @@ class _AddPhotoState extends State<AddPhoto> {
                 centerTitle: true,
                 title: const Text(
                   'DODAJ NOWE ZDJĘCIE',
-                  style: TextStyle(color: Colors.amber),
+                  style: TextStyle(color: Colors.black87),
                 ),
                 actions: [
                   Container(

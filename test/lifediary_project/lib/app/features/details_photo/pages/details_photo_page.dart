@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lifediary_project/app/domain/models/item_model.dart';
 import 'package:lifediary_project/app/domain/models/photos_model.dart';
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
@@ -52,7 +53,6 @@ class _DetailsPhotoPageContentState extends State<DetailsPhotoPageContent> {
 
           return Scaffold(
             appBar: AppBar(
-              title: Text('lysy'),
               actions: [
                 ElevatedButton.icon(
                   onPressed: () async {
@@ -71,12 +71,13 @@ class _DetailsPhotoPageContentState extends State<DetailsPhotoPageContent> {
                     });
                   },
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.green),
+                    backgroundColor: MaterialStateProperty.all(Colors.amber),
                   ),
-                  icon: const Icon(Icons.check, color: Colors.black),
+                  icon: const Icon(Icons.check, color: Colors.blue),
                   label: Text(
                     'Zapisz zmiany',
-                    style: TextStyle(fontSize: 20),
+                    style: GoogleFonts.lato(
+                        color: Colors.blue, fontWeight: FontWeight.bold),
                   ),
                 ),
               ],
@@ -113,7 +114,7 @@ class _ListViewItem extends StatelessWidget {
     return Column(children: [
       Expanded(
         child: Container(
-          color: Colors.blue,
+          color: Colors.black87,
           child: Column(
             children: [
               Padding(
@@ -130,7 +131,7 @@ class _ListViewItem extends StatelessWidget {
                   child: Container(
                     height: 250,
                     decoration: BoxDecoration(
-                      color: Colors.black12,
+                      color: Colors.black87,
                       image: DecorationImage(
                         image: NetworkImage(
                           photoModel!.imageURL,
@@ -223,7 +224,7 @@ class WeightSentence extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        color: Colors.green,
+        color: Colors.blue,
         child: TextField(
           controller: weightController,
           decoration: const InputDecoration(
@@ -249,7 +250,7 @@ class HeightSentence extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        color: Colors.green,
+        color: Colors.blue,
         child: TextField(
           controller: heightController,
           decoration: const InputDecoration(
@@ -275,12 +276,13 @@ class NewSentence extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        color: Colors.green,
+        color: Colors.blue,
         child: TextField(
           controller: newController,
           decoration: const InputDecoration(
             border: OutlineInputBorder(),
             hintText: 'Napisz swój cel',
+            hintStyle: TextStyle(color: Colors.yellow),
           ),
         ),
       ),

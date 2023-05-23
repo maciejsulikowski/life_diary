@@ -37,19 +37,22 @@ class MyAccountPageContent extends StatelessWidget {
               appBar: AppBar(
                 title: Text(
                   'MAIN PAGE',
-                  style: GoogleFonts.lato(
-                      color: Colors.amber, fontWeight: FontWeight.bold),
+                  style: GoogleFonts.buenard(
+                      fontSize: 22,
+                      color: Colors.yellow[400],
+                      fontWeight: FontWeight.bold),
                 ),
                 centerTitle: true,
-                backgroundColor: Colors.blue,
+                backgroundColor: Colors.black87,
               ),
               body: Container(
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage("images/math.jpg"),
-                    fit: BoxFit.cover,
-                  ),
-                ),
+                color: Colors.black87,
+                // decoration: const BoxDecoration(
+                //   image: DecorationImage(
+                //     image: AssetImage("images/math.jpg"),
+                //     fit: BoxFit.cover,
+                //   ),
+                // ),
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -59,8 +62,8 @@ class MyAccountPageContent extends StatelessWidget {
                         const SizedBox(height: 100),
                         ElevatedButton.icon(
                           style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(
-                                Colors.blueAccent[700]),
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.indigo[700]),
                             shape: MaterialStateProperty.all<
                                 RoundedRectangleBorder>(
                               RoundedRectangleBorder(
@@ -68,13 +71,13 @@ class MyAccountPageContent extends StatelessWidget {
                               ),
                             ),
                           ),
-                          icon: const Icon(Icons.person, color: Colors.amber),
+                          icon: const Icon(Icons.person, color: Colors.yellow),
                           label: Text(
                             'Panel użytkownika',
-                            style: GoogleFonts.lato(
-                                color: Colors.amber,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20),
+                            style: GoogleFonts.buenard(
+                                fontSize: 20,
+                                color: Colors.yellow[400],
+                                fontWeight: FontWeight.bold),
                           ),
                           onPressed: () {
                             Navigator.push(
@@ -86,8 +89,8 @@ class MyAccountPageContent extends StatelessWidget {
                         ),
                         ElevatedButton.icon(
                           style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(
-                                Colors.blueAccent[700]),
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.indigo[700]),
                             shape: MaterialStateProperty.all<
                                 RoundedRectangleBorder>(
                               RoundedRectangleBorder(
@@ -95,13 +98,14 @@ class MyAccountPageContent extends StatelessWidget {
                               ),
                             ),
                           ),
-                          icon: const Icon(Icons.pageview, color: Colors.amber),
+                          icon:
+                              const Icon(Icons.pageview, color: Colors.yellow),
                           label: Text(
                             'Instrukcja obsługi',
-                            style: GoogleFonts.lato(
-                                color: Colors.amber,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20),
+                            style: GoogleFonts.buenard(
+                                fontSize: 20,
+                                color: Colors.yellow[400],
+                                fontWeight: FontWeight.bold),
                           ),
                           onPressed: () {
                             Navigator.push(
@@ -116,10 +120,7 @@ class MyAccountPageContent extends StatelessWidget {
                         Expanded(
                           child: Container(
                             decoration: BoxDecoration(
-                                color: Colors.blue[700],
-                                border: Border.all(
-                                  color: Colors.blue,
-                                ),
+                                color: Colors.indigo[700],
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(20))),
                             height: 30,
@@ -128,8 +129,10 @@ class MyAccountPageContent extends StatelessWidget {
                                 answer?.glasses == null
                                     ? 'Pamiętaj, aby pić ? szklanek wody'
                                     : 'Pamiętaj, aby pić ${answer?.glasses} szklanek wody 💧',
-                                style: TextStyle(
-                                    color: Colors.amber, fontSize: 20),
+                                style: GoogleFonts.buenard(
+                                  fontSize: 20,
+                                  color: Colors.yellow[400],
+                                ),
                               ),
                             ),
                           ),
@@ -137,8 +140,8 @@ class MyAccountPageContent extends StatelessWidget {
                         const SizedBox(height: 40),
                         ElevatedButton.icon(
                           style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(
-                                Colors.blueAccent[700]),
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.indigo[700]),
                             shape: MaterialStateProperty.all<
                                 RoundedRectangleBorder>(
                               RoundedRectangleBorder(
@@ -146,13 +149,13 @@ class MyAccountPageContent extends StatelessWidget {
                               ),
                             ),
                           ),
-                          icon: const Icon(Icons.logout, color: Colors.amber),
+                          icon: const Icon(Icons.logout, color: Colors.yellow),
                           label: Text(
                             'Wyloguj się',
-                            style: GoogleFonts.lato(
-                                color: Colors.amber,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20),
+                            style: GoogleFonts.buenard(
+                                fontSize: 20,
+                                color: Colors.yellow[400],
+                                fontWeight: FontWeight.bold),
                           ),
                           onPressed: () {
                             context.read<RootCubit>().signOut();
@@ -162,15 +165,22 @@ class MyAccountPageContent extends StatelessWidget {
                             // );
                           },
                         ),
-                        const SizedBox(height: 250),
-                        Container(
-                          color: Colors.amber,
-                          child: Text(
-                            'Zalogowano jako $email! ',
-                            style: GoogleFonts.lato(
-                                color: Colors.blue,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 19),
+                        SizedBox(height: 20),
+                        const Image(
+                          image: AssetImage('images/black_diary.png'),
+                          width: 100,
+                        ),
+                        const SizedBox(height: 100),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 8.0),
+                            child: Text(
+                              'Zalogowano jako $email! ',
+                              style: GoogleFonts.buenard(
+                                  fontSize: 20,
+                                  color: Colors.yellow[400],
+                                  fontWeight: FontWeight.bold),
+                            ),
                           ),
                         ),
                       ],
