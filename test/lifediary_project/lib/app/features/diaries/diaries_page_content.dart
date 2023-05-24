@@ -43,7 +43,7 @@ class _DiariesPageContentState extends State<DiariesPageContent> {
               label: Text(
                 'Dodaj dziennik',
                 style: GoogleFonts.buenard(
-                    fontSize: 22,
+                    fontSize: 20,
                     color: Colors.yellow[400],
                     fontWeight: FontWeight.bold),
               ),

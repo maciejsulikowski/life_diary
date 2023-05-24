@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
@@ -48,14 +49,22 @@ class _AddPageState extends State<AddPage> {
           builder: (context, state) {
             return Scaffold(
               appBar: AppBar(
+                backgroundColor: Colors.black87,
+                title: Text(
+                  'DODAJ DZIENNIK',
+                  style: GoogleFonts.buenard(
+                      fontSize: 22,
+                      color: Colors.yellow[400],
+                      fontWeight: FontWeight.bold),
+                ),
                 centerTitle: true,
                 actions: [
                   Container(
                     color: imageURL == null ||
                             _title == null ||
                             _releaseDate == null
-                        ? Colors.red
-                        : Colors.green,
+                        ? Colors.red[700]
+                        : Colors.green[700],
                     child: IconButton(
                       onPressed: imageURL == null ||
                               _title == null ||
@@ -140,6 +149,10 @@ class _AddPageBodyState extends State<_AddPageBody> {
     imageURL = '';
   }
 
+  void toogleButton() {
+    isTextHide = !isTextHide;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -153,17 +166,20 @@ class _AddPageBodyState extends State<_AddPageBody> {
           ElevatedButton.icon(
             onPressed: () async {
               setState(() {
-                isTextHide = false;
+                toogleButton();
               });
             },
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(
-                  isTextFilled ? Colors.green : Colors.red),
+                  isTextFilled ? Colors.green[700] : Colors.red[700]),
             ),
             icon: const Icon(Icons.book, color: Colors.black),
-            label: const Text(
+            label: Text(
               'Dodaj tytuł dziennika',
-              style: TextStyle(fontSize: 20),
+              style: GoogleFonts.buenard(
+                  fontSize: 22,
+                  color: Colors.yellow[400],
+                  fontWeight: FontWeight.bold),
             ),
           ),
           SizedBox(height: 20),
@@ -175,17 +191,43 @@ class _AddPageBodyState extends State<_AddPageBody> {
                   isTextFilled = newValue.isNotEmpty;
                 });
               },
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Np. Dziennik Treningowy',
-                label: Text(
-                  'Dodaj tytuł dziennika',
-                  style: TextStyle(color: Colors.blueAccent, fontSize: 20),
+              style: GoogleFonts.buenard(
+                fontSize: 20,
+                color: Colors.yellow[400],
+                fontWeight: FontWeight.bold,
+              ),
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20),
+                  borderSide: BorderSide(
+                    color: const Color.fromRGBO(255, 238, 88, 1),
+                  ),
                 ),
-                hintStyle: TextStyle(
-                    fontSize: 20.0,
-                    color: Colors.blueAccent,
-                    fontWeight: FontWeight.normal),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20),
+                  borderSide: BorderSide(
+                    color: Colors.yellow,
+                  ),
+                ),
+                hintText: 'Np. Dziennik Treningowy',
+                labelText: 'Dodaj tytuł dziennika',
+                labelStyle: GoogleFonts.buenard(
+                  fontSize: 22,
+                  color: Colors.yellow[400],
+                  fontWeight: FontWeight.bold,
+                ),
+                hintStyle: GoogleFonts.buenard(
+                  fontSize: 20,
+                  color: Colors.yellow[400],
+                  fontWeight: FontWeight.bold,
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20),
+                  borderSide: BorderSide(
+                    color: Color.fromRGBO(255, 238, 88, 1),
+                    width: 2.0,
+                  ),
+                ),
               ),
             ),
           ],
@@ -225,12 +267,15 @@ class _AddPageBodyState extends State<_AddPageBody> {
             },
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(
-                  isImageAdded ? Colors.green : Colors.red),
+                  isImageAdded ? Colors.green[700] : Colors.red[700]),
             ),
             icon: const Icon(Icons.camera_alt, color: Colors.black),
             label: Text(
               isImageAdded ? 'Zmień zdjęcie' : 'Dodaj zdjęcie',
-              style: TextStyle(fontSize: 20),
+              style: GoogleFonts.buenard(
+                  fontSize: 22,
+                  color: Colors.yellow[400],
+                  fontWeight: FontWeight.bold),
             ),
           ),
           const SizedBox(height: 20),
@@ -267,12 +312,17 @@ class _AddPageBodyState extends State<_AddPageBody> {
             },
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(
-                  isTimeAdded ? Colors.green : Colors.red),
+                  isTimeAdded ? Colors.green[700] : Colors.red[700]),
             ),
             icon: Icon(Icons.timer, color: Colors.black),
             label: Text(
               widget.selectedDateFormatted ??
                   'Wybierz datę utworzenia dziennika',
+              style: GoogleFonts.buenard(
+                  fontSize: 22,
+                  color: Colors.yellow[400],
+                  fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
             ),
           ),
         ],

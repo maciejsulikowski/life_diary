@@ -109,6 +109,7 @@ class MyListTileItemWidget extends StatefulWidget {
 class _MyListTileItemWidgetState extends State<MyListTileItemWidget> {
   late String text;
   late TextEditingController controller;
+  double minHeight = 100;
 
   @override
   void initState() {
@@ -119,52 +120,67 @@ class _MyListTileItemWidgetState extends State<MyListTileItemWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Column(
+    return Container(
+      constraints: BoxConstraints(minHeight: 100),
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             TimeContainer(
               currentHour: widget.currentHour,
             ),
-          ],
-        ),
-        Expanded(
-          child: Stack(
-            children: [
-              PartOfPlanning(
-                controller: controller =
-                    TextEditingController(text: widget.itemModel?.text),
-              ),
-              Positioned(
-                top: 30,
-                right: 5,
-                child: Container(
-                  width: 45,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(primary: Colors.black87),
-                    onPressed: () {
-                      context.read<DailyPlanCubit>().addplan(
-                            controller.text,
-                            widget.currentHour.toString(),
-                          );
-                    },
-                    child: Padding(
-                      padding: EdgeInsets.only(right: 20.0),
-                      child: Text(
-                        '✓',
-                        style: TextStyle(
-                          color: Colors.yellow[400],
-                          fontSize: 18,
-                        ),
-                      ),
+            Expanded(
+              child: Stack(
+                children: [
+                  SingleChildScrollView(
+                    child: PartOfPlanning(
+                      controller: controller =
+                          TextEditingController(text: widget.itemModel?.text),
                     ),
                   ),
-                ),
-              )
-            ],
-          ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Positioned(
+                        right: 0,
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Container(
+                            width: 30,
+                            height: 30,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.black87,
+                                padding: EdgeInsets.zero,
+                              ),
+                              onPressed: () {
+                                context.read<DailyPlanCubit>().addplan(
+                                      controller.text,
+                                      widget.currentHour.toString(),
+                                    );
+                              },
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  '✓',
+                                  style: TextStyle(
+                                    color: Colors.yellow[400],
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }
@@ -183,8 +199,8 @@ class TimeContainer extends StatelessWidget {
     final formattedHourString =
         '${hourString.substring(0, 2)}:${hourString.substring(2)}';
     return Container(
-        width: 80,
-        height: 95,
+        width: 90,
+        height: 94,
         color: Colors.yellow[400],
         padding: EdgeInsets.all(20),
         margin: EdgeInsets.only(top: 10),
@@ -192,7 +208,7 @@ class TimeContainer extends StatelessWidget {
           child: Text(
             '${(formattedHourString)}',
             style: GoogleFonts.buenard(
-                fontSize: 16,
+                fontSize: 20,
                 color: Colors.indigo[700],
                 fontWeight: FontWeight.bold),
           ),
@@ -217,16 +233,24 @@ class PartOfPlanning extends StatelessWidget {
       margin: EdgeInsets.only(top: 10),
       child: TextField(
         style: GoogleFonts.buenard(
-            fontSize: 24,
-            color: Colors.yellow[400],
-            fontWeight: FontWeight.bold),
+          fontSize: 24,
+          color: Colors.yellow[400],
+          fontWeight: FontWeight.bold,
+        ),
         controller: controller,
+        maxLines: null, // Pozwala na dowolną liczbę linii
+        keyboardType:
+            TextInputType.multiline, // Pozwala na wpisywanie w wielu liniach
+        textAlignVertical: TextAlignVertical.center,
+        textInputAction: TextInputAction
+            .newline, // Włącza przycisk nowej linii na klawiaturze
         decoration: InputDecoration(
           hintText: 'Wpisz swój plan tutaj.. ',
           hintStyle: GoogleFonts.buenard(
-              fontSize: 20,
-              color: Colors.yellow[400],
-              fontWeight: FontWeight.bold),
+            fontSize: 20,
+            color: Colors.yellow[400],
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );

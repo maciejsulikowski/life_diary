@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
@@ -57,18 +58,22 @@ class _AddPhotoState extends State<AddPhoto> {
           builder: (context, state) {
             return Scaffold(
               appBar: AppBar(
+                backgroundColor: Colors.black87,
                 centerTitle: true,
-                title: const Text(
+                title: Text(
                   'DODAJ NOWE ZDJĘCIE',
-                  style: TextStyle(color: Colors.black87),
+                  style: GoogleFonts.buenard(
+                      fontSize: 22,
+                      color: Colors.yellow[400],
+                      fontWeight: FontWeight.bold),
                 ),
                 actions: [
                   Container(
                     color: _imageURL == null ||
                             _title == null ||
                             _releaseDate == null
-                        ? Colors.red
-                        : Colors.green,
+                        ? Colors.red[700]
+                        : Colors.green[700],
                     child: IconButton(
                         onPressed: _imageURL == null ||
                                 _title == null ||
@@ -84,12 +89,12 @@ class _AddPhotoState extends State<AddPhoto> {
                                       goals,
                                     );
                               },
-                        icon: const Icon(Icons.check),
+                        icon: Icon(Icons.check),
                         color: _imageURL == null ||
                                 _title == null ||
                                 _releaseDate == null
-                            ? Color.fromARGB(255, 148, 14, 5)
-                            : Color.fromARGB(255, 0, 76, 3)),
+                            ? Colors.red[300]
+                            : Colors.green[300]),
                   ),
                 ],
               ),
@@ -158,7 +163,7 @@ class _AddPhotoBodyState extends State<_AddPhotoBody> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.amber,
+      color: Colors.black87,
       child: ListView(
         padding: const EdgeInsets.symmetric(
           horizontal: 30,
@@ -173,12 +178,15 @@ class _AddPhotoBodyState extends State<_AddPhotoBody> {
             },
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(
-                  isTextFilled ? Colors.green : Colors.red),
+                  isTextFilled ? Colors.green[700] : Colors.red[700]),
             ),
             icon: const Icon(Icons.book, color: Colors.black),
-            label: const Text(
+            label: Text(
               'Dodaj tytuł zdjęcia',
-              style: TextStyle(fontSize: 20),
+              style: GoogleFonts.buenard(
+                  fontSize: 22,
+                  color: Colors.yellow[400],
+                  fontWeight: FontWeight.bold),
             ),
           ),
           const SizedBox(height: 20),
@@ -190,17 +198,48 @@ class _AddPhotoBodyState extends State<_AddPhotoBody> {
                   isTextFilled = newValue.isNotEmpty;
                 });
               },
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
+              style: GoogleFonts.buenard(
+                fontSize: 20,
+                color: Colors.yellow[400],
+                fontWeight: FontWeight.bold,
+              ),
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20),
+                  borderSide: BorderSide(
+                    color: Color.fromRGBO(255, 238, 88, 1),
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20),
+                  borderSide: BorderSide(
+                    color: Colors.yellow,
+                  ),
+                ),
                 hintText: 'Np. Zdjęcie nr.1',
                 label: Text(
                   'Dodaj tytuł zdjęcia',
-                  style: TextStyle(color: Colors.blueAccent, fontSize: 20),
+                  style: GoogleFonts.buenard(
+                      fontSize: 22,
+                      color: Colors.yellow[400],
+                      fontWeight: FontWeight.bold),
                 ),
-                hintStyle: TextStyle(
-                    fontSize: 20.0,
-                    color: Colors.blueAccent,
-                    fontWeight: FontWeight.normal),
+                labelStyle: GoogleFonts.buenard(
+                  fontSize: 22,
+                  color: Colors.yellow[400],
+                  fontWeight: FontWeight.bold,
+                ),
+                hintStyle: GoogleFonts.buenard(
+                    fontSize: 22,
+                    color: Colors.yellow[400],
+                    fontWeight: FontWeight.bold),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20),
+                  borderSide: BorderSide(
+                    color: Color.fromRGBO(255, 238, 88, 1),
+                    width: 2.0,
+                  ),
+                ),
               ),
             ),
           ],
@@ -251,12 +290,15 @@ class _AddPhotoBodyState extends State<_AddPhotoBody> {
                     },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
-                          isImageAdded ? Colors.green : Colors.red),
+                          isImageAdded ? Colors.green[700] : Colors.red[700]),
                     ),
                     icon: const Icon(Icons.camera_alt, color: Colors.black),
                     label: Text(
                       isImageAdded ? 'Zmień zdjęcie' : 'Zrób zdjęcie',
-                      style: TextStyle(fontSize: 20),
+                      style: GoogleFonts.buenard(
+                          fontSize: 22,
+                          color: Colors.yellow[400],
+                          fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
@@ -305,12 +347,15 @@ class _AddPhotoBodyState extends State<_AddPhotoBody> {
                     },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
-                          isImageAdded ? Colors.green : Colors.red),
+                          isImageAdded ? Colors.green[700] : Colors.red[700]),
                     ),
                     icon: const Icon(Icons.camera_alt, color: Colors.black),
                     label: Text(
                       isImageAdded ? 'Zmień zdjęcie' : 'Dodaj zdjęcie',
-                      style: TextStyle(fontSize: 20),
+                      style: GoogleFonts.buenard(
+                          fontSize: 22,
+                          color: Colors.yellow[400],
+                          fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
@@ -351,11 +396,16 @@ class _AddPhotoBodyState extends State<_AddPhotoBody> {
             },
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(
-                  isTimeAdded ? Colors.green : Colors.red),
+                  isTimeAdded ? Colors.green[700] : Colors.red[700]),
             ),
             icon: Icon(Icons.timer, color: Colors.black),
             label: Text(
               widget.selectedDateFormatted ?? 'Wybierz datę utworzenia zdjęcia',
+              style: GoogleFonts.buenard(
+                  fontSize: 22,
+                  color: Colors.yellow[400],
+                  fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
             ),
           ),
         ],

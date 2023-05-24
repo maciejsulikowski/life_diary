@@ -40,7 +40,7 @@ class TrainingPageContent extends StatelessWidget {
               label: Text(
                 'Dodaj zdjęcie',
                 style: GoogleFonts.buenard(
-                    fontSize: 22,
+                    fontSize: 20,
                     color: Colors.yellow[400],
                     fontWeight: FontWeight.bold),
               ),
