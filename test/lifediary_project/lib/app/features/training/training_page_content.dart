@@ -24,21 +24,25 @@ class TrainingPageContent extends StatelessWidget {
       appBar: AppBar(
           title: Text(
             'TRENING',
-            style: GoogleFonts.lato(
-                color: Colors.amber, fontWeight: FontWeight.bold),
+            style: GoogleFonts.buenard(
+                fontSize: 22,
+                color: Colors.yellow[400],
+                fontWeight: FontWeight.bold),
           ),
+          backgroundColor: Colors.black87,
           centerTitle: true,
-          backgroundColor: Colors.blue,
           actions: [
             ElevatedButton.icon(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.amber),
+                backgroundColor: MaterialStateProperty.all(Colors.indigo[700]),
               ),
-              icon: const Icon(Icons.add, color: Colors.blue),
+              icon: Icon(Icons.add, color: Colors.yellow[400]),
               label: Text(
                 'Dodaj zdjęcie',
-                style: GoogleFonts.lato(
-                    color: Colors.blue, fontWeight: FontWeight.bold),
+                style: GoogleFonts.buenard(
+                    fontSize: 22,
+                    color: Colors.yellow[400],
+                    fontWeight: FontWeight.bold),
               ),
               onPressed: () {
                 Navigator.of(context).push(
@@ -160,22 +164,23 @@ class ListViewItem extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Container(
-                        color: Colors.blue,
+                        color: Colors.indigo[700],
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
                               photoModel.title,
-                              style: const TextStyle(
-                                  fontSize: 20.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.yellow),
+                              style: GoogleFonts.buenard(
+                                  fontSize: 22,
+                                  color: Colors.yellow[400],
+                                  fontWeight: FontWeight.bold),
                             ),
-                            const SizedBox(height: 10),
+                            const SizedBox(height: 3),
                             Text(
                               photoModel.releaseDateFormatted(),
-                              style: TextStyle(
-                                  color: Colors.yellow,
+                              style: GoogleFonts.buenard(
+                                  fontSize: 16,
+                                  color: Colors.yellow[400],
                                   fontWeight: FontWeight.bold),
                             ),
                           ],

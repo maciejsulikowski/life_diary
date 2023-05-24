@@ -54,25 +54,26 @@ class _ToDoListContentState extends State<ToDoListContent> {
               appBar: AppBar(
                 title: Text(
                   'TODOLIST',
-                  style: GoogleFonts.lato(
-                    color: Colors.amber,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: GoogleFonts.buenard(
+                      fontSize: 22,
+                      color: Colors.yellow,
+                      fontWeight: FontWeight.bold),
                 ),
                 centerTitle: true,
-                backgroundColor: Colors.blue,
+                backgroundColor: Colors.black87,
                 actions: [
                   ElevatedButton.icon(
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.amber),
+                      backgroundColor:
+                          MaterialStateProperty.all(Colors.indigo[700]),
                     ),
-                    icon: const Icon(Icons.add, color: Colors.blue),
+                    icon: Icon(Icons.add, color: Colors.yellow[400]),
                     label: Text(
                       'Dodaj zadanie',
-                      style: GoogleFonts.lato(
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: GoogleFonts.buenard(
+                          fontSize: 20,
+                          color: Colors.yellow,
+                          fontWeight: FontWeight.bold),
                     ),
                     onPressed: () {
                       if (controller.text.isEmpty) {
@@ -92,29 +93,33 @@ class _ToDoListContentState extends State<ToDoListContent> {
                 ],
               ),
               body: Container(
-                color: Colors.blueAccent[700],
+                color: Colors.black87,
                 child: ListView(
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: TextField(
-                        style:
-                            const TextStyle(color: Colors.amber, fontSize: 20),
+                        style: GoogleFonts.buenard(
+                            fontSize: 20,
+                            color: Colors.yellow[400],
+                            fontWeight: FontWeight.bold),
                         controller: controller,
                         textAlign: TextAlign.center,
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           focusedBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Colors.amber, width: 2.0),
+                            borderSide: BorderSide(
+                                color: const Color.fromRGBO(255, 238, 88, 1),
+                                width: 2.0),
                           ),
                           enabledBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Colors.amber, width: 2.0),
+                            borderSide: BorderSide(
+                                color: Color.fromRGBO(255, 238, 88, 1),
+                                width: 2.0),
                           ),
                           hintText: 'Tu wpisz nazwę zadania',
                           hintStyle: TextStyle(
                             fontSize: 20.0,
-                            color: Colors.amber,
+                            color: Color.fromRGBO(255, 238, 88, 1),
                           ),
                         ),
                       ),
@@ -180,7 +185,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: widget.itemModel.isChecked ? Colors.grey : Colors.amber,
+          color: widget.itemModel.isChecked ? Colors.grey : Colors.indigo[700],
           borderRadius: BorderRadius.circular(10), // Zaokrąglenie kontenera
           border: Border.all(
             color: const Color.fromARGB(255, 67, 64, 64),
@@ -192,8 +197,14 @@ class _CategoryWidgetState extends State<CategoryWidget> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              widget.itemModel.title,
+            Expanded(
+              child: Text(
+                widget.itemModel.title,
+                style: GoogleFonts.buenard(
+                    fontSize: 20,
+                    color: Colors.yellow[400],
+                    fontWeight: FontWeight.bold),
+              ),
             ),
             Container(
               width: 30,

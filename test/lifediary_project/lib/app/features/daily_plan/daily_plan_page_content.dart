@@ -11,7 +11,6 @@ import 'package:lifediary_project/app/domain/repositories/items_repository.dart'
 import 'package:lifediary_project/app/domain/repositories/plans_repository.dart';
 import 'package:lifediary_project/app/features/daily_plan/cubit/daily_plan_cubit.dart';
 
-
 class DailyPlanPageContent extends StatefulWidget {
   DailyPlanPageContent({
     Key? key,
@@ -45,11 +44,13 @@ class _DailyPlanPageContentState extends State<DailyPlanPageContent> {
               appBar: AppBar(
                 title: Text(
                   'PLAN DNIA',
-                  style: GoogleFonts.lato(
-                      color: Colors.amber, fontWeight: FontWeight.bold),
+                  style: GoogleFonts.buenard(
+                      fontSize: 22,
+                      color: Colors.yellow[400],
+                      fontWeight: FontWeight.bold),
                 ),
                 centerTitle: true,
-                backgroundColor: Colors.blue,
+                backgroundColor: Colors.black87,
               ),
               body: DailyPlanBody(
                 dailyPlanModels: dailyPlanModels,
@@ -73,7 +74,7 @@ class DailyPlanBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.blue[300],
+      color: Colors.black87,
       child: ListView(
         children: [
           for (var index = 0; index < 19; index++) ...[
@@ -98,7 +99,6 @@ class MyListTileItemWidget extends StatefulWidget {
   MyListTileItemWidget(
       {super.key, required this.currentHour, required this.itemModel});
 
-  
   final int currentHour;
   final DailyPlanModel? itemModel;
 
@@ -141,21 +141,20 @@ class _MyListTileItemWidgetState extends State<MyListTileItemWidget> {
                 child: Container(
                   width: 45,
                   child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        primary: Colors.blueAccent[700]),
+                    style: ElevatedButton.styleFrom(primary: Colors.black87),
                     onPressed: () {
                       context.read<DailyPlanCubit>().addplan(
                             controller.text,
                             widget.currentHour.toString(),
                           );
                     },
-                    child: const Padding(
+                    child: Padding(
                       padding: EdgeInsets.only(right: 20.0),
                       child: Text(
                         '✓',
                         style: TextStyle(
-                          color: Colors.amber,
-                          fontSize: 20,
+                          color: Colors.yellow[400],
+                          fontSize: 18,
                         ),
                       ),
                     ),
@@ -185,15 +184,17 @@ class TimeContainer extends StatelessWidget {
         '${hourString.substring(0, 2)}:${hourString.substring(2)}';
     return Container(
         width: 80,
-        height: 88,
-        color: Colors.blueAccent[700],
+        height: 95,
+        color: Colors.yellow[400],
         padding: EdgeInsets.all(20),
         margin: EdgeInsets.only(top: 10),
         child: Center(
           child: Text(
             '${(formattedHourString)}',
-            style: TextStyle(
-                fontSize: 15, fontWeight: FontWeight.bold, color: Colors.amber),
+            style: GoogleFonts.buenard(
+                fontSize: 16,
+                color: Colors.indigo[700],
+                fontWeight: FontWeight.bold),
           ),
         ));
   }
@@ -211,21 +212,21 @@ class PartOfPlanning extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 350,
-      color: Colors.amber,
+      color: Colors.indigo[700],
       padding: EdgeInsets.all(20),
       margin: EdgeInsets.only(top: 10),
       child: TextField(
-        style: TextStyle(
-            color: Color.fromARGB(255, 1, 71, 192),
-            fontSize: 18,
+        style: GoogleFonts.buenard(
+            fontSize: 24,
+            color: Colors.yellow[400],
             fontWeight: FontWeight.bold),
         controller: controller,
         decoration: InputDecoration(
           hintText: 'Wpisz swój plan tutaj.. ',
-          hintStyle: TextStyle(
-              fontSize: 20.0,
-              color: Colors.blueAccent[800],
-              fontWeight: FontWeight.normal),
+          hintStyle: GoogleFonts.buenard(
+              fontSize: 20,
+              color: Colors.yellow[400],
+              fontWeight: FontWeight.bold),
         ),
       ),
     );

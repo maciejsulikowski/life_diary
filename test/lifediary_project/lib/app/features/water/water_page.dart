@@ -40,11 +40,13 @@ class WaterPageState extends State<WaterPage> {
             appBar: AppBar(
               title: Text(
                 'WODA',
-                style: GoogleFonts.lato(
-                    color: Colors.amber, fontWeight: FontWeight.bold),
+                style: GoogleFonts.buenard(
+                    fontSize: 22,
+                    color: Colors.yellow[400],
+                    fontWeight: FontWeight.bold),
               ),
               centerTitle: true,
-              backgroundColor: Colors.blue,
+              backgroundColor: Colors.black87,
             ),
             body: Container(
               decoration: const BoxDecoration(
@@ -59,10 +61,10 @@ class WaterPageState extends State<WaterPage> {
                       padding: const EdgeInsets.all(20.0),
                       child: Text(
                         'Ile szklanek wody powinieneś pić dziennie?',
-                        style: GoogleFonts.lato(
-                            color: Colors.blueAccent,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18),
+                        style: GoogleFonts.buenard(
+                            fontSize: 18,
+                            color: Colors.indigo[700],
+                            fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
@@ -70,15 +72,21 @@ class WaterPageState extends State<WaterPage> {
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
                       controller: heightController,
-                      style: const TextStyle(color: Colors.amber, fontSize: 20),
-                      decoration: const InputDecoration(
+                      style: TextStyle(
+                        color: Colors.yellow[400],
+                        fontSize: 22,
+                        fontFamily: GoogleFonts.buenard().fontFamily,
+                      ),
+                      decoration: InputDecoration(
                         filled: true,
-                        fillColor: Colors.blue,
-                        border: OutlineInputBorder(),
+                        fillColor: Colors.indigo[700],
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
                         hintText: 'Tutaj napisz swój wzrost w cm np. 180',
                         hintStyle: TextStyle(
                           fontSize: 20.0,
-                          color: Colors.amber,
+                          color: Colors.yellow[400],
                         ),
                       ),
                     ),
@@ -88,15 +96,21 @@ class WaterPageState extends State<WaterPage> {
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
                       controller: weightController,
-                      style: const TextStyle(color: Colors.amber, fontSize: 20),
-                      decoration: const InputDecoration(
+                      style: TextStyle(
+                        color: Colors.yellow[400],
+                        fontSize: 22,
+                        fontFamily: GoogleFonts.buenard().fontFamily,
+                      ),
+                      decoration: InputDecoration(
                         filled: true,
-                        fillColor: Colors.blue,
-                        border: OutlineInputBorder(),
+                        fillColor: Colors.indigo[700],
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
                         hintText: 'Tutaj napisz swoją wagę w kg np. 80',
                         hintStyle: TextStyle(
                           fontSize: 20.0,
-                          color: Colors.amber,
+                          color: Colors.yellow[400],
                         ),
                       ),
                     ),
@@ -122,31 +136,44 @@ class WaterPageState extends State<WaterPage> {
                         context.read<WaterCubit>().saveGlasses(answer);
                       });
                     },
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.indigo[700],
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
                     child: Text(
                       'Oblicz!',
-                      style: TextStyle(color: Colors.amber, fontSize: 20),
+                      style: GoogleFonts.buenard(
+                          fontSize: 20,
+                          color: Colors.yellow,
+                          fontWeight: FontWeight.bold),
                     ),
                   ),
                   SizedBox(height: 20),
                   if (isAnswered == true) ...[
-                    Center(
-                      child: Text(
-                        'Powinieneś pić około $result ml wody!',
-                        style: GoogleFonts.lato(
-                            color: Colors.blueAccent,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20),
-                      ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Powinieneś pić około $result ml wody!',
+                          style: GoogleFonts.buenard(
+                              fontSize: 24,
+                              color: Colors.indigo[700],
+                              fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
+                        Text(
+                          'Co daje gdzieś $glass_result szklanek wody dziennie!',
+                          style: GoogleFonts.buenard(
+                              fontSize: 24,
+                              color: Colors.indigo[700],
+                              fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        )
+                      ],
                     ),
-                    Center(
-                      child: Text(
-                        'Co daje gdzieś $glass_result szklanek wody dziennie!',
-                        style: GoogleFonts.lato(
-                            color: Colors.blueAccent,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20),
-                      ),
-                    )
                   ]
                 ],
               ),

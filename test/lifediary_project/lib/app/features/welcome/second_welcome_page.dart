@@ -31,7 +31,7 @@ class SecondWelcomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: 50,
+                  height: 70,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(16.0),

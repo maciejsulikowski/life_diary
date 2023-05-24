@@ -59,7 +59,12 @@ class MyAccountPageContent extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        const SizedBox(height: 100),
+                        const SizedBox(height: 60),
+                        const Image(
+                          image: AssetImage('images/black_diary.png'),
+                          width: 100,
+                        ),
+                        const SizedBox(height: 20),
                         ElevatedButton.icon(
                           style: ButtonStyle(
                             backgroundColor:
@@ -165,11 +170,6 @@ class MyAccountPageContent extends StatelessWidget {
                             // );
                           },
                         ),
-                        SizedBox(height: 20),
-                        const Image(
-                          image: AssetImage('images/black_diary.png'),
-                          width: 100,
-                        ),
                         const SizedBox(height: 100),
                         Expanded(
                           child: Padding(
@@ -180,6 +180,7 @@ class MyAccountPageContent extends StatelessWidget {
                                   fontSize: 20,
                                   color: Colors.yellow[400],
                                   fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
                             ),
                           ),
                         ),
