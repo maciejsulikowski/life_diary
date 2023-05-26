@@ -160,6 +160,10 @@ class _AddPhotoBodyState extends State<_AddPhotoBody> {
     imageURL = '';
   }
 
+  void toogleButton() {
+    isTextHide = !isTextHide;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -173,7 +177,7 @@ class _AddPhotoBodyState extends State<_AddPhotoBody> {
           ElevatedButton.icon(
             onPressed: () async {
               setState(() {
-                isTextHide = false;
+                toogleButton();
               });
             },
             style: ButtonStyle(

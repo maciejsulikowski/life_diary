@@ -108,18 +108,18 @@ class _ToDoListContentState extends State<ToDoListContent> {
                         decoration: InputDecoration(
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: const Color.fromRGBO(255, 238, 88, 1),
+                                color: Color.fromRGBO(255, 238, 88, 1),
                                 width: 2.0),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: Color.fromRGBO(255, 238, 88, 1),
+                                color: const Color.fromARGB(255, 67, 64, 64),
                                 width: 2.0),
                           ),
                           hintText: 'Tu wpisz nazwę zadania',
-                          hintStyle: TextStyle(
-                            fontSize: 20.0,
-                            color: Color.fromRGBO(255, 238, 88, 1),
+                          hintStyle: GoogleFonts.buenard(
+                            fontSize: 20,
+                            color: Colors.yellow[400],
                           ),
                         ),
                       ),

@@ -16,11 +16,9 @@ class HomePage extends StatefulWidget {
   const HomePage({
     Key? key,
     required this.user,
-    
   }) : super(key: key);
 
   final User user;
-  
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -36,7 +34,6 @@ class _HomePageState extends State<HomePage> {
         if (currentIndex == 0) {
           return MyAccountPageContent(
             email: widget.user.email,
-            
           );
         }
         if (currentIndex == 1) {
@@ -48,9 +45,7 @@ class _HomePageState extends State<HomePage> {
           );
         }
         if (currentIndex == 3) {
-          return Center(
-            child: WaterPage()
-          );
+          return Center(child: WaterPage());
         }
         if (currentIndex == 4) {
           return ToDoListContent();
@@ -62,21 +57,26 @@ class _HomePageState extends State<HomePage> {
         }
         return MyAccountPageContent(
           email: widget.user.email,
-          
         );
       }),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.black,
         unselectedItemColor: Colors.white,
+        selectedItemColor: Colors.yellow[400],
         currentIndex: currentIndex,
         onTap: (newIndex) {
           setState(() {
             currentIndex = newIndex;
           });
         },
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
+            activeIcon: Icon(
+              Icons.person,
+            ),
+            icon: Icon(
+              Icons.person,
+            ),
             label: 'Konto',
           ),
           BottomNavigationBarItem(

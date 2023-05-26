@@ -149,7 +149,7 @@ class ListViewItem extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                  height: 250,
+                  height: 300,
                   decoration: BoxDecoration(
                     color: Colors.black12,
                     image: DecorationImage(
@@ -179,7 +179,7 @@ class ListViewItem extends StatelessWidget {
                             Text(
                               photoModel.releaseDateFormatted(),
                               style: GoogleFonts.buenard(
-                                  fontSize: 16,
+                                  fontSize: 18,
                                   color: Colors.yellow[400],
                                   fontWeight: FontWeight.bold),
                             ),

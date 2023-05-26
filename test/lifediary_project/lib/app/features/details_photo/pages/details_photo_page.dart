@@ -53,6 +53,14 @@ class _DetailsPhotoPageContentState extends State<DetailsPhotoPageContent> {
 
           return Scaffold(
             appBar: AppBar(
+              backgroundColor: Colors.black87,
+              title: Text(
+                'ZDJĘCIA',
+                style: GoogleFonts.buenard(
+                    fontSize: 22,
+                    color: Colors.yellow[400],
+                    fontWeight: FontWeight.bold),
+              ),
               actions: [
                 ElevatedButton.icon(
                   onPressed: () async {
@@ -71,13 +79,16 @@ class _DetailsPhotoPageContentState extends State<DetailsPhotoPageContent> {
                     });
                   },
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.amber),
+                    backgroundColor:
+                        MaterialStateProperty.all(Colors.indigo[700]),
                   ),
-                  icon: const Icon(Icons.check, color: Colors.blue),
+                  icon: Icon(Icons.check, color: Colors.yellow[400]),
                   label: Text(
-                    'Zapisz zmiany',
-                    style: GoogleFonts.lato(
-                        color: Colors.blue, fontWeight: FontWeight.bold),
+                    'Zapisz',
+                    style: GoogleFonts.buenard(
+                        fontSize: 20,
+                        color: Colors.yellow[400],
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
               ],
@@ -156,22 +167,23 @@ class _ListViewItem extends StatelessWidget {
                           bottomRight: Radius.circular(10),
                         ),
                         child: Container(
-                          color: Colors.amber,
+                          color: Colors.indigo[700],
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
                                 photoModel!.title,
-                                style: const TextStyle(
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.blue),
+                                style: GoogleFonts.buenard(
+                                    fontSize: 22,
+                                    color: Colors.yellow[400],
+                                    fontWeight: FontWeight.bold),
                               ),
-                              const SizedBox(height: 10),
+                              const SizedBox(height: 3),
                               Text(
                                 photoModel!.releaseDateFormatted(),
-                                style: TextStyle(
-                                    color: Colors.blue,
+                                style: GoogleFonts.buenard(
+                                    fontSize: 18,
+                                    color: Colors.yellow[400],
                                     fontWeight: FontWeight.bold),
                               ),
                             ],
@@ -182,17 +194,15 @@ class _ListViewItem extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 10),
               WeightSentence(
                 weightController: weightController,
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 10),
               HeightSentence(
                 heightController: heightController,
               ),
-              SizedBox(
-                height: 20,
-              ),
+              SizedBox(height: 10),
               NewSentence(
                 newController: newController,
               ),
@@ -211,25 +221,58 @@ class _ListViewItem extends StatelessWidget {
   }
 }
 
-class WeightSentence extends StatelessWidget {
-  const WeightSentence({
-    super.key,
+class WeightSentence extends StatefulWidget {
+  WeightSentence({
+    Key? key,
     required this.weightController,
-  });
+  }) : super(key: key);
 
   final TextEditingController weightController;
+
+  @override
+  State<WeightSentence> createState() => _WeightSentenceState();
+}
+
+class _WeightSentenceState extends State<WeightSentence> {
+  bool showSuffix = false;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        color: Colors.blue,
         child: TextField(
-          controller: weightController,
-          decoration: const InputDecoration(
-            border: OutlineInputBorder(),
-            hintText: 'Podaj swoją wagę w kg',
+          controller: widget.weightController,
+          style: GoogleFonts.buenard(
+            fontSize: 20,
+            color: Colors.yellow,
+            fontWeight: FontWeight.bold,
+          ),
+          decoration: InputDecoration(
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: const Color.fromRGBO(255, 238, 88, 1),
+                width: 2.0,
+              ),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: Color.fromRGBO(255, 238, 88, 1),
+                width: 2.0,
+              ),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            filled: true,
+            fillColor: Colors.indigo[700],
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            hintText: 'Podaj swoją wagę np. 80 kg',
+            hintStyle: TextStyle(
+              fontSize: 20.0,
+              color: Colors.grey,
+            ),
           ),
         ),
       ),
@@ -250,12 +293,35 @@ class HeightSentence extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        color: Colors.blue,
         child: TextField(
           controller: heightController,
-          decoration: const InputDecoration(
-            border: OutlineInputBorder(),
-            hintText: 'Podaj swój wzrost w cm',
+          style: GoogleFonts.buenard(
+              fontSize: 20, color: Colors.yellow, fontWeight: FontWeight.bold),
+          decoration: InputDecoration(
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: const Color.fromRGBO(255, 238, 88, 1),
+                width: 2.0,
+              ),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: Color.fromRGBO(255, 238, 88, 1),
+                width: 2.0,
+              ),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            filled: true,
+            fillColor: Colors.indigo[700],
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            hintText: 'Podaj wzrost np. 180cm',
+            hintStyle: TextStyle(
+              fontSize: 20.0,
+              color: Colors.grey,
+            ),
           ),
         ),
       ),
@@ -276,13 +342,35 @@ class NewSentence extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        color: Colors.blue,
         child: TextField(
           controller: newController,
-          decoration: const InputDecoration(
-            border: OutlineInputBorder(),
-            hintText: 'Napisz swój cel',
-            hintStyle: TextStyle(color: Colors.yellow),
+          style: GoogleFonts.buenard(
+              fontSize: 20, color: Colors.yellow, fontWeight: FontWeight.bold),
+          decoration: InputDecoration(
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: const Color.fromRGBO(255, 238, 88, 1),
+                width: 2.0,
+              ),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: Color.fromRGBO(255, 238, 88, 1),
+                width: 2.0,
+              ),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            filled: true,
+            fillColor: Colors.indigo[700],
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            hintText: 'Podaj swój cel np. Chcę schudnąć',
+            hintStyle: TextStyle(
+              fontSize: 20.0,
+              color: Colors.grey,
+            ),
           ),
         ),
       ),

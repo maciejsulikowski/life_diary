@@ -52,20 +52,24 @@ class _DetailsPageContentState extends State<DetailsPageContent> {
                 appBar: AppBar(
                   title: Text(
                     'LIFEDIARY',
-                    style: GoogleFonts.lato(
-                        color: Colors.amber, fontWeight: FontWeight.bold),
+                    style: GoogleFonts.buenard(
+                        fontSize: 22,
+                        color: Colors.yellow[400],
+                        fontWeight: FontWeight.bold),
                   ),
                   actions: [
                     ElevatedButton.icon(
                       style: ButtonStyle(
                         backgroundColor:
-                            MaterialStateProperty.all(Colors.amber),
+                            MaterialStateProperty.all(Colors.indigo[700]),
                       ),
-                      icon: const Icon(Icons.add, color: Colors.blue),
+                      icon: Icon(Icons.add, color: Colors.yellow[400]),
                       label: Text(
-                        'Dodaj tekst',
-                        style: GoogleFonts.lato(
-                            color: Colors.blue, fontWeight: FontWeight.bold),
+                        'Zapisz',
+                        style: GoogleFonts.buenard(
+                            fontSize: 20,
+                            color: Colors.yellow[400],
+                            fontWeight: FontWeight.bold),
                       ),
                       onPressed: () {
                         if (controller.text.isEmpty) {
@@ -89,7 +93,7 @@ class _DetailsPageContentState extends State<DetailsPageContent> {
                     ),
                   ],
                   centerTitle: true,
-                  backgroundColor: Colors.blue,
+                  backgroundColor: Colors.black87,
                 ),
                 body: ListView(
                   children: [
@@ -126,15 +130,14 @@ class _ListViewItem extends StatelessWidget {
       color: Colors.black87,
       child: Padding(
         padding: const EdgeInsets.symmetric(
-          
           vertical: 10,
           horizontal: 30,
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(20),
           child: Container(
-            decoration: const BoxDecoration(
-              color: Colors.white,
+            decoration: BoxDecoration(
+              color: Colors.indigo[700],
             ),
             child: Column(
               children: [
@@ -156,9 +159,9 @@ class _ListViewItem extends StatelessWidget {
                     children: [
                       Text(
                         itemModel.title,
-                        style: const TextStyle(
-                            color: Colors.blue,
-                            fontSize: 20,
+                        style: GoogleFonts.buenard(
+                            fontSize: 22,
+                            color: Colors.yellow[400],
                             fontWeight: FontWeight.bold),
                       ),
                       const Icon(Icons.book, color: Colors.black),
@@ -236,7 +239,7 @@ class _DiaryPageState extends State<_DiaryPage> {
               horizontal: 20,
             ),
             child: Container(
-              color: Colors.amber,
+              color: Colors.white,
               child: Column(
                 children: [
                   Container(
