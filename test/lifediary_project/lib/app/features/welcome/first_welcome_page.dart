@@ -19,7 +19,6 @@ class _MyStatelessWidgetState extends State<MyStatelessWidget> {
     FirstWelcomePage(),
     SecondWelcomePage(),
     ThirdWelcomePage(),
-    LoginPage()
   ];
   @override
   Widget build(BuildContext context) {

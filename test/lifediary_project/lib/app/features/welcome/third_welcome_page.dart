@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lifediary_project/app/features/login/login_page.dart';
 
 class ThirdWelcomePage extends StatelessWidget {
   const ThirdWelcomePage({
@@ -20,15 +21,21 @@ class ThirdWelcomePage extends StatelessWidget {
       '"Ludzie, którzy tracą czas czekając, aż zaistnieją najbardziej sprzyjające warunki, nigdy nic nie zdziałają. Najlepszy czas na działanie jest teraz!" Mark Fisher'
     ];
     final element = list[random.nextInt(list.length)];
-    final list2 = ['images/rocky.jpg', 'images/lion.jpg'];
+    final list2 = ['images/rocky2.jpg', 'images/lion2.jpg'];
     final randomImage = list2[random.nextInt(list2.length)];
+
+    Color textColor = Colors.yellow;
+    if (randomImage == 'images/rocky2.jpg') {
+      textColor = Colors.white;
+    }
 
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.black,
           title: Text(
-            'Oto Twój cytat, przesuń w lewo',
-            style: GoogleFonts.lato(
+            'Oto Twój cytat !',
+            style: GoogleFonts.buenard(
+              fontSize: 22,
               color: Colors.white,
               fontWeight: FontWeight.bold,
             ),
@@ -46,13 +53,45 @@ class ThirdWelcomePage extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(12.0),
-            child: Text(
-              element,
-              style: GoogleFonts.lato(
-                color: Colors.grey[700],
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+            child: Column(
+              children: [
+                Expanded(
+                  child: Text(
+                    element,
+                    style: GoogleFonts.buenard(
+                      fontSize: 22,
+                      color: Colors.yellow[400],
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 70.0),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          builder: (context) => LoginPage(),
+                          fullscreenDialog: true,
+                        ),
+                      );
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                          const Color.fromRGBO(48, 63, 159, 1)),
+                    ),
+                    child: Text(
+                      'Zaczynamy!',
+                      style: GoogleFonts.buenard(
+                        fontSize: 22,
+                        color: Colors.yellow[400],
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                )
+              ],
             ),
           ),
         ]));
