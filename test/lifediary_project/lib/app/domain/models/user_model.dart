@@ -8,5 +8,5 @@ class UserModel {
   });
 
   final String id;
-  final String imageURL;
+  String? imageURL;
 }

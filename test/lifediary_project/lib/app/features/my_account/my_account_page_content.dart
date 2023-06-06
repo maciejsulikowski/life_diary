@@ -164,6 +164,7 @@ class MyAccountPageContent extends StatelessWidget {
                           ),
                           onPressed: () {
                             context.read<RootCubit>().signOut();
+                            //Navigator.of(context).pop();
                             // Navigator.pushReplacement(
                             //   context,
                             //   MaterialPageRoute(builder: (context) => LoginPage()),
