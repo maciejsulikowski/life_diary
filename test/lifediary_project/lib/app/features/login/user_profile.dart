@@ -63,6 +63,10 @@ class _UserViewState extends State<UserView> {
     controller.addListener(onTextChanged);
   }
 
+  void onIconPressed() {
+    controller.text.isNotEmpty && icon == Icons.check;
+  }
+
   void onTextChanged() {
     setState(() {
       if (controller.text.isEmpty) {
@@ -71,6 +75,7 @@ class _UserViewState extends State<UserView> {
       } else {
         icon = Icons.check;
         iconColor;
+        onIconPressed();
       }
     });
   }
@@ -147,9 +152,12 @@ class _UserViewState extends State<UserView> {
                           fontSize: 20,
                           color: Colors.yellow[400],
                         ),
-                        suffixIcon: Icon(
-                          icon,
-                          color: iconColor,
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            icon,
+                            color: iconColor,
+                          ),
+                          onPressed: icon == Icons.check ? onIconPressed : null,
                         ),
                       ),
                     ),
