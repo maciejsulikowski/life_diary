@@ -29,6 +29,7 @@ class UserRepository {
           id: docSnapshot.id,
           imageURL: data?['image_url'],
           fullName: data?['full_name'],
+          storyText: data?['story_text'],
         );
       } else {
         return null;
@@ -71,6 +72,26 @@ class UserRepository {
         .set(
       {
         'full_name': fullName,
+      },
+      SetOptions(merge: true),
+    );
+  }
+
+  Future<void> addStoryText(
+    String storyText,
+  ) async {
+    final userID = FirebaseAuth.instance.currentUser?.uid;
+    if (userID == null) {
+      throw Exception('User is not logged in');
+    }
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userID)
+        .collection('users_photo')
+        .doc(userID)
+        .set(
+      {
+        'story_text': storyText,
       },
       SetOptions(merge: true),
     );

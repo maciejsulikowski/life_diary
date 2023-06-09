@@ -49,6 +49,15 @@ class UserCubit extends Cubit<UserState> {
     } catch (error) {}
   }
 
+  Future<void> addStoryText(
+    String storyText,
+  ) async {
+    try {
+      await _userRepository.addStoryText(storyText);
+      emit(UserState(userModel: null, isLoading: false, isSaved: true));
+    } catch (error) {}
+  }
+
   
 
   

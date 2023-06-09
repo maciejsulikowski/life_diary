@@ -79,21 +79,29 @@ class UserView extends StatefulWidget {
 
 class _UserViewState extends State<UserView> {
   late TextEditingController controller;
+  late TextEditingController storyController;
   late IconData icon;
   late Color iconColor;
 
   @override
   void initState() {
     controller = TextEditingController();
+    storyController = TextEditingController();
     icon = Icons.edit;
     iconColor = Colors.yellow[400]!;
     controller.addListener(onTextChanged);
     super.initState();
   }
 
-  void onIconPressed() {
+  void onFullNamePressed() {
     if (controller.text.isNotEmpty) {
       context.read<UserCubit>().addFullName(controller.text);
+    }
+  }
+
+  void onStoryTextPressed() {
+    if (controller.text.isNotEmpty) {
+      context.read<UserCubit>().addStoryText(storyController.text);
     }
   }
 
@@ -120,6 +128,7 @@ class _UserViewState extends State<UserView> {
     super.didUpdateWidget(oldWidget);
     if (widget.userModel != oldWidget.userModel) {
       controller.text = widget.userModel?.fullName ?? '';
+      storyController.text = widget.userModel?.storyText ?? '';
     }
   }
 
@@ -183,7 +192,50 @@ class _UserViewState extends State<UserView> {
                     icon,
                     color: iconColor,
                   ),
-                  onPressed: icon == Icons.check ? onIconPressed : null,
+                  onPressed: icon == Icons.check ? onFullNamePressed : null,
+                ),
+              ),
+            ),
+            SizedBox(height: 20),
+            TextField(
+              style: GoogleFonts.buenard(
+                fontSize: 20,
+                color: Colors.yellow[400],
+                fontWeight: FontWeight.bold,
+              ),
+              maxLines: null, // Pozwala na dowolną liczbę linii
+              keyboardType: TextInputType
+                  .multiline, // Pozwala na wpisywanie w wielu liniach
+              textAlignVertical: TextAlignVertical.center,
+              textInputAction: TextInputAction
+                  .newline, // Włącza przycisk nowej linii na klawiaturze
+              controller: storyController,
+              textAlign: TextAlign.center,
+              decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Color.fromRGBO(255, 238, 88, 1),
+                    width: 2.0,
+                  ),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: const Color.fromARGB(255, 67, 64, 64),
+                    width: 2.0,
+                  ),
+                ),
+                hintText: 'Napisz coś o sobie...',
+                hintStyle: GoogleFonts.buenard(
+                  fontSize: 20,
+                  color: Colors.yellow[400],
+                  fontWeight: FontWeight.bold,
+                ),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    icon,
+                    color: iconColor,
+                  ),
+                  onPressed: icon == Icons.check ? onStoryTextPressed : null,
                 ),
               ),
             ),
