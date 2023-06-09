@@ -28,6 +28,7 @@ class UserRepository {
         return UserModel(
           id: docSnapshot.id,
           imageURL: data?['image_url'],
+          fullName: data?['full_name'],
         );
       } else {
         return null;
@@ -55,25 +56,23 @@ class UserRepository {
     );
   }
 
-  Future<UserModel?> getUserPhoto(String imageURL) async {
+  Future<void> addFullName(
+    String fullName,
+  ) async {
     final userID = FirebaseAuth.instance.currentUser?.uid;
     if (userID == null) {
       throw Exception('User is not logged in');
     }
-    final doc = await FirebaseFirestore.instance
+    await FirebaseFirestore.instance
         .collection('users')
         .doc(userID)
         .collection('users_photo')
         .doc(userID)
-        .get();
-    if (doc.exists) {
-      final data = doc.data();
-      return UserModel(
-        id: doc.id,
-        imageURL: data?['image_url'],
-      );
-    } else {
-      return null;
-    }
+        .set(
+      {
+        'full_name': fullName,
+      },
+      SetOptions(merge: true),
+    );
   }
 }

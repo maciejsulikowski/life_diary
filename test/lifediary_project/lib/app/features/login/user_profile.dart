@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,27 +23,54 @@ class UserProfile extends StatefulWidget {
 
 class _UserProfileState extends State<UserProfile> {
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'USER PAGE',
-          style: GoogleFonts.buenard(
-            color: Colors.yellow,
-            fontWeight: FontWeight.bold,
-            fontSize: 24,
-          ),
+    return BlocProvider(
+      create: (context) => UserCubit(UserRepository())..start(),
+      child: BlocListener<UserCubit, UserState>(
+        listener: (context, state) {
+          if (state.isSaved) {
+            context.read<UserCubit>().start();
+          }
+        },
+        child: BlocBuilder<UserCubit, UserState>(
+          builder: (context, state) {
+            final userModel = state.userModel;
+            return Scaffold(
+              appBar: AppBar(
+                title: Text(
+                  'USER PAGE',
+                  style: GoogleFonts.buenard(
+                    color: Colors.yellow,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24,
+                  ),
+                ),
+                centerTitle: true,
+                backgroundColor: Colors.black,
+              ),
+              body: UserView(
+                userModel: userModel,
+                onFullNameChanged: (newValue) {
+                  setState(() {
+                    userModel?.fullName = newValue;
+                  });
+                },
+              ),
+            );
+          },
         ),
-        centerTitle: true,
-        backgroundColor: Colors.black,
       ),
-      body: UserView(),
     );
   }
 }
 
 class UserView extends StatefulWidget {
-  const UserView({
+  final UserModel? userModel;
+  Function(String) onFullNameChanged;
+
+  UserView({
     Key? key,
+    required this.userModel,
+    required this.onFullNameChanged,
   });
 
   @override
@@ -56,15 +84,17 @@ class _UserViewState extends State<UserView> {
 
   @override
   void initState() {
-    super.initState();
     controller = TextEditingController();
     icon = Icons.edit;
     iconColor = Colors.yellow[400]!;
     controller.addListener(onTextChanged);
+    super.initState();
   }
 
   void onIconPressed() {
-    controller.text.isNotEmpty && icon == Icons.check;
+    if (controller.text.isNotEmpty) {
+      context.read<UserCubit>().addFullName(controller.text);
+    }
   }
 
   void onTextChanged() {
@@ -75,7 +105,6 @@ class _UserViewState extends State<UserView> {
       } else {
         icon = Icons.check;
         iconColor;
-        onIconPressed();
       }
     });
   }
@@ -87,85 +116,78 @@ class _UserViewState extends State<UserView> {
   }
 
   @override
+  void didUpdateWidget(UserView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.userModel != oldWidget.userModel) {
+      controller.text = widget.userModel?.fullName ?? '';
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => UserCubit(UserRepository())..start(),
-      child: BlocListener<UserCubit, UserState>(
-        listener: (context, state) {
-          if (state.isSaved) {
-            context.read<UserCubit>().start();
-          }
-        },
-        child: BlocBuilder<UserCubit, UserState>(
-          builder: (context, state) {
-            final userModel = state.userModel;
-            return Container(
-              color: Colors.black,
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 20),
-                    Text(
-                      'Witaj w profilu użytkownika!',
-                      style: GoogleFonts.buenard(
-                        color: Colors.yellow,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 24,
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    if (userModel != null) ...[
-                      UserPhoto(
-                        userModel: userModel,
-                        onImageUrlChanged: (newValue) {
-                          setState(() {
-                            userModel.imageURL = newValue;
-                          });
-                        },
-                      ),
-                    ],
-                    SizedBox(height: 20),
-                    TextField(
-                      style: GoogleFonts.buenard(
-                        fontSize: 20,
-                        color: Colors.yellow[400],
-                        fontWeight: FontWeight.bold,
-                      ),
-                      controller: controller,
-                      textAlign: TextAlign.center,
-                      decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color.fromRGBO(255, 238, 88, 1),
-                            width: 2.0,
-                          ),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: const Color.fromARGB(255, 67, 64, 64),
-                            width: 2.0,
-                          ),
-                        ),
-                        hintText: 'Wpisz swoje imię i nazwisko',
-                        hintStyle: GoogleFonts.buenard(
-                          fontSize: 20,
-                          color: Colors.yellow[400],
-                        ),
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            icon,
-                            color: iconColor,
-                          ),
-                          onPressed: icon == Icons.check ? onIconPressed : null,
-                        ),
-                      ),
-                    ),
-                  ],
+    return Container(
+      color: Colors.black,
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(height: 20),
+            Text(
+              'Witaj w profilu użytkownika!',
+              style: GoogleFonts.buenard(
+                color: Colors.yellow,
+                fontWeight: FontWeight.bold,
+                fontSize: 24,
+              ),
+            ),
+            const SizedBox(height: 20),
+            if (widget.userModel != null) ...[
+              UserPhoto(
+                userModel: widget.userModel!,
+                onImageUrlChanged: (newValue) {
+                  setState(() {
+                    widget.userModel?.imageURL = newValue;
+                  });
+                },
+              ),
+            ],
+            SizedBox(height: 20),
+            TextField(
+              style: GoogleFonts.buenard(
+                fontSize: 20,
+                color: Colors.yellow[400],
+                fontWeight: FontWeight.bold,
+              ),
+              controller: controller,
+              textAlign: TextAlign.center,
+              decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Color.fromRGBO(255, 238, 88, 1),
+                    width: 2.0,
+                  ),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: const Color.fromARGB(255, 67, 64, 64),
+                    width: 2.0,
+                  ),
+                ),
+                hintText: 'Wpisz swoje imię i nazwisko',
+                hintStyle: GoogleFonts.buenard(
+                  fontSize: 20,
+                  color: Colors.yellow[400],
+                ),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    icon,
+                    color: iconColor,
+                  ),
+                  onPressed: icon == Icons.check ? onIconPressed : null,
                 ),
               ),
-            );
-          },
+            ),
+          ],
         ),
       ),
     );
@@ -188,10 +210,6 @@ class UserPhoto extends StatefulWidget {
 
 class _UserPhotoState extends State<UserPhoto> {
   late String imageURL;
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

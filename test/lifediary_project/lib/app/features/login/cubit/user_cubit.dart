@@ -17,7 +17,7 @@ class UserCubit extends Cubit<UserState> {
         ));
 
   final UserRepository _userRepository;
-  String? imageURL;
+  
 
   StreamSubscription? _streamSubscription;
 
@@ -40,11 +40,20 @@ class UserCubit extends Cubit<UserState> {
     } catch (error) {}
   }
 
-  Future<void> getUserPhoto(String imageURL) async {
+   Future<void> addFullName(
+    String fullName,
+  ) async {
     try {
-      await _userRepository.getUserPhoto(imageURL);
+      await _userRepository.addFullName(fullName);
+      emit(UserState(userModel: null, isLoading: false, isSaved: true));
     } catch (error) {}
   }
+
+  
+
+  
+
+  
 
   @override
   Future<void> close() {

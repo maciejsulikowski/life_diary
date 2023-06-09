@@ -195,38 +195,6 @@ class _DiaryPageState extends State<_DiaryPage> {
   bool isBold = false;
   bool isColored = false;
 
-  // List<TextSpan> _textSpans = [];
-
-  // List<TextSpan> _buildTextSpans(String text) {
-  //   List<TextSpan> textSpans = [];
-
-  //   for (int i = 0; i < text.length; i++) {
-  //     String char = text[i];
-  //     FontWeight fontWeight = isBold ? FontWeight.bold : FontWeight.normal;
-  //     Color color = isColored ? Colors.green : Colors.black;
-  //     if (char == 'a') {
-  //       fontWeight = FontWeight.bold;
-  //     } else if (char == 'd') {
-  //       color = Colors.green;
-  //     }
-  //     textSpans.add(TextSpan(
-  //       text: char,
-  //       style: TextStyle(
-  //         fontWeight: fontWeight,
-  //         color: color,
-  //       ),
-  //     ));
-  //   }
-
-  //   return textSpans;
-  // }
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _textSpans = _buildTextSpans(widget.controller.text);
-  // }
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<DetailsCubit, DetailsState>(
@@ -278,20 +246,7 @@ class _DiaryPageState extends State<_DiaryPage> {
                             isBold ? FontWeight.bold : FontWeight.normal,
                         color: isColored
                             ? Colors.green
-                            : Colors.black), // przekazanie null do kontrolera
-                    // buildCounter: (BuildContext context,
-                    //     {int? currentLength,
-                    //     int? maxLength,
-                    //     bool? isFocused,
-                    //     TextEditingController? controller}) {
-                    //   widget.controller.value = TextEditingValue(
-                    //       text: _textSpans
-                    //           .map((e) => e.text)
-                    //           .join('')); // aktualizacja wartości kontrolera
-                    //   return RichText(
-                    //     text: TextSpan(children: _textSpans),
-                    //   );
-                    // },
+                            : Colors.black), 
                     maxLines: 20,
 
                     decoration: const InputDecoration(
