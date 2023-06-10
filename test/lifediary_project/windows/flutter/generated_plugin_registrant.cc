@@ -9,6 +9,8 @@
 #include <desktop_webview_auth/desktop_webview_auth_plugin.h>
 #include <firebase_core/firebase_core_plugin_c_api.h>
 #include <flutter_localization/flutter_localization_plugin_c_api.h>
+#include <pasteboard/pasteboard_plugin.h>
+#include <url_launcher_windows/url_launcher_windows.h>
 
 void RegisterPlugins(flutter::PluginRegistry* registry) {
   DesktopWebviewAuthPluginRegisterWithRegistrar(
@@ -17,4 +19,8 @@ void RegisterPlugins(flutter::PluginRegistry* registry) {
       registry->GetRegistrarForPlugin("FirebaseCorePluginCApi"));
   FlutterLocalizationPluginCApiRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("FlutterLocalizationPluginCApi"));
+  PasteboardPluginRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("PasteboardPlugin"));
+  UrlLauncherWindowsRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("UrlLauncherWindows"));
 }
