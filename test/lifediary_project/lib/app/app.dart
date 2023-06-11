@@ -12,16 +12,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => RootCubit(UserRepository())..start(),
-      child: BlocBuilder<RootCubit, RootState>(
-        builder: (context, state) {
-          return MaterialApp(
-            title: 'Flutter Demo',
-            theme: ThemeData(
-              primarySwatch: Colors.blue,
-            ),
-            home: const RootPage(),
-          );
-        },
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: const RootPage(),
       ),
     );
   }

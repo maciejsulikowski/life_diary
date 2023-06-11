@@ -10,6 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lifediary_project/app/domain/models/item_model.dart';
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
 import 'package:lifediary_project/app/features/details/cubit/details_cubit.dart';
+import 'package:flutter_quill/flutter_quill.dart' as quill;
 
 class DetailsPageContent extends StatefulWidget {
   const DetailsPageContent({
@@ -27,6 +28,7 @@ class DetailsPageContent extends StatefulWidget {
 
 class _DetailsPageContentState extends State<DetailsPageContent> {
   final controller = TextEditingController();
+  final betterController = quill.QuillController.basic();
 
   @override
   void initState() {
@@ -95,16 +97,16 @@ class _DetailsPageContentState extends State<DetailsPageContent> {
                   centerTitle: true,
                   backgroundColor: Colors.black87,
                 ),
-                body: ListView(
+                body: Column(
                   children: [
                     if (itemModel != null) ...[
                       _ListViewItem(
                         itemModel: itemModel,
                       ),
-                      _DiaryPage(
-                        itemModel: itemModel,
-                        controller: controller,
-                        // page: i,
+                      Expanded(
+                        child: _DiaryPage(
+                          betterController: betterController,
+                        ),
                       ),
                     ],
                   ],
@@ -180,12 +182,10 @@ class _ListViewItem extends StatelessWidget {
 class _DiaryPage extends StatefulWidget {
   _DiaryPage({
     Key? key,
-    required this.itemModel,
-    required this.controller,
+    required this.betterController,
   }) : super(key: key);
 
-  final ItemModel itemModel;
-  final TextEditingController controller;
+  final quill.QuillController betterController;
 
   @override
   _DiaryPageState createState() => _DiaryPageState();
@@ -200,63 +200,31 @@ class _DiaryPageState extends State<_DiaryPage> {
     return BlocBuilder<DetailsCubit, DetailsState>(
       builder: (context, state) {
         return Container(
-          color: Colors.black87,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 10,
-              horizontal: 20,
-            ),
-            child: Container(
-              color: Colors.white,
-              child: Column(
-                children: [
-                  Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            setState(() {
-                              isBold = !isBold;
-                            });
-                          },
-                          icon: Icon(
-                            Icons.format_bold,
-                            color: isBold ? Colors.grey : Colors.black,
-                          ),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            setState(() {
-                              isColored = !isColored;
-                            });
-                          },
-                          icon: Icon(
-                            Icons.color_lens,
-                            color: isColored ? Colors.grey : Colors.black,
-                          ),
-                        ),
-                      ],
-                    ),
+          color: Colors.black,
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 4.0, right: 4.0),
+                child: Container(
+                  color: Colors.grey[300],
+                  child: quill.QuillToolbar.basic(
+                    controller: widget.betterController,
+                    iconTheme: quill.QuillIconTheme(
+                        borderRadius: 16, iconUnselectedColor: Colors.black87),
                   ),
-                  TextField(
-                    controller: widget.controller,
-                    style: TextStyle(
-                        fontWeight:
-                            isBold ? FontWeight.bold : FontWeight.normal,
-                        color: isColored
-                            ? Colors.green
-                            : Colors.black), 
-                    maxLines: 20,
-
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Write something here...',
-                    ),
-                  ),
-                ],
+                ),
               ),
-            ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 7.0, right: 7.0),
+                  child: Container(
+                    color: Colors.white,
+                    child: quill.QuillEditor.basic(
+                        controller: widget.betterController, readOnly: false),
+                  ),
+                ),
+              ),
+            ],
           ),
         );
       },

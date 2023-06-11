@@ -162,13 +162,13 @@ class MyAccountPageContent extends StatelessWidget {
                                 color: Colors.yellow[400],
                                 fontWeight: FontWeight.bold),
                           ),
-                          onPressed: () {
-                            context.read<RootCubit>().signOut();
-                            //Navigator.of(context).pop();
-                            // Navigator.pushReplacement(
-                            //   context,
-                            //   MaterialPageRoute(builder: (context) => LoginPage()),
-                            // );
+                          onPressed: () async {
+                            await context.read<RootCubit>().signOut();
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LoginPage()),
+                            );
                           },
                         ),
                         const SizedBox(height: 100),
