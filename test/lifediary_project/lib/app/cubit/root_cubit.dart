@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:lifediary_project/app/core/enums.dart';
 import 'package:lifediary_project/app/domain/models/user_model.dart';
 import 'package:lifediary_project/app/domain/repositories/user_repository.dart';
 import 'package:lifediary_project/app/features/login/login_page.dart';
@@ -16,8 +17,7 @@ class RootCubit extends Cubit<RootState> {
       : super(
           RootState(
             user: null,
-            isLoading: false,
-            errorMessage: '',
+            status: Status.loading,
           ),
         );
 
@@ -38,7 +38,7 @@ class RootCubit extends Cubit<RootState> {
       emit(
         RootState(
           user: null,
-          isLoading: false,
+          status: Status.error,
           errorMessage: error.toString(),
         ),
       );
@@ -58,7 +58,7 @@ class RootCubit extends Cubit<RootState> {
       emit(
         RootState(
           user: null,
-          isLoading: false,
+          status: Status.error,
           errorMessage: error.toString(),
         ),
       );
@@ -67,14 +67,13 @@ class RootCubit extends Cubit<RootState> {
 
   Future<void> signOut() async {
     await FirebaseAuth.instance.signOut();
-    
   }
 
   Future<void> start() async {
     emit(
       RootState(
         user: null,
-        isLoading: true,
+        status: Status.loading,
         errorMessage: '',
       ),
     );
@@ -84,7 +83,7 @@ class RootCubit extends Cubit<RootState> {
       emit(
         RootState(
           user: user,
-          isLoading: false,
+          status: Status.success,
           errorMessage: '',
         ),
       );
@@ -93,7 +92,6 @@ class RootCubit extends Cubit<RootState> {
             emit(
               RootState(
                 user: null,
-                isLoading: false,
                 errorMessage: error.toString(),
               ),
             );
@@ -102,7 +100,6 @@ class RootCubit extends Cubit<RootState> {
 
   Future<void> addUserPhoto(String imageURL) async {
     await _userRepository.add(imageURL);
-    
   }
 
   @override

@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lifediary_project/app/core/enums.dart';
 import 'package:lifediary_project/app/domain/models/item_model_to_do_list.dart';
 import 'package:lifediary_project/app/domain/repositories/tasks_repository.dart';
 import 'package:lifediary_project/app/features/to_do_list/cubit/to_do_list_cubit.dart';
@@ -33,15 +34,17 @@ class _ToDoListContentState extends State<ToDoListContent> {
           if (state.saved) {
             context.read<ToDoListCubit>().start();
           }
-          if (state.errorMessage.isNotEmpty) {
+          final errorMessage = state.errorMessage ?? 'Unknown error';
+          if (state.status == Status.error) {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Wystąpił błąd'),
+              SnackBar(
+                content: Text(errorMessage),
+                backgroundColor: Colors.red,
               ),
             );
           }
-          if (state.isLoading) {
-            Center(
+          if (state.status == Status.loading) {
+            const Center(
               child: CircularProgressIndicator(),
             );
           }
@@ -80,6 +83,7 @@ class _ToDoListContentState extends State<ToDoListContent> {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text("Wprowadź jakieś zadanie!"),
+                            backgroundColor: Colors.red,
                           ),
                         );
                         return;
@@ -106,14 +110,14 @@ class _ToDoListContentState extends State<ToDoListContent> {
                         controller: controller,
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(
-                          focusedBorder: OutlineInputBorder(
+                          focusedBorder: const OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: Color.fromRGBO(255, 238, 88, 1),
                                 width: 2.0),
                           ),
-                          enabledBorder: OutlineInputBorder(
+                          enabledBorder: const OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: const Color.fromARGB(255, 67, 64, 64),
+                                color:  Color.fromARGB(255, 67, 64, 64),
                                 width: 2.0),
                           ),
                           hintText: 'Tu wpisz nazwę zadania',
@@ -186,7 +190,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
       child: Container(
         decoration: BoxDecoration(
           color: widget.itemModel.isChecked ? Colors.grey : Colors.indigo[700],
-          borderRadius: BorderRadius.circular(10), // Zaokrąglenie kontenera
+          borderRadius: BorderRadius.circular(10), 
           border: Border.all(
             color: const Color.fromARGB(255, 67, 64, 64),
             width: 3,

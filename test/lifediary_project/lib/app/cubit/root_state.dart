@@ -3,12 +3,12 @@ part of 'root_cubit.dart';
 @immutable
 class RootState {
   final User? user;
-  final bool isLoading;
-  final String errorMessage;
+  final Status status;
+  final String? errorMessage;
 
   RootState({
     required this.user,
-    required this.isLoading,
-    required this.errorMessage,
+    this.status = Status.initial,
+    this.errorMessage,
   });
 }

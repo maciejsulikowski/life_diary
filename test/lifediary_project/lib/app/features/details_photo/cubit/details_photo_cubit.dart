@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:lifediary_project/app/core/enums.dart';
 import 'package:lifediary_project/app/domain/models/item_model.dart';
 import 'package:lifediary_project/app/domain/models/photos_model.dart';
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
@@ -15,7 +16,7 @@ class DetailsPhotoCubit extends Cubit<DetailsPhotoState> {
       : super(
           const DetailsPhotoState(
             photoModel: null,
-            isLoading: true,
+            status: Status.loading,
             errorMessage: '',
             isSaved: false,
           ),
@@ -30,7 +31,7 @@ class DetailsPhotoCubit extends Cubit<DetailsPhotoState> {
     emit(
       DetailsPhotoState(
         photoModel: photoModel,
-        isLoading: false,
+        status: Status.loading,
         errorMessage: '',
         isSaved: false,
       ),
@@ -41,14 +42,17 @@ class DetailsPhotoCubit extends Cubit<DetailsPhotoState> {
     _streamSubscription =
         _photosRepository.getPhotosStream().listen((photoModel) {
       emit(
-        DetailsPhotoState(
+       const DetailsPhotoState(
           photoModel: null,
-          isLoading: false,
+          status: Status.loading,
           errorMessage: '',
           isSaved: false,
         ),
       );
-    });
+    })
+          ..onError((error) {
+            emit(DetailsPhotoState(status: Status.error, errorMessage: error.toString(),),);
+          });
   }
 
   Future<void> savePhotoData(

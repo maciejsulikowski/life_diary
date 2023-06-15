@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
+import 'package:lifediary_project/app/core/enums.dart';
 
 import 'package:lifediary_project/app/domain/models/item_model.dart';
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
@@ -11,7 +12,12 @@ import 'package:meta/meta.dart';
 part 'diares_state.dart';
 
 class DiaresCubit extends Cubit<DiaresState> {
-  DiaresCubit(this._itemsRepository) : super(DiaresState());
+  DiaresCubit(this._itemsRepository)
+      : super(
+          DiaresState(
+            status: Status.loading,
+          ),
+        );
 
   final ItemsRepository _itemsRepository;
 
@@ -20,23 +26,29 @@ class DiaresCubit extends Cubit<DiaresState> {
   Future<void> start() async {
     _streamSubscription = _itemsRepository.getItemsStream().listen(
       (items) {
-        emit(DiaresState(items: items));
+        emit(DiaresState(items: items, status: Status.success));
       },
     )..onError(
         (error) {
-          emit(DiaresState(loadingErrorOccured: true));
+          emit(
+            DiaresState(
+              status: Status.error,
+              errorMessage: error.toString(),
+            ),
+          );
         },
       );
   }
-
-
 
   Future<void> remove({required String documentID}) async {
     try {
       await _itemsRepository.delete(id: documentID);
     } catch (error) {
       emit(
-        DiaresState(removingErrorOccured: true),
+        DiaresState(
+          status: Status.error,
+          errorMessage: error.toString(),
+        ),
       );
       start();
     }

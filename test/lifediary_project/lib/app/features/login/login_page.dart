@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lifediary_project/app/core/enums.dart';
 
 import 'package:lifediary_project/app/cubit/root_cubit.dart';
 import 'package:lifediary_project/app/domain/repositories/user_repository.dart';
@@ -22,17 +23,17 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  var errorMessage = '';
   var isCreatingAccount = false;
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<RootCubit, RootState>(
       listener: (context, state) {
-        if (state.errorMessage.isNotEmpty) {
+        final errorMessage = state.errorMessage ?? 'Unknown error';
+        if (state.errorMessage == Status.error) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(state.errorMessage),
+              content: Text(errorMessage),
             ),
           );
         }

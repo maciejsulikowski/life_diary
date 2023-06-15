@@ -6,6 +6,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lifediary_project/app/core/enums.dart';
 
 import 'package:lifediary_project/app/domain/models/item_model.dart';
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
@@ -33,7 +34,9 @@ class _DetailsPageContentState extends State<DetailsPageContent> {
   @override
   void initState() {
     super.initState();
-    controller.text = widget.itemModel.text;
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      betterController.document.insert(0, widget.itemModel.text);
+    });
   }
 
   @override
@@ -46,7 +49,7 @@ class _DetailsPageContentState extends State<DetailsPageContent> {
         child: BlocBuilder<DetailsCubit, DetailsState>(
           builder: (context, state) {
             final itemModel = state.itemModel;
-            if (state.isLoading == true) {
+            if (state.status == Status.loading) {
               return const Center(child: CircularProgressIndicator());
             }
 
@@ -74,7 +77,7 @@ class _DetailsPageContentState extends State<DetailsPageContent> {
                             fontWeight: FontWeight.bold),
                       ),
                       onPressed: () {
-                        if (controller.text.isEmpty) {
+                        if (betterController.document.isEmpty()) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text("Wprowadź jakieś zadanie!"),
@@ -82,9 +85,11 @@ class _DetailsPageContentState extends State<DetailsPageContent> {
                           );
                           return;
                         } else {
+                          final updatedText =
+                              betterController.document.toDelta();
                           context
                               .read<DetailsCubit>()
-                              .addtext(widget.id, controller.text);
+                              .addtext(widget.id, updatedText);
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text("Wprowadzono zmiany!"),
@@ -155,7 +160,7 @@ class _ListViewItem extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(16.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -204,7 +209,7 @@ class _DiaryPageState extends State<_DiaryPage> {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 4.0, right: 4.0),
+                padding: const EdgeInsets.only(top: 8.0),
                 child: Container(
                   color: Colors.grey[300],
                   child: quill.QuillToolbar.basic(
@@ -215,10 +220,10 @@ class _DiaryPageState extends State<_DiaryPage> {
                 ),
               ),
               Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 7.0, right: 7.0),
-                  child: Container(
-                    color: Colors.white,
+                child: Container(
+                  color: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.all(4.0),
                     child: quill.QuillEditor.basic(
                         controller: widget.betterController, readOnly: false),
                   ),

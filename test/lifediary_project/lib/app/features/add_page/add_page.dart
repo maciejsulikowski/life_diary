@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lifediary_project/app/core/enums.dart';
 import 'dart:core';
 
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
@@ -35,11 +36,11 @@ class _AddPageState extends State<AddPage> {
           if (state.saved) {
             Navigator.of(context).pop();
           }
-
-          if (state.errorMessage.isNotEmpty) {
+          final errorMessage = state.errorMessage ?? 'Unknown error';
+          if (state.status == Status.error) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(state.errorMessage),
+                content: Text(errorMessage),
                 backgroundColor: Colors.red,
               ),
             );

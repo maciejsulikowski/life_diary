@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:lifediary_project/app/core/enums.dart';
 import 'package:lifediary_project/app/domain/models/item_model.dart';
 import 'package:lifediary_project/app/domain/models/item_model_to_do_list.dart';
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
@@ -12,7 +13,7 @@ import 'package:meta/meta.dart';
 part 'to_do_list_state.dart';
 
 class ToDoListCubit extends Cubit<ToDoListState> {
-  ToDoListCubit(this._tasksRepository) : super(ToDoListState());
+  ToDoListCubit(this._tasksRepository) : super(const ToDoListState(status: Status.loading,));
 
   final TasksRepository _tasksRepository;
 
@@ -44,7 +45,7 @@ class ToDoListCubit extends Cubit<ToDoListState> {
         const ToDoListState(saved: true),
       );
     } catch (error) {
-      emit(ToDoListState(errorMessage: error.toString()));
+      emit(ToDoListState(status: Status.error,errorMessage: error.toString()));
     }
   }
   
@@ -53,7 +54,7 @@ class ToDoListCubit extends Cubit<ToDoListState> {
       await _tasksRepository.updateTask(itemModel);
     } catch (error) {
       emit(
-        ToDoListState(errorMessage: 'Something went wrong'),
+        const ToDoListState(status: Status.error ,errorMessage: 'Something went wrong'),
       );
     }
   }
@@ -65,7 +66,7 @@ class ToDoListCubit extends Cubit<ToDoListState> {
       await _tasksRepository.deletetask(id: documentID);
     } catch (error) {
       emit(
-        ToDoListState(errorMessage: 'Something went wrong'),
+        const ToDoListState(status: Status.error, errorMessage: 'Something went wrong'),
       );
       start();
     }

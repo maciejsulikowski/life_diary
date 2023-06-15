@@ -4,12 +4,10 @@ part of 'diares_cubit.dart';
 class DiaresState {
   DiaresState({
     this.items = const [],
-    this.loadingErrorOccured = false,
-    this.removingErrorOccured = false,
-    this.maxdiary = 4,
+    this.status = Status.initial,
+    this.errorMessage = '',
   });
   final List<ItemModel> items;
-  final bool loadingErrorOccured;
-  final bool removingErrorOccured;
-  int maxdiary = 4;
+  final Status status;
+  final String? errorMessage;
 }

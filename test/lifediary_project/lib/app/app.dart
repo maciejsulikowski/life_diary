@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lifediary_project/app/core/enums.dart';
 import 'package:lifediary_project/app/cubit/root_cubit.dart';
 import 'package:lifediary_project/app/domain/repositories/user_repository.dart';
 import 'package:lifediary_project/app/features/home/home_page.dart';
@@ -34,10 +35,11 @@ class RootPage extends StatelessWidget {
     if (state.user == null) {
       return const MyStatelessWidget();
     }
-    if (state.errorMessage.isNotEmpty) {
-      return Text('Wystapil blad: ${state.errorMessage}');
+    final errorMessage = state.errorMessage ?? 'Unknown error';
+    if (state.errorMessage == Status.error) {
+      return Text('Wystapil blad: $errorMessage');
     }
-    if (state.isLoading) {
+    if (state.status == Status.loading) {
       return const Center(
         child: CircularProgressIndicator(),
       );

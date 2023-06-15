@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_quill/flutter_quill.dart';
+import 'package:lifediary_project/app/core/enums.dart';
 import 'package:lifediary_project/app/domain/models/item_model.dart';
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
 import 'package:meta/meta.dart';
@@ -14,10 +16,9 @@ class DetailsCubit extends Cubit<DetailsState> {
     this._itemsRepository,
   ) : super(const DetailsState(
           itemModel: null,
-          isLoading: false,
+          status: Status.loading,
           errorMessage: '',
           saved: false,
-          fontWeight: 0,
         ));
 
   final ItemsRepository _itemsRepository;
@@ -29,10 +30,9 @@ class DetailsCubit extends Cubit<DetailsState> {
     emit(
       DetailsState(
         itemModel: itemModel,
-        isLoading: false,
+        status: Status.success,
         errorMessage: '',
         saved: false,
-        fontWeight: 0,
       ),
     );
   }
@@ -42,43 +42,35 @@ class DetailsCubit extends Cubit<DetailsState> {
       (itemModel) {
         emit(const DetailsState(
           itemModel: null,
-          isLoading: false,
+          status: Status.success,
           errorMessage: '',
           saved: false,
-          fontWeight: 0,
         ));
       },
-    );
+    )..onError((error) {
+        emit(DetailsState(
+            itemModel: null,
+            saved: false,
+            status: Status.error,
+            errorMessage: error.toString()));
+      });
   }
 
   Future<void> addtext(
     String id,
-    String title,
+    Delta title,
   ) async {
     await _itemsRepository.addtext(id, title);
     final itemModel = await _itemsRepository.get(id: id);
     emit(
-      const DetailsState(
-        itemModel: null,
-        isLoading: true,
-        errorMessage: '',
-        saved: true,
-        fontWeight: 0,
-      ),
-    );
-    emit(
       DetailsState(
         itemModel: itemModel,
-        isLoading: false,
+        status: Status.success,
         errorMessage: '',
         saved: true,
-        fontWeight: 0,
       ),
     );
   }
-
-  
-
 
   @override
   Future<void> close() {

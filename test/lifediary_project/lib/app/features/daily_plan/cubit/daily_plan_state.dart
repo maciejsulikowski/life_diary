@@ -3,13 +3,13 @@ part of 'daily_plan_cubit.dart';
 class DailyPlanState {
   DailyPlanState({
     this.list = const [],
-    this.isLoading = false,
+    this.status = Status.initial,
     this.saved = false,
-    this.errorMessage = '',
+    this.errorMessage,
   });
 
   final List<DailyPlanModel> list;
-  final bool isLoading;
+  final Status status;
   final bool saved;
-  final String errorMessage;
+  final String? errorMessage;
 }

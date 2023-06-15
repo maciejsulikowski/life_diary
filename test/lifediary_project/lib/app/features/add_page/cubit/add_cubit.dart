@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:lifediary_project/app/core/enums.dart';
 
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
 import 'package:meta/meta.dart';
@@ -22,10 +23,10 @@ class AddCubit extends Cubit<AddState> {
       await _itemsRepository.add(
           title, imageURL, releaseDate, text, fontWeight);
       emit(
-        const AddState(saved: true),
+        const AddState(status: Status.success,saved: true),
       );
     } catch (error) {
-      emit(AddState(errorMessage: error.toString()));
+      emit(AddState(status: Status.error,errorMessage: error.toString(),));
     }
   }
 }

@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lifediary_project/app/core/enums.dart';
 import 'package:lifediary_project/app/domain/models/item_model.dart';
 import 'package:lifediary_project/app/domain/models/photos_model.dart';
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
@@ -47,7 +48,7 @@ class _DetailsPhotoPageContentState extends State<DetailsPhotoPageContent> {
       child: BlocBuilder<DetailsPhotoCubit, DetailsPhotoState>(
         builder: (context, state) {
           final photoModel = state.photoModel;
-          if (state.isLoading == true) {
+          if (state.status == Status.error) {
             return CircularProgressIndicator();
           }
 

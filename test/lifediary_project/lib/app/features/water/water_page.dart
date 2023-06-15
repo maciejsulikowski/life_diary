@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lifediary_project/app/core/enums.dart';
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
 import 'package:lifediary_project/app/domain/repositories/water_repository.dart';
 
@@ -118,6 +119,15 @@ class WaterPageState extends State<WaterPage> {
                   SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
+                      if (heightController.text.isEmpty ||
+                          weightController.text.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text("Wprowadź wszystkie dane!"),
+                          ),
+                        );
+                        return;
+                      }
                       if (heightController.text.isEmpty ||
                           weightController.text.isEmpty) {
                         ScaffoldMessenger.of(context).showSnackBar(

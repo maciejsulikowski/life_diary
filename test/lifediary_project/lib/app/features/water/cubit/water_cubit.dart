@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
+import 'package:lifediary_project/app/core/enums.dart';
 import 'package:lifediary_project/app/domain/models/item_model.dart';
 import 'package:lifediary_project/app/domain/models/water_model.dart';
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
@@ -23,17 +24,24 @@ class WaterCubit extends Cubit<WaterState> {
       (glasses) {
         emit(WaterState(glasses: glasses));
       },
-    );
+    )..onError((error) {
+        emit(
+          WaterState(status: Status.error, glasses: null),
+        );
+      });
   }
 
   Future<void> saveGlasses(String glasses) async {
     try {
       await _waterRepository.saveGlasses(glasses);
-      // final glass = await _itemsRepository.getGlasses(id: id);
       emit(
         WaterState(glasses: WaterModel(id: '', glasses: ''), isSaved: true),
       );
-    } catch (error) {}
+    } catch (error) {
+      emit(
+        WaterState(status: Status.error, glasses: null),
+      );
+    }
   }
 
   @override

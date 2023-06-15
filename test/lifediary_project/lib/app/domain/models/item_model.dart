@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_quill/flutter_quill.dart' as quill;
 
 class ItemModel {
   ItemModel({
@@ -9,6 +10,7 @@ class ItemModel {
     required this.releaseDate,
     this.text = '',
     this.fontWeight = 0,
+    this.textFormat,
   });
 
   final String id;
@@ -17,6 +19,8 @@ class ItemModel {
   final DateTime releaseDate;
   final String text;
   final int fontWeight;
+  final quill.QuillController? textFormat;
+  
 
   String daysLeft() {
     return releaseDate.difference(DateTime.now()).inDays.toString();

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_quill/flutter_quill.dart';
 import 'package:lifediary_project/app/domain/models/daily_plan_model.dart';
 
 import 'package:lifediary_project/app/domain/models/item_model.dart';
@@ -66,7 +67,6 @@ class ItemsRepository {
       imageURL: doc['image_url'],
       releaseDate: (doc['release_date'] as Timestamp).toDate(),
       text: doc['text'],
-      fontWeight: doc['font_weight'] ?? 0,
     );
   }
 
@@ -90,13 +90,12 @@ class ItemsRepository {
       'image_url': imageURL,
       'release_date': releaseDate,
       'text': text,
-      'font_weight': fontWeight,
     });
   }
 
   Future<void> addtext(
     String id,
-    String text,
+    Delta text,
   ) async {
     final userID = FirebaseAuth.instance.currentUser?.uid;
     if (userID == null) {
