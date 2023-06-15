@@ -11,6 +11,7 @@ import 'package:lifediary_project/app/features/login/login_page.dart';
 import 'package:lifediary_project/app/features/login/user_profile.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lifediary_project/app/features/water/cubit/water_cubit.dart';
+import 'package:lifediary_project/app/features/weather/weather_page.dart';
 
 class MyAccountPageContent extends StatelessWidget {
   const MyAccountPageContent({
@@ -45,25 +46,6 @@ class MyAccountPageContent extends StatelessWidget {
                 centerTitle: true,
                 backgroundColor: Colors.black87,
               ),
-              floatingActionButton: Padding(
-                padding: const EdgeInsets.only(top: 100.0),
-                child: FloatingActionButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const UserProfile()),
-                    );
-                  },
-                  backgroundColor:
-                      Colors.indigo[700], // Ustawienie koloru na indigo
-                  child: Icon(
-                    Icons.wb_sunny,
-                    color: Colors.yellow[400],
-                  ), // Ustawienie ikonki pogody (tutaj użyto ikonki słońca jako przykład)
-                ),
-              ),
-              floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
               body: Container(
                 color: Colors.black87,
                 // decoration: const BoxDecoration(
@@ -78,6 +60,30 @@ class MyAccountPageContent extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const WeatherPage()),
+                                );
+                              },
+                              child: Container(
+                                width: 50,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  color: Colors.indigo[700],
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Icon(Icons.sunny, color: Colors.yellow),
+                              ),
+                            ),
+                          ],
+                        ),
                         const SizedBox(height: 60),
                         const Image(
                           image: AssetImage('images/black_diary.png'),

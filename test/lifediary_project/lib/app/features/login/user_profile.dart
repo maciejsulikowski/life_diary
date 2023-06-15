@@ -87,9 +87,9 @@ class _UserViewState extends State<UserView> {
   void initState() {
     controller = TextEditingController();
     storyController = TextEditingController();
-    icon = Icons.edit;
+    icon = Icons.question_mark;
     iconColor = Colors.yellow[400]!;
-    controller.addListener(onTextChanged);
+
     super.initState();
   }
 
