@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lifediary_project/app/core/enums.dart';
 import 'package:lifediary_project/app/cubit/root_cubit.dart';
+import 'package:lifediary_project/app/data/remote_data_sources/weather_remote_data_source.dart';
 import 'package:lifediary_project/app/domain/models/weather_model.dart';
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
 import 'package:lifediary_project/app/domain/repositories/water_repository.dart';
@@ -66,7 +67,8 @@ class _WeatherPageState extends State<WeatherPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => WeatherCubit(WeatherRepository()),
+      create: (context) =>
+          WeatherCubit(WeatherRepository(WeatherRemoteDataSource())),
       child: BlocBuilder<WeatherCubit, WeatherState>(
         builder: (context, state) {
           final weatherModel = state.model;
