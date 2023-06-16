@@ -50,6 +50,7 @@ dependencies:
   flutter_localization: ^0.1.10
   dots_indicator: ^3.0.0
   flutter_quill: ^7.2.3
+  dio: ^5.2.1+1
 
 dependency_overrides:
   intl: ^0.18.0
