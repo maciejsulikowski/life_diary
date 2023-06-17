@@ -69,7 +69,18 @@ class _WeatherPageState extends State<WeatherPage> {
     return BlocProvider(
       create: (context) =>
           WeatherCubit(WeatherRepository(WeatherRemoteDataSource())),
-      child: BlocBuilder<WeatherCubit, WeatherState>(
+      child: BlocConsumer<WeatherCubit, WeatherState>(
+        listener: (context, state) {
+          if (state.status == Status.error) {
+            final errorMessage = state.errorMessage ?? 'Unknown error';
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(errorMessage),
+                backgroundColor: Colors.red,
+              ),
+            );
+          }
+        },
         builder: (context, state) {
           final weatherModel = state.model;
           return Scaffold(
@@ -104,8 +115,8 @@ class _WeatherPageState extends State<WeatherPage> {
                         style: ButtonStyle(
                           backgroundColor:
                               MaterialStateProperty.all(Colors.indigo[700]),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                          shape: MaterialStateProperty.all<
+                              RoundedRectangleBorder>(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20.0),
                             ),
@@ -148,8 +159,8 @@ class _WeatherPageState extends State<WeatherPage> {
                                         hintStyle: TextStyle(
                                           color: Colors.yellow[400],
                                           fontSize: 22,
-                                          fontFamily:
-                                              GoogleFonts.buenard().fontFamily,
+                                          fontFamily: GoogleFonts.buenard()
+                                              .fontFamily,
                                         ),
                                         border: OutlineInputBorder(
                                           borderSide: BorderSide(
