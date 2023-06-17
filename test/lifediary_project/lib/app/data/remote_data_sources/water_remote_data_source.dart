@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:lifediary_project/app/data/remote_data_sources/water_remote_data_source.dart';
 import 'package:lifediary_project/app/domain/models/daily_plan_model.dart';
 
 import 'package:lifediary_project/app/domain/models/item_model.dart';
@@ -10,8 +9,8 @@ import 'package:lifediary_project/app/domain/models/photos_model.dart';
 import 'package:lifediary_project/app/domain/models/water_model.dart';
 import 'package:lifediary_project/app/features/details_photo/pages/details_photo_page.dart';
 
-class WaterRepository {
-  Stream<WaterModel?> getGlassesStream() {
+class WaterRemoteDataSource {
+  Stream<Map<String, dynamic>?> getGlassesData() {
     final userID = FirebaseAuth.instance.currentUser?.uid;
     if (userID == null) {
       throw Exception('User is not logged in');
@@ -24,13 +23,7 @@ class WaterRepository {
         .snapshots()
         .map((docSnapshot) {
       if (docSnapshot.exists) {
-        final data = docSnapshot.data();
-        return WaterModel(
-          id: docSnapshot.id,
-          glasses: data?['glasses'] ?? '?',
-        );
-      } else {
-        return null;
+        return docSnapshot.data();
       }
     });
   }
