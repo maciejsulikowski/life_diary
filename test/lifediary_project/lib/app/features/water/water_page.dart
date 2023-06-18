@@ -35,7 +35,7 @@ class WaterPageState extends State<WaterPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => WaterCubit(WaterRepository()),
+      create: (context) => WaterCubit(WaterRepository(WaterRemoteDataSource())),
       child: BlocBuilder<WaterCubit, WaterState>(
         builder: (context, state) {
           return Scaffold(

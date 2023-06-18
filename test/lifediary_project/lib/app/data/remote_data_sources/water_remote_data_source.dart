@@ -10,7 +10,7 @@ import 'package:lifediary_project/app/domain/models/water_model.dart';
 import 'package:lifediary_project/app/features/details_photo/pages/details_photo_page.dart';
 
 class WaterRemoteDataSource {
-  Stream<Map<String, dynamic>?> getGlassesData() {
+  Stream<Map<String, dynamic>> getGlassesData() {
     final userID = FirebaseAuth.instance.currentUser?.uid;
     if (userID == null) {
       throw Exception('User is not logged in');
@@ -23,12 +23,16 @@ class WaterRemoteDataSource {
         .snapshots()
         .map((docSnapshot) {
       if (docSnapshot.exists) {
-        return docSnapshot.data();
+        final data = docSnapshot.data() ?? {};
+        data['id'] = docSnapshot.id;
+        return data;
+      } else {
+        return {};
       }
     });
   }
 
-  Future<void> saveGlasses(String glasses) async {
+  Future<void> saveGlassesData(String glasses) async {
     final userID = FirebaseAuth.instance.currentUser?.uid;
     if (userID == null) {
       throw Exception('User is not logged in');
@@ -46,20 +50,23 @@ class WaterRemoteDataSource {
     );
   }
 
-  Future<WaterModel> getGlasses({required String id}) async {
+  Future<Map<String, dynamic>> getGlasses({required String id}) async {
     final userID = FirebaseAuth.instance.currentUser?.uid;
     if (userID == null) {
       throw Exception('User is not logged in');
     }
-    final doc = await FirebaseFirestore.instance
+    final docSnapshot = await FirebaseFirestore.instance
         .collection('users')
         .doc(userID)
         .collection('water_glasses')
         .doc(id)
         .get();
-    return WaterModel(
-      id: doc.id,
-      glasses: doc['glasses'] ?? '?',
-    );
+    if (docSnapshot.exists) {
+      final data = docSnapshot.data() ?? {};
+      data['id'] = docSnapshot.id;
+      return data;
+    } else {
+      return {};
+    }
   }
 }

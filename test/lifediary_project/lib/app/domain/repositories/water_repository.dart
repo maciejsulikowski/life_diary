@@ -11,62 +11,26 @@ import 'package:lifediary_project/app/domain/models/water_model.dart';
 import 'package:lifediary_project/app/features/details_photo/pages/details_photo_page.dart';
 
 class WaterRepository {
+  WaterRepository(this._waterRemoteDataSource);
+
+  final WaterRemoteDataSource _waterRemoteDataSource;
+
   Stream<WaterModel?> getGlassesStream() {
-    final userID = FirebaseAuth.instance.currentUser?.uid;
-    if (userID == null) {
-      throw Exception('User is not logged in');
-    }
-    return FirebaseFirestore.instance
-        .collection('users')
-        .doc(userID)
-        .collection('water_glasses')
-        .doc(userID)
-        .snapshots()
-        .map((docSnapshot) {
-      if (docSnapshot.exists) {
-        final data = docSnapshot.data();
-        return WaterModel(
-          id: docSnapshot.id,
-          glasses: data?['glasses'] ?? '?',
-        );
-      } else {
-        return null;
-      }
-    });
+    return _waterRemoteDataSource.getGlassesData().map((data) => WaterModel(
+          id: data['id'],
+          glasses: data['glasses'] ?? '?',
+        ));
   }
 
   Future<void> saveGlasses(String glasses) async {
-    final userID = FirebaseAuth.instance.currentUser?.uid;
-    if (userID == null) {
-      throw Exception('User is not logged in');
-    }
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userID)
-        .collection('water_glasses')
-        .doc(userID)
-        .set(
-      {
-        'glasses': glasses,
-      },
-      SetOptions(merge: true),
-    );
+    return _waterRemoteDataSource.saveGlassesData(glasses);
   }
 
   Future<WaterModel> getGlasses({required String id}) async {
-    final userID = FirebaseAuth.instance.currentUser?.uid;
-    if (userID == null) {
-      throw Exception('User is not logged in');
-    }
-    final doc = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userID)
-        .collection('water_glasses')
-        .doc(id)
-        .get();
+    final data = await _waterRemoteDataSource.getGlasses(id: id);
     return WaterModel(
-      id: doc.id,
-      glasses: doc['glasses'] ?? '?',
+      id: data['id'],
+      glasses: data['glasses'] ?? '?',
     );
   }
 }

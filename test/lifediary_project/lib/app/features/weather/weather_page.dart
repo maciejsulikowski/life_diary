@@ -115,8 +115,8 @@ class _WeatherPageState extends State<WeatherPage> {
                         style: ButtonStyle(
                           backgroundColor:
                               MaterialStateProperty.all(Colors.indigo[700]),
-                          shape: MaterialStateProperty.all<
-                              RoundedRectangleBorder>(
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20.0),
                             ),
@@ -159,8 +159,8 @@ class _WeatherPageState extends State<WeatherPage> {
                                         hintStyle: TextStyle(
                                           color: Colors.yellow[400],
                                           fontSize: 22,
-                                          fontFamily: GoogleFonts.buenard()
-                                              .fontFamily,
+                                          fontFamily:
+                                              GoogleFonts.buenard().fontFamily,
                                         ),
                                         border: OutlineInputBorder(
                                           borderSide: BorderSide(

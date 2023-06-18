@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lifediary_project/app/cubit/root_cubit.dart';
+import 'package:lifediary_project/app/data/remote_data_sources/water_remote_data_source.dart';
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
 import 'package:lifediary_project/app/domain/repositories/water_repository.dart';
 
@@ -24,7 +25,7 @@ class MyAccountPageContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => WaterCubit(WaterRepository())..start(),
+      create: (context) => WaterCubit(WaterRepository(WaterRemoteDataSource()))..start(),
       child: BlocListener<WaterCubit, WaterState>(
         listener: (context, state) {
           if (state.isSaved) {
