@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lifediary_project/app/core/enums.dart';
+import 'package:lifediary_project/app/data/remote_data_sources/tasks_remote_data_sources.dart';
 import 'package:lifediary_project/app/domain/models/item_model_to_do_list.dart';
 import 'package:lifediary_project/app/domain/repositories/tasks_repository.dart';
 import 'package:lifediary_project/app/features/to_do_list/cubit/to_do_list_cubit.dart';
@@ -28,7 +29,8 @@ class _ToDoListContentState extends State<ToDoListContent> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ToDoListCubit(TasksRepository())..start(),
+      create: (context) =>
+          ToDoListCubit(TasksRepository(TasksRemoteDataSource()))..start(),
       child: BlocListener<ToDoListCubit, ToDoListState>(
         listener: (context, state) {
           if (state.saved) {
@@ -117,7 +119,7 @@ class _ToDoListContentState extends State<ToDoListContent> {
                           ),
                           enabledBorder: const OutlineInputBorder(
                             borderSide: BorderSide(
-                                color:  Color.fromARGB(255, 67, 64, 64),
+                                color: Color.fromARGB(255, 67, 64, 64),
                                 width: 2.0),
                           ),
                           hintText: 'Tu wpisz nazwę zadania',
@@ -190,7 +192,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
       child: Container(
         decoration: BoxDecoration(
           color: widget.itemModel.isChecked ? Colors.grey : Colors.indigo[700],
-          borderRadius: BorderRadius.circular(10), 
+          borderRadius: BorderRadius.circular(10),
           border: Border.all(
             color: const Color.fromARGB(255, 67, 64, 64),
             width: 3,

@@ -45,7 +45,8 @@ class _DetailsPhotoPageContentState extends State<DetailsPhotoPageContent> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          DetailsPhotoCubit(PhotosRepository(PhotosRemoteDataSource()))..getPhotosID(widget.id),
+          DetailsPhotoCubit(PhotosRepository(PhotosRemoteDataSource()))
+            ..getPhotosID(widget.id),
       child: BlocBuilder<DetailsPhotoCubit, DetailsPhotoState>(
         builder: (context, state) {
           final photoModel = state.photoModel;
