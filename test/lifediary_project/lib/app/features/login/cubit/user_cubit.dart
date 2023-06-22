@@ -22,7 +22,7 @@ class UserCubit extends Cubit<UserState> {
   StreamSubscription? _streamSubscription;
 
   Future<void> start() async {
-    _streamSubscription = _userRepository.getUserStream().listen(
+    _streamSubscription = _userRepository.getUserData().listen(
       (userModel) {
         try {
           emit(

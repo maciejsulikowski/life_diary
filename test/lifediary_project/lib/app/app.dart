@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lifediary_project/app/core/enums.dart';
 import 'package:lifediary_project/app/cubit/root_cubit.dart';
+import 'package:lifediary_project/app/data/remote_data_sources/user_remote_data_source.dart';
 import 'package:lifediary_project/app/domain/repositories/user_repository.dart';
 import 'package:lifediary_project/app/features/home/home_page.dart';
 import 'package:lifediary_project/app/features/welcome/first_welcome_page.dart';
@@ -12,7 +13,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => RootCubit(UserRepository())..start(),
+      create: (context) =>
+          RootCubit(UserRepository(UserRemoteDataSource()))..start(),
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:lifediary_project/app/data/remote_data_sources/user_remote_data_source.dart';
 import 'package:lifediary_project/app/domain/models/user_model.dart';
 import 'package:lifediary_project/app/domain/repositories/user_repository.dart';
 import 'package:lifediary_project/app/features/login/cubit/user_cubit.dart';
@@ -24,7 +25,7 @@ class UserProfile extends StatefulWidget {
 class _UserProfileState extends State<UserProfile> {
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => UserCubit(UserRepository())..start(),
+      create: (context) => UserCubit(UserRepository(UserRemoteDataSource()))..start(),
       child: BlocListener<UserCubit, UserState>(
         listener: (context, state) {
           if (state.isSaved) {
