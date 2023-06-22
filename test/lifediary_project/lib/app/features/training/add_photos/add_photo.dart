@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lifediary_project/app/data/remote_data_sources/photos_remote_data_source.dart';
 import 'package:lifediary_project/app/domain/repositories/photos_repository.dart';
 
 import 'package:lifediary_project/app/features/training/add_photos/cubit/add_photo_cubit.dart';
@@ -38,7 +39,7 @@ class _AddPhotoState extends State<AddPhoto> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AddPhotoCubit(PhotosRepository()),
+      create: (context) => AddPhotoCubit(PhotosRepository(PhotosRemoteDataSource())),
       child: BlocListener<AddPhotoCubit, AddPhotoState>(
         listener: (context, state) {
           if (state.saved) {

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:lifediary_project/app/data/remote_data_sources/photos_remote_data_source.dart';
 import 'package:lifediary_project/app/domain/models/daily_plan_model.dart';
 
 import 'package:lifediary_project/app/domain/models/item_model.dart';
@@ -10,31 +11,23 @@ import 'package:lifediary_project/app/domain/models/water_model.dart';
 import 'package:lifediary_project/app/features/details_photo/pages/details_photo_page.dart';
 
 class PhotosRepository {
+  PhotosRepository(this._photosRemoteDataSource);
+
+  final PhotosRemoteDataSource _photosRemoteDataSource;
+
   Stream<List<PhotosModel>> getPhotosStream() {
-    final userID = FirebaseAuth.instance.currentUser?.uid;
-    if (userID == null) {
-      throw Exception('User is not logged in');
-    }
-    return FirebaseFirestore.instance
-        .collection('users')
-        .doc(userID)
-        .collection('photos')
-        .orderBy('release_date')
-        .snapshots()
-        .map((querySnapshot) {
-      return querySnapshot.docs.map(
-        (doc) {
-          return PhotosModel(
-            id: doc.id,
-            title: doc['title'],
-            imageURL: doc['image_url'],
-            releaseDate: (doc['release_date'] as Timestamp).toDate(),
-            height: doc['height'] ?? '',
-            weight: doc['weight'] ?? '',
-            goals: doc['goals'] ?? '',
-          );
-        },
-      ).toList();
+    return _photosRemoteDataSource.getPhotosData().map((dataList) {
+      return dataList
+          .map((data) => PhotosModel(
+                id: data['id'],
+                title: data['title'],
+                imageURL: data['image_url'],
+                releaseDate: (data['release_date'] as Timestamp).toDate(),
+                height: data['height'] ?? '',
+                weight: data['weight'] ?? '',
+                goals: data['goals'] ?? '',
+              ))
+          .toList();
     });
   }
 
@@ -44,57 +37,23 @@ class PhotosRepository {
     String height,
     String goals,
   ) async {
-    final userID = FirebaseAuth.instance.currentUser?.uid;
-    if (userID == null) {
-      throw Exception('User is not logged in');
-    }
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userID)
-        .collection('photos')
-        .doc(id)
-        .set(
-      {
-        'weight': weight,
-        'height': height,
-        'goals': goals,
-      },
-      SetOptions(merge: true),
-    );
+    return _photosRemoteDataSource.savePhotoData(id, weight, height, goals);
   }
 
   Future<void> deletephoto({required String id}) {
-    final userID = FirebaseAuth.instance.currentUser?.uid;
-    if (userID == null) {
-      throw Exception('User is not logged in');
-    }
-    return FirebaseFirestore.instance
-        .collection('users')
-        .doc(userID)
-        .collection('photos')
-        .doc(id)
-        .delete();
+    return _photosRemoteDataSource.deletephoto(id: id);
   }
 
   Future<PhotosModel> getphotos({required String id}) async {
-    final userID = FirebaseAuth.instance.currentUser?.uid;
-    if (userID == null) {
-      throw Exception('User is not logged in');
-    }
-    final doc = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userID)
-        .collection('photos')
-        .doc(id)
-        .get();
+    final data = await _photosRemoteDataSource.getphotos(id: id);
     return PhotosModel(
-      id: doc.id,
-      title: doc['title'],
-      imageURL: doc['image_url'],
-      releaseDate: (doc['release_date'] as Timestamp).toDate(),
-      height: doc['height'],
-      weight: doc['weight'],
-      goals: doc['goals'],
+      id: data['id'],
+      title: data['title'],
+      imageURL: data['image_url'],
+      releaseDate: (data['release_date'] as Timestamp).toDate(),
+      height: data['height'],
+      weight: data['weight'],
+      goals: data['goals'],
     );
   }
 
@@ -106,21 +65,7 @@ class PhotosRepository {
     String height,
     String goals,
   ) async {
-    final userID = FirebaseAuth.instance.currentUser?.uid;
-    if (userID == null) {
-      throw Exception('User is not logged in');
-    }
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userID)
-        .collection('photos')
-        .add({
-      'title': title,
-      'image_url': imageURL,
-      'release_date': releaseDate,
-      'weight': weight,
-      'height': height,
-      'goals': goals,
-    });
+    return _photosRemoteDataSource.addphoto(
+        title, imageURL, releaseDate, weight, height, goals);
   }
 }

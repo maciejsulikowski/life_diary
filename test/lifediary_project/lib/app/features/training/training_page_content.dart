@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lifediary_project/app/data/remote_data_sources/photos_remote_data_source.dart';
 import 'package:lifediary_project/app/domain/models/photos_model.dart';
 import 'package:lifediary_project/app/domain/repositories/photos_repository.dart';
 import 'package:lifediary_project/app/features/details_photo/cubit/details_photo_cubit.dart';
@@ -67,7 +68,7 @@ class NewPhoto extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => TrainingCubit(PhotosRepository())..start(),
+      create: (context) => TrainingCubit(PhotosRepository(PhotosRemoteDataSource()))..start(),
       child: BlocBuilder<TrainingCubit, TrainingState>(
         builder: (context, state) {
           final photosModels = state.photos;
