@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lifediary_project/app/data/remote_data_sources/items_remote_data_source.dart';
 import 'package:lifediary_project/app/domain/models/item_model.dart';
 import 'package:lifediary_project/app/features/add_page/add_page.dart';
 import 'package:lifediary_project/app/features/details/pages/details_page.dart';
@@ -70,7 +71,8 @@ class _NewDiary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => DiaresCubit(ItemsRepository())..start(),
+      create: (context) =>
+          DiaresCubit(ItemsRepository(ItemsRemoteDataSource()))..start(),
       child: BlocBuilder<DiaresCubit, DiaresState>(
         builder: (context, state) {
           final itemModels = state.items;

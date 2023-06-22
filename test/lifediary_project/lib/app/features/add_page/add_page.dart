@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lifediary_project/app/core/enums.dart';
+import 'package:lifediary_project/app/data/remote_data_sources/items_remote_data_source.dart';
 import 'dart:core';
 
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
@@ -30,7 +31,7 @@ class _AddPageState extends State<AddPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AddCubit(ItemsRepository()),
+      create: (context) => AddCubit(ItemsRepository(ItemsRemoteDataSource())),
       child: BlocListener<AddCubit, AddState>(
         listener: (context, state) {
           if (state.saved) {

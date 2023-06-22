@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lifediary_project/app/core/enums.dart';
+import 'package:lifediary_project/app/data/remote_data_sources/items_remote_data_source.dart';
 
 import 'package:lifediary_project/app/domain/models/item_model.dart';
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
@@ -43,7 +44,7 @@ class _DetailsPageContentState extends State<DetailsPageContent> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          DetailsCubit(ItemsRepository())..getItemWithID(widget.id),
+          DetailsCubit(ItemsRepository(ItemsRemoteDataSource()))..getItemWithID(widget.id),
       child: BlocListener<DetailsCubit, DetailsState>(
         listener: (context, state) {},
         child: BlocBuilder<DetailsCubit, DetailsState>(

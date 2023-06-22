@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lifediary_project/app/core/enums.dart';
+import 'package:lifediary_project/app/data/remote_data_sources/plans_remote_data_sources.dart';
 import 'package:lifediary_project/app/domain/models/daily_plan_model.dart';
 
 import 'package:lifediary_project/app/domain/models/item_model.dart';
@@ -31,7 +32,8 @@ class _DailyPlanPageContentState extends State<DailyPlanPageContent> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => DailyPlanCubit(PlansRepository())..start(),
+      create: (context) =>
+          DailyPlanCubit(PlansRepository(PlansRemoteDataSource()))..start(),
       child: BlocListener<DailyPlanCubit, DailyPlanState>(
         listener: (context, state) {
           if (state.saved) {

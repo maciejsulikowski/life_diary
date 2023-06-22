@@ -2,21 +2,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
-import 'package:lifediary_project/app/data/remote_data_sources/items_remote_data_source.dart';
 import 'package:lifediary_project/app/domain/models/daily_plan_model.dart';
 
 import 'package:lifediary_project/app/domain/models/item_model.dart';
 import 'package:lifediary_project/app/domain/models/item_model_to_do_list.dart';
 import 'package:lifediary_project/app/domain/models/photos_model.dart';
 import 'package:lifediary_project/app/domain/models/water_model.dart';
+import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
 import 'package:lifediary_project/app/features/details_photo/pages/details_photo_page.dart';
 
-class ItemsRepository {
+class ItemsRemoteDataSource {
   
-  ItemsRepository(this._itemsRemoteDataSource);
-  final ItemsRemoteDataSource _itemsRemoteDataSource;
-
-  Stream<List<ItemModel>> getItemsStream() {
+  Stream<List<Map<String,dynamic>>> getItemsData() {
     final userID = FirebaseAuth.instance.currentUser?.uid;
     if (userID == null) {
       throw Exception('User is not logged in');
@@ -28,17 +25,13 @@ class ItemsRepository {
         .orderBy('release_date')
         .snapshots()
         .map((querySnapshot) {
-      return querySnapshot.docs.map(
-        (doc) {
-          return ItemModel(
-            id: doc.id,
-            title: doc['title'],
-            imageURL: doc['image_url'],
-            releaseDate: (doc['release_date'] as Timestamp).toDate(),
-            text: doc['text'],
-          );
-        },
-      ).toList();
+      List<Map<String, dynamic>> dataList = [];
+      for (var doc in querySnapshot.docs) {
+        final data = doc.data();
+        data['id'] = doc.id;
+        dataList.add(data);
+      }
+      return dataList;
     });
   }
 
@@ -55,24 +48,24 @@ class ItemsRepository {
         .delete();
   }
 
-  Future<ItemModel> get({required String id}) async {
+  Future<Map<String, dynamic>> get({required String id}) async {
     final userID = FirebaseAuth.instance.currentUser?.uid;
     if (userID == null) {
       throw Exception('User is not logged in');
     }
-    final doc = await FirebaseFirestore.instance
+    final docSnapshot = await FirebaseFirestore.instance
         .collection('users')
         .doc(userID)
         .collection('items')
         .doc(id)
         .get();
-    return ItemModel(
-      id: doc.id,
-      title: doc['title'],
-      imageURL: doc['image_url'],
-      releaseDate: (doc['release_date'] as Timestamp).toDate(),
-      text: doc['text'],
-    );
+    if (docSnapshot.exists) {
+      final data = docSnapshot.data() ?? {};
+      data['id'] = docSnapshot.id;
+      return data;
+    } else {
+      return {};
+    }
   }
 
   Future<void> add(

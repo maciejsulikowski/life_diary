@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:lifediary_project/app/data/remote_data_sources/plans_remote_data_sources.dart';
 import 'package:lifediary_project/app/domain/models/daily_plan_model.dart';
 
 import 'package:lifediary_project/app/domain/models/item_model.dart';
@@ -10,66 +11,37 @@ import 'package:lifediary_project/app/domain/models/water_model.dart';
 import 'package:lifediary_project/app/features/details_photo/pages/details_photo_page.dart';
 
 class PlansRepository {
-   Stream<List<DailyPlanModel>> getDailyPlansStream() {
-    final userID = FirebaseAuth.instance.currentUser?.uid;
-    if (userID == null) {
-      throw Exception('User is not logged in');
-    }
-    return FirebaseFirestore.instance
-        .collection('users')
-        .doc(userID)
-        .collection('plans')
-        .snapshots()
-        .map((querySnapshot) {
-      return querySnapshot.docs.map(
-        (doc) {
-          return DailyPlanModel(
-            id: doc.id,
-            text: doc['title'],
-            time: doc['time'],
-          );
-        },
-      ).toList();
+  PlansRepository(this._plansRemoteDataSource);
+
+  final PlansRemoteDataSource _plansRemoteDataSource;
+
+  Stream<List<DailyPlanModel>> getDailyPlansStream() {
+    return _plansRemoteDataSource.getDailyPlansData().map((data) {
+      return data
+          .map(
+            (data) => DailyPlanModel(
+              id: data['id'],
+              time: data['time'],
+              text: data['title'],
+            ),
+          )
+          .toList();
     });
   }
 
   Future<DailyPlanModel> getplans({required String id}) async {
-    final userID = FirebaseAuth.instance.currentUser?.uid;
-    if (userID == null) {
-      throw Exception('User is not logged in');
-    }
-    final doc = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userID)
-        .collection('plans')
-        .doc(id)
-        .get();
+    final data = await _plansRemoteDataSource.getplans(id: id);
     return DailyPlanModel(
-      id: doc.id,
-      text: doc['plan'],
-      time: doc['time'],
-    );
-  }
-Future<void> addplan(
-    String text,
-    String time,
-  ) async {
-    final userID = FirebaseAuth.instance.currentUser?.uid;
-    if (userID == null) {
-      throw Exception('User is not logged in');
-    }
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userID)
-        .collection('plans')
-        .doc(time)
-        .set(
-      {
-        'title': text,
-        'time': time,
-      },
-      SetOptions(merge: true),
+      id: data['id'],
+      time: data['time'],
+      text: data['text'],
     );
   }
 
+  Future<void> addplan(
+    String text,
+    String time,
+  ) async {
+    return _plansRemoteDataSource.addplan(text, time);
+  }
 }
