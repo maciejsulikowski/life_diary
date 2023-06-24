@@ -126,100 +126,101 @@ class _ListViewItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      Expanded(
-        child: Container(
-          color: Colors.black87,
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 8,
-                  left: 8,
-                  right: 8,
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(10),
+      if (photoModel != null)
+        Expanded(
+          child: Container(
+            color: Colors.black87,
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 8,
+                    left: 8,
+                    right: 8,
                   ),
-                  child: Container(
-                    height: 250,
-                    decoration: BoxDecoration(
-                      color: Colors.black87,
-                      image: DecorationImage(
-                        image: NetworkImage(
-                          photoModel!.imageURL,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10),
+                    ),
+                    child: Container(
+                      height: 250,
+                      decoration: BoxDecoration(
+                        color: Colors.black87,
+                        image: DecorationImage(
+                          image: NetworkImage(
+                            photoModel!.imageURL,
+                          ),
+                          fit: BoxFit.fill,
                         ),
-                        fit: BoxFit.fill,
                       ),
                     ),
                   ),
                 ),
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                        left: 8,
-                        right: 8,
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(10),
-                          bottomRight: Radius.circular(10),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          left: 8,
+                          right: 8,
                         ),
-                        child: Container(
-                          color: Colors.indigo[700],
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                photoModel!.title,
-                                style: GoogleFonts.buenard(
-                                    fontSize: 22,
-                                    color: Colors.yellow[400],
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(height: 3),
-                              Text(
-                                photoModel!.releaseDateFormatted(),
-                                style: GoogleFonts.buenard(
-                                    fontSize: 18,
-                                    color: Colors.yellow[400],
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ],
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(10),
+                            bottomRight: Radius.circular(10),
+                          ),
+                          child: Container(
+                            color: Colors.indigo[700],
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  photoModel!.title,
+                                  style: GoogleFonts.buenard(
+                                      fontSize: 22,
+                                      color: Colors.yellow[400],
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const SizedBox(height: 3),
+                                Text(
+                                  photoModel!.releaseDateFormatted(),
+                                  style: GoogleFonts.buenard(
+                                      fontSize: 18,
+                                      color: Colors.yellow[400],
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 10),
-              WeightSentence(
-                weightController: weightController,
-              ),
-              SizedBox(height: 10),
-              HeightSentence(
-                heightController: heightController,
-              ),
-              SizedBox(height: 10),
-              NewSentence(
-                newController: newController,
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Expanded(
-                flex: 1,
-                child: QuoteSentence(),
-              )
-            ],
+                  ],
+                ),
+                SizedBox(height: 10),
+                WeightSentence(
+                  weightController: weightController,
+                ),
+                SizedBox(height: 10),
+                HeightSentence(
+                  heightController: heightController,
+                ),
+                SizedBox(height: 10),
+                NewSentence(
+                  newController: newController,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Expanded(
+                  flex: 1,
+                  child: QuoteSentence(),
+                )
+              ],
+            ),
           ),
         ),
-      ),
     ]);
   }
 }
