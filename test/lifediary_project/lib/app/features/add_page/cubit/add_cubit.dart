@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_quill/flutter_quill.dart';
 import 'package:lifediary_project/app/core/enums.dart';
 
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
@@ -16,7 +17,7 @@ class AddCubit extends Cubit<AddState> {
     String title,
     String imageURL,
     DateTime releaseDate,
-    String text,
+    Delta text,
     int fontWeight,
   ) async {
     try {

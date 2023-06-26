@@ -30,21 +30,22 @@ class DetailsPageContent extends StatefulWidget {
 
 class _DetailsPageContentState extends State<DetailsPageContent> {
   final controller = TextEditingController();
-  final betterController = quill.QuillController.basic();
+  late quill.QuillController betterController;
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
-      betterController.document.insert(0, widget.itemModel.text);
-    });
+
+    betterController = quill.QuillController.basic();
+    betterController.document = quill.Document.fromJson(widget.itemModel.text);
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          DetailsCubit(ItemsRepository(ItemsRemoteDataSource()))..getItemWithID(widget.id),
+          DetailsCubit(ItemsRepository(ItemsRemoteDataSource()))
+            ..getItemWithID(widget.id),
       child: BlocListener<DetailsCubit, DetailsState>(
         listener: (context, state) {},
         child: BlocBuilder<DetailsCubit, DetailsState>(

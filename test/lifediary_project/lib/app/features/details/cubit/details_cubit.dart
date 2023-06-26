@@ -38,9 +38,12 @@ class DetailsCubit extends Cubit<DetailsState> {
   }
 
   Future<void> start() async {
+    
     _streamSubscription = _itemsRepository.getItemsStream().listen(
       (itemModel) {
+        
         emit(const DetailsState(
+          
           itemModel: null,
           status: Status.success,
           errorMessage: '',

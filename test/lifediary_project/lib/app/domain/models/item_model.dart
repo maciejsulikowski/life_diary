@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_quill/flutter_quill.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 
@@ -8,7 +9,7 @@ class ItemModel {
     required this.title,
     required this.imageURL,
     required this.releaseDate,
-    this.text = '',
+    required this.text,
     this.fontWeight = 0,
     this.textFormat,
   });
@@ -17,10 +18,9 @@ class ItemModel {
   final String title;
   final String imageURL;
   final DateTime releaseDate;
-  final String text;
+  final List<dynamic> text;
   final int fontWeight;
   final quill.QuillController? textFormat;
-  
 
   String daysLeft() {
     return releaseDate.difference(DateTime.now()).inDays.toString();
@@ -30,11 +30,3 @@ class ItemModel {
     return DateFormat.yMMMEd().format(releaseDate);
   }
 }
-
-
-
-
-
-
-
-

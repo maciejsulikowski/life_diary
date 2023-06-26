@@ -12,66 +12,35 @@ import 'package:lifediary_project/app/domain/models/water_model.dart';
 import 'package:lifediary_project/app/features/details_photo/pages/details_photo_page.dart';
 
 class ItemsRepository {
-  
   ItemsRepository(this._itemsRemoteDataSource);
   final ItemsRemoteDataSource _itemsRemoteDataSource;
 
   Stream<List<ItemModel>> getItemsStream() {
-    final userID = FirebaseAuth.instance.currentUser?.uid;
-    if (userID == null) {
-      throw Exception('User is not logged in');
-    }
-    return FirebaseFirestore.instance
-        .collection('users')
-        .doc(userID)
-        .collection('items')
-        .orderBy('release_date')
-        .snapshots()
-        .map((querySnapshot) {
-      return querySnapshot.docs.map(
-        (doc) {
-          return ItemModel(
-            id: doc.id,
-            title: doc['title'],
-            imageURL: doc['image_url'],
-            releaseDate: (doc['release_date'] as Timestamp).toDate(),
-            text: doc['text'],
-          );
-        },
-      ).toList();
+    return _itemsRemoteDataSource.getItemsData().map((dataList) {
+      return dataList
+          .map((data) => ItemModel(
+                id: data['id'],
+                title: data['title'],
+                imageURL: data['image_url'],
+                releaseDate: (data['release_date'] as Timestamp).toDate(),
+                text: data['text'],
+              ))
+          .toList();
     });
   }
 
   Future<void> delete({required String id}) {
-    final userID = FirebaseAuth.instance.currentUser?.uid;
-    if (userID == null) {
-      throw Exception('User is not logged in');
-    }
-    return FirebaseFirestore.instance
-        .collection('users')
-        .doc(userID)
-        .collection('items')
-        .doc(id)
-        .delete();
+    return _itemsRemoteDataSource.delete(id: id);
   }
 
   Future<ItemModel> get({required String id}) async {
-    final userID = FirebaseAuth.instance.currentUser?.uid;
-    if (userID == null) {
-      throw Exception('User is not logged in');
-    }
-    final doc = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userID)
-        .collection('items')
-        .doc(id)
-        .get();
+    final data = await _itemsRemoteDataSource.get(id: id);
     return ItemModel(
-      id: doc.id,
-      title: doc['title'],
-      imageURL: doc['image_url'],
-      releaseDate: (doc['release_date'] as Timestamp).toDate(),
-      text: doc['text'],
+      id: data['id'],
+      title: data['title'],
+      imageURL: data['image_url'],
+      releaseDate: (data['release_date'] as Timestamp).toDate(),
+      text: data['text'],
     );
   }
 
@@ -79,43 +48,17 @@ class ItemsRepository {
     String title,
     String imageURL,
     DateTime releaseDate,
-    String text,
+    Delta text,
     int fontWeight,
   ) async {
-    final userID = FirebaseAuth.instance.currentUser?.uid;
-    if (userID == null) {
-      throw Exception('User is not logged in');
-    }
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userID)
-        .collection('items')
-        .add({
-      'title': title,
-      'image_url': imageURL,
-      'release_date': releaseDate,
-      'text': text,
-    });
+    return _itemsRemoteDataSource.add(
+        title, imageURL, releaseDate, text, fontWeight);
   }
 
   Future<void> addtext(
     String id,
     Delta text,
   ) async {
-    final userID = FirebaseAuth.instance.currentUser?.uid;
-    if (userID == null) {
-      throw Exception('User is not logged in');
-    }
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userID)
-        .collection('items')
-        .doc(id)
-        .set(
-      {
-        'text': text,
-      },
-      SetOptions(merge: true),
-    );
+    return _itemsRemoteDataSource.addtext(id, text);
   }
 }

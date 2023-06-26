@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -26,7 +27,8 @@ class _AddPageState extends State<AddPage> {
   String? imageURL;
   String? _title;
   DateTime? _releaseDate;
-  String text = '';
+  quill.Delta text = quill.Delta()..insert('Write something...\n\n');
+
   int fontWeight = 0;
   @override
   Widget build(BuildContext context) {

@@ -12,8 +12,7 @@ import 'package:lifediary_project/app/domain/repositories/items_repository.dart'
 import 'package:lifediary_project/app/features/details_photo/pages/details_photo_page.dart';
 
 class ItemsRemoteDataSource {
-  
-  Stream<List<Map<String,dynamic>>> getItemsData() {
+  Stream<List<Map<String, dynamic>>> getItemsData() {
     final userID = FirebaseAuth.instance.currentUser?.uid;
     if (userID == null) {
       throw Exception('User is not logged in');
@@ -68,11 +67,11 @@ class ItemsRemoteDataSource {
     }
   }
 
-  Future<void> add(
+   Future<void> add(
     String title,
     String imageURL,
     DateTime releaseDate,
-    String text,
+    Delta text,
     int fontWeight,
   ) async {
     final userID = FirebaseAuth.instance.currentUser?.uid;
@@ -87,7 +86,7 @@ class ItemsRemoteDataSource {
       'title': title,
       'image_url': imageURL,
       'release_date': releaseDate,
-      'text': text,
+      'text': text.toJson(),
     });
   }
 
@@ -106,7 +105,7 @@ class ItemsRemoteDataSource {
         .doc(id)
         .set(
       {
-        'text': text,
+        'text': text.toJson(),
       },
       SetOptions(merge: true),
     );
