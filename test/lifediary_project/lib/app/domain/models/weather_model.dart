@@ -10,7 +10,11 @@ class WeatherModel {
   final double temperature;
   final String city;
 
+  String get temp {
+    return '$temperature °C';
+  }
 
-  WeatherModel.fromJson(Map<String, dynamic> json) : temperature = json['current']['temp_c'] + 0.0,
-   city = json['location']['name'];
+  WeatherModel.fromJson(Map<String, dynamic> json)
+      : temperature = json['current']['temp_c'] + 0.0,
+        city = json['location']['name'];
 }
