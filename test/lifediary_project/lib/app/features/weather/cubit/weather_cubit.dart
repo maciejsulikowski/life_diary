@@ -4,7 +4,7 @@ import 'package:lifediary_project/app/domain/models/weather_model.dart';
 import 'package:lifediary_project/app/domain/repositories/weather_repository.dart';
 import 'package:meta/meta.dart';
 
-part 'weather_state.dart';
+import 'weather_state.dart';
 
 class WeatherCubit extends Cubit<WeatherState> {
   WeatherCubit(this._weatherRepository) : super(WeatherState());
@@ -17,10 +17,12 @@ class WeatherCubit extends Cubit<WeatherState> {
     emit(WeatherState(status: Status.loading));
     try {
       final weatherModel = await _weatherRepository.getWeatherModel(city: city);
-      emit(WeatherState(
-        model: weatherModel,
-        status: Status.success,
-      ));
+      emit(
+        WeatherState(
+          model: weatherModel,
+          status: Status.success,
+        ),
+      );
     } catch (error) {
       emit(
         WeatherState(

@@ -16,6 +16,7 @@ import 'package:lifediary_project/app/features/login/user_profile.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lifediary_project/app/features/water/cubit/water_cubit.dart';
 import 'package:lifediary_project/app/features/weather/cubit/weather_cubit.dart';
+import 'package:lifediary_project/app/features/weather/cubit/weather_state.dart';
 
 class WeatherPage extends StatefulWidget {
   const WeatherPage({
