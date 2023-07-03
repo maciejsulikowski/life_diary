@@ -5,10 +5,16 @@ part 'weather_model.freezed.dart';
 
 @freezed
 class WeatherModel with _$WeatherModel {
+  WeatherModel._();
   factory WeatherModel(
     @JsonKey(name: 'temp_c') double temperature,
     @JsonKey(name: 'name') String city,
+      
   ) = _WeatherModel;
+
+  String get temp {
+    return '$temperature °C';
+  }
 
   factory WeatherModel.fromJson(Map<String, dynamic> json) =>
       _$WeatherModelFromJson(json);
@@ -32,9 +38,9 @@ class WeatherModel with _$WeatherModel {
 //   )
 //   final String city;
 
-//   String get temp {
-//     return '$temperature °C';
-//   }
+  // String get temp {
+  //   return '$temperature °C';
+  // }
 
 //   factory WeatherModel.fromJson(Map<String, dynamic> json) =>
 //       _$WeatherModelFromJson(json);

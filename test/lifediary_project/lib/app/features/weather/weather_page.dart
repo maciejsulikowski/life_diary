@@ -244,7 +244,7 @@ class WeatherWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              weatherModel.temperature.toString(),
+              weatherModel.temp.toString(),
               style: GoogleFonts.buenard(
                 fontSize: 40,
                 color: Colors.yellow[400],
