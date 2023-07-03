@@ -14,7 +14,9 @@ class WeatherRepository {
     if (json == null) {
       return null;
     }
+    final locationName = json['location']['name'] as String;
+    final currentTemp = (json['current']['temp_c'] + 0.0) as double;
 
-    return WeatherModel.fromJson(json);
+    return WeatherModel(currentTemp, locationName);
   }
 }

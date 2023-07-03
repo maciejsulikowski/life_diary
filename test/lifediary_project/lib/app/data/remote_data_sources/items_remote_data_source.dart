@@ -24,7 +24,7 @@ class ItemsRemoteDataSource {
         .orderBy('release_date')
         .snapshots()
         .map((querySnapshot) {
-      List<Map<String, dynamic>> dataList = [];
+      final dataList = <Map<String, dynamic>>[];
       for (var doc in querySnapshot.docs) {
         final data = doc.data();
         data['id'] = doc.id;
