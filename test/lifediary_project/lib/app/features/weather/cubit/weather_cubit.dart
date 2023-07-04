@@ -7,16 +7,16 @@ import 'package:meta/meta.dart';
 import 'weather_state.dart';
 
 class WeatherCubit extends Cubit<WeatherState> {
-  WeatherCubit(this._weatherRepository) : super(WeatherState());
+  WeatherCubit({required this.weatherRepository}) : super(WeatherState());
 
-  final WeatherRepository _weatherRepository;
+  final WeatherRepository weatherRepository;
 
   Future<void> getWeatherModel({
     required String city,
   }) async {
     emit(WeatherState(status: Status.loading));
     try {
-      final weatherModel = await _weatherRepository.getWeatherModel(city: city);
+      final weatherModel = await weatherRepository.getWeatherModel(city: city);
       emit(
         WeatherState(
           model: weatherModel,

@@ -18,6 +18,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lifediary_project/app/features/water/cubit/water_cubit.dart';
 import 'package:lifediary_project/app/features/weather/cubit/weather_cubit.dart';
 import 'package:lifediary_project/app/features/weather/cubit/weather_state.dart';
+import 'package:lifediary_project/app/injection_container.dart';
 
 class WeatherPage extends StatefulWidget {
   const WeatherPage({
@@ -69,8 +70,7 @@ class _WeatherPageState extends State<WeatherPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => WeatherCubit(
-          WeatherRepository(WeatherRemoteRetrofitDataSource(Dio()))),
+      create: (context) => getIt<WeatherCubit>(),
       child: BlocConsumer<WeatherCubit, WeatherState>(
         listener: (context, state) {
           if (state.status == Status.error) {

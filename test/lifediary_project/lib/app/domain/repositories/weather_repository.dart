@@ -3,14 +3,14 @@ import 'package:lifediary_project/app/data/remote_data_sources/weather_remote_da
 import 'package:lifediary_project/app/domain/models/weather_model.dart';
 
 class WeatherRepository {
-  WeatherRepository(this._weatherRemoteDataSource);
+  WeatherRepository({required this.weatherRemoteDataSource});
 
-  final WeatherRemoteRetrofitDataSource _weatherRemoteDataSource;
+  final WeatherRemoteRetrofitDataSource weatherRemoteDataSource;
 
   Future<WeatherModel> getWeatherModel({
     required String city,
   }) async {
-    return _weatherRemoteDataSource.getWeatherData(city);
+    return weatherRemoteDataSource.getWeatherData(city);
     
     // if (json == null) {
     //   return null;
