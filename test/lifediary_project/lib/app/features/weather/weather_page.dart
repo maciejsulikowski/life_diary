@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -68,8 +69,8 @@ class _WeatherPageState extends State<WeatherPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          WeatherCubit(WeatherRepository(WeatherRemoteDataSource())),
+      create: (context) => WeatherCubit(
+          WeatherRepository(WeatherRemoteRetrofitDataSource(Dio()))),
       child: BlocConsumer<WeatherCubit, WeatherState>(
         listener: (context, state) {
           if (state.status == Status.error) {
@@ -245,7 +246,7 @@ class WeatherWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              weatherModel.temp.toString(),
+              weatherModel.current.temp.toString(),
               style: GoogleFonts.buenard(
                 fontSize: 40,
                 color: Colors.yellow[400],
@@ -254,7 +255,7 @@ class WeatherWidget extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             Text(
-              weatherModel.city,
+              weatherModel.location.name,
               style: GoogleFonts.buenard(
                 fontSize: 46,
                 color: Colors.yellow[400],
