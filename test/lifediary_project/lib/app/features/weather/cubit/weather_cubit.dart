@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:injectable/injectable.dart';
 import 'package:lifediary_project/app/core/enums.dart';
 import 'package:lifediary_project/app/domain/models/weather_model.dart';
 import 'package:lifediary_project/app/domain/repositories/weather_repository.dart';
@@ -6,6 +7,9 @@ import 'package:meta/meta.dart';
 
 import 'weather_state.dart';
 
+
+
+@injectable
 class WeatherCubit extends Cubit<WeatherState> {
   WeatherCubit({required this.weatherRepository}) : super(WeatherState());
 
