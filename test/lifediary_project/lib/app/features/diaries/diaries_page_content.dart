@@ -81,16 +81,32 @@ class _NewDiary extends StatelessWidget {
                 body: Container(
               color: Colors.black87,
               child: Center(
-                child: FittedBox(
-                  fit: BoxFit.contain,
-                  child: Text(
-                    'Utwórz dziennik, klikając przycisk powyżej 👆',
-                    style: TextStyle(
-                      color: Colors.yellow[400],
-                      fontSize: 18,
-                      fontFamily: GoogleFonts.buenard().fontFamily,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    FittedBox(
+                      fit: BoxFit.contain,
+                      child: Text(
+                        'Utwórz dziennik',
+                        style: TextStyle(
+                          color: Colors.yellow[400],
+                          fontSize: 22,
+                          fontFamily: GoogleFonts.buenard().fontFamily,
+                        ),
+                      ),
                     ),
-                  ),
+                    FittedBox(
+                      fit: BoxFit.contain,
+                      child: Text(
+                        'klikając przycisk powyżej 👆',
+                        style: TextStyle(
+                          color: Colors.yellow[400],
+                          fontSize: 22,
+                          fontFamily: GoogleFonts.buenard().fontFamily,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ));

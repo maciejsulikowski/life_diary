@@ -50,12 +50,6 @@ class MyAccountPageContent extends StatelessWidget {
               ),
               body: Container(
                 color: Colors.black87,
-                // decoration: const BoxDecoration(
-                //   image: DecorationImage(
-                //     image: AssetImage("images/math.jpg"),
-                //     fit: BoxFit.cover,
-                //   ),
-                // ),
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -63,8 +57,28 @@ class MyAccountPageContent extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const WeatherPage()),
+                                );
+                              },
+                              child: Container(
+                                width: 50,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  color: Colors.indigo[700],
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Icon(Icons.question_mark,
+                                    color: Colors.yellow),
+                              ),
+                            ),
                             InkWell(
                               onTap: () {
                                 Navigator.push(
