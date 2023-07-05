@@ -68,12 +68,29 @@ class NewPhoto extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => TrainingCubit(PhotosRepository(PhotosRemoteDataSource()))..start(),
+      create: (context) =>
+          TrainingCubit(PhotosRepository(PhotosRemoteDataSource()))..start(),
       child: BlocBuilder<TrainingCubit, TrainingState>(
         builder: (context, state) {
           final photosModels = state.photos;
           if (photosModels.isEmpty) {
-            return const SizedBox.shrink();
+            return Scaffold(
+                body: Container(
+              color: Colors.black87,
+              child: Center(
+                child: FittedBox(
+                  fit: BoxFit.contain,
+                  child: Text(
+                    'Dodaj zdjęcie, klikając przycisk powyżej 👆',
+                    style: TextStyle(
+                      color: Colors.yellow[400],
+                      fontSize: 18,
+                      fontFamily: GoogleFonts.buenard().fontFamily,
+                    ),
+                  ),
+                ),
+              ),
+            ));
           }
           return Container(
             color: Colors.black87,

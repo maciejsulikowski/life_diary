@@ -77,7 +77,23 @@ class _NewDiary extends StatelessWidget {
         builder: (context, state) {
           final itemModels = state.items;
           if (itemModels.isEmpty) {
-            return const SizedBox.shrink();
+            return Scaffold(
+                body: Container(
+              color: Colors.black87,
+              child: Center(
+                child: FittedBox(
+                  fit: BoxFit.contain,
+                  child: Text(
+                    'Utwórz dziennik, klikając przycisk powyżej 👆',
+                    style: TextStyle(
+                      color: Colors.yellow[400],
+                      fontSize: 18,
+                      fontFamily: GoogleFonts.buenard().fontFamily,
+                    ),
+                  ),
+                ),
+              ),
+            ));
           }
           return Container(
             color: Colors.black87,

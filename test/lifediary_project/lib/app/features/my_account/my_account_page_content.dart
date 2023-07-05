@@ -25,7 +25,8 @@ class MyAccountPageContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => WaterCubit(WaterRepository(WaterRemoteDataSource()))..start(),
+      create: (context) =>
+          WaterCubit(WaterRepository(WaterRemoteDataSource()))..start(),
       child: BlocListener<WaterCubit, WaterState>(
         listener: (context, state) {
           if (state.isSaved) {
@@ -201,13 +202,16 @@ class MyAccountPageContent extends StatelessWidget {
                         Expanded(
                           child: Padding(
                             padding: const EdgeInsets.only(bottom: 8.0),
-                            child: Text(
-                              'Zalogowano jako $email! ',
-                              style: GoogleFonts.buenard(
-                                  fontSize: 20,
-                                  color: Colors.yellow[400],
-                                  fontWeight: FontWeight.bold),
-                              textAlign: TextAlign.center,
+                            child: FittedBox(
+                              fit: BoxFit.contain,
+                              child: Text(
+                                'Zalogowano jako $email! ',
+                                style: GoogleFonts.buenard(
+                                    fontSize: 18,
+                                    color: Colors.yellow[400],
+                                    fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
                             ),
                           ),
                         ),

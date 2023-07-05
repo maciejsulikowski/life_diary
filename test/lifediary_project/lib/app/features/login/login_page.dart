@@ -99,6 +99,18 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             borderRadius: BorderRadius.circular(20),
                           ),
+                          labelStyle: GoogleFonts.buenard(
+                            fontSize: 22,
+                            color: Colors.yellow[400],
+                            fontWeight: FontWeight.bold,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide: BorderSide(
+                              color: Color.fromRGBO(255, 238, 88, 1),
+                              width: 2.0,
+                            ),
+                          ),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                               color: Colors.yellow,
@@ -127,6 +139,13 @@ class _LoginPageState extends State<LoginPage> {
                               color: const Color.fromRGBO(255, 238, 88, 1),
                             ),
                             borderRadius: BorderRadius.circular(20),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide: BorderSide(
+                              color: Color.fromRGBO(255, 238, 88, 1),
+                              width: 2.0,
+                            ),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
