@@ -41,7 +41,6 @@ class _QuotesPageState extends State<QuotesPage> {
 
     icon = Icons.question_mark;
     iconColor = Colors.yellow[400]!;
-    controller.addListener(onTextChanged);
     super.initState();
   }
 
@@ -51,17 +50,7 @@ class _QuotesPageState extends State<QuotesPage> {
     }
   }
 
-  void onTextChanged() {
-    setState(() {
-      if (controller.text.isEmpty) {
-        icon = Icons.question_mark;
-        iconColor;
-      } else {
-        icon = Icons.search;
-        iconColor;
-      }
-    });
-  }
+  
 
   void toogleButton() {
     isWeatherHide = !isWeatherHide;
