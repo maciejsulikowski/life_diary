@@ -68,6 +68,33 @@ class _DetailsPhotoPageContentState extends State<DetailsPhotoPageContent> {
                 ElevatedButton.icon(
                   onPressed: () async {
                     setState(() {
+                      if (weightController.text.isEmpty ||
+                          heightController.text.isEmpty ||
+                          newController.text.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            behavior: SnackBarBehavior.floating,
+                            backgroundColor: Colors.red,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            content: Padding(
+                              padding: EdgeInsets.all(8),
+                              child: Row(
+                                children: [
+                                  Icon(Icons.error, color: Colors.white),
+                                  SizedBox(width: 8),
+                                  Text(
+                                    "Wprowadź wszystkie dane!",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                        return;
+                      }
                       context.read<DetailsPhotoCubit>().savePhotoData(
                             widget.id,
                             weightController.text,
@@ -75,8 +102,25 @@ class _DetailsPhotoPageContentState extends State<DetailsPhotoPageContent> {
                             newController.text,
                           );
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text("Wprowadzono zmiany!"),
+                        SnackBar(
+                          behavior: SnackBarBehavior.floating,
+                          backgroundColor: Colors.green,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          content: Padding(
+                            padding: EdgeInsets.all(8),
+                            child: Row(
+                              children: [
+                                Icon(Icons.check_box, color: Colors.white),
+                                SizedBox(width: 8),
+                                Text(
+                                  "Wprowadzono zmiany!",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
                       );
                     });

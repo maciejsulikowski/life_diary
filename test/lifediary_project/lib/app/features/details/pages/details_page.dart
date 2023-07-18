@@ -81,10 +81,28 @@ class _DetailsPageContentState extends State<DetailsPageContent> {
                       onPressed: () {
                         if (betterController.document.isEmpty()) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text("Wprowadź jakieś zadanie!"),
+                            SnackBar(
+                              behavior: SnackBarBehavior.floating,
+                              backgroundColor: Colors.red,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              content: Padding(
+                                padding: EdgeInsets.all(8),
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.error, color: Colors.white),
+                                    SizedBox(width: 8),
+                                    Text(
+                                      "Wprowadź jakieś zmiany!",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
                           );
+
                           return;
                         } else {
                           final updatedText =
@@ -93,8 +111,25 @@ class _DetailsPageContentState extends State<DetailsPageContent> {
                               .read<DetailsCubit>()
                               .addtext(widget.id, updatedText);
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text("Wprowadzono zmiany!"),
+                            SnackBar(
+                              behavior: SnackBarBehavior.floating,
+                              backgroundColor: Colors.green,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              content: Padding(
+                                padding: EdgeInsets.all(8),
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.check_box, color: Colors.white),
+                                    SizedBox(width: 8),
+                                    Text(
+                                      "Wprowadzono zmiany!",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
                           );
                         }

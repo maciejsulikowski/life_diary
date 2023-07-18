@@ -123,10 +123,28 @@ class WaterPageState extends State<WaterPage> {
                       if (heightController.text.isEmpty ||
                           weightController.text.isEmpty) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text("Wprowadź wszystkie dane!"),
+                          SnackBar(
+                            behavior: SnackBarBehavior.floating,
+                            backgroundColor: Colors.red,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            content: Padding(
+                              padding: EdgeInsets.all(8),
+                              child: Row(
+                                children: [
+                                  Icon(Icons.error, color: Colors.white),
+                                  SizedBox(width: 8),
+                                  Text(
+                                    "Wprowadź wszystkie dane!",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                         );
+
                         return;
                       }
                       if (heightController.text.isEmpty ||

@@ -83,9 +83,25 @@ class _ToDoListContentState extends State<ToDoListContent> {
                     onPressed: () {
                       if (controller.text.isEmpty) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text("Wprowadź jakieś zadanie!"),
+                          SnackBar(
+                            behavior: SnackBarBehavior.floating,
                             backgroundColor: Colors.red,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            content: Padding(
+                              padding: EdgeInsets.all(8),
+                              child: Row(
+                                children: [
+                                  Icon(Icons.error, color: Colors.white),
+                                  SizedBox(width: 8),
+                                  Text(
+                                    "Wprowadź jakieś zdanie!",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                         );
                         return;
