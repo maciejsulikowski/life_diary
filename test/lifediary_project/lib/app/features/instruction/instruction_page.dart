@@ -215,8 +215,7 @@ class InstructionPage extends StatelessWidget {
                                 ),
                               ),
                               TextSpan(
-                                text:
-                                    'aby sprawdzić informację o koncie użytkownika!',
+                                text: 'aby stworzyć swoją listę do zrobienia!',
                                 style: GoogleFonts.buenard(
                                     fontSize: 20,
                                     color: Colors.yellow[400],
