@@ -29,13 +29,11 @@ class DetailsPageContent extends StatefulWidget {
 }
 
 class _DetailsPageContentState extends State<DetailsPageContent> {
-  final controller = TextEditingController();
   late quill.QuillController betterController;
 
   @override
   void initState() {
     super.initState();
-
     betterController = quill.QuillController.basic();
     betterController.document = quill.Document.fromJson(widget.itemModel.text);
   }
@@ -185,17 +183,6 @@ class _ListViewItem extends StatelessWidget {
             ),
             child: Column(
               children: [
-                Container(
-                  height: 150,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: NetworkImage(
-                        itemModel.imageURL,
-                      ),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Row(
