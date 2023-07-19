@@ -5,9 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lifediary_project/app/core/enums.dart';
 import 'package:lifediary_project/app/cubit/root_cubit.dart';
+import 'package:lifediary_project/app/data/remote_data_sources/quotes_remote_data_source.dart';
 import 'package:lifediary_project/app/data/remote_data_sources/weather_remote_data_source.dart';
+import 'package:lifediary_project/app/domain/models/quotes_model.dart';
 import 'package:lifediary_project/app/domain/models/weather_model.dart';
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
+import 'package:lifediary_project/app/domain/repositories/quotes_repository.dart';
 import 'package:lifediary_project/app/domain/repositories/water_repository.dart';
 import 'package:lifediary_project/app/domain/repositories/weather_repository.dart';
 
@@ -15,6 +18,7 @@ import 'package:lifediary_project/app/features/instruction/instruction_page.dart
 import 'package:lifediary_project/app/features/login/login_page.dart';
 import 'package:lifediary_project/app/features/login/user_profile.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lifediary_project/app/features/quotes/cubit/quotes_cubit.dart';
 import 'package:lifediary_project/app/features/water/cubit/water_cubit.dart';
 import 'package:lifediary_project/app/features/weather/cubit/weather_cubit.dart';
 import 'package:lifediary_project/app/features/weather/cubit/weather_state.dart';
@@ -30,37 +34,18 @@ class QuotesPage extends StatefulWidget {
 }
 
 class _QuotesPageState extends State<QuotesPage> {
-  late IconData icon;
-  late Color iconColor;
-  bool isWeatherHide = true;
-  late TextEditingController controller;
-
-  @override
-  void initState() {
-    controller = TextEditingController();
-
-    icon = Icons.question_mark;
-    iconColor = Colors.yellow[400]!;
-    super.initState();
-  }
-
-  void onSearchClicked() {
-    if (controller.text.isNotEmpty) {
-      context.read<WeatherCubit>().getWeatherModel(city: controller.text);
-    }
-  }
-
-  
+  bool isQuoteHide = true;
 
   void toogleButton() {
-    isWeatherHide = !isWeatherHide;
+    isQuoteHide = !isQuoteHide;
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<WeatherCubit>(),
-      child: BlocConsumer<WeatherCubit, WeatherState>(
+      create: (context) =>
+          QuotesCubit(QuotesRepository(QuotesRemoteDataSource()))..start(),
+      child: BlocConsumer<QuotesCubit, QuotesState>(
         listener: (context, state) {
           if (state.status == Status.error) {
             final errorMessage = state.errorMessage ?? 'Unknown error';
@@ -73,7 +58,7 @@ class _QuotesPageState extends State<QuotesPage> {
           }
         },
         builder: (context, state) {
-          final weatherModel = state.model;
+          final quotesModel = state.quotes;
           return Scaffold(
             appBar: AppBar(
               title: Text(
@@ -128,49 +113,19 @@ class _QuotesPageState extends State<QuotesPage> {
                         },
                       ),
                       SizedBox(height: 20),
-                      if (isWeatherHide == false) ...[
+                      if (isQuoteHide == false) ...[
                         Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: Expanded(
                             child: Column(
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                      child: Text(
-                                    'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. ',
-                                    style: GoogleFonts.buenard(
-                                      fontSize: 20,
-                                      color: Colors.yellow[400],
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  )),
-                                ),
+                                for (final quote in state.quotes) ...[
+                                  RandomQuoteContainer(
+                                    quotesModel: quote,
+                                  ),
+                                ],
                                 SizedBox(height: 20),
-                                ElevatedButton.icon(
-                                  onPressed: () {},
-                                  style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all(
-                                        Colors.indigo[700]),
-                                    shape: MaterialStateProperty.all<
-                                        RoundedRectangleBorder>(
-                                      RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(20.0),
-                                      ),
-                                    ),
-                                  ),
-                                  icon: const Icon(Icons.search,
-                                      color: Colors.yellow),
-                                  label: Text(
-                                    'Poznaj historię autora',
-                                    style: GoogleFonts.buenard(
-                                      fontSize: 20,
-                                      color: Colors.yellow[400],
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
+                                AuthorHistoryButton(),
                               ],
                             ),
                           ),
@@ -183,6 +138,76 @@ class _QuotesPageState extends State<QuotesPage> {
             ),
           );
         },
+      ),
+    );
+  }
+}
+
+class RandomQuoteContainer extends StatelessWidget {
+  const RandomQuoteContainer({
+    super.key,
+    required this.quotesModel,
+  });
+
+  final QuotesModel quotesModel;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            quotesModel.content,
+            style: GoogleFonts.buenard(
+              fontSize: 20,
+              color: Colors.yellow[400],
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: 25),
+          Text(
+            quotesModel.authorName,
+            style: GoogleFonts.buenard(
+              fontSize: 22,
+              color: Colors.yellow[400],
+              fontWeight: FontWeight.bold,
+            ),
+          )
+        ],
+      )),
+    );
+  }
+}
+
+class AuthorHistoryButton extends StatelessWidget {
+  const AuthorHistoryButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton.icon(
+      onPressed: () {},
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(Colors.indigo[700]),
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+        ),
+      ),
+      icon: const Icon(Icons.search, color: Colors.yellow),
+      label: Text(
+        'Poznaj historię autora',
+        style: GoogleFonts.buenard(
+          fontSize: 20,
+          color: Colors.yellow[400],
+          fontWeight: FontWeight.bold,
+        ),
       ),
     );
   }

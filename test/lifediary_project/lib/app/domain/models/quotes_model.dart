@@ -13,4 +13,10 @@ class QuotesModel {
   final String content;
   final String authorName;
   final int authorID;
+
+  QuotesModel.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        content = json['content'],
+        authorName = json['author_name'],
+        authorID = json['author_id'];
 }
