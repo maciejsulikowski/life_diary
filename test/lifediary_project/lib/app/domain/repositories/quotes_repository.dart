@@ -4,7 +4,7 @@ import 'package:lifediary_project/app/domain/models/quotes_model.dart';
 class QuotesRepository {
   QuotesRepository(this.quotesRemoteDataSource);
 
-  final QuotesRemoteDataSource quotesRemoteDataSource;
+  final QuotesRemoteDioDataSource quotesRemoteDataSource;
 
   Future<List<QuotesModel>> getQuotesModel() async {
     final json = await quotesRemoteDataSource.getQuotes();

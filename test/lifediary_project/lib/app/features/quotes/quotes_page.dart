@@ -1,29 +1,14 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dio/dio.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lifediary_project/app/core/enums.dart';
-import 'package:lifediary_project/app/cubit/root_cubit.dart';
-import 'package:lifediary_project/app/data/remote_data_sources/quotes_remote_data_source.dart';
-import 'package:lifediary_project/app/data/remote_data_sources/weather_remote_data_source.dart';
-import 'package:lifediary_project/app/domain/models/quotes_model.dart';
-import 'package:lifediary_project/app/domain/models/weather_model.dart';
-import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
-import 'package:lifediary_project/app/domain/repositories/quotes_repository.dart';
-import 'package:lifediary_project/app/domain/repositories/water_repository.dart';
-import 'package:lifediary_project/app/domain/repositories/weather_repository.dart';
-
-import 'package:lifediary_project/app/features/instruction/instruction_page.dart';
-import 'package:lifediary_project/app/features/login/login_page.dart';
-import 'package:lifediary_project/app/features/login/user_profile.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lifediary_project/app/core/enums.dart';
+import 'package:lifediary_project/app/data/remote_data_sources/quotes_remote_data_source.dart';
+import 'package:lifediary_project/app/domain/models/quotes_model.dart';
+import 'package:lifediary_project/app/domain/repositories/quotes_repository.dart';
 import 'package:lifediary_project/app/features/quotes/cubit/quotes_cubit.dart';
 import 'package:lifediary_project/app/features/stories/stories_page.dart';
-import 'package:lifediary_project/app/features/water/cubit/water_cubit.dart';
-import 'package:lifediary_project/app/features/weather/cubit/weather_cubit.dart';
-import 'package:lifediary_project/app/features/weather/cubit/weather_state.dart';
-import 'package:lifediary_project/app/injection_container.dart';
 
 class QuotesPage extends StatefulWidget {
   const QuotesPage({
@@ -36,6 +21,7 @@ class QuotesPage extends StatefulWidget {
 
 class _QuotesPageState extends State<QuotesPage> {
   bool isQuoteHide = true;
+  int lastRandomIndex = -1;
 
   void toogleButton() {
     isQuoteHide = !isQuoteHide;
@@ -45,7 +31,7 @@ class _QuotesPageState extends State<QuotesPage> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          QuotesCubit(QuotesRepository(QuotesRemoteDataSource()))..start(),
+          QuotesCubit(QuotesRepository(QuotesRemoteDioDataSource()))..start(),
       child: BlocConsumer<QuotesCubit, QuotesState>(
         listener: (context, state) {
           if (state.status == Status.error) {
@@ -60,14 +46,36 @@ class _QuotesPageState extends State<QuotesPage> {
         },
         builder: (context, state) {
           final quotesModel = state.quotes;
+          if (quotesModel.isEmpty) {
+            return Scaffold(
+              appBar: AppBar(
+                title: Text(
+                  'QUOTES PAGE',
+                  style: GoogleFonts.buenard(
+                    fontSize: 22,
+                    color: Colors.yellow[400],
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                centerTitle: true,
+                backgroundColor: Colors.black87,
+              ),
+              body: Container(
+                  color: Colors.black87,
+                  child: Center(child: CircularProgressIndicator())),
+            );
+          }
+
+          final result = quotesModel[Random().nextInt(quotesModel.length)];
           return Scaffold(
             appBar: AppBar(
               title: Text(
                 'QUOTES PAGE',
                 style: GoogleFonts.buenard(
-                    fontSize: 22,
-                    color: Colors.yellow[400],
-                    fontWeight: FontWeight.bold),
+                  fontSize: 22,
+                  color: Colors.yellow[400],
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               centerTitle: true,
               backgroundColor: Colors.black87,
@@ -115,20 +123,16 @@ class _QuotesPageState extends State<QuotesPage> {
                       ),
                       SizedBox(height: 20),
                       if (isQuoteHide == false) ...[
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Expanded(
-                            child: Column(
-                              children: [
-                                for (final quote in state.quotes) ...[
-                                  RandomQuoteContainer(
-                                    quotesModel: quote,
-                                  ),
-                                ],
-                                SizedBox(height: 20),
-                                AuthorHistoryButton(),
-                              ],
-                            ),
+                        Expanded(
+                          child: Column(
+                            children: [
+                              RandomQuoteContainer(
+                                quotesModel: result,
+                              ),
+                              AuthorHistoryButton(
+                                model: result,
+                              ),
+                            ],
                           ),
                         ),
                       ],
@@ -146,9 +150,9 @@ class _QuotesPageState extends State<QuotesPage> {
 
 class RandomQuoteContainer extends StatelessWidget {
   const RandomQuoteContainer({
-    super.key,
+    Key? key,
     required this.quotesModel,
-  });
+  }) : super(key: key);
 
   final QuotesModel quotesModel;
 
@@ -157,37 +161,41 @@ class RandomQuoteContainer extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            quotesModel.content,
-            style: GoogleFonts.buenard(
-              fontSize: 20,
-              color: Colors.yellow[400],
-              fontWeight: FontWeight.bold,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              quotesModel.content,
+              style: GoogleFonts.buenard(
+                fontSize: 20,
+                color: Colors.yellow[400],
+                fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.center,
             ),
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(height: 25),
-          Text(
-            quotesModel.authorName,
-            style: GoogleFonts.buenard(
-              fontSize: 22,
-              color: Colors.yellow[400],
-              fontWeight: FontWeight.bold,
+            SizedBox(height: 25),
+            Text(
+              quotesModel.authorName,
+              style: GoogleFonts.buenard(
+                fontSize: 22,
+                color: Colors.yellow[400],
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          )
-        ],
-      )),
+          ],
+        ),
+      ),
     );
   }
 }
 
 class AuthorHistoryButton extends StatelessWidget {
   const AuthorHistoryButton({
-    super.key,
-  });
+    Key? key,
+    required this.model,
+  }) : super(key: key);
+
+  final QuotesModel model;
 
   @override
   Widget build(BuildContext context) {
@@ -195,7 +203,7 @@ class AuthorHistoryButton extends StatelessWidget {
       onPressed: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (_) => StoriesPage(),
+            builder: (_) => StoriesPage(author: model),
           ),
         );
       },

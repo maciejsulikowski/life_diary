@@ -32,7 +32,10 @@ import 'cubit/stories_cubit.dart';
 class StoriesPage extends StatefulWidget {
   const StoriesPage({
     Key? key,
+    required this.author,
   }) : super(key: key);
+
+  final QuotesModel author;
 
   @override
   State<StoriesPage> createState() => _StoriesPageState();
@@ -43,8 +46,8 @@ class _StoriesPageState extends State<StoriesPage> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          StoriesCubit(StoriesRepository(StoriesRemoteDataSource()))
-            ..fetchData(),
+          StoriesCubit(StoriesRepository(StoriesRemoteDioDataSource()))
+            ..fetchData(authorID: widget.author.id),
       child: BlocConsumer<StoriesCubit, StoriesState>(
         listener: (context, state) {
           if (state.status == Status.error) {

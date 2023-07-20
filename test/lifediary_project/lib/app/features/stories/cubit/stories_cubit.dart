@@ -11,14 +11,14 @@ class StoriesCubit extends Cubit<StoriesState> {
 
   final StoriesRepository storiesRepository;
 
-  Future<void> fetchData() async {
+  Future<void> fetchData({required int authorID}) async {
     emit(
       StoriesState(
         status: Status.loading,
       ),
     );
     try {
-      final data = await storiesRepository.getQuotesModel();
+      final data = await storiesRepository.getStoriesModel(authorID);
       emit(
         StoriesState(
           stories: data,
