@@ -124,15 +124,18 @@ class _QuotesPageState extends State<QuotesPage> {
                       SizedBox(height: 20),
                       if (isQuoteHide == false) ...[
                         Expanded(
-                          child: Column(
-                            children: [
-                              RandomQuoteContainer(
-                                quotesModel: result,
-                              ),
-                              AuthorHistoryButton(
-                                model: result,
-                              ),
-                            ],
+                          child: Center(
+                            child: Column(
+                              children: [
+                                RandomQuoteContainer(
+                                  quotesModel: result,
+                                ),
+                                SizedBox(height: 20),
+                                AuthorHistoryButton(
+                                  model: result,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ],
@@ -167,9 +170,9 @@ class RandomQuoteContainer extends StatelessWidget {
             Text(
               quotesModel.content,
               style: GoogleFonts.buenard(
-                fontSize: 20,
+                fontSize: 24,
                 color: Colors.yellow[400],
-                fontWeight: FontWeight.bold,
+                fontStyle: FontStyle.italic,
               ),
               textAlign: TextAlign.center,
             ),
@@ -177,7 +180,7 @@ class RandomQuoteContainer extends StatelessWidget {
             Text(
               quotesModel.authorName,
               style: GoogleFonts.buenard(
-                fontSize: 22,
+                fontSize: 26,
                 color: Colors.yellow[400],
                 fontWeight: FontWeight.bold,
               ),

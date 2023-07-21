@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lifediary_project/app/core/enums.dart';
 import 'package:lifediary_project/app/domain/models/user_model.dart';
+import 'package:lifediary_project/app/domain/repositories/root_repository.dart';
 import 'package:lifediary_project/app/domain/repositories/user_repository.dart';
 import 'package:lifediary_project/app/features/login/login_page.dart';
 
@@ -13,7 +14,7 @@ import 'package:meta/meta.dart';
 part 'root_state.dart';
 
 class RootCubit extends Cubit<RootState> {
-  RootCubit(this._userRepository)
+  RootCubit(this._userRepository, this._rootRepository)
       : super(
           RootState(
             user: null,
@@ -24,13 +25,14 @@ class RootCubit extends Cubit<RootState> {
   StreamSubscription? _streamSubscription;
 
   final UserRepository _userRepository;
+  final RootRepository _rootRepository;
 
   Future<void> createAccount(
     TextEditingController email,
     TextEditingController password,
   ) async {
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      await _rootRepository.createAccount(
         email: email.text,
         password: password.text,
       );
@@ -50,7 +52,7 @@ class RootCubit extends Cubit<RootState> {
     TextEditingController password,
   ) async {
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+      await _rootRepository.signIn(
         email: email.text,
         password: password.text,
       );
@@ -66,7 +68,7 @@ class RootCubit extends Cubit<RootState> {
   }
 
   Future<void> signOut() async {
-    await FirebaseAuth.instance.signOut();
+    await _rootRepository.signOut();
   }
 
   Future<void> start() async {
@@ -78,8 +80,7 @@ class RootCubit extends Cubit<RootState> {
       ),
     );
 
-    _streamSubscription =
-        FirebaseAuth.instance.authStateChanges().listen((user) {
+    _streamSubscription = _rootRepository.authStateChanges().listen((user) {
       emit(
         RootState(
           user: user,
@@ -88,14 +89,14 @@ class RootCubit extends Cubit<RootState> {
         ),
       );
     })
-          ..onError((error) {
-            emit(
-              RootState(
-                user: null,
-                errorMessage: error.toString(),
-              ),
-            );
-          });
+      ..onError((error) {
+        emit(
+          RootState(
+            user: null,
+            errorMessage: error.toString(),
+          ),
+        );
+      });
   }
 
   Future<void> addUserPhoto(String imageURL) async {

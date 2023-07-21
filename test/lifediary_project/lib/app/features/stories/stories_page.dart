@@ -64,7 +64,7 @@ class _StoriesPageState extends State<StoriesPage> {
           return Scaffold(
             appBar: AppBar(
               title: Text(
-                'QUOTES PAGE',
+                'STORIES PAGE',
                 style: GoogleFonts.buenard(
                     fontSize: 22,
                     color: Colors.yellow[400],
@@ -147,9 +147,10 @@ class RandomQuoteContainer extends StatelessWidget {
           Text(
             storiesModel.source,
             style: GoogleFonts.buenard(
-              fontSize: 16,
+              fontSize: 14,
               color: Colors.yellow[400],
               fontWeight: FontWeight.bold,
+              fontStyle: FontStyle.italic,
             ),
             textAlign: TextAlign.center,
           ),

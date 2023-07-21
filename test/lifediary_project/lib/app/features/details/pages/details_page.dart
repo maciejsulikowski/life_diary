@@ -184,7 +184,7 @@ class _ListViewItem extends StatelessWidget {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -232,15 +232,12 @@ class _DiaryPageState extends State<_DiaryPage> {
           color: Colors.black,
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: Container(
-                  color: Colors.grey[300],
-                  child: quill.QuillToolbar.basic(
-                    controller: widget.betterController,
-                    iconTheme: quill.QuillIconTheme(
-                        borderRadius: 16, iconUnselectedColor: Colors.black87),
-                  ),
+              Container(
+                color: Colors.grey[300],
+                child: quill.QuillToolbar.basic(
+                  controller: widget.betterController,
+                  iconTheme: quill.QuillIconTheme(
+                      borderRadius: 16, iconUnselectedColor: Colors.black87),
                 ),
               ),
               Expanded(
