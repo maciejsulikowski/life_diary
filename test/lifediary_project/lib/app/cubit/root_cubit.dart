@@ -14,7 +14,7 @@ import 'package:meta/meta.dart';
 part 'root_state.dart';
 
 class RootCubit extends Cubit<RootState> {
-  RootCubit(this._userRepository, this._rootRepository)
+  RootCubit(this.userRepository, this.rootRepository)
       : super(
           RootState(
             user: null,
@@ -24,15 +24,15 @@ class RootCubit extends Cubit<RootState> {
 
   StreamSubscription? _streamSubscription;
 
-  final UserRepository _userRepository;
-  final RootRepository _rootRepository;
+  final UserRepository userRepository;
+  final RootRepository rootRepository;
 
   Future<void> createAccount(
     TextEditingController email,
     TextEditingController password,
   ) async {
     try {
-      await _rootRepository.createAccount(
+      await rootRepository.createAccount(
         email: email.text,
         password: password.text,
       );
@@ -52,7 +52,7 @@ class RootCubit extends Cubit<RootState> {
     TextEditingController password,
   ) async {
     try {
-      await _rootRepository.signIn(
+      await rootRepository.signIn(
         email: email.text,
         password: password.text,
       );
@@ -68,7 +68,7 @@ class RootCubit extends Cubit<RootState> {
   }
 
   Future<void> signOut() async {
-    await _rootRepository.signOut();
+    await rootRepository.signOut();
   }
 
   Future<void> start() async {
@@ -80,7 +80,7 @@ class RootCubit extends Cubit<RootState> {
       ),
     );
 
-    _streamSubscription = _rootRepository.authStateChanges().listen((user) {
+    _streamSubscription = rootRepository.authStateChanges().listen((user) {
       emit(
         RootState(
           user: user,
@@ -100,7 +100,7 @@ class RootCubit extends Cubit<RootState> {
   }
 
   Future<void> addUserPhoto(String imageURL) async {
-    await _userRepository.add(imageURL);
+    await userRepository.add(imageURL);
   }
 
   @override
