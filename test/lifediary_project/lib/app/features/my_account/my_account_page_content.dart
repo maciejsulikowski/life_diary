@@ -13,6 +13,7 @@ import 'package:lifediary_project/app/features/login/user_profile.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lifediary_project/app/features/quotes/quotes_page.dart';
 import 'package:lifediary_project/app/features/water/cubit/water_cubit.dart';
+import 'package:lifediary_project/app/features/water/cubit/water_state.dart';
 import 'package:lifediary_project/app/features/weather/weather_page.dart';
 
 class MyAccountPageContent extends StatelessWidget {

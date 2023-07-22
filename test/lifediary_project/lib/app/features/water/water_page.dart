@@ -10,6 +10,7 @@ import 'package:lifediary_project/app/domain/repositories/water_repository.dart'
 
 import 'package:lifediary_project/app/features/login/login_page.dart';
 import 'package:lifediary_project/app/features/water/cubit/water_cubit.dart';
+import 'package:lifediary_project/app/features/water/cubit/water_state.dart';
 
 class WaterPage extends StatefulWidget {
   WaterPage({
