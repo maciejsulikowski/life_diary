@@ -1,13 +1,14 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:lifediary_project/app/domain/models/item_model.dart';
 import 'package:lifediary_project/app/domain/models/photos_model.dart';
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
 import 'package:lifediary_project/app/domain/repositories/photos_repository.dart';
+import 'package:lifediary_project/app/features/training/cubit/training_state.dart';
 import 'package:meta/meta.dart';
 
-part 'training_state.dart';
 
 class TrainingCubit extends Cubit<TrainingState> {
   TrainingCubit(this._photosRepository) : super(TrainingState());
@@ -32,7 +33,7 @@ class TrainingCubit extends Cubit<TrainingState> {
     final photoModel = await _photosRepository.getphotos(id: id);
     emit(
       TrainingState(
-        photoModel: photoModel,
+        photosModel: photoModel,
       ),
     );
   }

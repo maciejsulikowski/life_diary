@@ -13,6 +13,7 @@ import 'package:lifediary_project/app/domain/models/item_model.dart';
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
 import 'package:lifediary_project/app/features/training/add_photos/add_photo.dart';
 import 'package:lifediary_project/app/features/training/cubit/training_cubit.dart';
+import 'package:lifediary_project/app/features/training/cubit/training_state.dart';
 
 class TrainingPageContent extends StatelessWidget {
   const TrainingPageContent({
