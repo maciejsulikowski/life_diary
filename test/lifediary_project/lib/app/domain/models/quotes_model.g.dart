@@ -6,14 +6,15 @@ part of 'quotes_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-QuotesModel _$QuotesModelFromJson(Map<String, dynamic> json) => QuotesModel(
-      id: json['id'] as int,
-      content: json['content'] as String,
-      authorName: json['author_name'] as String,
-      authorID: json['author_id'] as int,
+_$_QuotesModel _$$_QuotesModelFromJson(Map<String, dynamic> json) =>
+    _$_QuotesModel(
+      json['id'] as int,
+      json['content'] as String,
+      json['author_name'] as String,
+      json['author_id'] as int,
     );
 
-Map<String, dynamic> _$QuotesModelToJson(QuotesModel instance) =>
+Map<String, dynamic> _$$_QuotesModelToJson(_$_QuotesModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'content': instance.content,
