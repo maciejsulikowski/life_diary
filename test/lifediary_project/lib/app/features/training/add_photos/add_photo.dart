@@ -12,6 +12,7 @@ import 'package:lifediary_project/app/domain/repositories/photos_repository.dart
 import 'package:lifediary_project/app/features/training/add_photos/cubit/add_photo_cubit.dart';
 
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
+import 'package:lifediary_project/app/features/training/add_photos/cubit/add_photo_state.dart';
 
 class AddPhoto extends StatefulWidget {
   const AddPhoto({

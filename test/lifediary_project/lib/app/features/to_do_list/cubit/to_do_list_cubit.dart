@@ -3,23 +3,25 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:lifediary_project/app/core/enums.dart';
 import 'package:lifediary_project/app/domain/models/item_model.dart';
 import 'package:lifediary_project/app/domain/models/item_model_to_do_list.dart';
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
 import 'package:lifediary_project/app/domain/repositories/tasks_repository.dart';
+import 'package:lifediary_project/app/features/to_do_list/cubit/to_do_list_state.dart';
 import 'package:meta/meta.dart';
 
-part 'to_do_list_state.dart';
 
 class ToDoListCubit extends Cubit<ToDoListState> {
-  ToDoListCubit(this._tasksRepository) : super(const ToDoListState(status: Status.loading,));
+  ToDoListCubit(this._tasksRepository) : super(ToDoListState());
 
   final TasksRepository _tasksRepository;
 
   StreamSubscription? _streamSubscription;
 
   Future<void> start() async {
+    emit(ToDoListState(status: Status.loading));
     _streamSubscription = _tasksRepository.getTasksStream().listen(
       (documents) {
         emit(ToDoListState(documents: documents));
@@ -42,7 +44,7 @@ class ToDoListCubit extends Cubit<ToDoListState> {
     try {
       await _tasksRepository.addtask(title, isChecked);
       emit(
-        const ToDoListState(saved: true),
+         ToDoListState(saved: true),
       );
     } catch (error) {
       emit(ToDoListState(status: Status.error,errorMessage: error.toString()));
@@ -54,7 +56,7 @@ class ToDoListCubit extends Cubit<ToDoListState> {
       await _tasksRepository.updateTask(itemModel);
     } catch (error) {
       emit(
-        const ToDoListState(status: Status.error ,errorMessage: 'Something went wrong'),
+         ToDoListState(status: Status.error ,errorMessage: 'Something went wrong'),
       );
     }
   }
@@ -66,7 +68,7 @@ class ToDoListCubit extends Cubit<ToDoListState> {
       await _tasksRepository.deletetask(id: documentID);
     } catch (error) {
       emit(
-        const ToDoListState(status: Status.error, errorMessage: 'Something went wrong'),
+         ToDoListState(status: Status.error, errorMessage: 'Something went wrong'),
       );
       start();
     }

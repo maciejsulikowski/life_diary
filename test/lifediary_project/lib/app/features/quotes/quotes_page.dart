@@ -8,6 +8,7 @@ import 'package:lifediary_project/app/data/remote_data_sources/quotes_remote_dat
 import 'package:lifediary_project/app/domain/models/quotes_model.dart';
 import 'package:lifediary_project/app/domain/repositories/quotes_repository.dart';
 import 'package:lifediary_project/app/features/quotes/cubit/quotes_cubit.dart';
+import 'package:lifediary_project/app/features/quotes/cubit/quotes_state.dart';
 import 'package:lifediary_project/app/features/stories/stories_page.dart';
 
 class QuotesPage extends StatefulWidget {

@@ -1,11 +1,21 @@
-part of 'add_photo_cubit.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class AddPhotoState {
-  const AddPhotoState({
-    this.saved = false,
-    this.errorMessage = '',
-  });
+part 'add_photo_state.freezed.dart';
 
-  final bool saved;
-  final String errorMessage;
+@freezed
+class AddPhotoState with _$AddPhotoState {
+  factory AddPhotoState({
+    @Default(false) bool saved,
+    @Default('') String errorMessage,
+  }) = _AddPhotoState;
 }
+
+// class AddPhotoState {
+//   const AddPhotoState({
+//     this.saved = false,
+//     this.errorMessage = '',
+//   });
+
+//   final bool saved;
+//   final String errorMessage;
+// }
