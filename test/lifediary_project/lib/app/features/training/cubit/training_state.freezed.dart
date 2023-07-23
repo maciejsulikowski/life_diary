@@ -37,6 +37,8 @@ abstract class $TrainingStateCopyWith<$Res> {
       List<PhotosModel> photos,
       bool loadingErrorOccured,
       bool removingErrorOccured});
+
+  $PhotosModelCopyWith<$Res>? get photosModel;
 }
 
 /// @nodoc
@@ -76,6 +78,18 @@ class _$TrainingStateCopyWithImpl<$Res, $Val extends TrainingState>
               as bool,
     ) as $Val);
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PhotosModelCopyWith<$Res>? get photosModel {
+    if (_value.photosModel == null) {
+      return null;
+    }
+
+    return $PhotosModelCopyWith<$Res>(_value.photosModel!, (value) {
+      return _then(_value.copyWith(photosModel: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -91,6 +105,9 @@ abstract class _$$_TrainingStateCopyWith<$Res>
       List<PhotosModel> photos,
       bool loadingErrorOccured,
       bool removingErrorOccured});
+
+  @override
+  $PhotosModelCopyWith<$Res>? get photosModel;
 }
 
 /// @nodoc

@@ -37,6 +37,8 @@ abstract class $DetailsPhotoStateCopyWith<$Res> {
       Status status,
       String? errorMessage,
       bool isSaved});
+
+  $PhotosModelCopyWith<$Res>? get photosModel;
 }
 
 /// @nodoc
@@ -76,6 +78,18 @@ class _$DetailsPhotoStateCopyWithImpl<$Res, $Val extends DetailsPhotoState>
               as bool,
     ) as $Val);
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PhotosModelCopyWith<$Res>? get photosModel {
+    if (_value.photosModel == null) {
+      return null;
+    }
+
+    return $PhotosModelCopyWith<$Res>(_value.photosModel!, (value) {
+      return _then(_value.copyWith(photosModel: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -91,6 +105,9 @@ abstract class _$$_DetailsPhotoStateCopyWith<$Res>
       Status status,
       String? errorMessage,
       bool isSaved});
+
+  @override
+  $PhotosModelCopyWith<$Res>? get photosModel;
 }
 
 /// @nodoc
