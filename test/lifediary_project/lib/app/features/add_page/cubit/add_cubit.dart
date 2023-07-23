@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:lifediary_project/app/core/enums.dart';
 
@@ -29,5 +30,8 @@ class AddCubit extends Cubit<AddState> {
     } catch (error) {
       emit(AddState(status: Status.error,errorMessage: error.toString(),));
     }
+  }
+  Future<Reference> pathRef() async {
+    return await _itemsRepository.pathRef();
   }
 }

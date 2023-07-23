@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:lifediary_project/app/data/remote_data_sources/items_remote_data_source.dart';
@@ -60,5 +61,9 @@ class ItemsRepository {
     Delta text,
   ) async {
     return _itemsRemoteDataSource.addtext(id, text);
+  }
+
+  Future<Reference> pathRef() async {
+    return await _itemsRemoteDataSource.pathRef();
   }
 }

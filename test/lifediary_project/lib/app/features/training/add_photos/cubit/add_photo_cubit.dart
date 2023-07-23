@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
 import 'package:lifediary_project/app/domain/repositories/photos_repository.dart';
@@ -28,5 +29,8 @@ class AddPhotoCubit extends Cubit<AddPhotoState> {
     } catch (error) {
       emit(AddPhotoState(errorMessage: error.toString()));
     }
+  }
+  Future<Reference> pathRef() async {
+    return await _photosRepository.pathRef();
   }
 }

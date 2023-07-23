@@ -40,7 +40,8 @@ class _AddPhotoState extends State<AddPhoto> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AddPhotoCubit(PhotosRepository(PhotosRemoteDataSource())),
+      create: (context) =>
+          AddPhotoCubit(PhotosRepository(PhotosRemoteDataSource())),
       child: BlocListener<AddPhotoCubit, AddPhotoState>(
         listener: (context, state) {
           if (state.saved) {
@@ -272,7 +273,7 @@ class _AddPhotoBodyState extends State<_AddPhotoBody> {
                           DateTime.now().millisecondsSinceEpoch.toString();
 
                       final Reference referenceRoot =
-                          FirebaseStorage.instance.ref();
+                          await context.read<AddPhotoCubit>().pathRef();
                       final Reference referenceDirImages =
                           referenceRoot.child(uniqueFileName);
 

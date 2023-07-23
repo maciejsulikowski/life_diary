@@ -253,7 +253,8 @@ class _AddPageBodyState extends State<_AddPageBody> {
               final String uniqueFileName =
                   DateTime.now().millisecondsSinceEpoch.toString();
 
-              final Reference referenceRoot = FirebaseStorage.instance.ref();
+              final Reference referenceRoot =
+                  await context.read<AddCubit>().pathRef();
               final Reference referenceDirImages =
                   referenceRoot.child(uniqueFileName);
 
