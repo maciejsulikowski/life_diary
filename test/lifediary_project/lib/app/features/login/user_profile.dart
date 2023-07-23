@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:lifediary_project/app/core/enums.dart';
 import 'package:lifediary_project/app/data/remote_data_sources/user_remote_data_source.dart';
 import 'package:lifediary_project/app/domain/models/user_model.dart';
 import 'package:lifediary_project/app/domain/repositories/user_repository.dart';
@@ -268,54 +269,98 @@ class UserPhoto extends StatefulWidget {
 }
 
 class _UserPhotoState extends State<UserPhoto> {
-  late String imageURL;
+  bool isLoading = false; // Nowa zmienna do przechowywania stanu ładowania
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () async {
-        final imagePicker = ImagePicker();
-        final XFile? file =
-            await imagePicker.pickImage(source: ImageSource.gallery);
+    return BlocProvider(
+      create: (context) => UserCubit(UserRepository(UserRemoteDataSource())),
+      child: BlocBuilder<UserCubit, UserState>(
+        builder: (context, state) {
+          return InkWell(
+            onTap: () async {
+              final imagePicker = ImagePicker();
+              final XFile? file =
+                  await imagePicker.pickImage(source: ImageSource.gallery);
 
-        if (file == null) return;
+              if (file == null) return;
 
-        final String uniqueFileName =
-            DateTime.now().millisecondsSinceEpoch.toString();
+              final String uniqueFileName =
+                  DateTime.now().millisecondsSinceEpoch.toString();
 
-        final Reference referenceRoot =
-            await context.read<UserCubit>().pathRef();
-        final Reference referenceDirImages =
-            referenceRoot.child(uniqueFileName);
+              final Reference referenceRoot =
+                  await context.read<UserCubit>().pathRef();
+              final Reference referenceDirImages =
+                  referenceRoot.child(uniqueFileName);
 
-        final Reference referenceImageToUpload =
-            referenceDirImages.child(uniqueFileName);
+              final Reference referenceImageToUpload =
+                  referenceDirImages.child(uniqueFileName);
 
-        try {
-          await referenceImageToUpload.putFile(File(file.path));
-          final imageUrl = await referenceImageToUpload.getDownloadURL();
-          setState(() {
-            final updatedUserModel =
-                widget.userModel.copyWith(imageURL: imageUrl);
-            widget.userModel = updatedUserModel;
-          });
-          widget.onImageUrlChanged(imageUrl);
-          context.read<UserCubit>().add(imageUrl);
-        } catch (error) {}
-      },
-      child: CircleAvatar(
-        radius: 60,
-        backgroundColor: Colors.grey[300],
-        child: widget.userModel.imageURL != null
-            ? CircleAvatar(
-                radius: 60,
-                backgroundImage: NetworkImage(widget.userModel.imageURL!),
-              )
-            : Icon(
-                Icons.camera_alt,
-                size: 40,
-                color: Colors.grey[600],
-              ),
+              try {
+                // Rozpocznij ładowanie, ustaw isLoading na true
+                setState(() {
+                  isLoading = true;
+                });
+
+                await referenceImageToUpload.putFile(File(file.path));
+                final imageUrl = await referenceImageToUpload.getDownloadURL();
+                setState(() {
+                  final updatedUserModel =
+                      widget.userModel.copyWith(imageURL: imageUrl);
+                  widget.userModel = updatedUserModel;
+                  isLoading =
+                      false; // Zakończ ładowanie, ustaw isLoading na false
+                });
+                widget.onImageUrlChanged(imageUrl);
+                context.read<UserCubit>().add(imageUrl);
+              } catch (error) {
+                // W przypadku błędu, zakończ ładowanie i wyświetl komunikat błędu
+                setState(() {
+                  isLoading = false;
+                });
+              }
+            },
+            child: Stack(
+              // Wykorzystaj Stack, aby umieścić kilka widgetów na siebie
+              alignment: Alignment.center,
+              children: [
+                if (state.status ==
+                    Status
+                        .loading) // Wyświetl CircularProgressIndicator, jeśli isLoading jest true
+                  Positioned.fill(
+                    child: CircleAvatar(
+                      radius: 60,
+                      backgroundColor: Colors.grey[300],
+                      child: CircularProgressIndicator(),
+                    ),
+                  ),
+                CircleAvatar(
+                  radius: 60,
+                  backgroundColor: Colors.grey[300],
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      if (widget.userModel.imageURL != null)
+                        CircleAvatar(
+                          radius: 60,
+                          backgroundColor: Colors.black,
+                          backgroundImage:
+                              NetworkImage(widget.userModel.imageURL!),
+                        ),
+                      if (isLoading)
+                        CircleAvatar(
+                          radius: 60,
+                          backgroundColor: Colors
+                              .black, // Czarne tło, które pojawi się na chwilę podczas ładowania
+                          child: CircularProgressIndicator(),
+                        ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
