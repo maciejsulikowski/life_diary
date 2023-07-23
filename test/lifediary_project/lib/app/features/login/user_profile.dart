@@ -283,7 +283,8 @@ class _UserPhotoState extends State<UserPhoto> {
         final String uniqueFileName =
             DateTime.now().millisecondsSinceEpoch.toString();
 
-        final Reference referenceRoot = FirebaseStorage.instance.ref();
+        final Reference referenceRoot =
+            await context.read<UserCubit>().pathRef();
         final Reference referenceDirImages =
             referenceRoot.child(uniqueFileName);
 

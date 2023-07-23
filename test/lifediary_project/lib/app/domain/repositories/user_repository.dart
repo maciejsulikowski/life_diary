@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:lifediary_project/app/data/remote_data_sources/user_remote_data_source.dart';
 import 'package:lifediary_project/app/domain/models/daily_plan_model.dart';
@@ -37,5 +38,9 @@ class UserRepository {
 
   Future<void> addStoryText(String storyText) async {
     return _userRemoteDataSource.addStoryText(storyText);
+  }
+
+  Future<Reference> pathRef() async {
+    return _userRemoteDataSource.pathRef();
   }
 }

@@ -1,13 +1,13 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:lifediary_project/app/core/enums.dart';
 import 'package:lifediary_project/app/domain/models/user_model.dart';
 import 'package:lifediary_project/app/domain/repositories/user_repository.dart';
 import 'package:lifediary_project/app/features/login/cubit/user_state.dart';
 import 'package:lifediary_project/app/features/login/user_profile.dart';
 import 'package:meta/meta.dart';
-
 
 class UserCubit extends Cubit<UserState> {
   UserCubit(this._userRepository)
@@ -94,6 +94,10 @@ class UserCubit extends Cubit<UserState> {
         errorMessage: error.toString(),
       ));
     }
+  }
+
+  Future<Reference> pathRef() async {
+    return await _userRepository.pathRef();
   }
 
   @override
