@@ -12,6 +12,7 @@ import 'package:lifediary_project/app/domain/models/photos_model.dart';
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
 import 'package:lifediary_project/app/domain/repositories/photos_repository.dart';
 import 'package:lifediary_project/app/features/details_photo/cubit/details_photo_cubit.dart';
+import 'package:lifediary_project/app/features/details_photo/cubit/details_photo_state.dart';
 
 class DetailsPhotoPageContent extends StatefulWidget {
   const DetailsPhotoPageContent({
@@ -49,7 +50,7 @@ class _DetailsPhotoPageContentState extends State<DetailsPhotoPageContent> {
             ..getPhotosID(widget.id),
       child: BlocBuilder<DetailsPhotoCubit, DetailsPhotoState>(
         builder: (context, state) {
-          final photoModel = state.photoModel;
+          final photoModel = state.photosModel;
           if (state.status == Status.error) {
             return CircularProgressIndicator();
           }

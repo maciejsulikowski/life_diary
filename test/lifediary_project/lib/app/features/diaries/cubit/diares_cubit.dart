@@ -15,7 +15,6 @@ class DiaresCubit extends Cubit<DiaresState> {
   DiaresCubit(this._itemsRepository)
       : super(
           DiaresState(
-            status: Status.loading,
           ),
         );
 
@@ -24,6 +23,11 @@ class DiaresCubit extends Cubit<DiaresState> {
   StreamSubscription? _streamSubscription;
 
   Future<void> start() async {
+    emit(
+      DiaresState(
+        status: Status.loading,
+      ),
+    );
     _streamSubscription = _itemsRepository.getItemsStream().listen(
       (items) {
         emit(DiaresState(items: items, status: Status.success));

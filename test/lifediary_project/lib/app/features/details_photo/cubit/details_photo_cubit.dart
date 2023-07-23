@@ -7,15 +7,15 @@ import 'package:lifediary_project/app/domain/models/item_model.dart';
 import 'package:lifediary_project/app/domain/models/photos_model.dart';
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
 import 'package:lifediary_project/app/domain/repositories/photos_repository.dart';
+import 'package:lifediary_project/app/features/details_photo/cubit/details_photo_state.dart';
 import 'package:meta/meta.dart';
 
-part 'details_photo_state.dart';
 
 class DetailsPhotoCubit extends Cubit<DetailsPhotoState> {
   DetailsPhotoCubit(this._photosRepository)
       : super(
-          const DetailsPhotoState(
-            photoModel: null,
+           DetailsPhotoState(
+            photosModel: null,
             status: Status.loading,
             errorMessage: '',
             isSaved: false,
@@ -30,7 +30,7 @@ class DetailsPhotoCubit extends Cubit<DetailsPhotoState> {
     final photoModel = await _photosRepository.getphotos(id: id);
     emit(
       DetailsPhotoState(
-        photoModel: photoModel,
+        photosModel: photoModel,
         status: Status.loading,
         errorMessage: '',
         isSaved: false,
@@ -39,11 +39,16 @@ class DetailsPhotoCubit extends Cubit<DetailsPhotoState> {
   }
 
   Future<void> start() async {
+    emit(
+      DetailsPhotoState(
+        status: Status.loading,
+      ),
+    );
     _streamSubscription =
         _photosRepository.getPhotosStream().listen((photoModel) {
       emit(
-       const DetailsPhotoState(
-          photoModel: null,
+        DetailsPhotoState(
+          photosModel: null,
           status: Status.loading,
           errorMessage: '',
           isSaved: false,
@@ -67,7 +72,7 @@ class DetailsPhotoCubit extends Cubit<DetailsPhotoState> {
 
       emit(
         DetailsPhotoState(
-          photoModel: photosModel,
+          photosModel: photosModel,
           isSaved: true,
         ),
       );
