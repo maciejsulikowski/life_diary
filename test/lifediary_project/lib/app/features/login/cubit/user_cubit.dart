@@ -4,10 +4,10 @@ import 'package:bloc/bloc.dart';
 import 'package:lifediary_project/app/core/enums.dart';
 import 'package:lifediary_project/app/domain/models/user_model.dart';
 import 'package:lifediary_project/app/domain/repositories/user_repository.dart';
+import 'package:lifediary_project/app/features/login/cubit/user_state.dart';
 import 'package:lifediary_project/app/features/login/user_profile.dart';
 import 'package:meta/meta.dart';
 
-part 'user_state.dart';
 
 class UserCubit extends Cubit<UserState> {
   UserCubit(this._userRepository)
@@ -22,6 +22,11 @@ class UserCubit extends Cubit<UserState> {
   StreamSubscription? _streamSubscription;
 
   Future<void> start() async {
+    emit(UserState(
+      userModel: null,
+      isSaved: false,
+      status: Status.loading,
+    ));
     _streamSubscription = _userRepository.getUserData().listen(
       (userModel) {
         try {
