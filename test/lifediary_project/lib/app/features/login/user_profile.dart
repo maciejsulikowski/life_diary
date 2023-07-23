@@ -26,7 +26,8 @@ class UserProfile extends StatefulWidget {
 class _UserProfileState extends State<UserProfile> {
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => UserCubit(UserRepository(UserRemoteDataSource()))..start(),
+      create: (context) =>
+          UserCubit(UserRepository(UserRemoteDataSource()))..start(),
       child: BlocListener<UserCubit, UserState>(
         listener: (context, state) {
           if (state.isSaved) {
@@ -35,7 +36,7 @@ class _UserProfileState extends State<UserProfile> {
         },
         child: BlocBuilder<UserCubit, UserState>(
           builder: (context, state) {
-            final userModel = state.userModel;
+            var userModel = state.userModel;
             return Scaffold(
               appBar: AppBar(
                 title: Text(
@@ -53,7 +54,9 @@ class _UserProfileState extends State<UserProfile> {
                 userModel: userModel,
                 onFullNameChanged: (newValue) {
                   setState(() {
-                    userModel?.fullName = newValue;
+                    final updatedUserModel =
+                        userModel?.copyWith(fullName: newValue);
+                    userModel = updatedUserModel;
                   });
                 },
               ),
@@ -66,7 +69,7 @@ class _UserProfileState extends State<UserProfile> {
 }
 
 class UserView extends StatefulWidget {
-  final UserModel? userModel;
+  UserModel? userModel;
   Function(String) onFullNameChanged;
 
   UserView({
@@ -157,7 +160,9 @@ class _UserViewState extends State<UserView> {
                 userModel: widget.userModel!,
                 onImageUrlChanged: (newValue) {
                   setState(() {
-                    widget.userModel?.imageURL = newValue;
+                    final updatedUserModel =
+                        widget.userModel!.copyWith(imageURL: newValue);
+                    widget.userModel = updatedUserModel;
                   });
                 },
               ),
@@ -255,7 +260,7 @@ class UserPhoto extends StatefulWidget {
     required this.onImageUrlChanged,
   });
 
-  final UserModel userModel;
+  UserModel userModel;
   Function(String) onImageUrlChanged;
 
   @override
@@ -287,11 +292,14 @@ class _UserPhotoState extends State<UserPhoto> {
 
         try {
           await referenceImageToUpload.putFile(File(file.path));
-
-          widget.userModel.imageURL =
-              await referenceImageToUpload.getDownloadURL();
-          widget.onImageUrlChanged(widget.userModel.imageURL!);
-          context.read<UserCubit>().add(widget.userModel.imageURL!);
+          final imageUrl = await referenceImageToUpload.getDownloadURL();
+          setState(() {
+            final updatedUserModel =
+                widget.userModel.copyWith(imageURL: imageUrl);
+            widget.userModel = updatedUserModel;
+          });
+          widget.onImageUrlChanged(imageUrl);
+          context.read<UserCubit>().add(imageUrl);
         } catch (error) {}
       },
       child: CircleAvatar(

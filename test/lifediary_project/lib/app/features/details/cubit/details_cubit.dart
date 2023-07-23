@@ -6,19 +6,17 @@ import 'package:flutter_quill/flutter_quill.dart';
 import 'package:lifediary_project/app/core/enums.dart';
 import 'package:lifediary_project/app/domain/models/item_model.dart';
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
+import 'package:lifediary_project/app/features/details/cubit/details_state.dart';
 import 'package:meta/meta.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-
-part 'details_state.dart';
 
 class DetailsCubit extends Cubit<DetailsState> {
   DetailsCubit(
     this._itemsRepository,
-  ) : super(const DetailsState(
+  ) : super(DetailsState(
           itemModel: null,
           status: Status.loading,
           errorMessage: '',
-          saved: false,
         ));
 
   final ItemsRepository _itemsRepository;
@@ -31,31 +29,28 @@ class DetailsCubit extends Cubit<DetailsState> {
       DetailsState(
         itemModel: itemModel,
         status: Status.success,
-        errorMessage: '',
-        saved: false,
       ),
     );
   }
 
   Future<void> start() async {
-    
+    emit(
+      DetailsState(
+        status: Status.loading,
+      ),
+    );
     _streamSubscription = _itemsRepository.getItemsStream().listen(
       (itemModel) {
-        
-        emit(const DetailsState(
-          
+        emit(DetailsState(
           itemModel: null,
           status: Status.success,
           errorMessage: '',
-          saved: false,
+          isSaved: false,
         ));
       },
     )..onError((error) {
-        emit(DetailsState(
-            itemModel: null,
-            saved: false,
-            status: Status.error,
-            errorMessage: error.toString()));
+        emit(
+            DetailsState(status: Status.error, errorMessage: error.toString()));
       });
   }
 
@@ -69,8 +64,7 @@ class DetailsCubit extends Cubit<DetailsState> {
       DetailsState(
         itemModel: itemModel,
         status: Status.success,
-        errorMessage: '',
-        saved: true,
+        isSaved: true,
       ),
     );
   }

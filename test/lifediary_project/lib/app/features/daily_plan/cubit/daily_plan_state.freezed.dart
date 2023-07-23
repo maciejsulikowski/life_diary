@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'user_state.dart';
+part of 'daily_plan_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,35 +15,34 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$UserState {
-  UserModel? get userModel => throw _privateConstructorUsedError;
+mixin _$DailyPlanState {
+  List<DailyPlanModel> get list => throw _privateConstructorUsedError;
   Status get status => throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
   bool get isSaved => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $UserStateCopyWith<UserState> get copyWith =>
+  $DailyPlanStateCopyWith<DailyPlanState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $UserStateCopyWith<$Res> {
-  factory $UserStateCopyWith(UserState value, $Res Function(UserState) then) =
-      _$UserStateCopyWithImpl<$Res, UserState>;
+abstract class $DailyPlanStateCopyWith<$Res> {
+  factory $DailyPlanStateCopyWith(
+          DailyPlanState value, $Res Function(DailyPlanState) then) =
+      _$DailyPlanStateCopyWithImpl<$Res, DailyPlanState>;
   @useResult
   $Res call(
-      {UserModel? userModel,
+      {List<DailyPlanModel> list,
       Status status,
       String? errorMessage,
       bool isSaved});
-
-  $UserModelCopyWith<$Res>? get userModel;
 }
 
 /// @nodoc
-class _$UserStateCopyWithImpl<$Res, $Val extends UserState>
-    implements $UserStateCopyWith<$Res> {
-  _$UserStateCopyWithImpl(this._value, this._then);
+class _$DailyPlanStateCopyWithImpl<$Res, $Val extends DailyPlanState>
+    implements $DailyPlanStateCopyWith<$Res> {
+  _$DailyPlanStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -53,16 +52,16 @@ class _$UserStateCopyWithImpl<$Res, $Val extends UserState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? userModel = freezed,
+    Object? list = null,
     Object? status = null,
     Object? errorMessage = freezed,
     Object? isSaved = null,
   }) {
     return _then(_value.copyWith(
-      userModel: freezed == userModel
-          ? _value.userModel
-          : userModel // ignore: cast_nullable_to_non_nullable
-              as UserModel?,
+      list: null == list
+          ? _value.list
+          : list // ignore: cast_nullable_to_non_nullable
+              as List<DailyPlanModel>,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -77,58 +76,44 @@ class _$UserStateCopyWithImpl<$Res, $Val extends UserState>
               as bool,
     ) as $Val);
   }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $UserModelCopyWith<$Res>? get userModel {
-    if (_value.userModel == null) {
-      return null;
-    }
-
-    return $UserModelCopyWith<$Res>(_value.userModel!, (value) {
-      return _then(_value.copyWith(userModel: value) as $Val);
-    });
-  }
 }
 
 /// @nodoc
-abstract class _$$_UserStateCopyWith<$Res> implements $UserStateCopyWith<$Res> {
-  factory _$$_UserStateCopyWith(
-          _$_UserState value, $Res Function(_$_UserState) then) =
-      __$$_UserStateCopyWithImpl<$Res>;
+abstract class _$$_DailyPlanStateCopyWith<$Res>
+    implements $DailyPlanStateCopyWith<$Res> {
+  factory _$$_DailyPlanStateCopyWith(
+          _$_DailyPlanState value, $Res Function(_$_DailyPlanState) then) =
+      __$$_DailyPlanStateCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
-      {UserModel? userModel,
+      {List<DailyPlanModel> list,
       Status status,
       String? errorMessage,
       bool isSaved});
-
-  @override
-  $UserModelCopyWith<$Res>? get userModel;
 }
 
 /// @nodoc
-class __$$_UserStateCopyWithImpl<$Res>
-    extends _$UserStateCopyWithImpl<$Res, _$_UserState>
-    implements _$$_UserStateCopyWith<$Res> {
-  __$$_UserStateCopyWithImpl(
-      _$_UserState _value, $Res Function(_$_UserState) _then)
+class __$$_DailyPlanStateCopyWithImpl<$Res>
+    extends _$DailyPlanStateCopyWithImpl<$Res, _$_DailyPlanState>
+    implements _$$_DailyPlanStateCopyWith<$Res> {
+  __$$_DailyPlanStateCopyWithImpl(
+      _$_DailyPlanState _value, $Res Function(_$_DailyPlanState) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? userModel = freezed,
+    Object? list = null,
     Object? status = null,
     Object? errorMessage = freezed,
     Object? isSaved = null,
   }) {
-    return _then(_$_UserState(
-      userModel: freezed == userModel
-          ? _value.userModel
-          : userModel // ignore: cast_nullable_to_non_nullable
-              as UserModel?,
+    return _then(_$_DailyPlanState(
+      list: null == list
+          ? _value._list
+          : list // ignore: cast_nullable_to_non_nullable
+              as List<DailyPlanModel>,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -147,15 +132,23 @@ class __$$_UserStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_UserState implements _UserState {
-  _$_UserState(
-      {this.userModel,
+class _$_DailyPlanState implements _DailyPlanState {
+  _$_DailyPlanState(
+      {final List<DailyPlanModel> list = const [],
       this.status = Status.initial,
       this.errorMessage,
-      this.isSaved = false});
+      this.isSaved = false})
+      : _list = list;
 
+  final List<DailyPlanModel> _list;
   @override
-  final UserModel? userModel;
+  @JsonKey()
+  List<DailyPlanModel> get list {
+    if (_list is EqualUnmodifiableListView) return _list;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_list);
+  }
+
   @override
   @JsonKey()
   final Status status;
@@ -167,16 +160,15 @@ class _$_UserState implements _UserState {
 
   @override
   String toString() {
-    return 'UserState(userModel: $userModel, status: $status, errorMessage: $errorMessage, isSaved: $isSaved)';
+    return 'DailyPlanState(list: $list, status: $status, errorMessage: $errorMessage, isSaved: $isSaved)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UserState &&
-            (identical(other.userModel, userModel) ||
-                other.userModel == userModel) &&
+            other is _$_DailyPlanState &&
+            const DeepCollectionEquality().equals(other._list, _list) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage) &&
@@ -184,25 +176,29 @@ class _$_UserState implements _UserState {
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, userModel, status, errorMessage, isSaved);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_list),
+      status,
+      errorMessage,
+      isSaved);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_UserStateCopyWith<_$_UserState> get copyWith =>
-      __$$_UserStateCopyWithImpl<_$_UserState>(this, _$identity);
+  _$$_DailyPlanStateCopyWith<_$_DailyPlanState> get copyWith =>
+      __$$_DailyPlanStateCopyWithImpl<_$_DailyPlanState>(this, _$identity);
 }
 
-abstract class _UserState implements UserState {
-  factory _UserState(
-      {final UserModel? userModel,
+abstract class _DailyPlanState implements DailyPlanState {
+  factory _DailyPlanState(
+      {final List<DailyPlanModel> list,
       final Status status,
       final String? errorMessage,
-      final bool isSaved}) = _$_UserState;
+      final bool isSaved}) = _$_DailyPlanState;
 
   @override
-  UserModel? get userModel;
+  List<DailyPlanModel> get list;
   @override
   Status get status;
   @override
@@ -211,6 +207,6 @@ abstract class _UserState implements UserState {
   bool get isSaved;
   @override
   @JsonKey(ignore: true)
-  _$$_UserStateCopyWith<_$_UserState> get copyWith =>
+  _$$_DailyPlanStateCopyWith<_$_DailyPlanState> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -32,6 +32,8 @@ abstract class $WaterStateCopyWith<$Res> {
       _$WaterStateCopyWithImpl<$Res, WaterState>;
   @useResult
   $Res call({WaterModel? glasses, bool isSaved, Status status});
+
+  $WaterModelCopyWith<$Res>? get glasses;
 }
 
 /// @nodoc
@@ -66,6 +68,18 @@ class _$WaterStateCopyWithImpl<$Res, $Val extends WaterState>
               as Status,
     ) as $Val);
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $WaterModelCopyWith<$Res>? get glasses {
+    if (_value.glasses == null) {
+      return null;
+    }
+
+    return $WaterModelCopyWith<$Res>(_value.glasses!, (value) {
+      return _then(_value.copyWith(glasses: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -77,6 +91,9 @@ abstract class _$$_WaterStateCopyWith<$Res>
   @override
   @useResult
   $Res call({WaterModel? glasses, bool isSaved, Status status});
+
+  @override
+  $WaterModelCopyWith<$Res>? get glasses;
 }
 
 /// @nodoc

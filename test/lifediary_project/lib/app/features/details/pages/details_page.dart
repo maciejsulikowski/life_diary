@@ -13,6 +13,7 @@ import 'package:lifediary_project/app/domain/models/item_model.dart';
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
 import 'package:lifediary_project/app/features/details/cubit/details_cubit.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
+import 'package:lifediary_project/app/features/details/cubit/details_state.dart';
 
 class DetailsPageContent extends StatefulWidget {
   const DetailsPageContent({

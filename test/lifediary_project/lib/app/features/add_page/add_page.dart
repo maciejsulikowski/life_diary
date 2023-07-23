@@ -13,6 +13,7 @@ import 'dart:core';
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
 import 'package:lifediary_project/app/features/add_page/cubit/add_cubit.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:lifediary_project/app/features/add_page/cubit/add_state.dart';
 
 class AddPage extends StatefulWidget {
   const AddPage({
@@ -36,7 +37,7 @@ class _AddPageState extends State<AddPage> {
       create: (context) => AddCubit(ItemsRepository(ItemsRemoteDataSource())),
       child: BlocListener<AddCubit, AddState>(
         listener: (context, state) {
-          if (state.saved) {
+          if (state.isSaved) {
             Navigator.of(context).pop();
           }
           final errorMessage = state.errorMessage ?? 'Unknown error';

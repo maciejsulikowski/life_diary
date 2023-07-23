@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'user_state.dart';
+part of 'details_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,35 +15,34 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$UserState {
-  UserModel? get userModel => throw _privateConstructorUsedError;
+mixin _$DetailsState {
+  ItemModel? get itemModel => throw _privateConstructorUsedError;
   Status get status => throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
   bool get isSaved => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $UserStateCopyWith<UserState> get copyWith =>
+  $DetailsStateCopyWith<DetailsState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $UserStateCopyWith<$Res> {
-  factory $UserStateCopyWith(UserState value, $Res Function(UserState) then) =
-      _$UserStateCopyWithImpl<$Res, UserState>;
+abstract class $DetailsStateCopyWith<$Res> {
+  factory $DetailsStateCopyWith(
+          DetailsState value, $Res Function(DetailsState) then) =
+      _$DetailsStateCopyWithImpl<$Res, DetailsState>;
   @useResult
   $Res call(
-      {UserModel? userModel,
+      {ItemModel? itemModel,
       Status status,
       String? errorMessage,
       bool isSaved});
-
-  $UserModelCopyWith<$Res>? get userModel;
 }
 
 /// @nodoc
-class _$UserStateCopyWithImpl<$Res, $Val extends UserState>
-    implements $UserStateCopyWith<$Res> {
-  _$UserStateCopyWithImpl(this._value, this._then);
+class _$DetailsStateCopyWithImpl<$Res, $Val extends DetailsState>
+    implements $DetailsStateCopyWith<$Res> {
+  _$DetailsStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -53,16 +52,16 @@ class _$UserStateCopyWithImpl<$Res, $Val extends UserState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? userModel = freezed,
+    Object? itemModel = freezed,
     Object? status = null,
     Object? errorMessage = freezed,
     Object? isSaved = null,
   }) {
     return _then(_value.copyWith(
-      userModel: freezed == userModel
-          ? _value.userModel
-          : userModel // ignore: cast_nullable_to_non_nullable
-              as UserModel?,
+      itemModel: freezed == itemModel
+          ? _value.itemModel
+          : itemModel // ignore: cast_nullable_to_non_nullable
+              as ItemModel?,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -77,58 +76,44 @@ class _$UserStateCopyWithImpl<$Res, $Val extends UserState>
               as bool,
     ) as $Val);
   }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $UserModelCopyWith<$Res>? get userModel {
-    if (_value.userModel == null) {
-      return null;
-    }
-
-    return $UserModelCopyWith<$Res>(_value.userModel!, (value) {
-      return _then(_value.copyWith(userModel: value) as $Val);
-    });
-  }
 }
 
 /// @nodoc
-abstract class _$$_UserStateCopyWith<$Res> implements $UserStateCopyWith<$Res> {
-  factory _$$_UserStateCopyWith(
-          _$_UserState value, $Res Function(_$_UserState) then) =
-      __$$_UserStateCopyWithImpl<$Res>;
+abstract class _$$_DetailsStateCopyWith<$Res>
+    implements $DetailsStateCopyWith<$Res> {
+  factory _$$_DetailsStateCopyWith(
+          _$_DetailsState value, $Res Function(_$_DetailsState) then) =
+      __$$_DetailsStateCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
-      {UserModel? userModel,
+      {ItemModel? itemModel,
       Status status,
       String? errorMessage,
       bool isSaved});
-
-  @override
-  $UserModelCopyWith<$Res>? get userModel;
 }
 
 /// @nodoc
-class __$$_UserStateCopyWithImpl<$Res>
-    extends _$UserStateCopyWithImpl<$Res, _$_UserState>
-    implements _$$_UserStateCopyWith<$Res> {
-  __$$_UserStateCopyWithImpl(
-      _$_UserState _value, $Res Function(_$_UserState) _then)
+class __$$_DetailsStateCopyWithImpl<$Res>
+    extends _$DetailsStateCopyWithImpl<$Res, _$_DetailsState>
+    implements _$$_DetailsStateCopyWith<$Res> {
+  __$$_DetailsStateCopyWithImpl(
+      _$_DetailsState _value, $Res Function(_$_DetailsState) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? userModel = freezed,
+    Object? itemModel = freezed,
     Object? status = null,
     Object? errorMessage = freezed,
     Object? isSaved = null,
   }) {
-    return _then(_$_UserState(
-      userModel: freezed == userModel
-          ? _value.userModel
-          : userModel // ignore: cast_nullable_to_non_nullable
-              as UserModel?,
+    return _then(_$_DetailsState(
+      itemModel: freezed == itemModel
+          ? _value.itemModel
+          : itemModel // ignore: cast_nullable_to_non_nullable
+              as ItemModel?,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -147,15 +132,15 @@ class __$$_UserStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_UserState implements _UserState {
-  _$_UserState(
-      {this.userModel,
+class _$_DetailsState implements _DetailsState {
+  _$_DetailsState(
+      {this.itemModel,
       this.status = Status.initial,
       this.errorMessage,
       this.isSaved = false});
 
   @override
-  final UserModel? userModel;
+  final ItemModel? itemModel;
   @override
   @JsonKey()
   final Status status;
@@ -167,16 +152,16 @@ class _$_UserState implements _UserState {
 
   @override
   String toString() {
-    return 'UserState(userModel: $userModel, status: $status, errorMessage: $errorMessage, isSaved: $isSaved)';
+    return 'DetailsState(itemModel: $itemModel, status: $status, errorMessage: $errorMessage, isSaved: $isSaved)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UserState &&
-            (identical(other.userModel, userModel) ||
-                other.userModel == userModel) &&
+            other is _$_DetailsState &&
+            (identical(other.itemModel, itemModel) ||
+                other.itemModel == itemModel) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage) &&
@@ -185,24 +170,24 @@ class _$_UserState implements _UserState {
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, userModel, status, errorMessage, isSaved);
+      Object.hash(runtimeType, itemModel, status, errorMessage, isSaved);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_UserStateCopyWith<_$_UserState> get copyWith =>
-      __$$_UserStateCopyWithImpl<_$_UserState>(this, _$identity);
+  _$$_DetailsStateCopyWith<_$_DetailsState> get copyWith =>
+      __$$_DetailsStateCopyWithImpl<_$_DetailsState>(this, _$identity);
 }
 
-abstract class _UserState implements UserState {
-  factory _UserState(
-      {final UserModel? userModel,
+abstract class _DetailsState implements DetailsState {
+  factory _DetailsState(
+      {final ItemModel? itemModel,
       final Status status,
       final String? errorMessage,
-      final bool isSaved}) = _$_UserState;
+      final bool isSaved}) = _$_DetailsState;
 
   @override
-  UserModel? get userModel;
+  ItemModel? get itemModel;
   @override
   Status get status;
   @override
@@ -211,6 +196,6 @@ abstract class _UserState implements UserState {
   bool get isSaved;
   @override
   @JsonKey(ignore: true)
-  _$$_UserStateCopyWith<_$_UserState> get copyWith =>
+  _$$_DetailsStateCopyWith<_$_DetailsState> get copyWith =>
       throw _privateConstructorUsedError;
 }
