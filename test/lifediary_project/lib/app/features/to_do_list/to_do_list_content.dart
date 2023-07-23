@@ -147,7 +147,7 @@ class _ToDoListContentState extends State<ToDoListContent> {
                         ),
                       ),
                     ),
-                    for (final itemModel in itemModels) ...[
+                    for (var itemModel in itemModels) ...[
                       Dismissible(
                         key: ValueKey(itemModel.id),
                         onDismissed: (_) {
@@ -159,7 +159,7 @@ class _ToDoListContentState extends State<ToDoListContent> {
                           itemModel: itemModel,
                           onCheckboxChanged: (value) {
                             setState(() {
-                              itemModel.isChecked = value;
+                              itemModel = itemModel.copyWith(isChecked: value);
                             });
                           },
                         ),
@@ -183,7 +183,7 @@ class CategoryWidget extends StatefulWidget {
     required this.onCheckboxChanged,
   }) : super(key: key);
 
-  final ItemModelToDoList itemModel;
+  ItemModelToDoList itemModel;
 
   final ValueChanged<bool> onCheckboxChanged;
 
@@ -194,7 +194,8 @@ class CategoryWidget extends StatefulWidget {
 class _CategoryWidgetState extends State<CategoryWidget> {
   void toggleButton() {
     setState(() {
-      widget.itemModel.isChecked = !widget.itemModel.isChecked;
+      widget.itemModel =
+          widget.itemModel.copyWith(isChecked: !widget.itemModel.isChecked);
     });
     widget.onCheckboxChanged(widget.itemModel.isChecked);
     context.read<ToDoListCubit>().updateTask(widget.itemModel);

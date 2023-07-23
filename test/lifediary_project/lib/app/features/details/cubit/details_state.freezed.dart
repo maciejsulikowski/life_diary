@@ -37,6 +37,8 @@ abstract class $DetailsStateCopyWith<$Res> {
       Status status,
       String? errorMessage,
       bool isSaved});
+
+  $ItemModelCopyWith<$Res>? get itemModel;
 }
 
 /// @nodoc
@@ -76,6 +78,18 @@ class _$DetailsStateCopyWithImpl<$Res, $Val extends DetailsState>
               as bool,
     ) as $Val);
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ItemModelCopyWith<$Res>? get itemModel {
+    if (_value.itemModel == null) {
+      return null;
+    }
+
+    return $ItemModelCopyWith<$Res>(_value.itemModel!, (value) {
+      return _then(_value.copyWith(itemModel: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -91,6 +105,9 @@ abstract class _$$_DetailsStateCopyWith<$Res>
       Status status,
       String? errorMessage,
       bool isSaved});
+
+  @override
+  $ItemModelCopyWith<$Res>? get itemModel;
 }
 
 /// @nodoc

@@ -330,7 +330,7 @@ class _AddPhotoBodyState extends State<_AddPhotoBody> {
                           DateTime.now().millisecondsSinceEpoch.toString();
 
                       final Reference referenceRoot =
-                          FirebaseStorage.instance.ref();
+                          await context.read<AddPhotoCubit>().pathRef();
                       final Reference referenceDirImages =
                           referenceRoot.child(uniqueFileName);
 
