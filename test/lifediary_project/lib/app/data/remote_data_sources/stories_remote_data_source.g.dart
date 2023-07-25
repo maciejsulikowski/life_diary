@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'weather_remote_data_source.dart';
+part of 'stories_remote_data_source.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,13 +8,14 @@ part of 'weather_remote_data_source.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
 
-class _WeatherRemoteRetrofitDataSource
-    implements WeatherRemoteRetrofitDataSource {
-  _WeatherRemoteRetrofitDataSource(
+class _StoriesRemoteRetrofitDataSource
+    implements StoriesRemoteRetrofitDataSource {
+  _StoriesRemoteRetrofitDataSource(
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://api.weatherapi.com/v1';
+    baseUrl ??=
+        'https://my-json-server.typicode.com/maciejsulikowski/json-demo';
   }
 
   final Dio _dio;
@@ -22,20 +23,20 @@ class _WeatherRemoteRetrofitDataSource
   String? baseUrl;
 
   @override
-  Future<WeatherModel> getWeatherData(String city) async {
+  Future<List<StoriesModel>> getStories() async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'q': city};
+    final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<WeatherModel>(Options(
+        .fetch<List<dynamic>>(_setStreamType<List<StoriesModel>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/current.json?key=2f4cf53875c246c7b2a164521231801&aqi=no',
+              '/stories',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -44,7 +45,9 @@ class _WeatherRemoteRetrofitDataSource
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = WeatherModel.fromJson(_result.data!);
+    var value = _result.data!
+        .map((dynamic i) => StoriesModel.fromJson(i as Map<String, dynamic>))
+        .toList();
     return value;
   }
 

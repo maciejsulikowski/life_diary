@@ -12,6 +12,7 @@ import 'package:lifediary_project/app/features/to_do_list/cubit/to_do_list_cubit
 import 'package:lifediary_project/app/domain/models/item_model.dart';
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
 import 'package:lifediary_project/app/features/to_do_list/cubit/to_do_list_state.dart';
+import 'package:lifediary_project/app/injection_container.dart';
 
 class ToDoListContent extends StatefulWidget {
   const ToDoListContent({
@@ -31,7 +32,7 @@ class _ToDoListContentState extends State<ToDoListContent> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          ToDoListCubit(TasksRepository(TasksRemoteDataSource()))..start(),
+          getIt<ToDoListCubit>()..start(),
       child: BlocListener<ToDoListCubit, ToDoListState>(
         listener: (context, state) {
           if (state.saved) {

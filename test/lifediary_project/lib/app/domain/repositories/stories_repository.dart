@@ -4,15 +4,10 @@ import 'package:lifediary_project/app/domain/models/stories_model.dart';
 class StoriesRepository {
   StoriesRepository(this.storiesRemoteDataSource);
 
-  final StoriesRemoteDioDataSource storiesRemoteDataSource;
+  final StoriesRemoteRetrofitDataSource storiesRemoteDataSource;
 
   Future<List<StoriesModel>> getStoriesModel(int authorID) async {
-    final json = await storiesRemoteDataSource.getStories();
-    if (json == null) {
-      return [];
-    }
-
-    final allStories = json.map((item) => StoriesModel.fromJson(item)).toList();
+    final allStories = await storiesRemoteDataSource.getStories();
 
     return allStories.where((element) => element.authorID == authorID).toList();
   }

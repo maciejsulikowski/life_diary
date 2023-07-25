@@ -46,9 +46,9 @@ class _StoriesPageState extends State<StoriesPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          StoriesCubit(StoriesRepository(StoriesRemoteDioDataSource()))
-            ..fetchData(authorID: widget.author.id),
+      create: (context) => StoriesCubit(
+          StoriesRepository(StoriesRemoteRetrofitDataSource(Dio())))
+        ..fetchData(authorID: widget.author.id),
       child: BlocConsumer<StoriesCubit, StoriesState>(
         listener: (context, state) {
           if (state.status == Status.error) {
@@ -121,52 +121,70 @@ class RandomQuoteContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20.0),
-            child: CircleAvatar(
-              backgroundImage: NetworkImage(storiesModel.picture),
-              radius: 80,
-            ),
-          ),
-          SizedBox(height: 25),
-          Text(
-            'Źródło:',
-            style: GoogleFonts.buenard(
-              fontSize: 16,
-              color: Colors.yellow[400],
-              fontWeight: FontWeight.bold,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(height: 10),
-          Text(
-            storiesModel.source,
-            style: GoogleFonts.buenard(
-              fontSize: 14,
-              color: Colors.yellow[400],
-              fontWeight: FontWeight.bold,
-              fontStyle: FontStyle.italic,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(height: 25),
-          Text(
-            storiesModel.bio,
-            style: GoogleFonts.buenard(
-              fontSize: 22,
-              color: Colors.yellow[400],
-              fontWeight: FontWeight.bold,
-            ),
-            textAlign: TextAlign.center,
-          )
-        ],
-      )),
+    return BlocProvider(
+      create: (context) => getIt<StoriesCubit>(),
+      child: BlocBuilder<StoriesCubit, StoriesState>(
+        builder: (context, state) {
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+                child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    if (storiesModel.picture != null)
+                      CircleAvatar(
+                        radius: 80,
+                        backgroundColor: Colors.black,
+                        backgroundImage: NetworkImage(storiesModel.picture),
+                      ),
+                    if (state.status == Status.loading)
+                      CircleAvatar(
+                        radius: 60,
+                        backgroundColor: Colors
+                            .black, // Czarne tło, które pojawi się na chwilę podczas ładowania
+                        child: CircularProgressIndicator(),
+                      ),
+                  ],
+                ),
+                SizedBox(height: 25),
+                Text(
+                  'Źródło:',
+                  style: GoogleFonts.buenard(
+                    fontSize: 16,
+                    color: Colors.yellow[400],
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 10),
+                Text(
+                  storiesModel.source,
+                  style: GoogleFonts.buenard(
+                    fontSize: 14,
+                    color: Colors.yellow[400],
+                    fontWeight: FontWeight.bold,
+                    fontStyle: FontStyle.italic,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 25),
+                Text(
+                  storiesModel.bio,
+                  style: GoogleFonts.buenard(
+                    fontSize: 22,
+                    color: Colors.yellow[400],
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                )
+              ],
+            )),
+          );
+        },
+      ),
     );
   }
 }

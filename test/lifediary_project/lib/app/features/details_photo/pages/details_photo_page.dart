@@ -13,6 +13,7 @@ import 'package:lifediary_project/app/domain/repositories/items_repository.dart'
 import 'package:lifediary_project/app/domain/repositories/photos_repository.dart';
 import 'package:lifediary_project/app/features/details_photo/cubit/details_photo_cubit.dart';
 import 'package:lifediary_project/app/features/details_photo/cubit/details_photo_state.dart';
+import 'package:lifediary_project/app/injection_container.dart';
 
 class DetailsPhotoPageContent extends StatefulWidget {
   const DetailsPhotoPageContent({
@@ -45,9 +46,7 @@ class _DetailsPhotoPageContentState extends State<DetailsPhotoPageContent> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          DetailsPhotoCubit(PhotosRepository(PhotosRemoteDataSource()))
-            ..getPhotosID(widget.id),
+      create: (context) => getIt<DetailsPhotoCubit>()..getPhotosID(widget.id),
       child: BlocBuilder<DetailsPhotoCubit, DetailsPhotoState>(
         builder: (context, state) {
           final photoModel = state.photosModel;

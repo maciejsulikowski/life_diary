@@ -5,11 +5,10 @@ import 'package:retrofit/retrofit.dart';
 
 part 'weather_remote_data_source.g.dart';
 
-@injectable
-@RestApi()
+@RestApi(
+    baseUrl: "http://api.weatherapi.com/v1")
 abstract class WeatherRemoteRetrofitDataSource {
-  @factoryMethod
-  factory WeatherRemoteRetrofitDataSource(Dio dio) =
+  factory WeatherRemoteRetrofitDataSource(Dio dio, {String baseUrl}) =
       _WeatherRemoteRetrofitDataSource;
 
   @GET("/current.json?key=2f4cf53875c246c7b2a164521231801&aqi=no")

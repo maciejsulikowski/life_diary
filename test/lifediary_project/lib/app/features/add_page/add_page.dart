@@ -14,6 +14,7 @@ import 'package:lifediary_project/app/domain/repositories/items_repository.dart'
 import 'package:lifediary_project/app/features/add_page/cubit/add_cubit.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:lifediary_project/app/features/add_page/cubit/add_state.dart';
+import 'package:lifediary_project/app/injection_container.dart';
 
 class AddPage extends StatefulWidget {
   const AddPage({
@@ -34,7 +35,7 @@ class _AddPageState extends State<AddPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AddCubit(ItemsRepository(ItemsRemoteDataSource())),
+      create: (context) => getIt<AddCubit>(),
       child: BlocListener<AddCubit, AddState>(
         listener: (context, state) {
           if (state.isSaved) {

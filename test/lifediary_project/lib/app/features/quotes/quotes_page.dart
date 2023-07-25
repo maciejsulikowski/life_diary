@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,6 +11,7 @@ import 'package:lifediary_project/app/domain/repositories/quotes_repository.dart
 import 'package:lifediary_project/app/features/quotes/cubit/quotes_cubit.dart';
 import 'package:lifediary_project/app/features/quotes/cubit/quotes_state.dart';
 import 'package:lifediary_project/app/features/stories/stories_page.dart';
+import 'package:lifediary_project/app/injection_container.dart';
 
 class QuotesPage extends StatefulWidget {
   const QuotesPage({
@@ -32,7 +34,7 @@ class _QuotesPageState extends State<QuotesPage> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          QuotesCubit(QuotesRepository(QuotesRemoteDioDataSource()))..start(),
+          getIt<QuotesCubit>()..start(),
       child: BlocConsumer<QuotesCubit, QuotesState>(
         listener: (context, state) {
           if (state.status == Status.error) {

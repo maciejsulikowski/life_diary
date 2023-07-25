@@ -10,6 +10,7 @@ import 'package:lifediary_project/app/domain/models/user_model.dart';
 import 'package:lifediary_project/app/domain/repositories/user_repository.dart';
 import 'package:lifediary_project/app/features/login/cubit/user_cubit.dart';
 import 'package:lifediary_project/app/features/login/cubit/user_state.dart';
+import 'package:lifediary_project/app/injection_container.dart';
 import 'dart:io';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -274,7 +275,7 @@ class _UserPhotoState extends State<UserPhoto> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => UserCubit(UserRepository(UserRemoteDataSource())),
+      create: (context) => getIt<UserCubit>(),
       child: BlocBuilder<UserCubit, UserState>(
         builder: (context, state) {
           return InkWell(
@@ -321,42 +322,21 @@ class _UserPhotoState extends State<UserPhoto> {
               }
             },
             child: Stack(
-              // Wykorzystaj Stack, aby umieścić kilka widgetów na siebie
               alignment: Alignment.center,
               children: [
-                if (state.status ==
-                    Status
-                        .loading) // Wyświetl CircularProgressIndicator, jeśli isLoading jest true
-                  Positioned.fill(
-                    child: CircleAvatar(
-                      radius: 60,
-                      backgroundColor: Colors.grey[300],
-                      child: CircularProgressIndicator(),
-                    ),
+                if (widget.userModel.imageURL != null)
+                  CircleAvatar(
+                    radius: 60,
+                    backgroundColor: Colors.black,
+                    backgroundImage: NetworkImage(widget.userModel.imageURL!),
                   ),
-                CircleAvatar(
-                  radius: 60,
-                  backgroundColor: Colors.grey[300],
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      if (widget.userModel.imageURL != null)
-                        CircleAvatar(
-                          radius: 60,
-                          backgroundColor: Colors.black,
-                          backgroundImage:
-                              NetworkImage(widget.userModel.imageURL!),
-                        ),
-                      if (isLoading)
-                        CircleAvatar(
-                          radius: 60,
-                          backgroundColor: Colors
-                              .black, // Czarne tło, które pojawi się na chwilę podczas ładowania
-                          child: CircularProgressIndicator(),
-                        ),
-                    ],
+                if (isLoading)
+                  CircleAvatar(
+                    radius: 60,
+                    backgroundColor: Colors
+                        .black, // Czarne tło, które pojawi się na chwilę podczas ładowania
+                    child: CircularProgressIndicator(),
                   ),
-                ),
               ],
             ),
           );

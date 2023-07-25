@@ -14,6 +14,7 @@ import 'package:lifediary_project/app/domain/repositories/items_repository.dart'
 import 'package:lifediary_project/app/features/details/cubit/details_cubit.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:lifediary_project/app/features/details/cubit/details_state.dart';
+import 'package:lifediary_project/app/injection_container.dart';
 
 class DetailsPageContent extends StatefulWidget {
   const DetailsPageContent({
@@ -43,7 +44,7 @@ class _DetailsPageContentState extends State<DetailsPageContent> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          DetailsCubit(ItemsRepository(ItemsRemoteDataSource()))
+          getIt<DetailsCubit>()
             ..getItemWithID(widget.id),
       child: BlocListener<DetailsCubit, DetailsState>(
         listener: (context, state) {},

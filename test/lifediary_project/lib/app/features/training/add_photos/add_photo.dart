@@ -13,6 +13,7 @@ import 'package:lifediary_project/app/features/training/add_photos/cubit/add_pho
 
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
 import 'package:lifediary_project/app/features/training/add_photos/cubit/add_photo_state.dart';
+import 'package:lifediary_project/app/injection_container.dart';
 
 class AddPhoto extends StatefulWidget {
   const AddPhoto({
@@ -40,8 +41,7 @@ class _AddPhotoState extends State<AddPhoto> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          AddPhotoCubit(PhotosRepository(PhotosRemoteDataSource())),
+      create: (context) => getIt<AddPhotoCubit>(),
       child: BlocListener<AddPhotoCubit, AddPhotoState>(
         listener: (context, state) {
           if (state.saved) {

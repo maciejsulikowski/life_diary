@@ -13,6 +13,7 @@ import 'package:lifediary_project/app/domain/repositories/items_repository.dart'
 import 'package:lifediary_project/app/domain/repositories/plans_repository.dart';
 import 'package:lifediary_project/app/features/daily_plan/cubit/daily_plan_cubit.dart';
 import 'package:lifediary_project/app/features/daily_plan/cubit/daily_plan_state.dart';
+import 'package:lifediary_project/app/injection_container.dart';
 
 class DailyPlanPageContent extends StatefulWidget {
   DailyPlanPageContent({
@@ -34,7 +35,7 @@ class _DailyPlanPageContentState extends State<DailyPlanPageContent> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          DailyPlanCubit(PlansRepository(PlansRemoteDataSource()))..start(),
+          getIt<DailyPlanCubit>()..start(),
       child: BlocListener<DailyPlanCubit, DailyPlanState>(
         listener: (context, state) {
           if (state.isSaved) {

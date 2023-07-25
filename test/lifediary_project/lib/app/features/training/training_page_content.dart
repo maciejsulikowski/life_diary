@@ -14,6 +14,7 @@ import 'package:lifediary_project/app/domain/repositories/items_repository.dart'
 import 'package:lifediary_project/app/features/training/add_photos/add_photo.dart';
 import 'package:lifediary_project/app/features/training/cubit/training_cubit.dart';
 import 'package:lifediary_project/app/features/training/cubit/training_state.dart';
+import 'package:lifediary_project/app/injection_container.dart';
 
 class TrainingPageContent extends StatelessWidget {
   const TrainingPageContent({
@@ -69,8 +70,7 @@ class NewPhoto extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          TrainingCubit(PhotosRepository(PhotosRemoteDataSource()))..start(),
+      create: (context) => getIt<TrainingCubit>()..start(),
       child: BlocBuilder<TrainingCubit, TrainingState>(
         builder: (context, state) {
           final photosModels = state.photos;

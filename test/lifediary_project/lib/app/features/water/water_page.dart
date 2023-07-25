@@ -11,6 +11,7 @@ import 'package:lifediary_project/app/domain/repositories/water_repository.dart'
 import 'package:lifediary_project/app/features/login/login_page.dart';
 import 'package:lifediary_project/app/features/water/cubit/water_cubit.dart';
 import 'package:lifediary_project/app/features/water/cubit/water_state.dart';
+import 'package:lifediary_project/app/injection_container.dart';
 
 class WaterPage extends StatefulWidget {
   WaterPage({
@@ -36,7 +37,7 @@ class WaterPageState extends State<WaterPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => WaterCubit(WaterRepository(WaterRemoteDataSource())),
+      create: (context) => getIt<WaterCubit>(),
       child: BlocBuilder<WaterCubit, WaterState>(
         builder: (context, state) {
           return Scaffold(
