@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:injectable/injectable.dart';
 import 'package:lifediary_project/app/core/enums.dart';
 import 'package:lifediary_project/app/domain/models/user_model.dart';
 import 'package:lifediary_project/app/domain/repositories/user_repository.dart';
@@ -9,6 +10,7 @@ import 'package:lifediary_project/app/features/login/cubit/user_state.dart';
 import 'package:lifediary_project/app/features/login/user_profile.dart';
 import 'package:meta/meta.dart';
 
+@injectable
 class UserCubit extends Cubit<UserState> {
   UserCubit(this._userRepository)
       : super(UserState(

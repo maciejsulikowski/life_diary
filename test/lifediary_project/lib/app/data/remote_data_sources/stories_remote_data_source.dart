@@ -1,14 +1,15 @@
 import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
 import 'package:lifediary_project/app/domain/models/stories_model.dart';
 import 'package:retrofit/retrofit.dart';
 
-
 part 'stories_remote_data_source.g.dart';
 
-@RestApi(
-    baseUrl: "https://my-json-server.typicode.com/maciejsulikowski/json-demo")
+@injectable
+@RestApi()
 abstract class StoriesRemoteRetrofitDataSource {
-  factory StoriesRemoteRetrofitDataSource(Dio dio, {String baseUrl}) =
+  @factoryMethod
+  factory StoriesRemoteRetrofitDataSource(@Named('Dio2') Dio dioSecondUrl) =
       _StoriesRemoteRetrofitDataSource;
 
   @GET("/stories")

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 import 'package:lifediary_project/app/domain/models/item_model.dart';
 import 'package:lifediary_project/app/domain/models/photos_model.dart';
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
@@ -10,6 +11,7 @@ import 'package:lifediary_project/app/features/training/cubit/training_state.dar
 import 'package:meta/meta.dart';
 
 
+@injectable
 class TrainingCubit extends Cubit<TrainingState> {
   TrainingCubit(this._photosRepository) : super(TrainingState());
 

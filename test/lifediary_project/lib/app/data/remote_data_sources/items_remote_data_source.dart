@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
+import 'package:injectable/injectable.dart';
 import 'package:lifediary_project/app/domain/models/daily_plan_model.dart';
 
 import 'package:lifediary_project/app/domain/models/item_model.dart';
@@ -12,6 +13,10 @@ import 'package:lifediary_project/app/domain/models/water_model.dart';
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
 import 'package:lifediary_project/app/features/details_photo/pages/details_photo_page.dart';
 
+
+
+
+@injectable
 class ItemsRemoteDataSource {
   Stream<List<Map<String, dynamic>>> getItemsData() {
     final userID = FirebaseAuth.instance.currentUser?.uid;

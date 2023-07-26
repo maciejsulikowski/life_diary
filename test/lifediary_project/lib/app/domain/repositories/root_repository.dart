@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:injectable/injectable.dart';
 import 'package:lifediary_project/app/data/remote_data_sources/root_remote_data_source.dart';
 
+
+@injectable
 class RootRepository {
   RootRepository(this.rootRemoteDataSource);
 

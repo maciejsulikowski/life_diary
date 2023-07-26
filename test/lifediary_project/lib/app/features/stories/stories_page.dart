@@ -46,8 +46,7 @@ class _StoriesPageState extends State<StoriesPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => StoriesCubit(
-          StoriesRepository(StoriesRemoteRetrofitDataSource(Dio())))
+      create: (context) => getIt<StoriesCubit>()
         ..fetchData(authorID: widget.author.id),
       child: BlocConsumer<StoriesCubit, StoriesState>(
         listener: (context, state) {

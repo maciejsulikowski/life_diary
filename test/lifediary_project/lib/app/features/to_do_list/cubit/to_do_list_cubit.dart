@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 import 'package:lifediary_project/app/core/enums.dart';
 import 'package:lifediary_project/app/domain/models/item_model.dart';
 import 'package:lifediary_project/app/domain/models/item_model_to_do_list.dart';
@@ -13,6 +14,7 @@ import 'package:lifediary_project/app/features/to_do_list/cubit/to_do_list_state
 import 'package:meta/meta.dart';
 
 
+@injectable
 class ToDoListCubit extends Cubit<ToDoListState> {
   ToDoListCubit(this._tasksRepository) : super(ToDoListState());
 

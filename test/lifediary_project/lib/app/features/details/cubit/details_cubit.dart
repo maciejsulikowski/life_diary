@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
+import 'package:injectable/injectable.dart';
 import 'package:lifediary_project/app/core/enums.dart';
 import 'package:lifediary_project/app/domain/models/item_model.dart';
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
@@ -10,6 +11,9 @@ import 'package:lifediary_project/app/features/details/cubit/details_state.dart'
 import 'package:meta/meta.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
+
+
+@injectable
 class DetailsCubit extends Cubit<DetailsState> {
   DetailsCubit(
     this._itemsRepository,

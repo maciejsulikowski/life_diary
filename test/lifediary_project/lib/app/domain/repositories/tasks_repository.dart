@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:injectable/injectable.dart';
 import 'package:lifediary_project/app/data/remote_data_sources/tasks_remote_data_sources.dart';
 import 'package:lifediary_project/app/domain/models/daily_plan_model.dart';
 
@@ -10,6 +11,9 @@ import 'package:lifediary_project/app/domain/models/photos_model.dart';
 import 'package:lifediary_project/app/domain/models/water_model.dart';
 import 'package:lifediary_project/app/features/details_photo/pages/details_photo_page.dart';
 
+
+
+@injectable
 class TasksRepository {
   TasksRepository(this._tasksRemoteDataSource);
 

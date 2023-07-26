@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
+import 'package:injectable/injectable.dart';
 import 'package:lifediary_project/app/data/remote_data_sources/items_remote_data_source.dart';
 import 'package:lifediary_project/app/domain/models/daily_plan_model.dart';
 
@@ -12,6 +13,10 @@ import 'package:lifediary_project/app/domain/models/photos_model.dart';
 import 'package:lifediary_project/app/domain/models/water_model.dart';
 import 'package:lifediary_project/app/features/details_photo/pages/details_photo_page.dart';
 
+
+
+
+@injectable
 class ItemsRepository {
   ItemsRepository(this._itemsRemoteDataSource);
   final ItemsRemoteDataSource _itemsRemoteDataSource;
