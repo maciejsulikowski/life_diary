@@ -6,8 +6,6 @@ import 'package:lifediary_project/app/domain/models/stories_model.dart';
 import 'package:lifediary_project/app/domain/repositories/stories_repository.dart';
 import 'package:lifediary_project/app/features/stories/cubit/stories_state.dart';
 
-
-@injectable
 class StoriesCubit extends Cubit<StoriesState> {
   StoriesCubit(this.storiesRepository) : super(StoriesState());
 

@@ -11,12 +11,10 @@ import 'package:lifediary_project/app/domain/repositories/photos_repository.dart
 import 'package:lifediary_project/app/features/details_photo/cubit/details_photo_state.dart';
 import 'package:meta/meta.dart';
 
-
-@injectable
 class DetailsPhotoCubit extends Cubit<DetailsPhotoState> {
   DetailsPhotoCubit(this._photosRepository)
       : super(
-           DetailsPhotoState(
+          DetailsPhotoState(
             photosModel: null,
             status: Status.loading,
             errorMessage: '',
@@ -58,7 +56,12 @@ class DetailsPhotoCubit extends Cubit<DetailsPhotoState> {
       );
     })
           ..onError((error) {
-            emit(DetailsPhotoState(status: Status.error, errorMessage: error.toString(),),);
+            emit(
+              DetailsPhotoState(
+                status: Status.error,
+                errorMessage: error.toString(),
+              ),
+            );
           });
   }
 

@@ -6,8 +6,6 @@ import 'package:lifediary_project/app/domain/models/quotes_model.dart';
 import 'package:lifediary_project/app/domain/repositories/quotes_repository.dart';
 import 'package:lifediary_project/app/features/quotes/cubit/quotes_state.dart';
 
-
-@injectable
 class QuotesCubit extends Cubit<QuotesState> {
   QuotesCubit(this.quotesRepository) : super(QuotesState());
 

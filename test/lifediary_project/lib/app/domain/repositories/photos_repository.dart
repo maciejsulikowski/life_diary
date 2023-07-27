@@ -12,9 +12,6 @@ import 'package:lifediary_project/app/domain/models/photos_model.dart';
 import 'package:lifediary_project/app/domain/models/water_model.dart';
 import 'package:lifediary_project/app/features/details_photo/pages/details_photo_page.dart';
 
-
-
-@injectable
 class PhotosRepository {
   PhotosRepository(this._photosRemoteDataSource);
 

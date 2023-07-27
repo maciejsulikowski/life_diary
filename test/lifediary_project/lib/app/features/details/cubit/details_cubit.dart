@@ -11,9 +11,6 @@ import 'package:lifediary_project/app/features/details/cubit/details_state.dart'
 import 'package:meta/meta.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
-
-
-@injectable
 class DetailsCubit extends Cubit<DetailsState> {
   DetailsCubit(
     this._itemsRepository,

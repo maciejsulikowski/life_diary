@@ -12,9 +12,6 @@ import 'package:lifediary_project/app/domain/repositories/water_repository.dart'
 import 'package:lifediary_project/app/features/water/cubit/water_state.dart';
 import 'package:meta/meta.dart';
 
-
-
-@injectable
 class WaterCubit extends Cubit<WaterState> {
   WaterCubit(this._waterRepository)
       : super(WaterState(glasses: WaterModel(id: '', glasses: '')));

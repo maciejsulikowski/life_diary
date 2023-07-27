@@ -14,7 +14,6 @@ import 'package:meta/meta.dart';
 
 part 'root_state.dart';
 
-@injectable
 class RootCubit extends Cubit<RootState> {
   RootCubit(this.userRepository, this.rootRepository)
       : super(

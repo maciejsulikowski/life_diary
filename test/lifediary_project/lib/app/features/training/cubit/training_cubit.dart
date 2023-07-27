@@ -10,8 +10,6 @@ import 'package:lifediary_project/app/domain/repositories/photos_repository.dart
 import 'package:lifediary_project/app/features/training/cubit/training_state.dart';
 import 'package:meta/meta.dart';
 
-
-@injectable
 class TrainingCubit extends Cubit<TrainingState> {
   TrainingCubit(this._photosRepository) : super(TrainingState());
 

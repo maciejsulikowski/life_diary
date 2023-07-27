@@ -13,8 +13,6 @@ import 'package:lifediary_project/app/domain/repositories/tasks_repository.dart'
 import 'package:lifediary_project/app/features/to_do_list/cubit/to_do_list_state.dart';
 import 'package:meta/meta.dart';
 
-
-@injectable
 class ToDoListCubit extends Cubit<ToDoListState> {
   ToDoListCubit(this._tasksRepository) : super(ToDoListState());
 
@@ -46,31 +44,31 @@ class ToDoListCubit extends Cubit<ToDoListState> {
     try {
       await _tasksRepository.addtask(title, isChecked);
       emit(
-         ToDoListState(saved: true),
+        ToDoListState(saved: true),
       );
     } catch (error) {
-      emit(ToDoListState(status: Status.error,errorMessage: error.toString()));
+      emit(ToDoListState(status: Status.error, errorMessage: error.toString()));
     }
   }
-  
+
   Future<void> updateTask(ItemModelToDoList itemModel) async {
     try {
       await _tasksRepository.updateTask(itemModel);
     } catch (error) {
       emit(
-         ToDoListState(status: Status.error ,errorMessage: 'Something went wrong'),
+        ToDoListState(
+            status: Status.error, errorMessage: 'Something went wrong'),
       );
     }
   }
-
- 
 
   Future<void> remove({required String documentID}) async {
     try {
       await _tasksRepository.deletetask(id: documentID);
     } catch (error) {
       emit(
-         ToDoListState(status: Status.error, errorMessage: 'Something went wrong'),
+        ToDoListState(
+            status: Status.error, errorMessage: 'Something went wrong'),
       );
       start();
     }

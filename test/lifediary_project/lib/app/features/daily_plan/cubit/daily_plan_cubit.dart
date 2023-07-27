@@ -11,8 +11,6 @@ import 'package:lifediary_project/app/domain/repositories/plans_repository.dart'
 import 'package:lifediary_project/app/features/daily_plan/cubit/daily_plan_state.dart';
 import 'package:meta/meta.dart';
 
-
-@injectable
 class DailyPlanCubit extends Cubit<DailyPlanState> {
   DailyPlanCubit(this._plansRepository)
       : super(DailyPlanState(

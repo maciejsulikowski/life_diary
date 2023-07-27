@@ -7,9 +7,6 @@ import 'package:meta/meta.dart';
 
 import 'weather_state.dart';
 
-
-
-@injectable
 class WeatherCubit extends Cubit<WeatherState> {
   WeatherCubit({required this.weatherRepository}) : super(WeatherState());
 

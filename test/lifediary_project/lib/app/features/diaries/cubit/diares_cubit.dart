@@ -11,13 +11,10 @@ import 'package:lifediary_project/app/domain/repositories/items_repository.dart'
 import 'package:lifediary_project/app/features/diaries/cubit/diares_state.dart';
 import 'package:meta/meta.dart';
 
-
-@injectable
 class DiaresCubit extends Cubit<DiaresState> {
   DiaresCubit(this._itemsRepository)
       : super(
-          DiaresState(
-          ),
+          DiaresState(),
         );
 
   final ItemsRepository _itemsRepository;

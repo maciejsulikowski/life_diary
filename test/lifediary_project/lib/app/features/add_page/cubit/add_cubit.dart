@@ -9,8 +9,6 @@ import 'package:lifediary_project/app/domain/repositories/items_repository.dart'
 import 'package:lifediary_project/app/features/add_page/cubit/add_state.dart';
 import 'package:meta/meta.dart';
 
-
-@injectable
 class AddCubit extends Cubit<AddState> {
   AddCubit(this._itemsRepository) : super(AddState());
 
@@ -27,12 +25,16 @@ class AddCubit extends Cubit<AddState> {
       await _itemsRepository.add(
           title, imageURL, releaseDate, text, fontWeight);
       emit(
-         AddState(status: Status.success, isSaved: true),
+        AddState(status: Status.success, isSaved: true),
       );
     } catch (error) {
-      emit(AddState(status: Status.error,errorMessage: error.toString(),));
+      emit(AddState(
+        status: Status.error,
+        errorMessage: error.toString(),
+      ));
     }
   }
+
   Future<Reference> pathRef() async {
     return await _itemsRepository.pathRef();
   }
