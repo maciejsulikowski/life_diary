@@ -1,21 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dio/dio.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lifediary_project/app/core/enums.dart';
-import 'package:lifediary_project/app/cubit/root_cubit.dart';
-import 'package:lifediary_project/app/data/remote_data_sources/weather_remote_data_source.dart';
 import 'package:lifediary_project/app/domain/models/weather_model.dart';
-import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
-import 'package:lifediary_project/app/domain/repositories/water_repository.dart';
-import 'package:lifediary_project/app/domain/repositories/weather_repository.dart';
-
-import 'package:lifediary_project/app/features/instruction/instruction_page.dart';
-import 'package:lifediary_project/app/features/login/login_page.dart';
-import 'package:lifediary_project/app/features/login/user_profile.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lifediary_project/app/features/water/cubit/water_cubit.dart';
 import 'package:lifediary_project/app/features/weather/cubit/weather_cubit.dart';
 import 'package:lifediary_project/app/features/weather/cubit/weather_state.dart';
 import 'package:lifediary_project/app/injection_container.dart';
@@ -139,7 +126,7 @@ class _WeatherPageState extends State<WeatherPage> {
                           });
                         },
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       if (isWeatherHide == false) ...[
                         Padding(
                           padding: const EdgeInsets.all(10.0),
@@ -165,15 +152,15 @@ class _WeatherPageState extends State<WeatherPage> {
                                               GoogleFonts.buenard().fontFamily,
                                         ),
                                         border: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: const Color.fromRGBO(
-                                                255, 238, 88, 1),
+                                          borderSide: const BorderSide(
+                                            color:
+                                                Color.fromRGBO(255, 238, 88, 1),
                                           ),
                                           borderRadius:
                                               BorderRadius.circular(20),
                                         ),
                                         focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
+                                          borderSide: const BorderSide(
                                             color: Colors.yellow,
                                           ),
                                           borderRadius:
@@ -182,10 +169,10 @@ class _WeatherPageState extends State<WeatherPage> {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(width: 20),
+                                  const SizedBox(width: 20),
                                   ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                      primary: Colors.indigo[700],
+                                      backgroundColor: Colors.indigo[700],
                                       padding: EdgeInsets.zero,
                                     ),
                                     onPressed: () {

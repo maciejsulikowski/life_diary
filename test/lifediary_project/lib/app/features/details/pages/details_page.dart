@@ -1,18 +1,10 @@
-import 'dart:math';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutterfire_ui/auth.dart';
+import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lifediary_project/app/core/enums.dart';
-import 'package:lifediary_project/app/data/remote_data_sources/items_remote_data_source.dart';
-
 import 'package:lifediary_project/app/domain/models/item_model.dart';
-import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
 import 'package:lifediary_project/app/features/details/cubit/details_cubit.dart';
-import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:lifediary_project/app/features/details/cubit/details_state.dart';
 import 'package:lifediary_project/app/injection_container.dart';
 
@@ -87,7 +79,7 @@ class _DetailsPageContentState extends State<DetailsPageContent> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              content: Padding(
+                              content: const Padding(
                                 padding: EdgeInsets.all(8),
                                 child: Row(
                                   children: [
@@ -117,7 +109,7 @@ class _DetailsPageContentState extends State<DetailsPageContent> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              content: Padding(
+                              content: const Padding(
                                 padding: EdgeInsets.all(8),
                                 child: Row(
                                   children: [
@@ -211,7 +203,7 @@ class _ListViewItem extends StatelessWidget {
 }
 
 class _DiaryPage extends StatefulWidget {
-  _DiaryPage({
+  const _DiaryPage({
     Key? key,
     required this.betterController,
   }) : super(key: key);
@@ -238,7 +230,7 @@ class _DiaryPageState extends State<_DiaryPage> {
                 color: Colors.grey[300],
                 child: quill.QuillToolbar.basic(
                   controller: widget.betterController,
-                  iconTheme: quill.QuillIconTheme(
+                  iconTheme: const quill.QuillIconTheme(
                       borderRadius: 16, iconUnselectedColor: Colors.black87),
                 ),
               ),

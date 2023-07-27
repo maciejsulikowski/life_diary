@@ -1,22 +1,15 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lifediary_project/app/core/enums.dart';
-import 'package:lifediary_project/app/data/remote_data_sources/plans_remote_data_sources.dart';
 import 'package:lifediary_project/app/domain/models/daily_plan_model.dart';
-
-import 'package:lifediary_project/app/domain/models/item_model.dart';
-import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
-import 'package:lifediary_project/app/domain/repositories/plans_repository.dart';
 import 'package:lifediary_project/app/features/daily_plan/cubit/daily_plan_cubit.dart';
 import 'package:lifediary_project/app/features/daily_plan/cubit/daily_plan_state.dart';
 import 'package:lifediary_project/app/injection_container.dart';
 
 class DailyPlanPageContent extends StatefulWidget {
-  DailyPlanPageContent({
+  const DailyPlanPageContent({
     Key? key,
   }) : super(key: key);
 
@@ -34,8 +27,7 @@ class _DailyPlanPageContentState extends State<DailyPlanPageContent> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          getIt<DailyPlanCubit>()..start(),
+      create: (context) => getIt<DailyPlanCubit>()..start(),
       child: BlocListener<DailyPlanCubit, DailyPlanState>(
         listener: (context, state) {
           if (state.isSaved) {
@@ -77,6 +69,7 @@ class _DailyPlanPageContentState extends State<DailyPlanPageContent> {
   }
 }
 
+// ignore: must_be_immutable
 class DailyPlanBody extends StatelessWidget {
   DailyPlanBody({
     required this.dailyPlanModels,
@@ -110,7 +103,7 @@ class DailyPlanBody extends StatelessWidget {
 }
 
 class MyListTileItemWidget extends StatefulWidget {
-  MyListTileItemWidget(
+  const MyListTileItemWidget(
       {super.key, required this.currentHour, required this.itemModel});
 
   final int currentHour;
@@ -135,7 +128,7 @@ class _MyListTileItemWidgetState extends State<MyListTileItemWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: BoxConstraints(minHeight: 100),
+      constraints: const BoxConstraints(minHeight: 100),
       child: IntrinsicHeight(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -159,12 +152,12 @@ class _MyListTileItemWidgetState extends State<MyListTileItemWidget> {
                         right: 0,
                         child: Align(
                           alignment: Alignment.centerRight,
-                          child: Container(
+                          child: SizedBox(
                             width: 30,
                             height: 30,
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                primary: Colors.black87,
+                                backgroundColor: Colors.black87,
                                 padding: EdgeInsets.zero,
                               ),
                               onPressed: () {
@@ -216,11 +209,11 @@ class TimeContainer extends StatelessWidget {
         width: 90,
         height: 94,
         color: Colors.yellow[400],
-        padding: EdgeInsets.all(20),
-        margin: EdgeInsets.only(top: 10),
+        padding: const EdgeInsets.all(20),
+        margin: const EdgeInsets.only(top: 10),
         child: Center(
           child: Text(
-            '${(formattedHourString)}',
+            (formattedHourString),
             style: GoogleFonts.buenard(
                 fontSize: 20,
                 color: Colors.indigo[700],
@@ -243,8 +236,8 @@ class PartOfPlanning extends StatelessWidget {
     return Container(
       width: 350,
       color: Colors.indigo[700],
-      padding: EdgeInsets.all(20),
-      margin: EdgeInsets.only(top: 10),
+      padding: const EdgeInsets.all(20),
+      margin: const EdgeInsets.only(top: 10),
       child: TextField(
         style: GoogleFonts.buenard(
           fontSize: 24,

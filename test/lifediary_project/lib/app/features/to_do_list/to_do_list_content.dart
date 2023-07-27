@@ -1,16 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lifediary_project/app/core/enums.dart';
-import 'package:lifediary_project/app/data/remote_data_sources/tasks_remote_data_sources.dart';
 import 'package:lifediary_project/app/domain/models/item_model_to_do_list.dart';
-import 'package:lifediary_project/app/domain/repositories/tasks_repository.dart';
 import 'package:lifediary_project/app/features/to_do_list/cubit/to_do_list_cubit.dart';
-
-import 'package:lifediary_project/app/domain/models/item_model.dart';
-import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
 import 'package:lifediary_project/app/features/to_do_list/cubit/to_do_list_state.dart';
 import 'package:lifediary_project/app/injection_container.dart';
 
@@ -90,7 +83,7 @@ class _ToDoListContentState extends State<ToDoListContent> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            content: Padding(
+                            content: const Padding(
                               padding: EdgeInsets.all(8),
                               child: Row(
                                 children: [
@@ -242,11 +235,11 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                 ),
               ),
               child: widget.itemModel.isChecked
-                  ? Icon(
+                  ? const Icon(
                       Icons.check,
                       color: Colors.white,
                     )
-                  : SizedBox(),
+                  : const SizedBox(),
             ),
           ],
         ),

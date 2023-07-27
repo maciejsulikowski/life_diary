@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lifediary_project/app/features/welcome/second_welcome_page.dart';
-import 'package:lifediary_project/app/features/welcome/third_welcome_page.dart';
 
 class SecondWelcomePage extends StatelessWidget {
   const SecondWelcomePage({
@@ -11,17 +9,7 @@ class SecondWelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: Colors.black87,
-      //   title: Text(
-      //     'LIFEDIARY',
-      //     style: GoogleFonts.buenard(
-      //         fontSize: 24,
-      //         color: Colors.yellow[400],
-      //         fontWeight: FontWeight.bold),
-      //   ),
-      //   centerTitle: true,
-      // ),
+      
       body: Container(
         color: Colors.black87,
         child: Center(
@@ -30,7 +18,7 @@ class SecondWelcomePage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 70,
                 ),
                 Padding(
@@ -43,13 +31,13 @@ class SecondWelcomePage extends StatelessWidget {
                         fontWeight: FontWeight.bold),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 Row(
                   children: [
                     const SizedBox(width: 10),
-                    CircleAvatar(
+                    const CircleAvatar(
                       backgroundColor: Colors.black,
                       backgroundImage: AssetImage('images/diarywithpen.png'),
                       radius: 30,
@@ -70,7 +58,7 @@ class SecondWelcomePage extends StatelessWidget {
                 Row(
                   children: [
                     const SizedBox(width: 10),
-                    CircleAvatar(
+                    const CircleAvatar(
                       backgroundImage: AssetImage('images/instagramm.png'),
                       radius: 30,
                     ),
@@ -90,7 +78,7 @@ class SecondWelcomePage extends StatelessWidget {
                 Row(
                   children: [
                     const SizedBox(width: 10),
-                    CircleAvatar(
+                    const CircleAvatar(
                       backgroundImage: AssetImage('images/water.png'),
                       radius: 30,
                     ),
@@ -110,7 +98,7 @@ class SecondWelcomePage extends StatelessWidget {
                 Row(
                   children: [
                     const SizedBox(width: 10),
-                    CircleAvatar(
+                   const  CircleAvatar(
                       backgroundImage: AssetImage('images/todolist.png'),
                       radius: 30,
                     ),
@@ -130,7 +118,7 @@ class SecondWelcomePage extends StatelessWidget {
                 Row(
                   children: [
                     const SizedBox(width: 10),
-                    CircleAvatar(
+                    const CircleAvatar(
                       backgroundImage: AssetImage('images/time.png'),
                       radius: 30,
                     ),

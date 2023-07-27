@@ -1,7 +1,5 @@
-import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lifediary_project/app/features/login/login_page.dart';
 import 'package:lifediary_project/app/features/welcome/second_welcome_page.dart';
 import 'package:lifediary_project/app/features/welcome/third_welcome_page.dart';
 
@@ -16,9 +14,9 @@ class _MyStatelessWidgetState extends State<MyStatelessWidget> {
   final PageController controller = PageController(initialPage: 0);
   int currentPage = 0;
   final List<Widget> pages = [
-    FirstWelcomePage(),
-    SecondWelcomePage(),
-    ThirdWelcomePage(),
+    const FirstWelcomePage(),
+    const SecondWelcomePage(),
+    const ThirdWelcomePage(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -47,13 +45,13 @@ class _MyStatelessWidgetState extends State<MyStatelessWidget> {
               children: List<Widget>.generate(
                   pages.length,
                   (index) => Padding(
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 10,
                         ),
                         child: InkWell(
                           onTap: () {
                             controller.animateToPage(index,
-                                duration: Duration(milliseconds: 300),
+                                duration: const Duration(milliseconds: 300),
                                 curve: Curves.easeIn);
                           },
                           child: CircleAvatar(

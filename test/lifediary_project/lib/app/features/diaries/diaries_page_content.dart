@@ -1,18 +1,13 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lifediary_project/app/data/remote_data_sources/items_remote_data_source.dart';
+import 'package:lifediary_project/app/core/enums.dart';
 import 'package:lifediary_project/app/domain/models/item_model.dart';
 import 'package:lifediary_project/app/features/add_page/add_page.dart';
 import 'package:lifediary_project/app/features/details/pages/details_page.dart';
 import 'package:lifediary_project/app/features/diaries/cubit/diares_cubit.dart';
 import 'package:lifediary_project/app/features/diaries/cubit/diares_state.dart';
 import 'package:lifediary_project/app/injection_container.dart';
-
-import '../../domain/repositories/items_repository.dart';
 
 class DiariesPageContent extends StatefulWidget {
   const DiariesPageContent({
@@ -162,6 +157,9 @@ class ListViewItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isLoading =
+        context.watch<DiaresCubit>().state.status == Status.loading;
+
     return InkWell(
       onTap: () {
         Navigator.of(context).push(
@@ -178,14 +176,13 @@ class ListViewItem extends StatelessWidget {
           vertical: 10,
           horizontal: 30,
         ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: Container(
-            decoration: const BoxDecoration(
-              color: Colors.black12,
-            ),
-            child: Column(
-              children: [
+        child: Container(
+          decoration: const BoxDecoration(
+            color: Colors.black12,
+          ),
+          child: Column(
+            children: [
+              if (!isLoading)
                 Container(
                   height: 180,
                   decoration: BoxDecoration(
@@ -197,42 +194,49 @@ class ListViewItem extends StatelessWidget {
                       fit: BoxFit.cover,
                     ),
                   ),
+                )
+              else
+                Container(
+                  height: 180,
+                  color: Colors.black12,
+                  child: const Center(
+                    child: CircularProgressIndicator(),
+                  ),
                 ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Container(
-                        color: Colors.indigo[700],
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Center(
-                              child: Text(
-                                itemModel.title,
-                                style: GoogleFonts.buenard(
-                                    fontSize: 22,
-                                    color: Colors.yellow[400],
-                                    fontWeight: FontWeight.bold),
-                              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      color: Colors.indigo[700],
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Center(
+                            child: Text(
+                              itemModel.title,
+                              style: GoogleFonts.buenard(
+                                  fontSize: 22,
+                                  color: Colors.yellow[400],
+                                  fontWeight: FontWeight.bold),
                             ),
-                            const SizedBox(height: 3),
-                            Center(
-                              child: Text(
-                                itemModel.releaseDateFormatted(),
-                                style: GoogleFonts.buenard(
-                                    fontSize: 18,
-                                    color: Colors.yellow[400],
-                                    fontWeight: FontWeight.bold),
-                              ),
+                          ),
+                          const SizedBox(height: 3),
+                          Center(
+                            child: Text(
+                              itemModel.releaseDateFormatted(),
+                              style: GoogleFonts.buenard(
+                                  fontSize: 18,
+                                  color: Colors.yellow[400],
+                                  fontWeight: FontWeight.bold),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-              ],
-            ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),

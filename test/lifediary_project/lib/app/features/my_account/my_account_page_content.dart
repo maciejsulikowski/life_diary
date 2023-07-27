@@ -1,16 +1,12 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lifediary_project/app/cubit/root_cubit.dart';
 import 'package:lifediary_project/app/data/remote_data_sources/water_remote_data_source.dart';
-import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
 import 'package:lifediary_project/app/domain/repositories/water_repository.dart';
-
 import 'package:lifediary_project/app/features/instruction/instruction_page.dart';
 import 'package:lifediary_project/app/features/login/login_page.dart';
 import 'package:lifediary_project/app/features/login/user_profile.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lifediary_project/app/features/quotes/quotes_page.dart';
 import 'package:lifediary_project/app/features/water/cubit/water_cubit.dart';
 import 'package:lifediary_project/app/features/water/cubit/water_state.dart';
@@ -76,7 +72,7 @@ class MyAccountPageContent extends StatelessWidget {
                                   color: Colors.indigo[700],
                                   shape: BoxShape.circle,
                                 ),
-                                child: Icon(Icons.question_mark,
+                                child: const Icon(Icons.question_mark,
                                     color: Colors.yellow),
                               ),
                             ),
@@ -96,7 +92,7 @@ class MyAccountPageContent extends StatelessWidget {
                                   color: Colors.indigo[700],
                                   shape: BoxShape.circle,
                                 ),
-                                child: Icon(Icons.sunny, color: Colors.yellow),
+                                child: const Icon(Icons.sunny, color: Colors.yellow),
                               ),
                             ),
                           ],
@@ -169,7 +165,7 @@ class MyAccountPageContent extends StatelessWidget {
                             decoration: BoxDecoration(
                                 color: Colors.indigo[700],
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(20))),
+                                    const BorderRadius.all(Radius.circular(20))),
                             height: 30,
                             child: Center(
                               child: Text(

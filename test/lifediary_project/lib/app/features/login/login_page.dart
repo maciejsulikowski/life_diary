@@ -1,13 +1,8 @@
-import 'dart:math';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lifediary_project/app/core/enums.dart';
-
 import 'package:lifediary_project/app/cubit/root_cubit.dart';
-import 'package:lifediary_project/app/domain/repositories/user_repository.dart';
 import 'package:lifediary_project/app/features/home/home_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -30,6 +25,7 @@ class _LoginPageState extends State<LoginPage> {
     return BlocListener<RootCubit, RootState>(
       listener: (context, state) {
         final errorMessage = state.errorMessage ?? 'Unknown error';
+        // ignore: unrelated_type_equality_checks
         if (state.errorMessage == Status.error) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -68,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
                         image: AssetImage('images/black_diary.png'),
                         width: 100,
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       Text(
                         isCreatingAccount == true
                             ? 'Stwórz konto'
@@ -94,8 +90,8 @@ class _LoginPageState extends State<LoginPage> {
                             fontFamily: GoogleFonts.buenard().fontFamily,
                           ),
                           border: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: const Color.fromRGBO(255, 238, 88, 1),
+                            borderSide: const BorderSide(
+                              color: Color.fromRGBO(255, 238, 88, 1),
                             ),
                             borderRadius: BorderRadius.circular(20),
                           ),
@@ -106,20 +102,20 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color.fromRGBO(255, 238, 88, 1),
                               width: 2.0,
                             ),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Colors.yellow,
                             ),
                             borderRadius: BorderRadius.circular(20),
                           ),
                         ),
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       TextField(
                         controller: widget.passwordController,
                         style: TextStyle(
@@ -135,20 +131,20 @@ class _LoginPageState extends State<LoginPage> {
                             fontFamily: GoogleFonts.buenard().fontFamily,
                           ),
                           border: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: const Color.fromRGBO(255, 238, 88, 1),
+                            borderSide: const BorderSide(
+                              color: Color.fromRGBO(255, 238, 88, 1),
                             ),
                             borderRadius: BorderRadius.circular(20),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color.fromRGBO(255, 238, 88, 1),
                               width: 2.0,
                             ),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Colors.yellow,
                             ),
                             borderRadius: BorderRadius.circular(20),
@@ -172,7 +168,7 @@ class _LoginPageState extends State<LoginPage> {
                           }
                         },
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.indigo[700],
+                          backgroundColor: Colors.indigo[700],
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
                           ),

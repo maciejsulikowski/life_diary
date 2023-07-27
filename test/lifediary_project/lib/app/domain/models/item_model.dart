@@ -1,8 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_quill/flutter_quill.dart';
+import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter_quill/flutter_quill.dart' as quill;
 
 part 'item_model.freezed.dart';
 

@@ -1,11 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:injectable/injectable.dart';
-import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
 import 'package:lifediary_project/app/domain/repositories/photos_repository.dart';
 import 'package:lifediary_project/app/features/training/add_photos/cubit/add_photo_state.dart';
-import 'package:meta/meta.dart';
 
 class AddPhotoCubit extends Cubit<AddPhotoState> {
   AddPhotoCubit(this._photosRepository) : super(AddPhotoState());

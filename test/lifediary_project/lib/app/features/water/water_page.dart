@@ -1,20 +1,12 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lifediary_project/app/core/enums.dart';
-import 'package:lifediary_project/app/data/remote_data_sources/water_remote_data_source.dart';
-import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
-import 'package:lifediary_project/app/domain/repositories/water_repository.dart';
-
-import 'package:lifediary_project/app/features/login/login_page.dart';
 import 'package:lifediary_project/app/features/water/cubit/water_cubit.dart';
 import 'package:lifediary_project/app/features/water/cubit/water_state.dart';
 import 'package:lifediary_project/app/injection_container.dart';
 
 class WaterPage extends StatefulWidget {
-  WaterPage({
+  const WaterPage({
     Key? key,
   }) : super(key: key);
 
@@ -28,7 +20,7 @@ class WaterPageState extends State<WaterPage> {
   final weightController = TextEditingController();
 
   var result = 0;
-  var glass_result = 0;
+  var glassResult = 0;
   var glass = 330;
 
   var isAnswered = false;
@@ -95,7 +87,7 @@ class WaterPageState extends State<WaterPage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
@@ -119,7 +111,7 @@ class WaterPageState extends State<WaterPage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
                       if (heightController.text.isEmpty ||
@@ -131,7 +123,7 @@ class WaterPageState extends State<WaterPage> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            content: Padding(
+                            content: const Padding(
                               padding: EdgeInsets.all(8),
                               child: Row(
                                 children: [
@@ -159,7 +151,7 @@ class WaterPageState extends State<WaterPage> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            content: Padding(
+                            content: const Padding(
                               padding: EdgeInsets.all(8),
                               child: Row(
                                 children: [
@@ -182,13 +174,13 @@ class WaterPageState extends State<WaterPage> {
                         isAnswered = true;
                         result =
                             (30 * double.parse(weightController.text)).toInt();
-                        glass_result = (result / glass).floor();
-                        answer = glass_result.toString();
+                        glassResult = (result / glass).floor();
+                        answer = glassResult.toString();
                         context.read<WaterCubit>().saveGlasses(answer);
                       });
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.indigo[700],
+                      backgroundColor: Colors.indigo[700],
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
@@ -201,7 +193,7 @@ class WaterPageState extends State<WaterPage> {
                           fontWeight: FontWeight.bold),
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   if (isAnswered == true) ...[
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -216,7 +208,7 @@ class WaterPageState extends State<WaterPage> {
                           textAlign: TextAlign.center,
                         ),
                         Text(
-                          'Co daje gdzieś $glass_result szklanek wody dziennie!',
+                          'Co daje gdzieś $glassResult szklanek wody dziennie!',
                           style: GoogleFonts.buenard(
                               fontSize: 24,
                               color: Colors.indigo[700],

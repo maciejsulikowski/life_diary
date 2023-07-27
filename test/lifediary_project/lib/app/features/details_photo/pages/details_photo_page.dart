@@ -1,16 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lifediary_project/app/core/enums.dart';
-import 'package:lifediary_project/app/data/remote_data_sources/photos_remote_data_source.dart';
-import 'package:lifediary_project/app/domain/models/item_model.dart';
 import 'package:lifediary_project/app/domain/models/photos_model.dart';
-import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
-import 'package:lifediary_project/app/domain/repositories/photos_repository.dart';
 import 'package:lifediary_project/app/features/details_photo/cubit/details_photo_cubit.dart';
 import 'package:lifediary_project/app/features/details_photo/cubit/details_photo_state.dart';
 import 'package:lifediary_project/app/injection_container.dart';
@@ -51,7 +45,7 @@ class _DetailsPhotoPageContentState extends State<DetailsPhotoPageContent> {
         builder: (context, state) {
           final photoModel = state.photosModel;
           if (state.status == Status.error) {
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           }
 
           return Scaffold(
@@ -78,7 +72,7 @@ class _DetailsPhotoPageContentState extends State<DetailsPhotoPageContent> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            content: Padding(
+                            content: const Padding(
                               padding: EdgeInsets.all(8),
                               child: Row(
                                 children: [
@@ -108,7 +102,7 @@ class _DetailsPhotoPageContentState extends State<DetailsPhotoPageContent> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          content: Padding(
+                          content: const Padding(
                             padding: EdgeInsets.all(8),
                             child: Row(
                               children: [
@@ -154,7 +148,7 @@ class _DetailsPhotoPageContentState extends State<DetailsPhotoPageContent> {
 }
 
 class _ListViewItem extends StatelessWidget {
-  _ListViewItem({
+  const _ListViewItem({
     Key? key,
     required this.photoModel,
     required this.weightController,
@@ -183,7 +177,7 @@ class _ListViewItem extends StatelessWidget {
                     right: 8,
                   ),
                   child: ClipRRect(
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(10),
                       topRight: Radius.circular(10),
                     ),
@@ -210,7 +204,7 @@ class _ListViewItem extends StatelessWidget {
                           right: 8,
                         ),
                         child: ClipRRect(
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                             bottomLeft: Radius.circular(10),
                             bottomRight: Radius.circular(10),
                           ),
@@ -242,22 +236,22 @@ class _ListViewItem extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 WeightSentence(
                   weightController: weightController,
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 HeightSentence(
                   heightController: heightController,
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 NewSentence(
                   newController: newController,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Expanded(
+                const Expanded(
                   flex: 1,
                   child: QuoteSentence(),
                 )
@@ -270,7 +264,7 @@ class _ListViewItem extends StatelessWidget {
 }
 
 class WeightSentence extends StatefulWidget {
-  WeightSentence({
+  const WeightSentence({
     Key? key,
     required this.weightController,
   }) : super(key: key);
@@ -288,39 +282,37 @@ class _WeightSentenceState extends State<WeightSentence> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Container(
-        child: TextField(
-          controller: widget.weightController,
-          style: GoogleFonts.buenard(
-            fontSize: 20,
-            color: Colors.yellow,
-            fontWeight: FontWeight.bold,
+      child: TextField(
+        controller: widget.weightController,
+        style: GoogleFonts.buenard(
+          fontSize: 20,
+          color: Colors.yellow,
+          fontWeight: FontWeight.bold,
+        ),
+        decoration: InputDecoration(
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              color: Color.fromRGBO(255, 238, 88, 1),
+              width: 2.0,
+            ),
+            borderRadius: BorderRadius.circular(20),
           ),
-          decoration: InputDecoration(
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: const Color.fromRGBO(255, 238, 88, 1),
-                width: 2.0,
-              ),
-              borderRadius: BorderRadius.circular(20),
+          enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              color: Color.fromRGBO(255, 238, 88, 1),
+              width: 2.0,
             ),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: Color.fromRGBO(255, 238, 88, 1),
-                width: 2.0,
-              ),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            filled: true,
-            fillColor: Colors.indigo[700],
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-            hintText: 'Podaj swoją wagę np. 80 kg',
-            hintStyle: TextStyle(
-              fontSize: 20.0,
-              color: Colors.grey,
-            ),
+            borderRadius: BorderRadius.circular(20),
+          ),
+          filled: true,
+          fillColor: Colors.indigo[700],
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          hintText: 'Podaj swoją wagę np. 80 kg',
+          hintStyle: const TextStyle(
+            fontSize: 20.0,
+            color: Colors.grey,
           ),
         ),
       ),
@@ -340,36 +332,34 @@ class HeightSentence extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Container(
-        child: TextField(
-          controller: heightController,
-          style: GoogleFonts.buenard(
-              fontSize: 20, color: Colors.yellow, fontWeight: FontWeight.bold),
-          decoration: InputDecoration(
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: const Color.fromRGBO(255, 238, 88, 1),
-                width: 2.0,
-              ),
-              borderRadius: BorderRadius.circular(20),
+      child: TextField(
+        controller: heightController,
+        style: GoogleFonts.buenard(
+            fontSize: 20, color: Colors.yellow, fontWeight: FontWeight.bold),
+        decoration: InputDecoration(
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              color: Color.fromRGBO(255, 238, 88, 1),
+              width: 2.0,
             ),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: Color.fromRGBO(255, 238, 88, 1),
-                width: 2.0,
-              ),
-              borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(20),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              color: Color.fromRGBO(255, 238, 88, 1),
+              width: 2.0,
             ),
-            filled: true,
-            fillColor: Colors.indigo[700],
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-            hintText: 'Podaj wzrost np. 180cm',
-            hintStyle: TextStyle(
-              fontSize: 20.0,
-              color: Colors.grey,
-            ),
+            borderRadius: BorderRadius.circular(20),
+          ),
+          filled: true,
+          fillColor: Colors.indigo[700],
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          hintText: 'Podaj wzrost np. 180cm',
+          hintStyle: const TextStyle(
+            fontSize: 20.0,
+            color: Colors.grey,
           ),
         ),
       ),
@@ -389,36 +379,34 @@ class NewSentence extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Container(
-        child: TextField(
-          controller: newController,
-          style: GoogleFonts.buenard(
-              fontSize: 20, color: Colors.yellow, fontWeight: FontWeight.bold),
-          decoration: InputDecoration(
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: const Color.fromRGBO(255, 238, 88, 1),
-                width: 2.0,
-              ),
-              borderRadius: BorderRadius.circular(20),
+      child: TextField(
+        controller: newController,
+        style: GoogleFonts.buenard(
+            fontSize: 20, color: Colors.yellow, fontWeight: FontWeight.bold),
+        decoration: InputDecoration(
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              color: Color.fromRGBO(255, 238, 88, 1),
+              width: 2.0,
             ),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: Color.fromRGBO(255, 238, 88, 1),
-                width: 2.0,
-              ),
-              borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(20),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              color: Color.fromRGBO(255, 238, 88, 1),
+              width: 2.0,
             ),
-            filled: true,
-            fillColor: Colors.indigo[700],
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-            hintText: 'Podaj swój cel np. Chcę schudnąć',
-            hintStyle: TextStyle(
-              fontSize: 20.0,
-              color: Colors.grey,
-            ),
+            borderRadius: BorderRadius.circular(20),
+          ),
+          filled: true,
+          fillColor: Colors.indigo[700],
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          hintText: 'Podaj swój cel np. Chcę schudnąć',
+          hintStyle: const TextStyle(
+            fontSize: 20.0,
+            color: Colors.grey,
           ),
         ),
       ),
@@ -427,7 +415,7 @@ class NewSentence extends StatelessWidget {
 }
 
 class QuoteSentence extends StatelessWidget {
-  QuoteSentence({
+  const QuoteSentence({
     super.key,
   });
 
@@ -443,13 +431,13 @@ class QuoteSentence extends StatelessWidget {
     ];
     final randomQuote = quotes[random.nextInt(quotes.length)];
     final parts = randomQuote.split('.');
-    final quoteText = parts.first.trim() + '.';
+    final quoteText = '${parts.first.trim()}.';
     final author = parts.last.trim();
 
     final quoteSpans = <TextSpan>[
       TextSpan(text: quoteText),
-      TextSpan(text: ' '),
-      TextSpan(text: author, style: TextStyle(color: Colors.grey)),
+      const TextSpan(text: ' '),
+      TextSpan(text: author, style: const TextStyle(color: Colors.grey)),
     ];
     return Column(
       children: [
@@ -470,7 +458,7 @@ class QuoteSentence extends StatelessWidget {
                   textAlign: TextAlign.center,
                   text: TextSpan(
                       children: quoteSpans,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 16,
                           fontStyle: FontStyle.italic,
                           color: Colors.white)),

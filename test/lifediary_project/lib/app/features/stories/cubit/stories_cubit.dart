@@ -1,8 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:injectable/injectable.dart';
 import 'package:lifediary_project/app/core/enums.dart';
-import 'package:lifediary_project/app/domain/models/stories_model.dart';
 import 'package:lifediary_project/app/domain/repositories/stories_repository.dart';
 import 'package:lifediary_project/app/features/stories/cubit/stories_state.dart';
 

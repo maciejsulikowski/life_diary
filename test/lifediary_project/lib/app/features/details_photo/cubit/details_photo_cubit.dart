@@ -1,15 +1,9 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:flutter/material.dart';
-import 'package:injectable/injectable.dart';
 import 'package:lifediary_project/app/core/enums.dart';
-import 'package:lifediary_project/app/domain/models/item_model.dart';
-import 'package:lifediary_project/app/domain/models/photos_model.dart';
-import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
 import 'package:lifediary_project/app/domain/repositories/photos_repository.dart';
 import 'package:lifediary_project/app/features/details_photo/cubit/details_photo_state.dart';
-import 'package:meta/meta.dart';
 
 class DetailsPhotoCubit extends Cubit<DetailsPhotoState> {
   DetailsPhotoCubit(this._photosRepository)

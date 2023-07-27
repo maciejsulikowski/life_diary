@@ -1,17 +1,12 @@
 import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lifediary_project/app/data/remote_data_sources/photos_remote_data_source.dart';
-import 'package:lifediary_project/app/domain/repositories/photos_repository.dart';
-
 import 'package:lifediary_project/app/features/training/add_photos/cubit/add_photo_cubit.dart';
-
-import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
 import 'package:lifediary_project/app/features/training/add_photos/cubit/add_photo_state.dart';
 import 'package:lifediary_project/app/injection_container.dart';
 
@@ -92,7 +87,7 @@ class _AddPhotoState extends State<AddPhoto> {
                                       goals,
                                     );
                               },
-                        icon: Icon(Icons.check),
+                        icon: const Icon(Icons.check),
                         color: _imageURL == null ||
                                 _title == null ||
                                 _releaseDate == null
@@ -130,7 +125,7 @@ class _AddPhotoState extends State<AddPhoto> {
 }
 
 class _AddPhotoBody extends StatefulWidget {
-  _AddPhotoBody({
+  const _AddPhotoBody({
     Key? key,
     required this.onTitleChanged,
     required this.onImageUrlChanged,
@@ -213,13 +208,13 @@ class _AddPhotoBodyState extends State<_AddPhotoBody> {
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     color: Color.fromRGBO(255, 238, 88, 1),
                   ),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     color: Colors.yellow,
                   ),
                 ),
@@ -242,7 +237,7 @@ class _AddPhotoBodyState extends State<_AddPhotoBody> {
                     fontWeight: FontWeight.bold),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     color: Color.fromRGBO(255, 238, 88, 1),
                     width: 2.0,
                   ),
@@ -280,20 +275,17 @@ class _AddPhotoBodyState extends State<_AddPhotoBody> {
                       final Reference referenceImageToUpload =
                           referenceDirImages.child(uniqueFileName);
 
-                      try {
-                        await referenceImageToUpload.putFile(File(file.path));
+                      await referenceImageToUpload.putFile(File(file.path));
 
-                        imageURL =
-                            await referenceImageToUpload.getDownloadURL();
-                        widget.onImageUrlChanged(imageURL);
-                        setState(() {
-                          isImageAdded = imageURL.isNotEmpty;
-                          if (isImageAdded) {
-                            isPhotoHide = false;
-                            fromGallery = true;
-                          }
-                        });
-                      } catch (error) {}
+                      imageURL = await referenceImageToUpload.getDownloadURL();
+                      widget.onImageUrlChanged(imageURL);
+                      setState(() {
+                        isImageAdded = imageURL.isNotEmpty;
+                        if (isImageAdded) {
+                          isPhotoHide = false;
+                          fromGallery = true;
+                        }
+                      });
                     },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
@@ -337,20 +329,17 @@ class _AddPhotoBodyState extends State<_AddPhotoBody> {
                       final Reference referenceImageToUpload =
                           referenceDirImages.child(uniqueFileName);
 
-                      try {
-                        await referenceImageToUpload.putFile(File(file.path));
+                      await referenceImageToUpload.putFile(File(file.path));
 
-                        imageURL =
-                            await referenceImageToUpload.getDownloadURL();
-                        widget.onImageUrlChanged(imageURL);
-                        setState(() {
-                          isImageAdded = imageURL.isNotEmpty;
-                          if (isImageAdded) {
-                            isPhotoHide = false;
-                            fromPicker = true;
-                          }
-                        });
-                      } catch (error) {}
+                      imageURL = await referenceImageToUpload.getDownloadURL();
+                      widget.onImageUrlChanged(imageURL);
+                      setState(() {
+                        isImageAdded = imageURL.isNotEmpty;
+                        if (isImageAdded) {
+                          isPhotoHide = false;
+                          fromPicker = true;
+                        }
+                      });
                     },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
@@ -369,7 +358,7 @@ class _AddPhotoBodyState extends State<_AddPhotoBody> {
               ]
             ],
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           if (isPhotoHide == false) ...[
             Container(
               height: 200,
@@ -385,7 +374,7 @@ class _AddPhotoBodyState extends State<_AddPhotoBody> {
               ),
             ),
           ],
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           ElevatedButton.icon(
             onPressed: () async {
               final selectedDate = await showDatePicker(
@@ -405,7 +394,7 @@ class _AddPhotoBodyState extends State<_AddPhotoBody> {
               backgroundColor: MaterialStateProperty.all(
                   isTimeAdded ? Colors.green[700] : Colors.red[700]),
             ),
-            icon: Icon(Icons.timer, color: Colors.black),
+            icon: const Icon(Icons.timer, color: Colors.black),
             label: Text(
               widget.selectedDateFormatted ?? 'Wybierz datę utworzenia zdjęcia',
               style: GoogleFonts.buenard(

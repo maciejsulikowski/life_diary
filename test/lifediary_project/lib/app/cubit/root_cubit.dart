@@ -3,14 +3,9 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:injectable/injectable.dart';
 import 'package:lifediary_project/app/core/enums.dart';
-import 'package:lifediary_project/app/domain/models/user_model.dart';
 import 'package:lifediary_project/app/domain/repositories/root_repository.dart';
 import 'package:lifediary_project/app/domain/repositories/user_repository.dart';
-import 'package:lifediary_project/app/features/login/login_page.dart';
-
-import 'package:meta/meta.dart';
 
 part 'root_state.dart';
 

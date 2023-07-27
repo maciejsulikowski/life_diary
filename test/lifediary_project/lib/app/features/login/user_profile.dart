@@ -1,35 +1,34 @@
-import 'package:firebase_auth/firebase_auth.dart';
+// ignore: duplicate_ignore
+// ignore_for_file: must_be_immutable, duplicate_ignore
+
+import 'dart:io';
+
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:lifediary_project/app/core/enums.dart';
-import 'package:lifediary_project/app/data/remote_data_sources/user_remote_data_source.dart';
 import 'package:lifediary_project/app/domain/models/user_model.dart';
-import 'package:lifediary_project/app/domain/repositories/user_repository.dart';
 import 'package:lifediary_project/app/features/login/cubit/user_cubit.dart';
 import 'package:lifediary_project/app/features/login/cubit/user_state.dart';
 import 'package:lifediary_project/app/injection_container.dart';
-import 'dart:io';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import 'package:lifediary_project/app/cubit/root_cubit.dart';
 
 class UserProfile extends StatefulWidget {
+  // ignore: use_key_in_widget_constructors
   const UserProfile({
     Key? key,
   });
 
   @override
+  // ignore: library_private_types_in_public_api
   _UserProfileState createState() => _UserProfileState();
 }
 
 class _UserProfileState extends State<UserProfile> {
+  @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          UserCubit(UserRepository(UserRemoteDataSource()))..start(),
+      create: (context) => getIt<UserCubit>()..start(),
       child: BlocListener<UserCubit, UserState>(
         listener: (context, state) {
           if (state.isSaved) {
@@ -50,7 +49,7 @@ class _UserProfileState extends State<UserProfile> {
                   ),
                 ),
                 centerTitle: true,
-                backgroundColor: Colors.black,
+                backgroundColor: Colors.black87,
               ),
               body: UserView(
                 userModel: userModel,
@@ -70,10 +69,12 @@ class _UserProfileState extends State<UserProfile> {
   }
 }
 
+// ignore: must_be_immutable
 class UserView extends StatefulWidget {
   UserModel? userModel;
   Function(String) onFullNameChanged;
 
+  // ignore: use_key_in_widget_constructors
   UserView({
     Key? key,
     required this.userModel,
@@ -103,13 +104,44 @@ class _UserViewState extends State<UserView> {
   void onFullNamePressed() {
     if (controller.text.isNotEmpty) {
       context.read<UserCubit>().addFullName(controller.text);
+      _showSnackbar("Zmiany zostały zapisane!");
+    } else {
+      _showSnackbar("Wprowadź jakieś zmiany!");
     }
   }
 
   void onStoryTextPressed() {
     if (controller.text.isNotEmpty) {
       context.read<UserCubit>().addStoryText(storyController.text);
+      _showSnackbar("Zmiany zostały zapisane!");
+    } else {
+      _showSnackbar("Wprowadź jakieś zmiany!");
     }
+  }
+
+  void _showSnackbar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.green,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        content: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Row(
+            children: [
+              const Icon(Icons.error, color: Colors.white),
+              const SizedBox(width: 8),
+              Text(
+                message,
+                style: const TextStyle(color: Colors.white),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   void onTextChanged() {
@@ -142,12 +174,12 @@ class _UserViewState extends State<UserView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.black,
+      color: Colors.black87,
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Text(
               'Witaj w profilu użytkownika!',
               style: GoogleFonts.buenard(
@@ -169,7 +201,7 @@ class _UserViewState extends State<UserView> {
                 },
               ),
             ],
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             TextField(
               style: GoogleFonts.buenard(
                 fontSize: 20,
@@ -179,15 +211,15 @@ class _UserViewState extends State<UserView> {
               controller: controller,
               textAlign: TextAlign.center,
               decoration: InputDecoration(
-                focusedBorder: OutlineInputBorder(
+                focusedBorder: const OutlineInputBorder(
                   borderSide: BorderSide(
                     color: Color.fromRGBO(255, 238, 88, 1),
                     width: 2.0,
                   ),
                 ),
-                enabledBorder: OutlineInputBorder(
+                enabledBorder: const OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: const Color.fromARGB(255, 67, 64, 64),
+                    color: Color.fromARGB(255, 67, 64, 64),
                     width: 2.0,
                   ),
                 ),
@@ -205,7 +237,7 @@ class _UserViewState extends State<UserView> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             TextField(
               style: GoogleFonts.buenard(
                 fontSize: 20,
@@ -221,15 +253,15 @@ class _UserViewState extends State<UserView> {
               controller: storyController,
               textAlign: TextAlign.center,
               decoration: InputDecoration(
-                focusedBorder: OutlineInputBorder(
+                focusedBorder: const OutlineInputBorder(
                   borderSide: BorderSide(
                     color: Color.fromRGBO(255, 238, 88, 1),
                     width: 2.0,
                   ),
                 ),
-                enabledBorder: OutlineInputBorder(
+                enabledBorder: const OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: const Color.fromARGB(255, 67, 64, 64),
+                    color: Color.fromARGB(255, 67, 64, 64),
                     width: 2.0,
                   ),
                 ),
@@ -298,7 +330,6 @@ class _UserPhotoState extends State<UserPhoto> {
                   referenceDirImages.child(uniqueFileName);
 
               try {
-                // Rozpocznij ładowanie, ustaw isLoading na true
                 setState(() {
                   isLoading = true;
                 });
@@ -309,13 +340,11 @@ class _UserPhotoState extends State<UserPhoto> {
                   final updatedUserModel =
                       widget.userModel.copyWith(imageURL: imageUrl);
                   widget.userModel = updatedUserModel;
-                  isLoading =
-                      false; // Zakończ ładowanie, ustaw isLoading na false
+                  isLoading = false; //
                 });
                 widget.onImageUrlChanged(imageUrl);
                 context.read<UserCubit>().add(imageUrl);
               } catch (error) {
-                // W przypadku błędu, zakończ ładowanie i wyświetl komunikat błędu
                 setState(() {
                   isLoading = false;
                 });
@@ -324,17 +353,17 @@ class _UserPhotoState extends State<UserPhoto> {
             child: Stack(
               alignment: Alignment.center,
               children: [
+                // ignore: unnecessary_null_comparison
                 if (widget.userModel.imageURL != null)
                   CircleAvatar(
                     radius: 60,
                     backgroundColor: Colors.black,
-                    backgroundImage: NetworkImage(widget.userModel.imageURL!),
+                    backgroundImage: NetworkImage(widget.userModel.imageURL),
                   ),
                 if (isLoading)
-                  CircleAvatar(
+                  const CircleAvatar(
                     radius: 60,
-                    backgroundColor: Colors
-                        .black, // Czarne tło, które pojawi się na chwilę podczas ładowania
+                    backgroundColor: Colors.black,
                     child: CircularProgressIndicator(),
                   ),
               ],

@@ -1,18 +1,15 @@
+import 'dart:core';
 import 'dart:io';
 
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lifediary_project/app/core/enums.dart';
-import 'package:lifediary_project/app/data/remote_data_sources/items_remote_data_source.dart';
-import 'dart:core';
-
-import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
 import 'package:lifediary_project/app/features/add_page/cubit/add_cubit.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:lifediary_project/app/features/add_page/cubit/add_state.dart';
 import 'package:lifediary_project/app/injection_container.dart';
 
@@ -89,8 +86,8 @@ class _AddPageState extends State<AddPage> {
                           color: imageURL == null ||
                                   _title == null ||
                                   _releaseDate == null
-                              ? Color.fromARGB(255, 148, 14, 5)
-                              : Color.fromARGB(255, 0, 76, 3)),
+                              ? const Color.fromARGB(255, 148, 14, 5)
+                              : const Color.fromARGB(255, 0, 76, 3)),
                     ),
                   ),
                 ],
@@ -123,6 +120,7 @@ class _AddPageState extends State<AddPage> {
   }
 }
 
+// ignore: must_be_immutable
 class _AddPageBody extends StatefulWidget {
   _AddPageBody({
     Key? key,
@@ -188,7 +186,7 @@ class _AddPageBodyState extends State<_AddPageBody> {
                   fontWeight: FontWeight.bold),
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           if (isTextHide == false) ...[
             TextField(
               onChanged: (newValue) {
@@ -205,13 +203,13 @@ class _AddPageBodyState extends State<_AddPageBody> {
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20),
-                  borderSide: BorderSide(
-                    color: const Color.fromRGBO(255, 238, 88, 1),
+                  borderSide: const BorderSide(
+                    color: Color.fromRGBO(255, 238, 88, 1),
                   ),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     color: Colors.yellow,
                   ),
                 ),
@@ -229,7 +227,7 @@ class _AddPageBodyState extends State<_AddPageBody> {
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     color: Color.fromRGBO(255, 238, 88, 1),
                     width: 2.0,
                   ),
@@ -237,7 +235,7 @@ class _AddPageBodyState extends State<_AddPageBody> {
               ),
             ),
           ],
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           ElevatedButton.icon(
@@ -321,7 +319,7 @@ class _AddPageBodyState extends State<_AddPageBody> {
               backgroundColor: MaterialStateProperty.all(
                   isTimeAdded ? Colors.green[700] : Colors.red[700]),
             ),
-            icon: Icon(Icons.timer, color: Colors.black),
+            icon: const Icon(Icons.timer, color: Colors.black),
             label: Text(
               widget.selectedDateFormatted ??
                   'Wybierz datę utworzenia dziennika',

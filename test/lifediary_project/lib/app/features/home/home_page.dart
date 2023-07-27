@@ -1,13 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:lifediary_project/app/features/daily_plan/daily_plan_page_content.dart';
 import 'package:lifediary_project/app/features/diaries/diaries_page_content.dart';
 import 'package:lifediary_project/app/features/my_account/my_account_page_content.dart';
-
-import 'package:lifediary_project/app/features/login/login_page.dart';
-import 'package:lifediary_project/app/domain/models/item_model.dart';
 import 'package:lifediary_project/app/features/to_do_list/to_do_list_content.dart';
 import 'package:lifediary_project/app/features/training/training_page_content.dart';
 import 'package:lifediary_project/app/features/water/water_page.dart';
@@ -37,18 +32,18 @@ class _HomePageState extends State<HomePage> {
           );
         }
         if (currentIndex == 1) {
-          return DiariesPageContent();
+          return const DiariesPageContent();
         }
         if (currentIndex == 2) {
-          return Center(
+          return const Center(
             child: TrainingPageContent(),
           );
         }
         if (currentIndex == 3) {
-          return Center(child: WaterPage());
+          return const Center(child: WaterPage());
         }
         if (currentIndex == 4) {
-          return ToDoListContent();
+          return const ToDoListContent();
         }
         if (currentIndex == 5) {
           return Center(
@@ -69,7 +64,7 @@ class _HomePageState extends State<HomePage> {
             currentIndex = newIndex;
           });
         },
-        items: [
+        items: const [
           BottomNavigationBarItem(
             activeIcon: Icon(
               Icons.person,

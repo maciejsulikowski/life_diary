@@ -1,15 +1,9 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:flutter/material.dart';
-import 'package:injectable/injectable.dart';
 import 'package:lifediary_project/app/core/enums.dart';
-import 'package:lifediary_project/app/domain/models/daily_plan_model.dart';
-import 'package:lifediary_project/app/domain/models/item_model.dart';
-import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
 import 'package:lifediary_project/app/domain/repositories/plans_repository.dart';
 import 'package:lifediary_project/app/features/daily_plan/cubit/daily_plan_state.dart';
-import 'package:meta/meta.dart';
 
 class DailyPlanCubit extends Cubit<DailyPlanState> {
   DailyPlanCubit(this._plansRepository)

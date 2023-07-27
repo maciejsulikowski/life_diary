@@ -1,15 +1,9 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
-import 'package:injectable/injectable.dart';
 import 'package:lifediary_project/app/core/enums.dart';
-
-import 'package:lifediary_project/app/domain/models/item_model.dart';
 import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
 import 'package:lifediary_project/app/features/diaries/cubit/diares_state.dart';
-import 'package:meta/meta.dart';
 
 class DiaresCubit extends Cubit<DiaresState> {
   DiaresCubit(this._itemsRepository)

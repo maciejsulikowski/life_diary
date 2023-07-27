@@ -1,16 +1,10 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:bloc/bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:injectable/injectable.dart';
 import 'package:lifediary_project/app/core/enums.dart';
-import 'package:lifediary_project/app/domain/models/item_model.dart';
 import 'package:lifediary_project/app/domain/models/water_model.dart';
-import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
 import 'package:lifediary_project/app/domain/repositories/water_repository.dart';
 import 'package:lifediary_project/app/features/water/cubit/water_state.dart';
-import 'package:meta/meta.dart';
 
 class WaterCubit extends Cubit<WaterState> {
   WaterCubit(this._waterRepository)

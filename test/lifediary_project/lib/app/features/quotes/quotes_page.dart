@@ -1,13 +1,10 @@
 import 'dart:math';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lifediary_project/app/core/enums.dart';
-import 'package:lifediary_project/app/data/remote_data_sources/quotes_remote_data_source.dart';
 import 'package:lifediary_project/app/domain/models/quotes_model.dart';
-import 'package:lifediary_project/app/domain/repositories/quotes_repository.dart';
 import 'package:lifediary_project/app/features/quotes/cubit/quotes_cubit.dart';
 import 'package:lifediary_project/app/features/quotes/cubit/quotes_state.dart';
 import 'package:lifediary_project/app/features/stories/stories_page.dart';
@@ -33,8 +30,7 @@ class _QuotesPageState extends State<QuotesPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          getIt<QuotesCubit>()..start(),
+      create: (context) => getIt<QuotesCubit>()..start(),
       child: BlocConsumer<QuotesCubit, QuotesState>(
         listener: (context, state) {
           if (state.status == Status.error) {
@@ -65,7 +61,7 @@ class _QuotesPageState extends State<QuotesPage> {
               ),
               body: Container(
                   color: Colors.black87,
-                  child: Center(child: CircularProgressIndicator())),
+                  child: const Center(child: CircularProgressIndicator())),
             );
           }
 
@@ -124,7 +120,7 @@ class _QuotesPageState extends State<QuotesPage> {
                           });
                         },
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       if (isQuoteHide == false) ...[
                         Expanded(
                           child: Center(
@@ -133,7 +129,7 @@ class _QuotesPageState extends State<QuotesPage> {
                                 RandomQuoteContainer(
                                   quotesModel: result,
                                 ),
-                                SizedBox(height: 20),
+                                const SizedBox(height: 20),
                                 AuthorHistoryButton(
                                   model: result,
                                 ),
@@ -166,30 +162,28 @@ class RandomQuoteContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              quotesModel.content,
-              style: GoogleFonts.buenard(
-                fontSize: 24,
-                color: Colors.yellow[400],
-                fontStyle: FontStyle.italic,
-              ),
-              textAlign: TextAlign.center,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            quotesModel.content,
+            style: GoogleFonts.buenard(
+              fontSize: 24,
+              color: Colors.yellow[400],
+              fontStyle: FontStyle.italic,
             ),
-            SizedBox(height: 25),
-            Text(
-              quotesModel.authorName,
-              style: GoogleFonts.buenard(
-                fontSize: 26,
-                color: Colors.yellow[400],
-                fontWeight: FontWeight.bold,
-              ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 25),
+          Text(
+            quotesModel.authorName,
+            style: GoogleFonts.buenard(
+              fontSize: 26,
+              color: Colors.yellow[400],
+              fontWeight: FontWeight.bold,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

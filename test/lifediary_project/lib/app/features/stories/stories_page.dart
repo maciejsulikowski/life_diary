@@ -1,33 +1,12 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dio/dio.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lifediary_project/app/core/enums.dart';
-import 'package:lifediary_project/app/cubit/root_cubit.dart';
-import 'package:lifediary_project/app/data/remote_data_sources/quotes_remote_data_source.dart';
-import 'package:lifediary_project/app/data/remote_data_sources/weather_remote_data_source.dart';
 import 'package:lifediary_project/app/domain/models/quotes_model.dart';
 import 'package:lifediary_project/app/domain/models/stories_model.dart';
-import 'package:lifediary_project/app/domain/models/weather_model.dart';
-import 'package:lifediary_project/app/domain/repositories/items_repository.dart';
-import 'package:lifediary_project/app/domain/repositories/quotes_repository.dart';
-import 'package:lifediary_project/app/domain/repositories/stories_repository.dart';
-import 'package:lifediary_project/app/domain/repositories/water_repository.dart';
-import 'package:lifediary_project/app/domain/repositories/weather_repository.dart';
-
-import 'package:lifediary_project/app/features/instruction/instruction_page.dart';
-import 'package:lifediary_project/app/features/login/login_page.dart';
-import 'package:lifediary_project/app/features/login/user_profile.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lifediary_project/app/features/quotes/cubit/quotes_cubit.dart';
 import 'package:lifediary_project/app/features/stories/cubit/stories_state.dart';
-import 'package:lifediary_project/app/features/water/cubit/water_cubit.dart';
-import 'package:lifediary_project/app/features/weather/cubit/weather_cubit.dart';
-import 'package:lifediary_project/app/features/weather/cubit/weather_state.dart';
 import 'package:lifediary_project/app/injection_container.dart';
 
-import '../../data/remote_data_sources/stories_remote_data_source.dart';
 import 'cubit/stories_cubit.dart';
 
 class StoriesPage extends StatefulWidget {
@@ -46,8 +25,8 @@ class _StoriesPageState extends State<StoriesPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<StoriesCubit>()
-        ..fetchData(authorID: widget.author.id),
+      create: (context) =>
+          getIt<StoriesCubit>()..fetchData(authorID: widget.author.id),
       child: BlocConsumer<StoriesCubit, StoriesState>(
         listener: (context, state) {
           if (state.status == Status.error) {
@@ -93,7 +72,7 @@ class _StoriesPageState extends State<StoriesPage> {
                                   storiesModel: story,
                                 ),
                               ],
-                              SizedBox(height: 20),
+                              const SizedBox(height: 20),
                             ],
                           ),
                         ),
@@ -126,8 +105,7 @@ class RandomQuoteContainer extends StatelessWidget {
         builder: (context, state) {
           return Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Container(
-                child: Column(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Stack(
@@ -140,7 +118,7 @@ class RandomQuoteContainer extends StatelessWidget {
                         backgroundImage: NetworkImage(storiesModel.picture),
                       ),
                     if (state.status == Status.loading)
-                      CircleAvatar(
+                      const CircleAvatar(
                         radius: 60,
                         backgroundColor: Colors
                             .black, // Czarne tło, które pojawi się na chwilę podczas ładowania
@@ -148,7 +126,7 @@ class RandomQuoteContainer extends StatelessWidget {
                       ),
                   ],
                 ),
-                SizedBox(height: 25),
+                const SizedBox(height: 25),
                 Text(
                   'Źródło:',
                   style: GoogleFonts.buenard(
@@ -158,7 +136,7 @@ class RandomQuoteContainer extends StatelessWidget {
                   ),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Text(
                   storiesModel.source,
                   style: GoogleFonts.buenard(
@@ -169,7 +147,7 @@ class RandomQuoteContainer extends StatelessWidget {
                   ),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 25),
+                const SizedBox(height: 25),
                 Text(
                   storiesModel.bio,
                   style: GoogleFonts.buenard(
@@ -180,7 +158,7 @@ class RandomQuoteContainer extends StatelessWidget {
                   textAlign: TextAlign.center,
                 )
               ],
-            )),
+            ),
           );
         },
       ),
