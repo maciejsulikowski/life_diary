@@ -19,5 +19,5 @@ Map<String, dynamic> _$$_QuotesModelToJson(_$_QuotesModel instance) =>
       'id': instance.id,
       'content': instance.content,
       'author_name': instance.authorName,
-      'author_id': instance.authorID,
+      'author_id': instance.authorId,
     };

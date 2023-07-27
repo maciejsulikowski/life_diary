@@ -1,18 +1,17 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-
 part 'quotes_model.freezed.dart';
 part 'quotes_model.g.dart';
 
 @freezed
 class QuotesModel with _$QuotesModel {
+  @JsonSerializable(fieldRename: FieldRename.snake)
   factory QuotesModel(
     int id,
     String content,
-    @JsonKey(name: 'author_name') String authorName,
-    @JsonKey(name: 'author_id') int authorID,
-
+    String authorName,
+    int authorId,
   ) = _QuotesModel;
 
   factory QuotesModel.fromJson(Map<String, dynamic> json) =>

@@ -20,8 +20,7 @@ StoriesModel _$StoriesModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$StoriesModel {
-  @JsonKey(name: 'author_id')
-  int get authorID => throw _privateConstructorUsedError;
+  int get authorId => throw _privateConstructorUsedError;
   String get bio => throw _privateConstructorUsedError;
   String get picture => throw _privateConstructorUsedError;
   String get source => throw _privateConstructorUsedError;
@@ -38,11 +37,7 @@ abstract class $StoriesModelCopyWith<$Res> {
           StoriesModel value, $Res Function(StoriesModel) then) =
       _$StoriesModelCopyWithImpl<$Res, StoriesModel>;
   @useResult
-  $Res call(
-      {@JsonKey(name: 'author_id') int authorID,
-      String bio,
-      String picture,
-      String source});
+  $Res call({int authorId, String bio, String picture, String source});
 }
 
 /// @nodoc
@@ -58,15 +53,15 @@ class _$StoriesModelCopyWithImpl<$Res, $Val extends StoriesModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? authorID = null,
+    Object? authorId = null,
     Object? bio = null,
     Object? picture = null,
     Object? source = null,
   }) {
     return _then(_value.copyWith(
-      authorID: null == authorID
-          ? _value.authorID
-          : authorID // ignore: cast_nullable_to_non_nullable
+      authorId: null == authorId
+          ? _value.authorId
+          : authorId // ignore: cast_nullable_to_non_nullable
               as int,
       bio: null == bio
           ? _value.bio
@@ -92,11 +87,7 @@ abstract class _$$_StoriesModelCopyWith<$Res>
       __$$_StoriesModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {@JsonKey(name: 'author_id') int authorID,
-      String bio,
-      String picture,
-      String source});
+  $Res call({int authorId, String bio, String picture, String source});
 }
 
 /// @nodoc
@@ -110,15 +101,15 @@ class __$$_StoriesModelCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? authorID = null,
+    Object? authorId = null,
     Object? bio = null,
     Object? picture = null,
     Object? source = null,
   }) {
     return _then(_$_StoriesModel(
-      null == authorID
-          ? _value.authorID
-          : authorID // ignore: cast_nullable_to_non_nullable
+      null == authorId
+          ? _value.authorId
+          : authorId // ignore: cast_nullable_to_non_nullable
               as int,
       null == bio
           ? _value.bio
@@ -137,17 +128,16 @@ class __$$_StoriesModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(fieldRename: FieldRename.snake)
 class _$_StoriesModel implements _StoriesModel {
-  _$_StoriesModel(@JsonKey(name: 'author_id') this.authorID, this.bio,
-      this.picture, this.source);
+  _$_StoriesModel(this.authorId, this.bio, this.picture, this.source);
 
   factory _$_StoriesModel.fromJson(Map<String, dynamic> json) =>
       _$$_StoriesModelFromJson(json);
 
   @override
-  @JsonKey(name: 'author_id')
-  final int authorID;
+  final int authorId;
   @override
   final String bio;
   @override
@@ -157,7 +147,7 @@ class _$_StoriesModel implements _StoriesModel {
 
   @override
   String toString() {
-    return 'StoriesModel(authorID: $authorID, bio: $bio, picture: $picture, source: $source)';
+    return 'StoriesModel(authorId: $authorId, bio: $bio, picture: $picture, source: $source)';
   }
 
   @override
@@ -165,8 +155,8 @@ class _$_StoriesModel implements _StoriesModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_StoriesModel &&
-            (identical(other.authorID, authorID) ||
-                other.authorID == authorID) &&
+            (identical(other.authorId, authorId) ||
+                other.authorId == authorId) &&
             (identical(other.bio, bio) || other.bio == bio) &&
             (identical(other.picture, picture) || other.picture == picture) &&
             (identical(other.source, source) || other.source == source));
@@ -174,7 +164,7 @@ class _$_StoriesModel implements _StoriesModel {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, authorID, bio, picture, source);
+  int get hashCode => Object.hash(runtimeType, authorId, bio, picture, source);
 
   @JsonKey(ignore: true)
   @override
@@ -191,18 +181,14 @@ class _$_StoriesModel implements _StoriesModel {
 }
 
 abstract class _StoriesModel implements StoriesModel {
-  factory _StoriesModel(
-      @JsonKey(name: 'author_id') final int authorID,
-      final String bio,
-      final String picture,
-      final String source) = _$_StoriesModel;
+  factory _StoriesModel(final int authorId, final String bio,
+      final String picture, final String source) = _$_StoriesModel;
 
   factory _StoriesModel.fromJson(Map<String, dynamic> json) =
       _$_StoriesModel.fromJson;
 
   @override
-  @JsonKey(name: 'author_id')
-  int get authorID;
+  int get authorId;
   @override
   String get bio;
   @override

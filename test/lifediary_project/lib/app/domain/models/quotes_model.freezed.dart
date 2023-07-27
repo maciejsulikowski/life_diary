@@ -22,10 +22,8 @@ QuotesModel _$QuotesModelFromJson(Map<String, dynamic> json) {
 mixin _$QuotesModel {
   int get id => throw _privateConstructorUsedError;
   String get content => throw _privateConstructorUsedError;
-  @JsonKey(name: 'author_name')
   String get authorName => throw _privateConstructorUsedError;
-  @JsonKey(name: 'author_id')
-  int get authorID => throw _privateConstructorUsedError;
+  int get authorId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -39,11 +37,7 @@ abstract class $QuotesModelCopyWith<$Res> {
           QuotesModel value, $Res Function(QuotesModel) then) =
       _$QuotesModelCopyWithImpl<$Res, QuotesModel>;
   @useResult
-  $Res call(
-      {int id,
-      String content,
-      @JsonKey(name: 'author_name') String authorName,
-      @JsonKey(name: 'author_id') int authorID});
+  $Res call({int id, String content, String authorName, int authorId});
 }
 
 /// @nodoc
@@ -62,7 +56,7 @@ class _$QuotesModelCopyWithImpl<$Res, $Val extends QuotesModel>
     Object? id = null,
     Object? content = null,
     Object? authorName = null,
-    Object? authorID = null,
+    Object? authorId = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -77,9 +71,9 @@ class _$QuotesModelCopyWithImpl<$Res, $Val extends QuotesModel>
           ? _value.authorName
           : authorName // ignore: cast_nullable_to_non_nullable
               as String,
-      authorID: null == authorID
-          ? _value.authorID
-          : authorID // ignore: cast_nullable_to_non_nullable
+      authorId: null == authorId
+          ? _value.authorId
+          : authorId // ignore: cast_nullable_to_non_nullable
               as int,
     ) as $Val);
   }
@@ -93,11 +87,7 @@ abstract class _$$_QuotesModelCopyWith<$Res>
       __$$_QuotesModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {int id,
-      String content,
-      @JsonKey(name: 'author_name') String authorName,
-      @JsonKey(name: 'author_id') int authorID});
+  $Res call({int id, String content, String authorName, int authorId});
 }
 
 /// @nodoc
@@ -114,7 +104,7 @@ class __$$_QuotesModelCopyWithImpl<$Res>
     Object? id = null,
     Object? content = null,
     Object? authorName = null,
-    Object? authorID = null,
+    Object? authorId = null,
   }) {
     return _then(_$_QuotesModel(
       null == id
@@ -129,22 +119,19 @@ class __$$_QuotesModelCopyWithImpl<$Res>
           ? _value.authorName
           : authorName // ignore: cast_nullable_to_non_nullable
               as String,
-      null == authorID
-          ? _value.authorID
-          : authorID // ignore: cast_nullable_to_non_nullable
+      null == authorId
+          ? _value.authorId
+          : authorId // ignore: cast_nullable_to_non_nullable
               as int,
     ));
   }
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(fieldRename: FieldRename.snake)
 class _$_QuotesModel implements _QuotesModel {
-  _$_QuotesModel(
-      this.id,
-      this.content,
-      @JsonKey(name: 'author_name') this.authorName,
-      @JsonKey(name: 'author_id') this.authorID);
+  _$_QuotesModel(this.id, this.content, this.authorName, this.authorId);
 
   factory _$_QuotesModel.fromJson(Map<String, dynamic> json) =>
       _$$_QuotesModelFromJson(json);
@@ -154,15 +141,13 @@ class _$_QuotesModel implements _QuotesModel {
   @override
   final String content;
   @override
-  @JsonKey(name: 'author_name')
   final String authorName;
   @override
-  @JsonKey(name: 'author_id')
-  final int authorID;
+  final int authorId;
 
   @override
   String toString() {
-    return 'QuotesModel(id: $id, content: $content, authorName: $authorName, authorID: $authorID)';
+    return 'QuotesModel(id: $id, content: $content, authorName: $authorName, authorId: $authorId)';
   }
 
   @override
@@ -174,14 +159,14 @@ class _$_QuotesModel implements _QuotesModel {
             (identical(other.content, content) || other.content == content) &&
             (identical(other.authorName, authorName) ||
                 other.authorName == authorName) &&
-            (identical(other.authorID, authorID) ||
-                other.authorID == authorID));
+            (identical(other.authorId, authorId) ||
+                other.authorId == authorId));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, id, content, authorName, authorID);
+      Object.hash(runtimeType, id, content, authorName, authorId);
 
   @JsonKey(ignore: true)
   @override
@@ -198,11 +183,8 @@ class _$_QuotesModel implements _QuotesModel {
 }
 
 abstract class _QuotesModel implements QuotesModel {
-  factory _QuotesModel(
-      final int id,
-      final String content,
-      @JsonKey(name: 'author_name') final String authorName,
-      @JsonKey(name: 'author_id') final int authorID) = _$_QuotesModel;
+  factory _QuotesModel(final int id, final String content,
+      final String authorName, final int authorId) = _$_QuotesModel;
 
   factory _QuotesModel.fromJson(Map<String, dynamic> json) =
       _$_QuotesModel.fromJson;
@@ -212,11 +194,9 @@ abstract class _QuotesModel implements QuotesModel {
   @override
   String get content;
   @override
-  @JsonKey(name: 'author_name')
   String get authorName;
   @override
-  @JsonKey(name: 'author_id')
-  int get authorID;
+  int get authorId;
   @override
   @JsonKey(ignore: true)
   _$$_QuotesModelCopyWith<_$_QuotesModel> get copyWith =>

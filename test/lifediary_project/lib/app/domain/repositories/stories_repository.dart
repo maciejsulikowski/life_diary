@@ -13,6 +13,6 @@ class StoriesRepository {
   Future<List<StoriesModel>> getStoriesModel(int authorID) async {
     final allStories = await storiesRemoteDataSource.getStories();
 
-    return allStories.where((element) => element.authorID == authorID).toList();
+    return allStories.where((element) => element.authorId == authorID).toList();
   }
 }

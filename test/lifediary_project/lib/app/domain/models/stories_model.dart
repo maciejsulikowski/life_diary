@@ -6,8 +6,9 @@ part 'stories_model.g.dart';
 
 @freezed
 class StoriesModel with _$StoriesModel {
+  @JsonSerializable(fieldRename: FieldRename.snake)
   factory StoriesModel(
-    @JsonKey(name: 'author_id') int authorID,
+    int authorId,
     String bio,
     String picture,
     String source,

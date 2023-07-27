@@ -16,7 +16,7 @@ _$_StoriesModel _$$_StoriesModelFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$_StoriesModelToJson(_$_StoriesModel instance) =>
     <String, dynamic>{
-      'author_id': instance.authorID,
+      'author_id': instance.authorId,
       'bio': instance.bio,
       'picture': instance.picture,
       'source': instance.source,

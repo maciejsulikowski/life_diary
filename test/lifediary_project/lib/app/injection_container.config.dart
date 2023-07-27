@@ -138,12 +138,12 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i24.DiaresCubit>(
         () => _i24.DiaresCubit(gh<_i4.ItemsRepository>()));
     gh.lazySingleton<_i25.Dio>(
-      () => registerModule.dioSecondUrl(gh<String>(instanceName: 'SecondUrl')),
-      instanceName: 'Dio2',
-    );
-    gh.lazySingleton<_i25.Dio>(
       () => registerModule.dio(gh<String>(instanceName: 'BaseUrl')),
       instanceName: 'Dio1',
+    );
+    gh.lazySingleton<_i25.Dio>(
+      () => registerModule.dioSecondUrl(gh<String>(instanceName: 'SecondUrl')),
+      instanceName: 'Dio2',
     );
     gh.factory<_i26.QuotesRemoteRetrofitDataSource>(() =>
         _i26.QuotesRemoteRetrofitDataSource(
