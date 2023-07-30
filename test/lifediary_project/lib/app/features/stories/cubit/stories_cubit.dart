@@ -26,6 +26,7 @@ class StoriesCubit extends Cubit<StoriesState> {
       emit(
         StoriesState(
           errorMessage: error.toString(),
+          status: Status.error,
         ),
       );
     }

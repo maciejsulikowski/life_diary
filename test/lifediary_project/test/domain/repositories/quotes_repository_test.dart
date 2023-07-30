@@ -16,12 +16,22 @@ void main() {
     sut = QuotesRepository(dataSource);
   });
 
-  group('description', () {
+  group('getQuotesModel', () {
+    test('should call quotesRemoteDataSource.getQuotes() method', () async {
+      //1
+      when(() => dataSource.getQuotes()).thenAnswer((_) async => []);
+      //2
+      await sut.getQuotesModel();
+      //3
+      verify(() => (dataSource.getQuotes())).called(1);
+    });
+
     test('', () async {
       //1
       when(() => dataSource.getQuotes()).thenAnswer((_) async => [
             QuotesModel(1, 'content1', 'authorName1', 1),
             QuotesModel(2, 'content2', 'authorName2', 2),
+            QuotesModel(3, 'content3', 'authorName3', 3),
           ]);
       //2
       final results = await sut.getQuotesModel();
@@ -29,6 +39,7 @@ void main() {
       expect(results, [
         QuotesModel(1, 'content1', 'authorName1', 1),
         QuotesModel(2, 'content2', 'authorName2', 2),
+        QuotesModel(3, 'content3', 'authorName3', 3),
       ]);
     });
   });
