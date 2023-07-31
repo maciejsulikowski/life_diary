@@ -173,117 +173,114 @@ class _UserViewState extends State<UserView> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.black87,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              const SizedBox(height: 20),
-              Text(
-                'Witaj w profilu użytkownika!',
-                style: GoogleFonts.buenard(
-                  color: Colors.yellow,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24,
-                ),
+    return Scaffold(
+      backgroundColor: Colors.black87,
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const SizedBox(height: 20),
+            Text(
+              'Witaj w profilu użytkownika!',
+              style: GoogleFonts.buenard(
+                color: Colors.yellow,
+                fontWeight: FontWeight.bold,
+                fontSize: 24,
               ),
-              const SizedBox(height: 20),
-              if (widget.userModel != null) ...[
-                UserPhoto(
-                  userModel: widget.userModel!,
-                  onImageUrlChanged: (newValue) {
-                    setState(() {
-                      final updatedUserModel =
-                          widget.userModel!.copyWith(imageURL: newValue);
-                      widget.userModel = updatedUserModel;
-                    });
-                  },
-                ),
-              ],
-              const SizedBox(height: 20),
-              TextField(
-                style: GoogleFonts.buenard(
-                  fontSize: 20,
-                  color: Colors.yellow[400],
-                  fontWeight: FontWeight.bold,
-                ),
-                controller: controller,
-                textAlign: TextAlign.center,
-                decoration: InputDecoration(
-                  focusedBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color.fromRGBO(255, 238, 88, 1),
-                      width: 2.0,
-                    ),
-                  ),
-                  enabledBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color.fromARGB(255, 67, 64, 64),
-                      width: 2.0,
-                    ),
-                  ),
-                  hintText: 'Wpisz swoje imię i nazwisko',
-                  hintStyle: GoogleFonts.buenard(
-                    fontSize: 20,
-                    color: Colors.yellow[400],
-                  ),
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      icon,
-                      color: iconColor,
-                    ),
-                    onPressed: icon == Icons.check ? onFullNamePressed : null,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              TextField(
-                style: GoogleFonts.buenard(
-                  fontSize: 20,
-                  color: Colors.yellow[400],
-                  fontWeight: FontWeight.bold,
-                ),
-                maxLines: null, // Pozwala na dowolną liczbę linii
-                keyboardType: TextInputType
-                    .multiline, // Pozwala na wpisywanie w wielu liniach
-                textAlignVertical: TextAlignVertical.center,
-                textInputAction: TextInputAction
-                    .newline, // Włącza przycisk nowej linii na klawiaturze
-                controller: storyController,
-                textAlign: TextAlign.center,
-                decoration: InputDecoration(
-                  focusedBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color.fromRGBO(255, 238, 88, 1),
-                      width: 2.0,
-                    ),
-                  ),
-                  enabledBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color.fromARGB(255, 67, 64, 64),
-                      width: 2.0,
-                    ),
-                  ),
-                  hintText: 'Napisz coś o sobie...',
-                  hintStyle: GoogleFonts.buenard(
-                    fontSize: 20,
-                    color: Colors.yellow[400],
-                    fontWeight: FontWeight.bold,
-                  ),
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      icon,
-                      color: iconColor,
-                    ),
-                    onPressed: icon == Icons.check ? onStoryTextPressed : null,
-                  ),
-                ),
+            ),
+            const SizedBox(height: 20),
+            if (widget.userModel != null) ...[
+              UserPhoto(
+                userModel: widget.userModel!,
+                onImageUrlChanged: (newValue) {
+                  setState(() {
+                    final updatedUserModel =
+                        widget.userModel!.copyWith(imageURL: newValue);
+                    widget.userModel = updatedUserModel;
+                  });
+                },
               ),
             ],
-          ),
+            const SizedBox(height: 20),
+            TextField(
+              style: GoogleFonts.buenard(
+                fontSize: 20,
+                color: Colors.yellow[400],
+                fontWeight: FontWeight.bold,
+              ),
+              controller: controller,
+              textAlign: TextAlign.center,
+              decoration: InputDecoration(
+                focusedBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Color.fromRGBO(255, 238, 88, 1),
+                    width: 2.0,
+                  ),
+                ),
+                enabledBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Color.fromARGB(255, 67, 64, 64),
+                    width: 2.0,
+                  ),
+                ),
+                hintText: 'Wpisz swoje imię i nazwisko',
+                hintStyle: GoogleFonts.buenard(
+                  fontSize: 20,
+                  color: Colors.yellow[400],
+                ),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    icon,
+                    color: iconColor,
+                  ),
+                  onPressed: icon == Icons.check ? onFullNamePressed : null,
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            TextField(
+              style: GoogleFonts.buenard(
+                fontSize: 20,
+                color: Colors.yellow[400],
+                fontWeight: FontWeight.bold,
+              ),
+              maxLines: null, // Pozwala na dowolną liczbę linii
+              keyboardType: TextInputType
+                  .multiline, // Pozwala na wpisywanie w wielu liniach
+              textAlignVertical: TextAlignVertical.center,
+              textInputAction: TextInputAction
+                  .newline, // Włącza przycisk nowej linii na klawiaturze
+              controller: storyController,
+              textAlign: TextAlign.center,
+              decoration: InputDecoration(
+                focusedBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Color.fromRGBO(255, 238, 88, 1),
+                    width: 2.0,
+                  ),
+                ),
+                enabledBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Color.fromARGB(255, 67, 64, 64),
+                    width: 2.0,
+                  ),
+                ),
+                hintText: 'Napisz coś o sobie...',
+                hintStyle: GoogleFonts.buenard(
+                  fontSize: 20,
+                  color: Colors.yellow[400],
+                  fontWeight: FontWeight.bold,
+                ),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    icon,
+                    color: iconColor,
+                  ),
+                  onPressed: icon == Icons.check ? onStoryTextPressed : null,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

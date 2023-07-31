@@ -47,7 +47,7 @@ class InstructionPage extends StatelessWidget {
                                     color: Colors.yellow[400],
                                     fontWeight: FontWeight.bold),
                               ),
-                              WidgetSpan(
+                              const WidgetSpan(
                                 child: Padding(
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 4.0),
@@ -87,7 +87,7 @@ class InstructionPage extends StatelessWidget {
                                     color: Colors.yellow[400],
                                     fontWeight: FontWeight.bold),
                               ),
-                              WidgetSpan(
+                              const WidgetSpan(
                                 child: Padding(
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 4.0),
@@ -127,7 +127,7 @@ class InstructionPage extends StatelessWidget {
                                     color: Colors.yellow[400],
                                     fontWeight: FontWeight.bold),
                               ),
-                              WidgetSpan(
+                              const WidgetSpan(
                                 child: Padding(
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 4.0),
@@ -167,7 +167,7 @@ class InstructionPage extends StatelessWidget {
                                     color: Colors.yellow[400],
                                     fontWeight: FontWeight.bold),
                               ),
-                              WidgetSpan(
+                              const WidgetSpan(
                                 child: Padding(
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 4.0),
@@ -207,7 +207,7 @@ class InstructionPage extends StatelessWidget {
                                     color: Colors.yellow[400],
                                     fontWeight: FontWeight.bold),
                               ),
-                              WidgetSpan(
+                              const WidgetSpan(
                                 child: Padding(
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 4.0),
@@ -246,7 +246,7 @@ class InstructionPage extends StatelessWidget {
                                     color: Colors.yellow[400],
                                     fontWeight: FontWeight.bold),
                               ),
-                              WidgetSpan(
+                              const WidgetSpan(
                                 child: Padding(
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 4.0),

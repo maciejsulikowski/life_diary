@@ -195,27 +195,31 @@ class WaterPageState extends State<WaterPage> {
                   ),
                   const SizedBox(height: 20),
                   if (isAnswered == true) ...[
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Powinieneś pić około $result ml wody!',
-                          style: GoogleFonts.buenard(
-                              fontSize: 24,
-                              color: Colors.indigo[700],
-                              fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center,
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Powinieneś pić około $result ml wody!',
+                              style: GoogleFonts.buenard(
+                                  fontSize: 24,
+                                  color: Colors.indigo[700],
+                                  fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                            Text(
+                              'Co daje gdzieś $glassResult szklanek wody dziennie!',
+                              style: GoogleFonts.buenard(
+                                  fontSize: 24,
+                                  color: Colors.indigo[700],
+                                  fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            )
+                          ],
                         ),
-                        Text(
-                          'Co daje gdzieś $glassResult szklanek wody dziennie!',
-                          style: GoogleFonts.buenard(
-                              fontSize: 24,
-                              color: Colors.indigo[700],
-                              fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center,
-                        )
-                      ],
+                      ),
                     ),
                   ]
                 ],
