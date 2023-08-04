@@ -2,18 +2,14 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'user_model.freezed.dart';
 
-
 @freezed
 class UserModel with _$UserModel {
   factory UserModel({
     String? id,
     @Default('') String imageURL,
     @Default('') String fullName,
-    @Default('') String storyText,}
-
-  ) = _UserModel;
-
-
+    @Default('') String storyText,
+  }) = _UserModel;
 }
 
 // class UserModel {

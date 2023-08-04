@@ -7,16 +7,29 @@ class UserRepository {
 
   final UserRemoteDataSource _userRemoteDataSource;
 
-  Stream<UserModel?> getUserData() {
+  Stream<UserModel> getUserData() {
     return _userRemoteDataSource.getUserStream().map(
           (data) => UserModel(
             id: data['id'],
-            imageURL: data['image_url'],
-            fullName: data['full_name'],
-            storyText: data['story_text'],
+            imageURL: data['image_url'] ?? '',
+            fullName: data['full_name'] ?? '',
+            storyText: data['story_text'] ?? '',
           ),
         );
   }
+  // Stream<List<UserModel>> getUserData() {
+  //   return _userRemoteDataSource.getUserStream().map((data) {
+  //     return data
+  //         .map(
+  //           (data) => UserModel(
+  //             id: data['id'],
+  //             time: data['time'],
+  //             text: data['title'],
+  //           ),
+  //         )
+  //         .toList();
+  //   });
+  // }
 
   Future<void> add(String imageURL) async {
     return _userRemoteDataSource.add(imageURL);

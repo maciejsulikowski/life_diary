@@ -40,7 +40,7 @@ class RootPage extends StatelessWidget {
       return const MyStatelessWidget();
     }
     final errorMessage = state.errorMessage ?? 'Unknown error';
-    if (state.errorMessage == Status.error) {
+    if (state.status == Status.error) {
       return Text('Wystapil blad: $errorMessage');
     }
     if (state.status == Status.loading) {

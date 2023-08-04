@@ -201,8 +201,8 @@ class MyAccountPageContent extends StatelessWidget {
                                 color: Colors.yellow[400],
                                 fontWeight: FontWeight.bold),
                           ),
-                          onPressed: () async {
-                            await context.read<RootCubit>().signOut();
+                          onPressed: () {
+                            context.read<RootCubit>().signOut();
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(

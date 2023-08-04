@@ -44,10 +44,13 @@ class ThirdWelcomePage extends StatelessWidget {
         ),
         body: Stack(children: <Widget>[
           Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(randomImage.toString()),
-                fit: BoxFit.cover,
+            color: Colors.black87,
+            child: Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(randomImage.toString()),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
@@ -59,10 +62,10 @@ class ThirdWelcomePage extends StatelessWidget {
                   child: Text(
                     element,
                     style: GoogleFonts.buenard(
-                      fontSize: 22,
-                      color: Colors.yellow[400],
-                      fontWeight: FontWeight.bold,
-                    ),
+                        fontSize: 22,
+                        color: Colors.yellow[400],
+                        fontStyle: FontStyle.italic,
+                        fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
                 ),

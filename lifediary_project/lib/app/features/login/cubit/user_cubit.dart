@@ -7,12 +7,7 @@ import 'package:lifediary_project/app/domain/repositories/user_repository.dart';
 import 'package:lifediary_project/app/features/login/cubit/user_state.dart';
 
 class UserCubit extends Cubit<UserState> {
-  UserCubit(this._userRepository)
-      : super(UserState(
-          userModel: null,
-          status: Status.loading,
-          isSaved: false,
-        ));
+  UserCubit(this._userRepository) : super(UserState());
 
   final UserRepository _userRepository;
 
@@ -20,8 +15,6 @@ class UserCubit extends Cubit<UserState> {
 
   Future<void> start() async {
     emit(UserState(
-      userModel: null,
-      isSaved: false,
       status: Status.loading,
     ));
     _streamSubscription = _userRepository.getUserData().listen(
@@ -34,7 +27,6 @@ class UserCubit extends Cubit<UserState> {
         } catch (error) {
           emit(
             UserState(
-              userModel: null,
               status: Status.error,
               isSaved: false,
               errorMessage: error.toString(),
@@ -50,12 +42,10 @@ class UserCubit extends Cubit<UserState> {
   ) async {
     try {
       await _userRepository.add(imageURL);
-      emit(UserState(userModel: null, status: Status.success, isSaved: true));
+      emit(UserState(status: Status.success, isSaved: true));
     } catch (error) {
       emit(UserState(
-        userModel: null,
         status: Status.error,
-        isSaved: false,
         errorMessage: error.toString(),
       ));
     }
@@ -66,12 +56,10 @@ class UserCubit extends Cubit<UserState> {
   ) async {
     try {
       await _userRepository.addFullName(fullName);
-      emit(UserState(userModel: null, status: Status.success, isSaved: true));
+      emit(UserState(status: Status.success, isSaved: true));
     } catch (error) {
       emit(UserState(
-        userModel: null,
         status: Status.error,
-        isSaved: false,
         errorMessage: error.toString(),
       ));
     }
@@ -82,12 +70,10 @@ class UserCubit extends Cubit<UserState> {
   ) async {
     try {
       await _userRepository.addStoryText(storyText);
-      emit(UserState(userModel: null, status: Status.success, isSaved: true));
+      emit(UserState(status: Status.success, isSaved: true));
     } catch (error) {
       emit(UserState(
-        userModel: null,
         status: Status.error,
-        isSaved: false,
         errorMessage: error.toString(),
       ));
     }

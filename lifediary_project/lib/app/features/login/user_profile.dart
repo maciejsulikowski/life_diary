@@ -2,6 +2,7 @@
 // ignore_for_file: must_be_immutable, duplicate_ignore
 
 import 'dart:io';
+import 'dart:math';
 
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -14,21 +15,21 @@ import 'package:lifediary_project/app/features/login/cubit/user_state.dart';
 import 'package:lifediary_project/app/injection_container.dart';
 
 class UserProfile extends StatefulWidget {
-  // ignore: use_key_in_widget_constructors
   const UserProfile({
     Key? key,
   });
 
   @override
-  // ignore: library_private_types_in_public_api
   _UserProfileState createState() => _UserProfileState();
 }
 
 class _UserProfileState extends State<UserProfile> {
+  bool isCubitStarted = false;
+
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<UserCubit>()..start(),
+    return BlocProvider<UserCubit>.value(
+      value: getIt<UserCubit>()..start(),
       child: BlocListener<UserCubit, UserState>(
         listener: (context, state) {
           if (state.isSaved) {
@@ -69,12 +70,10 @@ class _UserProfileState extends State<UserProfile> {
   }
 }
 
-// ignore: must_be_immutable
 class UserView extends StatefulWidget {
   UserModel? userModel;
   Function(String) onFullNameChanged;
 
-  // ignore: use_key_in_widget_constructors
   UserView({
     Key? key,
     required this.userModel,
@@ -154,12 +153,6 @@ class _UserViewState extends State<UserView> {
         iconColor;
       }
     });
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
   }
 
   @override
@@ -302,74 +295,72 @@ class UserPhoto extends StatefulWidget {
 }
 
 class _UserPhotoState extends State<UserPhoto> {
-  bool isLoading = false; // Nowa zmienna do przechowywania stanu ładowania
+  bool isLoading = false;
+  static const String defaultImageUrl =
+      'https://example.com/default_profile_image.jpg';
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<UserCubit>(),
-      child: BlocBuilder<UserCubit, UserState>(
-        builder: (context, state) {
-          return InkWell(
-            onTap: () async {
-              final imagePicker = ImagePicker();
-              final XFile? file =
-                  await imagePicker.pickImage(source: ImageSource.gallery);
+    return InkWell(
+      onTap: () async {
+        final imagePicker = ImagePicker();
+        final XFile? file =
+            await imagePicker.pickImage(source: ImageSource.gallery);
 
-              if (file == null) return;
+        if (file == null) return;
 
-              final String uniqueFileName =
-                  DateTime.now().millisecondsSinceEpoch.toString();
+        final String uniqueFileName =
+            DateTime.now().millisecondsSinceEpoch.toString();
 
-              final Reference referenceRoot =
-                  await context.read<UserCubit>().pathRef();
-              final Reference referenceDirImages =
-                  referenceRoot.child(uniqueFileName);
+        final Reference referenceRoot =
+            await context.read<UserCubit>().pathRef();
+        final Reference referenceDirImages =
+            referenceRoot.child(uniqueFileName);
 
-              final Reference referenceImageToUpload =
-                  referenceDirImages.child(uniqueFileName);
+        final Reference referenceImageToUpload =
+            referenceDirImages.child(uniqueFileName);
 
-              try {
-                setState(() {
-                  isLoading = true;
-                });
+        try {
+          setState(() {
+            isLoading = true;
+          });
 
-                await referenceImageToUpload.putFile(File(file.path));
-                final imageUrl = await referenceImageToUpload.getDownloadURL();
-                setState(() {
-                  final updatedUserModel =
-                      widget.userModel.copyWith(imageURL: imageUrl);
-                  widget.userModel = updatedUserModel;
-                  isLoading = false; //
-                });
-                widget.onImageUrlChanged(imageUrl);
-                context.read<UserCubit>().add(imageUrl);
-              } catch (error) {
-                setState(() {
-                  isLoading = false;
-                });
-              }
-            },
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                // ignore: unnecessary_null_comparison
-                if (widget.userModel.imageURL != null)
-                  CircleAvatar(
-                    radius: 60,
-                    backgroundColor: Colors.black,
-                    backgroundImage: NetworkImage(widget.userModel.imageURL),
-                  ),
-                if (isLoading)
-                  const CircleAvatar(
-                    radius: 60,
-                    backgroundColor: Colors.black,
-                    child: CircularProgressIndicator(),
-                  ),
-              ],
+          await referenceImageToUpload.putFile(File(file.path));
+          final imageUrl = await referenceImageToUpload.getDownloadURL();
+          setState(() {
+            final updatedUserModel =
+                widget.userModel.copyWith(imageURL: imageUrl);
+            widget.userModel = updatedUserModel;
+            isLoading = false; //
+          });
+          widget.onImageUrlChanged(imageUrl);
+          context.read<UserCubit>().add(imageUrl);
+        } catch (error) {
+          setState(() {
+            isLoading = false;
+          });
+        }
+      },
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          // ignore: unnecessary_null_comparison
+          CircleAvatar(
+            radius: 60,
+            backgroundColor: Colors.black,
+            backgroundImage: widget.userModel.imageURL != null
+                ? NetworkImage(widget.userModel.imageURL)
+                : NetworkImage(
+                    defaultImageUrl), // Użycie adresu URL przykładowego zdjęcia, gdy imageURL jest puste
+          ),
+
+          if (isLoading)
+            const CircleAvatar(
+              radius: 60,
+              backgroundColor: Colors.black,
+              child: CircularProgressIndicator(),
             ),
-          );
-        },
+        ],
       ),
     );
   }
