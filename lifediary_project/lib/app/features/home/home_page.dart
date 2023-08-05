@@ -62,7 +62,7 @@ class _HomePageState extends State<HomePage> {
         onTap: (newIndex) {
           setState(() {
             currentIndex = newIndex;
-          });
+          });//ss
         },
         items: const [
           BottomNavigationBarItem(
