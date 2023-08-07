@@ -23,8 +23,8 @@ class _ToDoListContentState extends State<ToDoListContent> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<ToDoListCubit>()..start(),
+    return BlocProvider<ToDoListCubit>.value(
+      value: getIt<ToDoListCubit>()..start(),
       child: BlocListener<ToDoListCubit, ToDoListState>(
         listener: (context, state) {
           if (state.saved) {

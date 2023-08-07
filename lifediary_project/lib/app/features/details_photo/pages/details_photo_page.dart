@@ -237,24 +237,30 @@ class _ListViewItem extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 10),
-                WeightSentence(
-                  weightController: weightController,
-                ),
-                const SizedBox(height: 10),
-                HeightSentence(
-                  heightController: heightController,
-                ),
-                const SizedBox(height: 10),
-                NewSentence(
-                  newController: newController,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                const Expanded(
-                  flex: 1,
-                  child: QuoteSentence(),
+                Expanded(
+                  child: ListView(
+                    children: [
+                      WeightSentence(
+                        weightController: weightController,
+                      ),
+                      const SizedBox(height: 10),
+                      HeightSentence(
+                        heightController: heightController,
+                      ),
+                      const SizedBox(height: 10),
+                      NewSentence(
+                        newController: newController,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                    ],
+                  ),
                 )
+                // const Expanded(
+                //   flex: 1,
+                //   child: QuoteSentence(),
+                // )
               ],
             ),
           ),
@@ -414,60 +420,60 @@ class NewSentence extends StatelessWidget {
   }
 }
 
-class QuoteSentence extends StatelessWidget {
-  const QuoteSentence({
-    super.key,
-  });
+// class QuoteSentence extends StatelessWidget {
+//   const QuoteSentence({
+//     super.key,
+//   });
 
-  @override
-  Widget build(BuildContext context) {
-    final random = Random();
-    final quotes = [
-      'Człowiek staje się tym, o czym myśli. Ralph Waldo Emerson',
-      'Prawdziwe szczęście jest rzeczą wysiłku, odwagi i pracy. Honore de Balzac',
-      'Początek jest najważniejszą częścią pracy. Platon',
-      'Zwycięzcy robią to, czego przegranym się nie chciało. Jonathan Carroll',
-      'Z uśmiechem na twarzy człowiek podwaja swoje możliwości. Przysłowie japońskie',
-    ];
-    final randomQuote = quotes[random.nextInt(quotes.length)];
-    final parts = randomQuote.split('.');
-    final quoteText = '${parts.first.trim()}.';
-    final author = parts.last.trim();
+//   @override
+//   Widget build(BuildContext context) {
+//     final random = Random();
+//     final quotes = [
+//       'Człowiek staje się tym, o czym myśli. Ralph Waldo Emerson',
+//       'Prawdziwe szczęście jest rzeczą wysiłku, odwagi i pracy. Honore de Balzac',
+//       'Początek jest najważniejszą częścią pracy. Platon',
+//       'Zwycięzcy robią to, czego przegranym się nie chciało. Jonathan Carroll',
+//       'Z uśmiechem na twarzy człowiek podwaja swoje możliwości. Przysłowie japońskie',
+//     ];
+//     final randomQuote = quotes[random.nextInt(quotes.length)];
+//     final parts = randomQuote.split('.');
+//     final quoteText = '${parts.first.trim()}.';
+//     final author = parts.last.trim();
 
-    final quoteSpans = <TextSpan>[
-      TextSpan(text: quoteText),
-      const TextSpan(text: ' '),
-      TextSpan(text: author, style: const TextStyle(color: Colors.grey)),
-    ];
-    return Column(
-      children: [
-        Expanded(
-          flex: 1,
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              color: Colors.black,
-              border: Border.all(
-                color: Colors.white,
-                width: 2,
-              ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Center(
-                child: RichText(
-                  textAlign: TextAlign.center,
-                  text: TextSpan(
-                      children: quoteSpans,
-                      style: const TextStyle(
-                          fontSize: 16,
-                          fontStyle: FontStyle.italic,
-                          color: Colors.white)),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
+//     final quoteSpans = <TextSpan>[
+//       TextSpan(text: quoteText),
+//       const TextSpan(text: ' '),
+//       TextSpan(text: author, style: const TextStyle(color: Colors.grey)),
+//     ];
+//     return Column(
+//       children: [
+//         Expanded(
+//           flex: 1,
+//           child: DecoratedBox(
+//             decoration: BoxDecoration(
+//               color: Colors.black,
+//               border: Border.all(
+//                 color: Colors.white,
+//                 width: 2,
+//               ),
+//             ),
+//             child: Padding(
+//               padding: const EdgeInsets.all(20.0),
+//               child: Center(
+//                 child: RichText(
+//                   textAlign: TextAlign.center,
+//                   text: TextSpan(
+//                       children: quoteSpans,
+//                       style: const TextStyle(
+//                           fontSize: 16,
+//                           fontStyle: FontStyle.italic,
+//                           color: Colors.white)),
+//                 ),
+//               ),
+//             ),
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+// }

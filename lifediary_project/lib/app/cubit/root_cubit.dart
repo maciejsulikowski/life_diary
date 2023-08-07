@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:lifediary_project/app/core/auth_exception.dart';
 import 'package:lifediary_project/app/core/enums.dart';
 import 'package:lifediary_project/app/domain/repositories/root_repository.dart';
 import 'package:lifediary_project/app/domain/repositories/user_repository.dart';
@@ -33,12 +34,13 @@ class RootCubit extends Cubit<RootState> {
         password: password.text,
       );
     } catch (error) {
+      AuthExceptionHandler.handleException(error);
       emit(
         RootState(
-          user: null,
-          status: Status.error,
-          errorMessage: error.toString(),
-        ),
+            user: null,
+            status: Status.error,
+            errorMessage: error.toString(),
+            errorStatus: AuthResultStatus.error),
       );
     }
   }
@@ -53,13 +55,7 @@ class RootCubit extends Cubit<RootState> {
         password: password.text,
       );
     } catch (error) {
-      emit(
-        RootState(
-          user: null,
-          status: Status.error,
-          errorMessage: error.toString(),
-        ),
-      );
+      emit(RootState(user: null, errorStatus: AuthResultStatus.error));
     }
   }
 
