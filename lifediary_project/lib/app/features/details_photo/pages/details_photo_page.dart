@@ -223,6 +223,7 @@ class _ListViewItem extends StatelessWidget {
                                 const SizedBox(height: 3),
                                 Text(
                                   photoModel!.releaseDateFormatted(),
+                                  
                                   style: GoogleFonts.buenard(
                                       fontSize: 18,
                                       color: Colors.yellow[400],
@@ -267,6 +268,7 @@ class _ListViewItem extends StatelessWidget {
         ),
     ]);
   }
+  
 }
 
 class WeightSentence extends StatefulWidget {

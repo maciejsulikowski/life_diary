@@ -16,10 +16,9 @@ class PhotosModel with _$PhotosModel {
     @Default('') String goals,
   }) = _PhotosModel;
 
-String releaseDateFormatted() {
+  String releaseDateFormatted() {
     return DateFormat.yMMMEd().format(releaseDate);
   }
-
 }
 
 // class PhotosModel {

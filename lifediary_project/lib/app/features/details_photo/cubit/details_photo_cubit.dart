@@ -38,8 +38,10 @@ class DetailsPhotoCubit extends Cubit<DetailsPhotoState> {
         status: Status.loading,
       ),
     );
+
     _streamSubscription =
         _photosRepository.getPhotosStream().listen((photoModel) {
+     
       emit(
         DetailsPhotoState(
           photosModel: null,
