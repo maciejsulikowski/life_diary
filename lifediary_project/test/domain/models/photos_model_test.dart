@@ -9,13 +9,13 @@ void main() {
         id: '1',
         title: 'title',
         imageURL: 'imageURL',
-        releaseDate: DateFormat('yMMMEd').parse('Thu, Jul 6, 2023'));
+        releaseDate: DateTime(2023, 7, 6));
 
     //2
-    final results = model.releaseDate;
+    final results = model.releaseDateFormatted();
 
     //3
 
-    expect(results, DateFormat('yMMMEd').parse('Thu, Jul 6, 2023'));
+    expect(results,'Thu, Jul 6, 2023');
   });
 }
