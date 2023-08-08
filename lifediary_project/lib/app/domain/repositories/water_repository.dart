@@ -13,7 +13,7 @@ class WaterRepository {
         ));
   }
 
-  Future<void> saveGlasses(String glasses) async {
+  Future saveGlasses(String glasses) async {
     return _waterRemoteDataSource.saveGlassesData(glasses);
   }
 
