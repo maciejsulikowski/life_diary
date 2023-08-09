@@ -69,7 +69,7 @@ void main() {
       when(() => dataSource.updateTask(itemModel))
           .thenAnswer((_) async => [itemModel]);
       //2
-      final results = await sut.updateTask(itemModel);
+      await sut.updateTask(itemModel);
       //3
       verify(() => dataSource.updateTask(itemModel)).called(1);
     });
@@ -106,8 +106,7 @@ void main() {
   group('gettasks', () {
     String taskId = '1';
     String taskTitle = 'title';
-    final itemModel =
-        ItemModelToDoList(id: '1', title: 'title', isChecked: false);
+    
     test('should call _tasksRemoteDataSource.gettask() method', () async {
       //1
       when(() => dataSource.gettasks(id: taskId, title: taskTitle))

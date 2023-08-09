@@ -29,7 +29,7 @@ class PlansRepository {
     );
   }
 
-  Future<void> addplan(
+  Future addplan(
     String text,
     String time,
   ) async {
