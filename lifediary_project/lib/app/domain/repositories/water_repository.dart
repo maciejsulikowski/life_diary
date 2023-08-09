@@ -19,6 +19,7 @@ class WaterRepository {
 
   Future<WaterModel> getGlasses({required String id}) async {
     final data = await _waterRemoteDataSource.getGlasses(id: id);
+
     return WaterModel(
       id: data['id'],
       glasses: data['glasses'] ?? '?',

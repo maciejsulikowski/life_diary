@@ -31,15 +31,15 @@ class UserRepository {
   //   });
   // }
 
-  Future<void> add(String imageURL) async {
+  Future add(String imageURL) async {
     return _userRemoteDataSource.add(imageURL);
   }
 
-  Future<void> addFullName(String fullName) async {
+  Future addFullName(String fullName) async {
     return _userRemoteDataSource.addFullName(fullName);
   }
 
-  Future<void> addStoryText(String storyText) async {
+  Future addStoryText(String storyText) async {
     return _userRemoteDataSource.addStoryText(storyText);
   }
 

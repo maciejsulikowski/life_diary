@@ -18,13 +18,13 @@ class TasksRepository {
     });
   }
 
-  Future<void> updateTask(
+  Future updateTask(
     ItemModelToDoList itemModel,
   ) async {
     return _tasksRemoteDataSource.updateTask(itemModel);
   }
 
-  Future<void> deletetask({required String id}) {
+  Future deletetask({required String id}) {
     return _tasksRemoteDataSource.deletetask(id: id);
   }
 
@@ -38,7 +38,7 @@ class TasksRepository {
     );
   }
 
-  Future<void> addtask(
+  Future addtask(
     String title,
     bool isChecked,
   ) async {
