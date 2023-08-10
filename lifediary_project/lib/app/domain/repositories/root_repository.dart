@@ -6,18 +6,18 @@ class RootRepository {
 
   final RootRemoteDataSource rootRemoteDataSource;
 
-  Future<void> createAccount({
+  Future createAccount({
     required String email,
     required String password,
   }) async {
     await rootRemoteDataSource.createUserWithEmailAndPassword(email, password);
   }
 
-  Future<void> signIn({required String email, required String password}) async {
+  Future signIn({required String email, required String password}) async {
     await rootRemoteDataSource.signInWithEmailAndPassword(email, password);
   }
 
-  Future<void> signOut() async {
+  Future signOut() async {
     await rootRemoteDataSource.signOut();
   }
 
