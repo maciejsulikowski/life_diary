@@ -24,7 +24,7 @@ class PhotosRepository {
     });
   }
 
-  Future<void> savePhotoData(
+  Future savePhotoData(
     String id,
     String weight,
     String height,
@@ -33,7 +33,7 @@ class PhotosRepository {
     return _photosRemoteDataSource.savePhotoData(id, weight, height, goals);
   }
 
-  Future<void> deletephoto({required String id}) {
+  Future deletephoto({required String id}) {
     return _photosRemoteDataSource.deletephoto(id: id);
   }
 
@@ -50,7 +50,7 @@ class PhotosRepository {
     );
   }
 
-  Future<void> addphoto(
+  Future addphoto(
     String title,
     String imageURL,
     DateTime releaseDate,
