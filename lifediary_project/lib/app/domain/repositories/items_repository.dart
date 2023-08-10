@@ -22,7 +22,7 @@ class ItemsRepository {
     });
   }
 
-  Future<void> delete({required String id}) {
+  Future delete({required String id}) {
     return _itemsRemoteDataSource.delete(id: id);
   }
 
@@ -37,7 +37,7 @@ class ItemsRepository {
     );
   }
 
-  Future<void> add(
+  Future add(
     String title,
     String imageURL,
     DateTime releaseDate,
@@ -48,7 +48,7 @@ class ItemsRepository {
         title, imageURL, releaseDate, text, fontWeight);
   }
 
-  Future<void> addtext(
+  Future addtext(
     String id,
     Delta text,
   ) async {
