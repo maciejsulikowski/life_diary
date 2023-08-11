@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc_test/bloc_test.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lifediary_project/app/core/enums.dart';
 import 'package:lifediary_project/app/domain/models/water_model.dart';
@@ -11,13 +12,17 @@ import 'package:mocktail/mocktail.dart';
 
 class MockWaterRepository extends Mock implements WaterRepository {}
 
+class MockStreamSubscription extends Mock implements StreamSubscription {}
+
 void main() {
   late MockWaterRepository repository;
   late WaterCubit sut;
+  late MockStreamSubscription subscription;
 
   setUp(() {
     repository = MockWaterRepository();
     sut = WaterCubit(repository);
+    subscription = MockStreamSubscription();
   });
 
   group('start', () {
@@ -54,8 +59,8 @@ void main() {
 
     group('failure', () {
       setUp(() {
-        when(() => repository.getGlassesStream()).thenAnswer((_) => Stream
-            .error(Exception('test-exception-error')));
+        when(() => repository.getGlassesStream())
+            .thenAnswer((_) => Stream.error(Exception('test-exception-error')));
       });
 
       blocTest<WaterCubit, WaterState>('emits Status.loading then Status.error',
@@ -118,6 +123,18 @@ void main() {
                   status: Status.error,
                 ),
               ]);
+    });
+
+    test('close cancels the stream subscription', () {
+      when(() => repository.getGlassesStream()).thenAnswer(
+        (_) => Stream.empty(),
+      );
+      when(() => subscription.cancel()).thenAnswer((_) async {});
+
+      sut.start();
+      sut.close();
+
+      verifyNever(() => subscription.cancel()).called(0);
     });
   });
 }
