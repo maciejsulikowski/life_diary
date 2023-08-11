@@ -15,10 +15,14 @@ class WaterCubit extends Cubit<WaterState> {
   StreamSubscription? _streamSubscription;
 
   Future<void> start() async {
+    emit(WaterState(
+      status: Status.loading,
+    ));
     _streamSubscription = _waterRepository.getGlassesStream().listen(
       (glasses) {
         emit(WaterState(
           glasses: glasses,
+          status: Status.success,
         ));
       },
     )..onError((error) {
@@ -36,7 +40,7 @@ class WaterCubit extends Cubit<WaterState> {
       );
     } catch (error) {
       emit(
-        WaterState(status: Status.error, glasses: null),
+        WaterState(status: Status.error, glasses: null, ),
       );
     }
   }

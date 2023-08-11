@@ -43,5 +43,27 @@ void main() {
         ],
       );
     });
+
+    group('failure', () {
+      setUp(() {
+        when(() => repository.getWeatherModel(city: 'Warszawa'))
+            .thenThrow(Exception('test-exception-error'));
+      });
+
+      blocTest<WeatherCubit, WeatherState>(
+        'emits Status.loading then Status.error with errorMessage',
+        build: () => sut,
+        act: (cubit) => cubit.getWeatherModel(city: 'Warszawa'),
+        expect: () => [
+          WeatherState(
+            status: Status.loading,
+          ),
+          WeatherState(
+            status: Status.error,
+            errorMessage: 'Exception: test-exception-error',
+          ),
+        ],
+      );
+    });
   });
 }
