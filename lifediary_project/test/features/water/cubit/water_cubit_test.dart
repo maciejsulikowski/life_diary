@@ -71,4 +71,53 @@ void main() {
               ]);
     });
   });
+
+  group('saveGlasses', () {
+    final model = WaterModel(
+      id: '1',
+      glasses: '7',
+    );
+
+    group('success', () {
+      setUp(() {
+        when(() => repository.saveGlasses('7')).thenAnswer(
+          (_) => Future.value([model]),
+        );
+      });
+
+      blocTest<WaterCubit, WaterState>(
+          'emits Status.loading then Status.succes with glasses',
+          build: () => sut,
+          act: (cubit) => cubit.saveGlasses('7'),
+          expect: () => [
+                WaterState(
+                  status: Status.loading,
+                ),
+                WaterState(
+                  status: Status.success,
+                  glasses: (model),
+                  isSaved: true,
+                ),
+              ]);
+    });
+
+    group('failure', () {
+      setUp(() {
+        when(() => repository.saveGlasses('7'))
+            .thenThrow((_) async => Exception('test-exception-error'));
+      });
+
+      blocTest<WaterCubit, WaterState>('emits Status.loading then Status.error',
+          build: () => sut,
+          act: (cubit) => cubit.saveGlasses('7'),
+          expect: () => [
+                WaterState(
+                  status: Status.loading,
+                ),
+                WaterState(
+                  status: Status.error,
+                ),
+              ]);
+    });
+  });
 }

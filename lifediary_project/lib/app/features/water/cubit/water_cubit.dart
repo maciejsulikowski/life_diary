@@ -33,14 +33,18 @@ class WaterCubit extends Cubit<WaterState> {
   }
 
   Future<void> saveGlasses(String glasses) async {
+    emit(WaterState(status: Status.loading));
     try {
       await _waterRepository.saveGlasses(glasses);
       emit(
-        WaterState(glasses: WaterModel(id: '', glasses: ''), isSaved: true),
+        WaterState(glasses: WaterModel(id: '1', glasses: '7'), isSaved: true, status: Status.success),
       );
     } catch (error) {
       emit(
-        WaterState(status: Status.error, glasses: null, ),
+        WaterState(
+          status: Status.error,
+          glasses: null,
+        ),
       );
     }
   }
