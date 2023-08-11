@@ -17,13 +17,17 @@ class ToDoListCubit extends Cubit<ToDoListState> {
     emit(ToDoListState(status: Status.loading));
     _streamSubscription = _tasksRepository.getTasksStream().listen(
       (documents) {
-        emit(ToDoListState(documents: documents));
+        emit(ToDoListState(
+          documents: documents,
+          status: Status.success,
+        ));
       },
     )..onError(
         (error) {
           emit(
             ToDoListState(
               errorMessage: error.toString(),
+              status: Status.error,
             ),
           );
         },
@@ -34,10 +38,11 @@ class ToDoListCubit extends Cubit<ToDoListState> {
     String title,
     bool isChecked,
   ) async {
+    emit(ToDoListState(status: Status.loading));
     try {
       await _tasksRepository.addtask(title, isChecked);
       emit(
-        ToDoListState(saved: true),
+        ToDoListState(saved: true, status: Status.success),
       );
     } catch (error) {
       emit(ToDoListState(status: Status.error, errorMessage: error.toString()));
@@ -47,10 +52,10 @@ class ToDoListCubit extends Cubit<ToDoListState> {
   Future<void> updateTask(ItemModelToDoList itemModel) async {
     try {
       await _tasksRepository.updateTask(itemModel);
+      emit(ToDoListState(status: Status.success));
     } catch (error) {
       emit(
-        ToDoListState(
-            status: Status.error, errorMessage: 'Something went wrong'),
+        ToDoListState(status: Status.error, errorMessage: error.toString()),
       );
     }
   }
@@ -60,10 +65,9 @@ class ToDoListCubit extends Cubit<ToDoListState> {
       await _tasksRepository.deletetask(id: documentID);
     } catch (error) {
       emit(
-        ToDoListState(
-            status: Status.error, errorMessage: 'Something went wrong'),
+        ToDoListState(status: Status.error, errorMessage: error.toString()),
       );
-      start();
+      
     }
   }
 

@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:bloc_test/bloc_test.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lifediary_project/app/core/enums.dart';
 import 'package:lifediary_project/app/domain/models/water_model.dart';
@@ -127,7 +126,7 @@ void main() {
 
     test('close cancels the stream subscription', () {
       when(() => repository.getGlassesStream()).thenAnswer(
-        (_) => Stream.empty(),
+        (_) => const Stream.empty(),
       );
       when(() => subscription.cancel()).thenAnswer((_) async {});
 
