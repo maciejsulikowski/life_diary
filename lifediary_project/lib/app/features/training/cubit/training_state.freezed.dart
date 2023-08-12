@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$TrainingState {
   PhotosModel? get photosModel => throw _privateConstructorUsedError;
   List<PhotosModel> get photos => throw _privateConstructorUsedError;
+  Status get status => throw _privateConstructorUsedError;
   bool get loadingErrorOccured => throw _privateConstructorUsedError;
   bool get removingErrorOccured => throw _privateConstructorUsedError;
 
@@ -35,6 +36,7 @@ abstract class $TrainingStateCopyWith<$Res> {
   $Res call(
       {PhotosModel? photosModel,
       List<PhotosModel> photos,
+      Status status,
       bool loadingErrorOccured,
       bool removingErrorOccured});
 
@@ -56,6 +58,7 @@ class _$TrainingStateCopyWithImpl<$Res, $Val extends TrainingState>
   $Res call({
     Object? photosModel = freezed,
     Object? photos = null,
+    Object? status = null,
     Object? loadingErrorOccured = null,
     Object? removingErrorOccured = null,
   }) {
@@ -68,6 +71,10 @@ class _$TrainingStateCopyWithImpl<$Res, $Val extends TrainingState>
           ? _value.photos
           : photos // ignore: cast_nullable_to_non_nullable
               as List<PhotosModel>,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as Status,
       loadingErrorOccured: null == loadingErrorOccured
           ? _value.loadingErrorOccured
           : loadingErrorOccured // ignore: cast_nullable_to_non_nullable
@@ -103,6 +110,7 @@ abstract class _$$_TrainingStateCopyWith<$Res>
   $Res call(
       {PhotosModel? photosModel,
       List<PhotosModel> photos,
+      Status status,
       bool loadingErrorOccured,
       bool removingErrorOccured});
 
@@ -123,6 +131,7 @@ class __$$_TrainingStateCopyWithImpl<$Res>
   $Res call({
     Object? photosModel = freezed,
     Object? photos = null,
+    Object? status = null,
     Object? loadingErrorOccured = null,
     Object? removingErrorOccured = null,
   }) {
@@ -135,6 +144,10 @@ class __$$_TrainingStateCopyWithImpl<$Res>
           ? _value._photos
           : photos // ignore: cast_nullable_to_non_nullable
               as List<PhotosModel>,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as Status,
       loadingErrorOccured: null == loadingErrorOccured
           ? _value.loadingErrorOccured
           : loadingErrorOccured // ignore: cast_nullable_to_non_nullable
@@ -153,6 +166,7 @@ class _$_TrainingState implements _TrainingState {
   _$_TrainingState(
       {this.photosModel,
       final List<PhotosModel> photos = const [],
+      this.status = Status.initial,
       this.loadingErrorOccured = false,
       this.removingErrorOccured = false})
       : _photos = photos;
@@ -170,6 +184,9 @@ class _$_TrainingState implements _TrainingState {
 
   @override
   @JsonKey()
+  final Status status;
+  @override
+  @JsonKey()
   final bool loadingErrorOccured;
   @override
   @JsonKey()
@@ -177,7 +194,7 @@ class _$_TrainingState implements _TrainingState {
 
   @override
   String toString() {
-    return 'TrainingState(photosModel: $photosModel, photos: $photos, loadingErrorOccured: $loadingErrorOccured, removingErrorOccured: $removingErrorOccured)';
+    return 'TrainingState(photosModel: $photosModel, photos: $photos, status: $status, loadingErrorOccured: $loadingErrorOccured, removingErrorOccured: $removingErrorOccured)';
   }
 
   @override
@@ -188,6 +205,7 @@ class _$_TrainingState implements _TrainingState {
             (identical(other.photosModel, photosModel) ||
                 other.photosModel == photosModel) &&
             const DeepCollectionEquality().equals(other._photos, _photos) &&
+            (identical(other.status, status) || other.status == status) &&
             (identical(other.loadingErrorOccured, loadingErrorOccured) ||
                 other.loadingErrorOccured == loadingErrorOccured) &&
             (identical(other.removingErrorOccured, removingErrorOccured) ||
@@ -199,6 +217,7 @@ class _$_TrainingState implements _TrainingState {
       runtimeType,
       photosModel,
       const DeepCollectionEquality().hash(_photos),
+      status,
       loadingErrorOccured,
       removingErrorOccured);
 
@@ -213,6 +232,7 @@ abstract class _TrainingState implements TrainingState {
   factory _TrainingState(
       {final PhotosModel? photosModel,
       final List<PhotosModel> photos,
+      final Status status,
       final bool loadingErrorOccured,
       final bool removingErrorOccured}) = _$_TrainingState;
 
@@ -220,6 +240,8 @@ abstract class _TrainingState implements TrainingState {
   PhotosModel? get photosModel;
   @override
   List<PhotosModel> get photos;
+  @override
+  Status get status;
   @override
   bool get loadingErrorOccured;
   @override

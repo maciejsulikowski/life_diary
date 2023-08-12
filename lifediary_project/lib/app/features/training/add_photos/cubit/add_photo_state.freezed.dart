@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$AddPhotoState {
   bool get saved => throw _privateConstructorUsedError;
+  Status get status => throw _privateConstructorUsedError;
   String get errorMessage => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -30,7 +31,7 @@ abstract class $AddPhotoStateCopyWith<$Res> {
           AddPhotoState value, $Res Function(AddPhotoState) then) =
       _$AddPhotoStateCopyWithImpl<$Res, AddPhotoState>;
   @useResult
-  $Res call({bool saved, String errorMessage});
+  $Res call({bool saved, Status status, String errorMessage});
 }
 
 /// @nodoc
@@ -47,6 +48,7 @@ class _$AddPhotoStateCopyWithImpl<$Res, $Val extends AddPhotoState>
   @override
   $Res call({
     Object? saved = null,
+    Object? status = null,
     Object? errorMessage = null,
   }) {
     return _then(_value.copyWith(
@@ -54,6 +56,10 @@ class _$AddPhotoStateCopyWithImpl<$Res, $Val extends AddPhotoState>
           ? _value.saved
           : saved // ignore: cast_nullable_to_non_nullable
               as bool,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as Status,
       errorMessage: null == errorMessage
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
@@ -70,7 +76,7 @@ abstract class _$$_AddPhotoStateCopyWith<$Res>
       __$$_AddPhotoStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool saved, String errorMessage});
+  $Res call({bool saved, Status status, String errorMessage});
 }
 
 /// @nodoc
@@ -85,6 +91,7 @@ class __$$_AddPhotoStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? saved = null,
+    Object? status = null,
     Object? errorMessage = null,
   }) {
     return _then(_$_AddPhotoState(
@@ -92,6 +99,10 @@ class __$$_AddPhotoStateCopyWithImpl<$Res>
           ? _value.saved
           : saved // ignore: cast_nullable_to_non_nullable
               as bool,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as Status,
       errorMessage: null == errorMessage
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
@@ -103,18 +114,24 @@ class __$$_AddPhotoStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_AddPhotoState implements _AddPhotoState {
-  _$_AddPhotoState({this.saved = false, this.errorMessage = ''});
+  _$_AddPhotoState(
+      {this.saved = false,
+      this.status = Status.initial,
+      this.errorMessage = ''});
 
   @override
   @JsonKey()
   final bool saved;
   @override
   @JsonKey()
+  final Status status;
+  @override
+  @JsonKey()
   final String errorMessage;
 
   @override
   String toString() {
-    return 'AddPhotoState(saved: $saved, errorMessage: $errorMessage)';
+    return 'AddPhotoState(saved: $saved, status: $status, errorMessage: $errorMessage)';
   }
 
   @override
@@ -123,12 +140,13 @@ class _$_AddPhotoState implements _AddPhotoState {
         (other.runtimeType == runtimeType &&
             other is _$_AddPhotoState &&
             (identical(other.saved, saved) || other.saved == saved) &&
+            (identical(other.status, status) || other.status == status) &&
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, saved, errorMessage);
+  int get hashCode => Object.hash(runtimeType, saved, status, errorMessage);
 
   @JsonKey(ignore: true)
   @override
@@ -138,11 +156,15 @@ class _$_AddPhotoState implements _AddPhotoState {
 }
 
 abstract class _AddPhotoState implements AddPhotoState {
-  factory _AddPhotoState({final bool saved, final String errorMessage}) =
-      _$_AddPhotoState;
+  factory _AddPhotoState(
+      {final bool saved,
+      final Status status,
+      final String errorMessage}) = _$_AddPhotoState;
 
   @override
   bool get saved;
+  @override
+  Status get status;
   @override
   String get errorMessage;
   @override

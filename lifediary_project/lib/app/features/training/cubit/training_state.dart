@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:lifediary_project/app/core/enums.dart';
 import 'package:lifediary_project/app/domain/models/photos_model.dart';
 
 part 'training_state.freezed.dart';
@@ -9,6 +10,7 @@ class TrainingState with _$TrainingState {
   factory TrainingState(
    { PhotosModel? photosModel,
     @Default([]) List<PhotosModel> photos,
+    @Default(Status.initial) Status status,
     @Default(false) bool loadingErrorOccured,
     @Default(false) bool removingErrorOccured}) = _TrainingState;
 }
