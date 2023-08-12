@@ -21,12 +21,13 @@ class DetailsPhotoCubit extends Cubit<DetailsPhotoState> {
   StreamSubscription? _streamSubscription;
 
   Future<void> getPhotosID(String id) async {
+    emit(DetailsPhotoState(status: Status.loading));
     final photoModel = await _photosRepository.getphotos(id: id);
     emit(
       DetailsPhotoState(
         photosModel: photoModel,
-        status: Status.loading,
-        errorMessage: '',
+        status: Status.success,
+        
         isSaved: false,
       ),
     );
@@ -41,12 +42,10 @@ class DetailsPhotoCubit extends Cubit<DetailsPhotoState> {
 
     _streamSubscription =
         _photosRepository.getPhotosStream().listen((photoModel) {
-     
       emit(
         DetailsPhotoState(
           photosModel: null,
-          status: Status.loading,
-          errorMessage: '',
+          status: Status.success,
           isSaved: false,
         ),
       );
@@ -68,18 +67,20 @@ class DetailsPhotoCubit extends Cubit<DetailsPhotoState> {
     String goals,
   ) async {
     try {
+      emit(DetailsPhotoState(status: Status.loading));
       await _photosRepository.savePhotoData(id, weight, height, goals);
       final photosModel = await _photosRepository.getphotos(id: id);
 
       emit(
         DetailsPhotoState(
           photosModel: photosModel,
-          isSaved: true,
+          status: Status.success,
         ),
       );
     } catch (error) {
       emit(DetailsPhotoState(
         errorMessage: error.toString(),
+        status: Status.error,
       ));
     }
   }
