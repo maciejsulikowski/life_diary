@@ -47,7 +47,6 @@ class DiaresCubit extends Cubit<DiaresState> {
           errorMessage: error.toString(),
         ),
       );
-      start();
     }
   }
 
