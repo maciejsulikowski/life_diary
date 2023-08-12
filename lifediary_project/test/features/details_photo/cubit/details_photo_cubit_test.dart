@@ -3,14 +3,10 @@ import 'dart:async';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lifediary_project/app/core/enums.dart';
-import 'package:lifediary_project/app/domain/models/item_model_to_do_list.dart';
 import 'package:lifediary_project/app/domain/models/photos_model.dart';
 import 'package:lifediary_project/app/domain/repositories/photos_repository.dart';
-import 'package:lifediary_project/app/domain/repositories/tasks_repository.dart';
 import 'package:lifediary_project/app/features/details_photo/cubit/details_photo_cubit.dart';
 import 'package:lifediary_project/app/features/details_photo/cubit/details_photo_state.dart';
-import 'package:lifediary_project/app/features/to_do_list/cubit/to_do_list_cubit.dart';
-import 'package:lifediary_project/app/features/to_do_list/cubit/to_do_list_state.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockPhotosRepository extends Mock implements PhotosRepository {}

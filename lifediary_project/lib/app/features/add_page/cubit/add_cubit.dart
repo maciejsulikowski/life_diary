@@ -17,6 +17,9 @@ class AddCubit extends Cubit<AddState> {
     Delta text,
     int fontWeight,
   ) async {
+    emit(AddState(
+      status: Status.loading,
+    ));
     try {
       await _itemsRepository.add(
           title, imageURL, releaseDate, text, fontWeight);

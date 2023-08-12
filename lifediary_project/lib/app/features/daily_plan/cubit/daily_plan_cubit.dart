@@ -39,6 +39,9 @@ class DailyPlanCubit extends Cubit<DailyPlanState> {
     String title,
     String time,
   ) async {
+    emit(DailyPlanState(
+      status: Status.loading,
+    ));
     try {
       await _plansRepository.addplan(title, time);
 

@@ -15,9 +15,7 @@ class DetailsCubit extends Cubit<DetailsState> {
   DetailsCubit(
     this._itemsRepository,
   ) : super(DetailsState(
-          itemModel: null,
-          status: Status.loading,
-          errorMessage: '',
+          
         ));
 
   final ItemsRepository _itemsRepository;
@@ -25,6 +23,7 @@ class DetailsCubit extends Cubit<DetailsState> {
   StreamSubscription? _streamSubscription;
 
   Future<void> getItemWithID(String id) async {
+    emit(DetailsState(status: Status.loading));
     final itemModel = await _itemsRepository.get(id: id);
     emit(
       DetailsState(
@@ -45,7 +44,6 @@ class DetailsCubit extends Cubit<DetailsState> {
         emit(DetailsState(
           itemModel: null,
           status: Status.success,
-          errorMessage: '',
           isSaved: false,
         ));
       },
@@ -59,15 +57,23 @@ class DetailsCubit extends Cubit<DetailsState> {
     String id,
     Delta title,
   ) async {
+    emit(DetailsState(status: Status.loading));
     await _itemsRepository.addtext(id, title);
     final itemModel = await _itemsRepository.get(id: id);
-    emit(
-      DetailsState(
-        itemModel: itemModel,
-        status: Status.success,
-        isSaved: true,
-      ),
-    );
+    try {
+      emit(
+        DetailsState(
+          itemModel: itemModel,
+          status: Status.success,
+          isSaved: true,
+        ),
+      );
+    } catch (error) {
+      emit(DetailsState(
+          itemModel: null,
+          status: Status.error,
+          errorMessage: error.toString()));
+    }
   }
 
   @override
