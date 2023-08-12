@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lifediary_project/app/core/enums.dart';
 import 'package:lifediary_project/app/cubit/root_cubit.dart';
+import 'package:lifediary_project/app/cubit/root_state.dart';
 import 'package:lifediary_project/app/features/home/home_page.dart';
 
 class LoginPage extends StatefulWidget {

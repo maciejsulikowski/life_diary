@@ -1,16 +1,16 @@
-part of 'root_cubit.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:lifediary_project/app/core/enums.dart';
 
-@immutable
-class RootState {
-  final User? user;
-  final Status status;
-  final String? errorMessage;
-  final AuthResultStatus? errorStatus;
+part  'root_state.freezed.dart';
 
-  RootState({
-    required this.user,
-    this.status = Status.initial,
-    this.errorMessage,
-    this.errorStatus = AuthResultStatus.success,
-  });
+
+@freezed
+class RootState with _$RootState {
+  factory RootState({
+    User? user,
+    @Default(Status.initial) Status status,
+    String? errorMessage,
+    AuthResultStatus? errorStatus,
+  }) = _RootState;
 }

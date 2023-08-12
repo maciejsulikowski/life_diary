@@ -5,10 +5,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lifediary_project/app/core/auth_exception.dart';
 import 'package:lifediary_project/app/core/enums.dart';
+import 'package:lifediary_project/app/cubit/root_state.dart';
 import 'package:lifediary_project/app/domain/repositories/root_repository.dart';
 import 'package:lifediary_project/app/domain/repositories/user_repository.dart';
 
-part 'root_state.dart';
+
 
 class RootCubit extends Cubit<RootState> {
   RootCubit(this.userRepository, this.rootRepository)
