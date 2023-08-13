@@ -8,6 +8,7 @@ import 'package:lifediary_project/app/domain/models/photos_model.dart';
 import 'package:lifediary_project/app/features/details_photo/cubit/details_photo_cubit.dart';
 import 'package:lifediary_project/app/features/details_photo/cubit/details_photo_state.dart';
 import 'package:lifediary_project/app/injection_container.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DetailsPhotoPageContent extends StatefulWidget {
   const DetailsPhotoPageContent({
@@ -55,7 +56,7 @@ class _DetailsPhotoPageContentState extends State<DetailsPhotoPageContent> {
             appBar: AppBar(
               backgroundColor: Colors.black87,
               title: Text(
-                'ZDJĘCIA',
+                AppLocalizations.of(context)!.photos,
                 style: GoogleFonts.buenard(
                     fontSize: 22,
                     color: Colors.yellow[400],
@@ -75,15 +76,15 @@ class _DetailsPhotoPageContentState extends State<DetailsPhotoPageContent> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            content: const Padding(
-                              padding: EdgeInsets.all(8),
+                            content: Padding(
+                              padding: const EdgeInsets.all(8),
                               child: Row(
                                 children: [
-                                  Icon(Icons.error, color: Colors.white),
-                                  SizedBox(width: 8),
+                                  const Icon(Icons.error, color: Colors.white),
+                                  const SizedBox(width: 8),
                                   Text(
-                                    "Wprowadź wszystkie dane!",
-                                    style: TextStyle(color: Colors.white),
+                                    AppLocalizations.of(context)!.change_data,
+                                    style: const TextStyle(color: Colors.white),
                                   ),
                                 ],
                               ),
@@ -105,15 +106,16 @@ class _DetailsPhotoPageContentState extends State<DetailsPhotoPageContent> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          content: const Padding(
-                            padding: EdgeInsets.all(8),
+                          content: Padding(
+                            padding: const EdgeInsets.all(8),
                             child: Row(
                               children: [
-                                Icon(Icons.check_box, color: Colors.white),
-                                SizedBox(width: 8),
+                                const Icon(Icons.check_box,
+                                    color: Colors.white),
+                                const SizedBox(width: 8),
                                 Text(
-                                  "Wprowadzono zmiany!",
-                                  style: TextStyle(color: Colors.white),
+                                  AppLocalizations.of(context)!.change_name,
+                                  style: const TextStyle(color: Colors.white),
                                 ),
                               ],
                             ),
@@ -128,7 +130,7 @@ class _DetailsPhotoPageContentState extends State<DetailsPhotoPageContent> {
                   ),
                   icon: Icon(Icons.check, color: Colors.yellow[400]),
                   label: Text(
-                    'Zapisz',
+                    AppLocalizations.of(context)!.savee,
                     style: GoogleFonts.buenard(
                         fontSize: 20,
                         color: Colors.yellow[400],
@@ -318,7 +320,7 @@ class _WeightSentenceState extends State<WeightSentence> {
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
           ),
-          hintText: 'Podaj swoją wagę np. 80 kg',
+          hintText: AppLocalizations.of(context)!.water_weight,
           hintStyle: const TextStyle(
             fontSize: 20.0,
             color: Colors.grey,
@@ -365,7 +367,7 @@ class HeightSentence extends StatelessWidget {
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
           ),
-          hintText: 'Podaj wzrost np. 180cm',
+          hintText: AppLocalizations.of(context)!.water_height,
           hintStyle: const TextStyle(
             fontSize: 20.0,
             color: Colors.grey,
@@ -412,7 +414,7 @@ class NewSentence extends StatelessWidget {
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
           ),
-          hintText: 'Podaj swój cel np. Chcę schudnąć',
+          hintText: AppLocalizations.of(context)!.goal,
           hintStyle: const TextStyle(
             fontSize: 20.0,
             color: Colors.grey,

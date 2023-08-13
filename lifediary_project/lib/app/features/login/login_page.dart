@@ -5,6 +5,7 @@ import 'package:lifediary_project/app/core/enums.dart';
 import 'package:lifediary_project/app/cubit/root_cubit.dart';
 import 'package:lifediary_project/app/cubit/root_state.dart';
 import 'package:lifediary_project/app/features/home/home_page.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({
@@ -209,8 +210,8 @@ class _LoginPageState extends State<LoginPage> {
                             const SizedBox(height: 20),
                             Text(
                               isCreatingAccount == true
-                                  ? 'Stwórz konto'
-                                  : 'Zaloguj się',
+                                  ? AppLocalizations.of(context)!.create_account
+                                  : AppLocalizations.of(context)!.login,
                               style: GoogleFonts.buenard(
                                   fontSize: 24,
                                   color: Colors.yellow,
@@ -266,7 +267,8 @@ class _LoginPageState extends State<LoginPage> {
                                 fontFamily: GoogleFonts.buenard().fontFamily,
                               ),
                               decoration: InputDecoration(
-                                hintText: 'Hasło',
+                                hintText:
+                                    AppLocalizations.of(context)!.password,
                                 hintStyle: TextStyle(
                                   color: Colors.yellow[400],
                                   fontSize: 22,
@@ -308,16 +310,17 @@ class _LoginPageState extends State<LoginPage> {
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(10),
                                       ),
-                                      content: const Padding(
-                                        padding: EdgeInsets.all(8),
+                                      content: Padding(
+                                        padding: const EdgeInsets.all(8),
                                         child: Row(
                                           children: [
-                                            Icon(Icons.error,
+                                            const Icon(Icons.error,
                                                 color: Colors.white),
-                                            SizedBox(width: 8),
+                                            const SizedBox(width: 8),
                                             Text(
-                                              "Wprowadź wszystkie dane!",
-                                              style: TextStyle(
+                                              AppLocalizations.of(context)!
+                                                  .change_data,
+                                              style: const TextStyle(
                                                   color: Colors.white),
                                             ),
                                           ],
@@ -333,12 +336,10 @@ class _LoginPageState extends State<LoginPage> {
                                         widget.passwordController,
                                       );
                                 } else {
-                                  try {
-                                    context.read<RootCubit>().signIn(
-                                          widget.emailController,
-                                          widget.passwordController,
-                                        );
-                                  } catch (error) {}
+                                  context.read<RootCubit>().signIn(
+                                        widget.emailController,
+                                        widget.passwordController,
+                                      );
                                 }
                               },
                               style: ElevatedButton.styleFrom(
@@ -349,8 +350,8 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                               child: Text(
                                 isCreatingAccount == true
-                                    ? 'Zarejestruj się'
-                                    : 'Zaloguj się',
+                                    ? AppLocalizations.of(context)!.registry
+                                    : AppLocalizations.of(context)!.login,
                                 style: GoogleFonts.buenard(
                                     fontSize: 20,
                                     color: Colors.yellow,
@@ -366,7 +367,7 @@ class _LoginPageState extends State<LoginPage> {
                                   });
                                 },
                                 child: Text(
-                                  'Utwórz konto',
+                                  AppLocalizations.of(context)!.create_account,
                                   style: GoogleFonts.buenard(
                                       fontSize: 24,
                                       color: Colors.yellow[400],
@@ -382,7 +383,7 @@ class _LoginPageState extends State<LoginPage> {
                                   });
                                 },
                                 child: Text(
-                                  'Masz juz konto?',
+                                  AppLocalizations.of(context)!.have_account,
                                   style: GoogleFonts.buenard(
                                       fontSize: 24,
                                       color: Colors.yellow[400],

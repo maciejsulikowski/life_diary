@@ -7,6 +7,7 @@ import 'package:lifediary_project/app/features/training/add_photos/add_photo.dar
 import 'package:lifediary_project/app/features/training/cubit/training_cubit.dart';
 import 'package:lifediary_project/app/features/training/cubit/training_state.dart';
 import 'package:lifediary_project/app/injection_container.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TrainingPageContent extends StatelessWidget {
   const TrainingPageContent({
@@ -18,7 +19,7 @@ class TrainingPageContent extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
           title: Text(
-            'TRENING',
+            AppLocalizations.of(context)!.training,
             style: GoogleFonts.buenard(
                 fontSize: 22,
                 color: Colors.yellow[400],
@@ -33,7 +34,7 @@ class TrainingPageContent extends StatelessWidget {
               ),
               icon: Icon(Icons.add, color: Colors.yellow[400]),
               label: Text(
-                'Dodaj zdjęcie',
+                AppLocalizations.of(context)!.diary_add_photo,
                 style: GoogleFonts.buenard(
                     fontSize: 20,
                     color: Colors.yellow[400],
@@ -77,7 +78,7 @@ class NewPhoto extends StatelessWidget {
                     FittedBox(
                       fit: BoxFit.contain,
                       child: Text(
-                        'Dodaj zdjęcie',
+                        AppLocalizations.of(context)!.diary_add_photo,
                         style: TextStyle(
                           color: Colors.yellow[400],
                           fontSize: 22,
@@ -88,7 +89,7 @@ class NewPhoto extends StatelessWidget {
                     FittedBox(
                       fit: BoxFit.contain,
                       child: Text(
-                        'klikając przycisk powyżej 👆',
+                        AppLocalizations.of(context)!.click1,
                         style: TextStyle(
                           color: Colors.yellow[400],
                           fontSize: 22,

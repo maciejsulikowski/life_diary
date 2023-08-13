@@ -7,6 +7,7 @@ import 'package:lifediary_project/app/domain/models/daily_plan_model.dart';
 import 'package:lifediary_project/app/features/daily_plan/cubit/daily_plan_cubit.dart';
 import 'package:lifediary_project/app/features/daily_plan/cubit/daily_plan_state.dart';
 import 'package:lifediary_project/app/injection_container.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DailyPlanPageContent extends StatefulWidget {
   const DailyPlanPageContent({
@@ -49,7 +50,7 @@ class _DailyPlanPageContentState extends State<DailyPlanPageContent> {
             return Scaffold(
               appBar: AppBar(
                 title: Text(
-                  'PLAN DNIA',
+                  AppLocalizations.of(context)!.dayplan,
                   style: GoogleFonts.buenard(
                       fontSize: 22,
                       color: Colors.yellow[400],
@@ -77,7 +78,7 @@ class DailyPlanBody extends StatelessWidget {
   }) : super(key: key);
 
   List<DailyPlanModel> dailyPlanModels;
-//jh
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -252,7 +253,7 @@ class PartOfPlanning extends StatelessWidget {
         textInputAction: TextInputAction
             .newline, // Włącza przycisk nowej linii na klawiaturze
         decoration: InputDecoration(
-          hintText: 'Wpisz swój plan tutaj.. ',
+          hintText: AppLocalizations.of(context)!.dayplan_text,
           hintStyle: GoogleFonts.buenard(
             fontSize: 20,
             color: Colors.yellow[400],

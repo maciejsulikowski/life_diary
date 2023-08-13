@@ -12,6 +12,7 @@ import 'package:lifediary_project/app/core/enums.dart';
 import 'package:lifediary_project/app/features/add_page/cubit/add_cubit.dart';
 import 'package:lifediary_project/app/features/add_page/cubit/add_state.dart';
 import 'package:lifediary_project/app/injection_container.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddPage extends StatefulWidget {
   const AddPage({
@@ -54,7 +55,7 @@ class _AddPageState extends State<AddPage> {
               appBar: AppBar(
                 backgroundColor: Colors.black87,
                 title: Text(
-                  'DODAJ DZIENNIK',
+                  AppLocalizations.of(context)!.diary_add_appbar,
                   style: GoogleFonts.buenard(
                       fontSize: 22,
                       color: Colors.yellow[400],
@@ -179,7 +180,7 @@ class _AddPageBodyState extends State<_AddPageBody> {
             ),
             icon: const Icon(Icons.book, color: Colors.black),
             label: Text(
-              'Dodaj tytuł dziennika',
+              AppLocalizations.of(context)!.diary_add_title,
               style: GoogleFonts.buenard(
                   fontSize: 22,
                   color: Colors.yellow[400],
@@ -213,8 +214,8 @@ class _AddPageBodyState extends State<_AddPageBody> {
                     color: Colors.yellow,
                   ),
                 ),
-                hintText: 'Np. Dziennik Treningowy',
-                labelText: 'Dodaj tytuł dziennika',
+                hintText: AppLocalizations.of(context)!.forexample2,
+                labelText: AppLocalizations.of(context)!.diary_add_title,
                 labelStyle: GoogleFonts.buenard(
                   fontSize: 22,
                   color: Colors.yellow[400],
@@ -276,7 +277,9 @@ class _AddPageBodyState extends State<_AddPageBody> {
             ),
             icon: const Icon(Icons.camera_alt, color: Colors.black),
             label: Text(
-              isImageAdded ? 'Zmień zdjęcie' : 'Dodaj zdjęcie',
+              isImageAdded
+                  ? AppLocalizations.of(context)!.training_add_photo3
+                  : AppLocalizations.of(context)!.training_add_photo2,
               style: GoogleFonts.buenard(
                   fontSize: 22,
                   color: Colors.yellow[400],
@@ -322,7 +325,7 @@ class _AddPageBodyState extends State<_AddPageBody> {
             icon: const Icon(Icons.timer, color: Colors.black),
             label: Text(
               widget.selectedDateFormatted ??
-                  'Wybierz datę utworzenia dziennika',
+                  AppLocalizations.of(context)!.diary_add_data,
               style: GoogleFonts.buenard(
                   fontSize: 22,
                   color: Colors.yellow[400],

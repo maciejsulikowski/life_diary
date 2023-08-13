@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SecondWelcomePage extends StatelessWidget {
   const SecondWelcomePage({
@@ -24,7 +25,7 @@ class SecondWelcomePage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Text(
-                    'Do czego jest LIFEDIARY? 🤔',
+                    AppLocalizations.of(context)!.welcome2,
                     style: GoogleFonts.buenard(
                         fontSize: 24,
                         color: Colors.yellow[400],
@@ -45,7 +46,7 @@ class SecondWelcomePage extends StatelessWidget {
                     const SizedBox(width: 8),
                     Flexible(
                       child: Text(
-                        'Do tworzenia nowych dzienników i zapisywania Twojego progresu!',
+                        AppLocalizations.of(context)!.welcome3,
                         style: GoogleFonts.buenard(
                           fontSize: 22,
                           color: Colors.white,
@@ -65,7 +66,7 @@ class SecondWelcomePage extends StatelessWidget {
                     const SizedBox(width: 8),
                     Flexible(
                       child: Text(
-                        'Do tworzenia nowych zdjęć, w celu ciągłego progresu!',
+                        AppLocalizations.of(context)!.welcome4,
                         style: GoogleFonts.buenard(
                           fontSize: 22,
                           color: Colors.white,
@@ -85,7 +86,7 @@ class SecondWelcomePage extends StatelessWidget {
                     const SizedBox(width: 8),
                     Flexible(
                       child: Text(
-                        'Do określenia ile wody powinieneś pić!',
+                        AppLocalizations.of(context)!.welcome5,
                         style: GoogleFonts.buenard(
                           fontSize: 22,
                           color: Colors.white,
@@ -105,7 +106,7 @@ class SecondWelcomePage extends StatelessWidget {
                     const SizedBox(width: 8),
                     Flexible(
                       child: Text(
-                        'Do zaplanowania i zrobienia skutecznej listy zadań!',
+                        AppLocalizations.of(context)!.welcome6,
                         style: GoogleFonts.buenard(
                           fontSize: 22,
                           color: Colors.white,
@@ -125,7 +126,7 @@ class SecondWelcomePage extends StatelessWidget {
                     const SizedBox(width: 8),
                     Flexible(
                       child: Text(
-                        'Do zaplanowania swojego dnia!',
+                        AppLocalizations.of(context)!.welcome7,
                         style: GoogleFonts.buenard(
                           fontSize: 22,
                           color: Colors.white,
@@ -138,7 +139,7 @@ class SecondWelcomePage extends StatelessWidget {
                   padding: const EdgeInsets.all(16.0),
                   child: Center(
                     child: Text(
-                        'A teraz przesuń w lewo i wylosuj swój cytat, aby się zmotywować! 👈',
+                        AppLocalizations.of(context)!.welcome8,
                         style: GoogleFonts.buenard(
                             fontSize: 24,
                             color: Colors.yellow,

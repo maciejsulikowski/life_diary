@@ -6,7 +6,7 @@ import 'package:lifediary_project/app/features/my_account/my_account_page_conten
 import 'package:lifediary_project/app/features/to_do_list/to_do_list_content.dart';
 import 'package:lifediary_project/app/features/training/training_page_content.dart';
 import 'package:lifediary_project/app/features/water/water_page.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class HomePage extends StatefulWidget {
   const HomePage({
     Key? key,
@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage> {
           return const ToDoListContent();
         }
         if (currentIndex == 5) {
-          return Center(
+          return const Center(
             child: DailyPlanPageContent(),
           );
         }
@@ -64,35 +64,35 @@ class _HomePageState extends State<HomePage> {
             currentIndex = newIndex;
           });//ss
         },
-        items: const [
+        items:  [
           BottomNavigationBarItem(
-            activeIcon: Icon(
+            activeIcon: const Icon(
               Icons.person,
             ),
-            icon: Icon(
+            icon: const Icon(
               Icons.person,
             ),
-            label: 'Konto',
+            label: AppLocalizations.of(context)!.bottombar1,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.book),
-            label: 'Dziennik',
+            icon: const Icon(Icons.book),
+            label: AppLocalizations.of(context)!.bottombar2,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.sports_martial_arts_sharp),
-            label: 'Trening',
+            icon: const Icon(Icons.sports_martial_arts_sharp),
+            label: AppLocalizations.of(context)!.bottombar3,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.water_drop),
-            label: 'Woda',
+            icon: const Icon(Icons.water_drop),
+            label: AppLocalizations.of(context)!.bottombar4,
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.list_alt),
             label: 'To Do List',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.lock_clock),
-            label: 'Plan dnia',
+            icon: const Icon(Icons.lock_clock),
+            label: AppLocalizations.of(context)!.bottombar5,
           ),
         ],
         type: BottomNavigationBarType.fixed,

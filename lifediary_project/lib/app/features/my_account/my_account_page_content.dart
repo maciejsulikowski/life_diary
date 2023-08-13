@@ -11,6 +11,7 @@ import 'package:lifediary_project/app/features/quotes/quotes_page.dart';
 import 'package:lifediary_project/app/features/water/cubit/water_cubit.dart';
 import 'package:lifediary_project/app/features/water/cubit/water_state.dart';
 import 'package:lifediary_project/app/features/weather/weather_page.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MyAccountPageContent extends StatelessWidget {
   const MyAccountPageContent({
@@ -37,7 +38,7 @@ class MyAccountPageContent extends StatelessWidget {
             return Scaffold(
               appBar: AppBar(
                 title: Text(
-                  'MAIN PAGE',
+                  AppLocalizations.of(context)!.main_page,
                   style: GoogleFonts.buenard(
                       fontSize: 22,
                       color: Colors.yellow[400],
@@ -117,7 +118,7 @@ class MyAccountPageContent extends StatelessWidget {
                           ),
                           icon: const Icon(Icons.person, color: Colors.yellow),
                           label: Text(
-                            'Panel użytkownika',
+                            AppLocalizations.of(context)!.user_panel,
                             style: GoogleFonts.buenard(
                                 fontSize: 20,
                                 color: Colors.yellow[400],
@@ -145,7 +146,7 @@ class MyAccountPageContent extends StatelessWidget {
                           icon:
                               const Icon(Icons.pageview, color: Colors.yellow),
                           label: Text(
-                            'Instrukcja obsługi',
+                            AppLocalizations.of(context)!.instruction,
                             style: GoogleFonts.buenard(
                                 fontSize: 20,
                                 color: Colors.yellow[400],
@@ -171,8 +172,8 @@ class MyAccountPageContent extends StatelessWidget {
                             child: Center(
                               child: Text(
                                 answer?.glasses == null
-                                    ? 'Pamiętaj, aby pić ? szklanek wody'
-                                    : 'Pamiętaj, aby pić ${answer?.glasses} szklanek wody 💧',
+                                    ? AppLocalizations.of(context)!.remember_1
+                                    : '${AppLocalizations.of(context)!.remember_2} ${answer?.glasses ?? ''} ${AppLocalizations.of(context)!.remember_3}',
                                 style: GoogleFonts.buenard(
                                   fontSize: 20,
                                   color: Colors.yellow[400],
@@ -195,7 +196,7 @@ class MyAccountPageContent extends StatelessWidget {
                           ),
                           icon: const Icon(Icons.logout, color: Colors.yellow),
                           label: Text(
-                            'Wyloguj się',
+                            AppLocalizations.of(context)!.log_out,
                             style: GoogleFonts.buenard(
                                 fontSize: 20,
                                 color: Colors.yellow[400],
@@ -217,7 +218,7 @@ class MyAccountPageContent extends StatelessWidget {
                             child: FittedBox(
                               fit: BoxFit.contain,
                               child: Text(
-                                'Zalogowano jako $email! ',
+                                '${AppLocalizations.of(context)!.login_as} $email',
                                 style: GoogleFonts.buenard(
                                     fontSize: 18,
                                     color: Colors.yellow[400],

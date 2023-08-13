@@ -7,6 +7,7 @@ import 'package:lifediary_project/app/domain/models/item_model.dart';
 import 'package:lifediary_project/app/features/details/cubit/details_cubit.dart';
 import 'package:lifediary_project/app/features/details/cubit/details_state.dart';
 import 'package:lifediary_project/app/injection_container.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DetailsPageContent extends StatefulWidget {
   const DetailsPageContent({
@@ -64,7 +65,7 @@ class _DetailsPageContentState extends State<DetailsPageContent> {
                       ),
                       icon: Icon(Icons.add, color: Colors.yellow[400]),
                       label: Text(
-                        'Zapisz',
+                        AppLocalizations.of(context)!.savee,
                         style: GoogleFonts.buenard(
                             fontSize: 20,
                             color: Colors.yellow[400],
@@ -79,15 +80,15 @@ class _DetailsPageContentState extends State<DetailsPageContent> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              content: const Padding(
-                                padding: EdgeInsets.all(8),
+                              content:  Padding(
+                                padding: const EdgeInsets.all(8),
                                 child: Row(
                                   children: [
-                                    Icon(Icons.error, color: Colors.white),
-                                    SizedBox(width: 8),
+                                    const Icon(Icons.error, color: Colors.white),
+                                    const SizedBox(width: 8),
                                     Text(
-                                      "Wprowadź jakieś zmiany!",
-                                      style: TextStyle(color: Colors.white),
+                                      AppLocalizations.of(context)!.change_some,
+                                      style: const TextStyle(color: Colors.white),
                                     ),
                                   ],
                                 ),
@@ -109,15 +110,15 @@ class _DetailsPageContentState extends State<DetailsPageContent> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              content: const Padding(
-                                padding: EdgeInsets.all(8),
+                              content:  Padding(
+                                padding:const  EdgeInsets.all(8),
                                 child: Row(
                                   children: [
-                                    Icon(Icons.check_box, color: Colors.white),
-                                    SizedBox(width: 8),
+                                    const Icon(Icons.check_box, color: Colors.white),
+                                    const SizedBox(width: 8),
                                     Text(
-                                      "Wprowadzono zmiany!",
-                                      style: TextStyle(color: Colors.white),
+                                      AppLocalizations.of(context)!.change_name,
+                                      style: const TextStyle(color: Colors.white),
                                     ),
                                   ],
                                 ),

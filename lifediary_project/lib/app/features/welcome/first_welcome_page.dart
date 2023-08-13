@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lifediary_project/app/features/welcome/second_welcome_page.dart';
 import 'package:lifediary_project/app/features/welcome/third_welcome_page.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MyStatelessWidget extends StatefulWidget {
   const MyStatelessWidget({Key? key}) : super(key: key);
@@ -93,7 +94,7 @@ class FirstWelcomePage extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               Text(
-                'Witaj w LIFEDIARY! 👋',
+                AppLocalizations.of(context)!.welcome1,
                 style: GoogleFonts.buenard(
                   fontSize: 22,
                   color: Colors.yellow[400],

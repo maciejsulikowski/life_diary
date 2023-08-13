@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 import 'package:lifediary_project/app/features/training/add_photos/cubit/add_photo_cubit.dart';
 import 'package:lifediary_project/app/features/training/add_photos/cubit/add_photo_state.dart';
 import 'package:lifediary_project/app/injection_container.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddPhoto extends StatefulWidget {
   const AddPhoto({
@@ -59,7 +60,7 @@ class _AddPhotoState extends State<AddPhoto> {
                 backgroundColor: Colors.black87,
                 centerTitle: true,
                 title: Text(
-                  'DODAJ NOWE ZDJĘCIE',
+                  AppLocalizations.of(context)!.training_add_appbar,
                   style: GoogleFonts.buenard(
                       fontSize: 22,
                       color: Colors.yellow[400],
@@ -184,7 +185,7 @@ class _AddPhotoBodyState extends State<_AddPhotoBody> {
             ),
             icon: const Icon(Icons.book, color: Colors.black),
             label: Text(
-              'Dodaj tytuł zdjęcia',
+              AppLocalizations.of(context)!.training_add_title,
               style: GoogleFonts.buenard(
                   fontSize: 22,
                   color: Colors.yellow[400],
@@ -218,9 +219,9 @@ class _AddPhotoBodyState extends State<_AddPhotoBody> {
                     color: Colors.yellow,
                   ),
                 ),
-                hintText: 'Np. Zdjęcie nr.1',
+                hintText: AppLocalizations.of(context)!.forexample,
                 label: Text(
-                  'Dodaj tytuł zdjęcia',
+                  AppLocalizations.of(context)!.training_add_title,
                   style: GoogleFonts.buenard(
                       fontSize: 22,
                       color: Colors.yellow[400],
@@ -293,7 +294,9 @@ class _AddPhotoBodyState extends State<_AddPhotoBody> {
                     ),
                     icon: const Icon(Icons.camera_alt, color: Colors.black),
                     label: Text(
-                      isImageAdded ? 'Zmień zdjęcie' : 'Zrób zdjęcie',
+                      isImageAdded
+                          ? AppLocalizations.of(context)!.training_add_photo3
+                          : AppLocalizations.of(context)!.training_add_photo1,
                       style: GoogleFonts.buenard(
                           fontSize: 22,
                           color: Colors.yellow[400],
@@ -347,7 +350,9 @@ class _AddPhotoBodyState extends State<_AddPhotoBody> {
                     ),
                     icon: const Icon(Icons.camera_alt, color: Colors.black),
                     label: Text(
-                      isImageAdded ? 'Zmień zdjęcie' : 'Dodaj zdjęcie',
+                      isImageAdded
+                          ? AppLocalizations.of(context)!.training_add_photo3
+                          : AppLocalizations.of(context)!.training_add_photo2,
                       style: GoogleFonts.buenard(
                           fontSize: 22,
                           color: Colors.yellow[400],
@@ -396,7 +401,8 @@ class _AddPhotoBodyState extends State<_AddPhotoBody> {
             ),
             icon: const Icon(Icons.timer, color: Colors.black),
             label: Text(
-              widget.selectedDateFormatted ?? 'Wybierz datę utworzenia zdjęcia',
+              widget.selectedDateFormatted ??
+                  AppLocalizations.of(context)!.training_add_data,
               style: GoogleFonts.buenard(
                   fontSize: 22,
                   color: Colors.yellow[400],

@@ -9,6 +9,7 @@ import 'package:lifediary_project/app/features/quotes/cubit/quotes_cubit.dart';
 import 'package:lifediary_project/app/features/quotes/cubit/quotes_state.dart';
 import 'package:lifediary_project/app/features/stories/stories_page.dart';
 import 'package:lifediary_project/app/injection_container.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class QuotesPage extends StatefulWidget {
   const QuotesPage({
@@ -49,7 +50,7 @@ class _QuotesPageState extends State<QuotesPage> {
             return Scaffold(
               appBar: AppBar(
                 title: Text(
-                  'QUOTES PAGE',
+                  AppLocalizations.of(context)!.quotes,
                   style: GoogleFonts.buenard(
                     fontSize: 22,
                     color: Colors.yellow[400],
@@ -69,7 +70,7 @@ class _QuotesPageState extends State<QuotesPage> {
           return Scaffold(
             appBar: AppBar(
               title: Text(
-                'QUOTES PAGE',
+                AppLocalizations.of(context)!.quotes,
                 style: GoogleFonts.buenard(
                   fontSize: 22,
                   color: Colors.yellow[400],
@@ -107,7 +108,7 @@ class _QuotesPageState extends State<QuotesPage> {
                           ),
                         ),
                         child: Text(
-                          'Wylosuj cytat 🎲',
+                          AppLocalizations.of(context)!.quotes_random,
                           style: GoogleFonts.buenard(
                             fontSize: 20,
                             color: Colors.yellow[400],
@@ -217,7 +218,7 @@ class AuthorHistoryButton extends StatelessWidget {
       ),
       icon: const Icon(Icons.search, color: Colors.yellow),
       label: Text(
-        'Poznaj historię autora',
+        AppLocalizations.of(context)!.quotes_author,
         style: GoogleFonts.buenard(
           fontSize: 20,
           color: Colors.yellow[400],

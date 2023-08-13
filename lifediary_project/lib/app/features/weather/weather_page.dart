@@ -6,6 +6,7 @@ import 'package:lifediary_project/app/domain/models/weather_model.dart';
 import 'package:lifediary_project/app/features/weather/cubit/weather_cubit.dart';
 import 'package:lifediary_project/app/features/weather/cubit/weather_state.dart';
 import 'package:lifediary_project/app/injection_container.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WeatherPage extends StatefulWidget {
   const WeatherPage({
@@ -75,7 +76,7 @@ class _WeatherPageState extends State<WeatherPage> {
           return Scaffold(
             appBar: AppBar(
               title: Text(
-                'WEATHER PAGE',
+                AppLocalizations.of(context)!.weather_page,
                 style: GoogleFonts.buenard(
                     fontSize: 22,
                     color: Colors.yellow[400],
@@ -113,7 +114,7 @@ class _WeatherPageState extends State<WeatherPage> {
                         ),
                         icon: const Icon(Icons.search, color: Colors.yellow),
                         label: Text(
-                          'Sprawdź pogodę',
+                          AppLocalizations.of(context)!.check_weather,
                           style: GoogleFonts.buenard(
                             fontSize: 20,
                             color: Colors.yellow[400],
@@ -144,7 +145,8 @@ class _WeatherPageState extends State<WeatherPage> {
                                             GoogleFonts.buenard().fontFamily,
                                       ),
                                       decoration: InputDecoration(
-                                        hintText: 'Wpisz miasto...',
+                                        hintText: AppLocalizations.of(context)!
+                                            .check_city,
                                         hintStyle: TextStyle(
                                           color: Colors.yellow[400],
                                           fontSize: 22,

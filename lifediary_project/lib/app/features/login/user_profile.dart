@@ -13,6 +13,7 @@ import 'package:lifediary_project/app/domain/models/user_model.dart';
 import 'package:lifediary_project/app/features/login/cubit/user_cubit.dart';
 import 'package:lifediary_project/app/features/login/cubit/user_state.dart';
 import 'package:lifediary_project/app/injection_container.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({
@@ -42,7 +43,7 @@ class _UserProfileState extends State<UserProfile> {
             return Scaffold(
               appBar: AppBar(
                 title: Text(
-                  'USER PAGE',
+                  AppLocalizations.of(context)!.user_page,
                   style: GoogleFonts.buenard(
                     color: Colors.yellow,
                     fontWeight: FontWeight.bold,
@@ -103,18 +104,26 @@ class _UserViewState extends State<UserView> {
   void onFullNamePressed() {
     if (controller.text.isNotEmpty) {
       context.read<UserCubit>().addFullName(controller.text);
-      _showSnackbar("Zmiany zostały zapisane!");
+      _showSnackbar(
+        AppLocalizations.of(context)!.change_name,
+      );
     } else {
-      _showSnackbar("Wprowadź jakieś zmiany!");
+      _showSnackbar(
+        AppLocalizations.of(context)!.change_some,
+      );
     }
   }
 
   void onStoryTextPressed() {
     if (controller.text.isNotEmpty) {
       context.read<UserCubit>().addStoryText(storyController.text);
-      _showSnackbar("Zmiany zostały zapisane!");
+      _showSnackbar(
+        AppLocalizations.of(context)!.change_name,
+      );
     } else {
-      _showSnackbar("Wprowadź jakieś zmiany!");
+      _showSnackbar(
+        AppLocalizations.of(context)!.change_some,
+      );
     }
   }
 
@@ -174,7 +183,7 @@ class _UserViewState extends State<UserView> {
           children: [
             const SizedBox(height: 20),
             Text(
-              'Witaj w profilu użytkownika!',
+              AppLocalizations.of(context)!.intro,
               style: GoogleFonts.buenard(
                 color: Colors.yellow,
                 fontWeight: FontWeight.bold,
@@ -216,7 +225,7 @@ class _UserViewState extends State<UserView> {
                     width: 2.0,
                   ),
                 ),
-                hintText: 'Wpisz swoje imię i nazwisko',
+                hintText: AppLocalizations.of(context)!.intro_name,
                 hintStyle: GoogleFonts.buenard(
                   fontSize: 20,
                   color: Colors.yellow[400],
@@ -258,7 +267,7 @@ class _UserViewState extends State<UserView> {
                     width: 2.0,
                   ),
                 ),
-                hintText: 'Napisz coś o sobie...',
+                hintText: AppLocalizations.of(context)!.intro_self,
                 hintStyle: GoogleFonts.buenard(
                   fontSize: 20,
                   color: Colors.yellow[400],
@@ -344,16 +353,13 @@ class _UserPhotoState extends State<UserPhoto> {
       child: Stack(
         alignment: Alignment.center,
         children: [
-          // ignore: unnecessary_null_comparison
           CircleAvatar(
             radius: 60,
             backgroundColor: Colors.black,
             backgroundImage: widget.userModel.imageURL != null
                 ? NetworkImage(widget.userModel.imageURL)
-                : NetworkImage(
-                    defaultImageUrl), // Użycie adresu URL przykładowego zdjęcia, gdy imageURL jest puste
+                : NetworkImage(defaultImageUrl),
           ),
-
           if (isLoading)
             const CircleAvatar(
               radius: 60,

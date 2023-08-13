@@ -6,6 +6,7 @@ import 'package:lifediary_project/app/domain/models/item_model_to_do_list.dart';
 import 'package:lifediary_project/app/features/to_do_list/cubit/to_do_list_cubit.dart';
 import 'package:lifediary_project/app/features/to_do_list/cubit/to_do_list_state.dart';
 import 'package:lifediary_project/app/injection_container.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ToDoListContent extends StatefulWidget {
   const ToDoListContent({
@@ -68,7 +69,7 @@ class _ToDoListContentState extends State<ToDoListContent> {
                     ),
                     icon: Icon(Icons.add, color: Colors.yellow[400]),
                     label: Text(
-                      'Dodaj zadanie',
+                      AppLocalizations.of(context)!.todolist_button,
                       style: GoogleFonts.buenard(
                           fontSize: 20,
                           color: Colors.yellow,
@@ -83,15 +84,15 @@ class _ToDoListContentState extends State<ToDoListContent> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            content: const Padding(
-                              padding: EdgeInsets.all(8),
+                            content: Padding(
+                              padding: const EdgeInsets.all(8),
                               child: Row(
                                 children: [
-                                  Icon(Icons.error, color: Colors.white),
-                                  SizedBox(width: 8),
+                                  const Icon(Icons.error, color: Colors.white),
+                                  const SizedBox(width: 8),
                                   Text(
-                                    "Wprowadź jakieś zdanie!",
-                                    style: TextStyle(color: Colors.white),
+                                    AppLocalizations.of(context)!.change_some,
+                                    style: const TextStyle(color: Colors.white),
                                   ),
                                 ],
                               ),
@@ -132,7 +133,8 @@ class _ToDoListContentState extends State<ToDoListContent> {
                                 color: Color.fromARGB(255, 67, 64, 64),
                                 width: 2.0),
                           ),
-                          hintText: 'Tu wpisz nazwę zadania',
+                          hintText:
+                              AppLocalizations.of(context)!.todolist_write,
                           hintStyle: GoogleFonts.buenard(
                             fontSize: 20,
                             color: Colors.yellow[400],
@@ -230,8 +232,8 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                 color: widget.itemModel.isChecked ? Colors.green : Colors.white,
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
-                  color: const Color.fromARGB(255, 67, 64, 64), // Kolor ramki
-                  width: 3, // Grubość ramki
+                  color: const Color.fromARGB(255, 67, 64, 64),
+                  width: 3,
                 ),
               ),
               child: widget.itemModel.isChecked

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class InstructionPage extends StatelessWidget {
   const InstructionPage({
@@ -11,7 +12,7 @@ class InstructionPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'INSTRUCTION PAGE',
+          AppLocalizations.of(context)!.instruction_page,
           style: GoogleFonts.buenard(
             fontSize: 22,
             color: Colors.yellow[400],
@@ -41,7 +42,7 @@ class InstructionPage extends StatelessWidget {
                           TextSpan(
                             children: [
                               TextSpan(
-                                text: 'Konto - kliknij w',
+                                text: AppLocalizations.of(context)!.account_1,
                                 style: GoogleFonts.buenard(
                                     fontSize: 20,
                                     color: Colors.yellow[400],
@@ -56,7 +57,7 @@ class InstructionPage extends StatelessWidget {
                               ),
                               TextSpan(
                                 text:
-                                    'aby sprawdzić informację o koncie użytkownika!',
+                                    AppLocalizations.of(context)!.account_2,
                                 style: GoogleFonts.buenard(
                                     fontSize: 20,
                                     color: Colors.yellow[400],
@@ -81,7 +82,7 @@ class InstructionPage extends StatelessWidget {
                           TextSpan(
                             children: [
                               TextSpan(
-                                text: 'Dziennik - kliknij w',
+                                text: AppLocalizations.of(context)!.diary_1,
                                 style: GoogleFonts.buenard(
                                     fontSize: 20,
                                     color: Colors.yellow[400],
@@ -96,7 +97,7 @@ class InstructionPage extends StatelessWidget {
                               ),
                               TextSpan(
                                 text:
-                                    'aby móc stworzyć swoje własne dzienniki!',
+                                    AppLocalizations.of(context)!.diary_2,
                                 style: GoogleFonts.buenard(
                                     fontSize: 20,
                                     color: Colors.yellow[400],
@@ -121,7 +122,7 @@ class InstructionPage extends StatelessWidget {
                           TextSpan(
                             children: [
                               TextSpan(
-                                text: 'Trening - kliknij w',
+                                text: AppLocalizations.of(context)!.training_1,
                                 style: GoogleFonts.buenard(
                                     fontSize: 20,
                                     color: Colors.yellow[400],
@@ -136,7 +137,7 @@ class InstructionPage extends StatelessWidget {
                               ),
                               TextSpan(
                                 text:
-                                    'aby móc dodawać swoje zdjęcia i później je porównywać!',
+                                    AppLocalizations.of(context)!.training_2,
                                 style: GoogleFonts.buenard(
                                     fontSize: 20,
                                     color: Colors.yellow[400],
@@ -161,7 +162,7 @@ class InstructionPage extends StatelessWidget {
                           TextSpan(
                             children: [
                               TextSpan(
-                                text: 'Woda - kliknij w',
+                                text: AppLocalizations.of(context)!.water_1,
                                 style: GoogleFonts.buenard(
                                     fontSize: 20,
                                     color: Colors.yellow[400],
@@ -176,7 +177,7 @@ class InstructionPage extends StatelessWidget {
                               ),
                               TextSpan(
                                 text:
-                                    'aby móc dowiedzieć się ile wody powinieneś pić!',
+                                    AppLocalizations.of(context)!.water_2,
                                 style: GoogleFonts.buenard(
                                     fontSize: 20,
                                     color: Colors.yellow[400],
@@ -201,7 +202,7 @@ class InstructionPage extends StatelessWidget {
                           TextSpan(
                             children: [
                               TextSpan(
-                                text: 'ToDoList - kliknij w',
+                                text: AppLocalizations.of(context)!.todolist_1,
                                 style: GoogleFonts.buenard(
                                     fontSize: 20,
                                     color: Colors.yellow[400],
@@ -215,7 +216,7 @@ class InstructionPage extends StatelessWidget {
                                 ),
                               ),
                               TextSpan(
-                                text: 'aby stworzyć swoją listę do zrobienia!',
+                                text: AppLocalizations.of(context)!.todolist_2,
                                 style: GoogleFonts.buenard(
                                     fontSize: 20,
                                     color: Colors.yellow[400],
@@ -240,7 +241,7 @@ class InstructionPage extends StatelessWidget {
                           TextSpan(
                             children: [
                               TextSpan(
-                                text: 'Plan dnia - kliknij w',
+                                text: AppLocalizations.of(context)!.plan_1,
                                 style: GoogleFonts.buenard(
                                     fontSize: 20,
                                     color: Colors.yellow[400],
@@ -255,7 +256,7 @@ class InstructionPage extends StatelessWidget {
                               ),
                               TextSpan(
                                 text:
-                                    'aby móc zaplanować swój dzień dodając swój własny plan!',
+                                    AppLocalizations.of(context)!.plan_2,
                                 style: GoogleFonts.buenard(
                                     fontSize: 20,
                                     color: Colors.yellow[400],

@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lifediary_project/app/features/water/cubit/water_cubit.dart';
 import 'package:lifediary_project/app/features/water/cubit/water_state.dart';
 import 'package:lifediary_project/app/injection_container.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WaterPage extends StatefulWidget {
   const WaterPage({
@@ -35,7 +36,7 @@ class WaterPageState extends State<WaterPage> {
           return Scaffold(
             appBar: AppBar(
               title: Text(
-                'WODA',
+                AppLocalizations.of(context)!.water,
                 style: GoogleFonts.buenard(
                     fontSize: 22,
                     color: Colors.yellow[400],
@@ -56,7 +57,7 @@ class WaterPageState extends State<WaterPage> {
                     child: Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Text(
-                        'Ile szklanek wody powinieneś pić dziennie?',
+                        AppLocalizations.of(context)!.glasses,
                         style: GoogleFonts.buenard(
                             fontSize: 18,
                             color: Colors.indigo[700],
@@ -79,7 +80,7 @@ class WaterPageState extends State<WaterPage> {
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        hintText: 'Tutaj napisz swój wzrost w cm np. 180',
+                        hintText: AppLocalizations.of(context)!.water_height,
                         hintStyle: TextStyle(
                           fontSize: 20.0,
                           color: Colors.yellow[400],
@@ -103,7 +104,7 @@ class WaterPageState extends State<WaterPage> {
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        hintText: 'Tutaj napisz swoją wagę w kg np. 80',
+                        hintText: AppLocalizations.of(context)!.water_weight,
                         hintStyle: TextStyle(
                           fontSize: 20.0,
                           color: Colors.yellow[400],
@@ -123,15 +124,15 @@ class WaterPageState extends State<WaterPage> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            content: const Padding(
-                              padding: EdgeInsets.all(8),
+                            content:  Padding(
+                              padding: const EdgeInsets.all(8),
                               child: Row(
                                 children: [
-                                  Icon(Icons.error, color: Colors.white),
-                                  SizedBox(width: 8),
+                                  const Icon(Icons.error, color: Colors.white),
+                                  const SizedBox(width: 8),
                                   Text(
-                                    "Wprowadź wszystkie dane!",
-                                    style: TextStyle(color: Colors.white),
+                                    AppLocalizations.of(context)!.change_data,
+                                    style: const TextStyle(color: Colors.white),
                                   ),
                                 ],
                               ),
@@ -151,15 +152,15 @@ class WaterPageState extends State<WaterPage> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            content: const Padding(
-                              padding: EdgeInsets.all(8),
+                            content:  Padding(
+                              padding: const EdgeInsets.all(8),
                               child: Row(
                                 children: [
-                                  Icon(Icons.error, color: Colors.white),
-                                  SizedBox(width: 8),
+                                  const Icon(Icons.error, color: Colors.white),
+                                  const SizedBox(width: 8),
                                   Text(
-                                    "Podaj tylko liczby!",
-                                    style: TextStyle(color: Colors.white),
+                                    AppLocalizations.of(context)!.count_2,
+                                    style: const TextStyle(color: Colors.white),
                                   ),
                                 ],
                               ),
@@ -186,7 +187,7 @@ class WaterPageState extends State<WaterPage> {
                       ),
                     ),
                     child: Text(
-                      'Oblicz!',
+                      AppLocalizations.of(context)!.count,
                       style: GoogleFonts.buenard(
                           fontSize: 20,
                           color: Colors.yellow,
@@ -202,7 +203,7 @@ class WaterPageState extends State<WaterPage> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
-                              'Powinieneś pić około $result ml wody!',
+                              '${AppLocalizations.of(context)!.drink_1} ${result} ${AppLocalizations.of(context)!.drink_2}',
                               style: GoogleFonts.buenard(
                                   fontSize: 24,
                                   color: Colors.indigo[700],
@@ -210,7 +211,7 @@ class WaterPageState extends State<WaterPage> {
                               textAlign: TextAlign.center,
                             ),
                             Text(
-                              'Co daje gdzieś $glassResult szklanek wody dziennie!',
+                              '${AppLocalizations.of(context)!.drink_3} ${glassResult} ${AppLocalizations.of(context)!.drink_4}',
                               style: GoogleFonts.buenard(
                                   fontSize: 24,
                                   color: Colors.indigo[700],
