@@ -79,7 +79,7 @@ class FirstWelcomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Colors.black87,
+        color: const Color.fromRGBO(0, 0, 0, 0.867),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

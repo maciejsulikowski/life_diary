@@ -44,6 +44,9 @@ class _DetailsPhotoPageContentState extends State<DetailsPhotoPageContent> {
       child: BlocBuilder<DetailsPhotoCubit, DetailsPhotoState>(
         builder: (context, state) {
           final photoModel = state.photosModel;
+          if (state.status == Status.loading) {
+            return const Center(child: CircularProgressIndicator());
+          }
           if (state.status == Status.error) {
             return const CircularProgressIndicator();
           }
@@ -223,7 +226,6 @@ class _ListViewItem extends StatelessWidget {
                                 const SizedBox(height: 3),
                                 Text(
                                   photoModel!.releaseDateFormatted(),
-                                  
                                   style: GoogleFonts.buenard(
                                       fontSize: 18,
                                       color: Colors.yellow[400],
@@ -268,7 +270,6 @@ class _ListViewItem extends StatelessWidget {
         ),
     ]);
   }
-  
 }
 
 class WeightSentence extends StatefulWidget {
