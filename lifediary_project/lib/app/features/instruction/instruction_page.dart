@@ -27,8 +27,7 @@ class InstructionPage extends StatelessWidget {
         child: Center(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+            child: ListView(
               children: [
                 const SizedBox(height: 10),
                 Padding(
@@ -56,8 +55,7 @@ class InstructionPage extends StatelessWidget {
                                 ),
                               ),
                               TextSpan(
-                                text:
-                                    AppLocalizations.of(context)!.account_2,
+                                text: AppLocalizations.of(context)!.account_2,
                                 style: GoogleFonts.buenard(
                                     fontSize: 20,
                                     color: Colors.yellow[400],
@@ -96,8 +94,7 @@ class InstructionPage extends StatelessWidget {
                                 ),
                               ),
                               TextSpan(
-                                text:
-                                    AppLocalizations.of(context)!.diary_2,
+                                text: AppLocalizations.of(context)!.diary_2,
                                 style: GoogleFonts.buenard(
                                     fontSize: 20,
                                     color: Colors.yellow[400],
@@ -136,8 +133,7 @@ class InstructionPage extends StatelessWidget {
                                 ),
                               ),
                               TextSpan(
-                                text:
-                                    AppLocalizations.of(context)!.training_2,
+                                text: AppLocalizations.of(context)!.training_2,
                                 style: GoogleFonts.buenard(
                                     fontSize: 20,
                                     color: Colors.yellow[400],
@@ -176,8 +172,7 @@ class InstructionPage extends StatelessWidget {
                                 ),
                               ),
                               TextSpan(
-                                text:
-                                    AppLocalizations.of(context)!.water_2,
+                                text: AppLocalizations.of(context)!.water_2,
                                 style: GoogleFonts.buenard(
                                     fontSize: 20,
                                     color: Colors.yellow[400],
@@ -255,8 +250,7 @@ class InstructionPage extends StatelessWidget {
                                 ),
                               ),
                               TextSpan(
-                                text:
-                                    AppLocalizations.of(context)!.plan_2,
+                                text: AppLocalizations.of(context)!.plan_2,
                                 style: GoogleFonts.buenard(
                                     fontSize: 20,
                                     color: Colors.yellow[400],

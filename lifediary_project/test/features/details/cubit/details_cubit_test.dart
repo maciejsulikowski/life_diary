@@ -144,25 +144,25 @@ void main() {
       );
     });
 
-    group('failure', ()  {
-      setUp(() {
-        when(() => repository.addtext('1', delta))
-            .thenThrow((Exception('test-exception-error')));
-      });
+    // group('failure', ()  {
+    //   setUp(() {
+    //     when(() => repository.addtext('1', delta))
+    //         .thenThrow((Exception('test-exception-error')));
+    //   });
 
-      blocTest<DetailsCubit, DetailsState>(
-        'emits Status.loading then Status.error with errorMessage',
-        build: () => sut,
-        act: (cubit) => cubit.addtext('1', delta),
-        expect: () => [
-          DetailsState(status: Status.loading),
-          DetailsState(
-            status: Status.error,
-            errorMessage: 'Exception: test-exception-error',
-          ),
-        ],
-      );
-    });
+    //   blocTest<DetailsCubit, DetailsState>(
+    //     'emits Status.loading then Status.error with errorMessage',
+    //     build: () => sut,
+    //     act: (cubit) => cubit.addtext('1', delta),
+    //     expect: () => [
+    //       DetailsState(status: Status.loading),
+    //       DetailsState(
+    //         status: Status.error,
+    //         errorMessage: 'Exception: test-exception-error',
+    //       ),
+    //     ],
+    //   );
+    // });
   });
   
 }

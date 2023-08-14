@@ -19,7 +19,6 @@ mixin _$RootState {
   User? get user => throw _privateConstructorUsedError;
   Status get status => throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
-  AuthResultStatus? get errorStatus => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $RootStateCopyWith<RootState> get copyWith =>
@@ -31,11 +30,7 @@ abstract class $RootStateCopyWith<$Res> {
   factory $RootStateCopyWith(RootState value, $Res Function(RootState) then) =
       _$RootStateCopyWithImpl<$Res, RootState>;
   @useResult
-  $Res call(
-      {User? user,
-      Status status,
-      String? errorMessage,
-      AuthResultStatus? errorStatus});
+  $Res call({User? user, Status status, String? errorMessage});
 }
 
 /// @nodoc
@@ -54,7 +49,6 @@ class _$RootStateCopyWithImpl<$Res, $Val extends RootState>
     Object? user = freezed,
     Object? status = null,
     Object? errorMessage = freezed,
-    Object? errorStatus = freezed,
   }) {
     return _then(_value.copyWith(
       user: freezed == user
@@ -69,10 +63,6 @@ class _$RootStateCopyWithImpl<$Res, $Val extends RootState>
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String?,
-      errorStatus: freezed == errorStatus
-          ? _value.errorStatus
-          : errorStatus // ignore: cast_nullable_to_non_nullable
-              as AuthResultStatus?,
     ) as $Val);
   }
 }
@@ -84,11 +74,7 @@ abstract class _$$_RootStateCopyWith<$Res> implements $RootStateCopyWith<$Res> {
       __$$_RootStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {User? user,
-      Status status,
-      String? errorMessage,
-      AuthResultStatus? errorStatus});
+  $Res call({User? user, Status status, String? errorMessage});
 }
 
 /// @nodoc
@@ -105,7 +91,6 @@ class __$$_RootStateCopyWithImpl<$Res>
     Object? user = freezed,
     Object? status = null,
     Object? errorMessage = freezed,
-    Object? errorStatus = freezed,
   }) {
     return _then(_$_RootState(
       user: freezed == user
@@ -120,10 +105,6 @@ class __$$_RootStateCopyWithImpl<$Res>
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String?,
-      errorStatus: freezed == errorStatus
-          ? _value.errorStatus
-          : errorStatus // ignore: cast_nullable_to_non_nullable
-              as AuthResultStatus?,
     ));
   }
 }
@@ -131,11 +112,7 @@ class __$$_RootStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_RootState implements _RootState {
-  _$_RootState(
-      {this.user,
-      this.status = Status.initial,
-      this.errorMessage,
-      this.errorStatus});
+  _$_RootState({this.user, this.status = Status.initial, this.errorMessage});
 
   @override
   final User? user;
@@ -144,12 +121,10 @@ class _$_RootState implements _RootState {
   final Status status;
   @override
   final String? errorMessage;
-  @override
-  final AuthResultStatus? errorStatus;
 
   @override
   String toString() {
-    return 'RootState(user: $user, status: $status, errorMessage: $errorMessage, errorStatus: $errorStatus)';
+    return 'RootState(user: $user, status: $status, errorMessage: $errorMessage)';
   }
 
   @override
@@ -160,14 +135,11 @@ class _$_RootState implements _RootState {
             (identical(other.user, user) || other.user == user) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.errorMessage, errorMessage) ||
-                other.errorMessage == errorMessage) &&
-            (identical(other.errorStatus, errorStatus) ||
-                other.errorStatus == errorStatus));
+                other.errorMessage == errorMessage));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, user, status, errorMessage, errorStatus);
+  int get hashCode => Object.hash(runtimeType, user, status, errorMessage);
 
   @JsonKey(ignore: true)
   @override
@@ -180,8 +152,7 @@ abstract class _RootState implements RootState {
   factory _RootState(
       {final User? user,
       final Status status,
-      final String? errorMessage,
-      final AuthResultStatus? errorStatus}) = _$_RootState;
+      final String? errorMessage}) = _$_RootState;
 
   @override
   User? get user;
@@ -189,8 +160,6 @@ abstract class _RootState implements RootState {
   Status get status;
   @override
   String? get errorMessage;
-  @override
-  AuthResultStatus? get errorStatus;
   @override
   @JsonKey(ignore: true)
   _$$_RootStateCopyWith<_$_RootState> get copyWith =>

@@ -7,6 +7,7 @@ import 'package:lifediary_project/app/features/to_do_list/to_do_list_content.dar
 import 'package:lifediary_project/app/features/training/training_page_content.dart';
 import 'package:lifediary_project/app/features/water/water_page.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({
     Key? key,
@@ -62,9 +63,9 @@ class _HomePageState extends State<HomePage> {
         onTap: (newIndex) {
           setState(() {
             currentIndex = newIndex;
-          });//ss
+          }); //ss
         },
-        items:  [
+        items: [
           BottomNavigationBarItem(
             activeIcon: const Icon(
               Icons.person,
@@ -88,7 +89,7 @@ class _HomePageState extends State<HomePage> {
           ),
           const BottomNavigationBarItem(
             icon: Icon(Icons.list_alt),
-            label: 'To Do List',
+            label: 'ToDoList',
           ),
           BottomNavigationBarItem(
             icon: const Icon(Icons.lock_clock),

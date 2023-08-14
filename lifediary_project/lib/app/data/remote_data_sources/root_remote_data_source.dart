@@ -1,8 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 
-
-
 @injectable
 class RootRemoteDataSource {
   Future<void> createUserWithEmailAndPassword(
@@ -14,7 +12,6 @@ class RootRemoteDataSource {
       password: password,
     );
   }
-  
 
   Future<void> signInWithEmailAndPassword(
     String email,
@@ -33,5 +30,4 @@ class RootRemoteDataSource {
   Stream<User?> authStateChanges() {
     return FirebaseAuth.instance.authStateChanges();
   }
-
 }

@@ -41,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
                     const Icon(Icons.error, color: Colors.white),
                     const SizedBox(width: 8),
                     Text(
-                      state.errorMessage ?? 'Unknown error',
+                      state.errorMessage ?? 'ds',
                       style: const TextStyle(color: Colors.white),
                     ),
                   ],
@@ -49,133 +49,11 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
           );
+
           return;
         } else if (state.user != null) {
           Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (_) => HomePage(user: state.user!)));
-        } else if (state.errorStatus != null) {
-          switch (state.errorStatus) {
-            case AuthResultStatus.invalidEmail:
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  behavior: SnackBarBehavior.floating,
-                  backgroundColor: Colors.red,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  content: const Padding(
-                    padding: EdgeInsets.all(8),
-                    child: Row(
-                      children: [
-                        Icon(Icons.error, color: Colors.white),
-                        SizedBox(width: 8),
-                        Text(
-                          "Your email address appears to be malformed.",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              );
-              break;
-            case AuthResultStatus.wrongPassword:
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  behavior: SnackBarBehavior.floating,
-                  backgroundColor: Colors.red,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  content: const Padding(
-                    padding: EdgeInsets.all(8),
-                    child: Row(
-                      children: [
-                        Icon(Icons.error, color: Colors.white),
-                        SizedBox(width: 8),
-                        Text(
-                          "Your password is wrong.",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              );
-              break;
-            case AuthResultStatus.userNotFound:
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  behavior: SnackBarBehavior.floating,
-                  backgroundColor: Colors.red,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  content: const Padding(
-                    padding: EdgeInsets.all(8),
-                    child: Row(
-                      children: [
-                        Icon(Icons.error, color: Colors.white),
-                        SizedBox(width: 8),
-                        Text(
-                          "User not found.",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              );
-              break;
-            case AuthResultStatus.emailAlreadyExists:
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  behavior: SnackBarBehavior.floating,
-                  backgroundColor: Colors.red,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  content: const Padding(
-                    padding: EdgeInsets.all(8),
-                    child: Row(
-                      children: [
-                        Icon(Icons.error, color: Colors.white),
-                        SizedBox(width: 8),
-                        Text(
-                          "The email has already been registered. Please login or reset your password.",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              );
-              break;
-            default:
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  behavior: SnackBarBehavior.floating,
-                  backgroundColor: Colors.red,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  content: const Padding(
-                    padding: EdgeInsets.all(8),
-                    child: Row(
-                      children: [
-                        Icon(Icons.error, color: Colors.white),
-                        SizedBox(width: 8),
-                        Text(
-                          "Niezdefiniowany błąd.",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              );
-              break;
-          }
         }
       },
       child: BlocBuilder<RootCubit, RootState>(
@@ -299,37 +177,37 @@ class _LoginPageState extends State<LoginPage> {
                             const SizedBox(height: 20),
                             ElevatedButton(
                               onPressed: () async {
-                                final email = widget.emailController.text;
-                                final password = widget.passwordController.text;
+                                // final email = widget.emailController.text;
+                                // final password = widget.passwordController.text;
 
-                                if (email.isEmpty || password.isEmpty) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      behavior: SnackBarBehavior.floating,
-                                      backgroundColor: Colors.red,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      content: Padding(
-                                        padding: const EdgeInsets.all(8),
-                                        child: Row(
-                                          children: [
-                                            const Icon(Icons.error,
-                                                color: Colors.white),
-                                            const SizedBox(width: 8),
-                                            Text(
-                                              AppLocalizations.of(context)!
-                                                  .change_data,
-                                              style: const TextStyle(
-                                                  color: Colors.white),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                  return;
-                                }
+                                // if (email.isEmpty || password.isEmpty) {
+                                //   ScaffoldMessenger.of(context).showSnackBar(
+                                //     SnackBar(
+                                //       behavior: SnackBarBehavior.floating,
+                                //       backgroundColor: Colors.red,
+                                //       shape: RoundedRectangleBorder(
+                                //         borderRadius: BorderRadius.circular(10),
+                                //       ),
+                                //       content: Padding(
+                                //         padding: const EdgeInsets.all(8),
+                                //         child: Row(
+                                //           children: [
+                                //             const Icon(Icons.error,
+                                //                 color: Colors.white),
+                                //             const SizedBox(width: 8),
+                                //             Text(
+                                //               AppLocalizations.of(context)!
+                                //                   .change_data,
+                                //               style: const TextStyle(
+                                //                   color: Colors.white),
+                                //             ),
+                                //           ],
+                                //         ),
+                                //       ),
+                                //     ),
+                                //   );
+                                //   return;
+                                // }
                                 if (isCreatingAccount == true) {
                                   context.read<RootCubit>().createAccount(
                                         widget.emailController,

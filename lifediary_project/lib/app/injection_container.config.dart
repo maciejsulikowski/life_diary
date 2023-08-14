@@ -106,12 +106,12 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i10.RootRepository>(
         () => _i10.RootRepository(gh<_i9.RootRemoteDataSource>()));
     gh.factory<String>(
-      () => registerModule.secondUrl,
-      instanceName: 'SecondUrl',
-    );
-    gh.factory<String>(
       () => registerModule.baseUrl,
       instanceName: 'BaseUrl',
+    );
+    gh.factory<String>(
+      () => registerModule.secondUrl,
+      instanceName: 'SecondUrl',
     );
     gh.factory<_i11.TasksRemoteDataSource>(() => _i11.TasksRemoteDataSource());
     gh.factory<_i12.TasksRepository>(

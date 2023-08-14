@@ -48,7 +48,7 @@ class WaterPageState extends State<WaterPage> {
             body: Container(
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage("images/water.jpg"), fit: BoxFit.cover),
+                    image: AssetImage("images/water6.jpg"), fit: BoxFit.cover),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -60,7 +60,7 @@ class WaterPageState extends State<WaterPage> {
                         AppLocalizations.of(context)!.glasses,
                         style: GoogleFonts.buenard(
                             fontSize: 18,
-                            color: Colors.indigo[700],
+                            color: Colors.yellow[400],
                             fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -124,7 +124,7 @@ class WaterPageState extends State<WaterPage> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            content:  Padding(
+                            content: Padding(
                               padding: const EdgeInsets.all(8),
                               child: Row(
                                 children: [
@@ -152,7 +152,7 @@ class WaterPageState extends State<WaterPage> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            content:  Padding(
+                            content: Padding(
                               padding: const EdgeInsets.all(8),
                               child: Row(
                                 children: [
@@ -203,18 +203,18 @@ class WaterPageState extends State<WaterPage> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
-                              '${AppLocalizations.of(context)!.drink_1} ${result} ${AppLocalizations.of(context)!.drink_2}',
+                              '${AppLocalizations.of(context)!.drink_1} $result ${AppLocalizations.of(context)!.drink_2}',
                               style: GoogleFonts.buenard(
-                                  fontSize: 24,
-                                  color: Colors.indigo[700],
+                                  fontSize: 26,
+                                  color: const Color.fromARGB(255, 12, 40, 225),
                                   fontWeight: FontWeight.bold),
                               textAlign: TextAlign.center,
                             ),
                             Text(
-                              '${AppLocalizations.of(context)!.drink_3} ${glassResult} ${AppLocalizations.of(context)!.drink_4}',
+                              '${AppLocalizations.of(context)!.drink_3} $glassResult ${AppLocalizations.of(context)!.drink_4}',
                               style: GoogleFonts.buenard(
-                                  fontSize: 24,
-                                  color: Colors.indigo[700],
+                                  fontSize: 26,
+                                  color: const Color.fromARGB(255, 12, 40, 225),
                                   fontWeight: FontWeight.bold),
                               textAlign: TextAlign.center,
                             )

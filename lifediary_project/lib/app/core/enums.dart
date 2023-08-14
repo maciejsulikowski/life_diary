@@ -5,10 +5,4 @@ enum Status {
   error,
 }
 
-enum AuthResultStatus {
-  userNotFound,
-  invalidEmail,
-  wrongPassword,
-  emailAlreadyExists,
-  success, error,
-}
+

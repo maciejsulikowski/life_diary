@@ -99,7 +99,7 @@ class MyAccountPageContent extends StatelessWidget {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 60),
+                        const SizedBox(height: 30),
                         const Image(
                           image: AssetImage('images/black_diary.png'),
                           width: 100,
@@ -182,7 +182,7 @@ class MyAccountPageContent extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 40),
+                        const SizedBox(height: 30),
                         ElevatedButton.icon(
                           style: ButtonStyle(
                             backgroundColor:
@@ -211,7 +211,7 @@ class MyAccountPageContent extends StatelessWidget {
                             );
                           },
                         ),
-                        const SizedBox(height: 100),
+                        const SizedBox(height: 20),
                         Expanded(
                           child: Padding(
                             padding: const EdgeInsets.only(bottom: 8.0),

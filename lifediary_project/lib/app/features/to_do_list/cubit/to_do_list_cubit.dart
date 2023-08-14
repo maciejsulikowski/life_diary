@@ -44,6 +44,7 @@ class ToDoListCubit extends Cubit<ToDoListState> {
       emit(
         ToDoListState(saved: true, status: Status.success),
       );
+      start();
     } catch (error) {
       emit(ToDoListState(status: Status.error, errorMessage: error.toString()));
     }
@@ -53,6 +54,7 @@ class ToDoListCubit extends Cubit<ToDoListState> {
     try {
       await _tasksRepository.updateTask(itemModel);
       emit(ToDoListState(status: Status.success));
+      start();
     } catch (error) {
       emit(
         ToDoListState(status: Status.error, errorMessage: error.toString()),
@@ -67,7 +69,7 @@ class ToDoListCubit extends Cubit<ToDoListState> {
       emit(
         ToDoListState(status: Status.error, errorMessage: error.toString()),
       );
-      
+      start();
     }
   }
 

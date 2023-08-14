@@ -11,6 +11,6 @@ class RootState with _$RootState {
     User? user,
     @Default(Status.initial) Status status,
     String? errorMessage,
-    AuthResultStatus? errorStatus,
+    
   }) = _RootState;
 }

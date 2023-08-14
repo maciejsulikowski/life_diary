@@ -10,7 +10,6 @@ class SecondWelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       body: Container(
         color: Colors.black87,
         child: Center(
@@ -20,10 +19,10 @@ class SecondWelcomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const SizedBox(
-                  height: 70,
+                  height: 10,
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(14.0),
                   child: Text(
                     AppLocalizations.of(context)!.welcome2,
                     style: GoogleFonts.buenard(
@@ -31,9 +30,6 @@ class SecondWelcomePage extends StatelessWidget {
                         color: Colors.yellow[400],
                         fontWeight: FontWeight.bold),
                   ),
-                ),
-                const SizedBox(
-                  height: 30,
                 ),
                 Row(
                   children: [
@@ -99,7 +95,7 @@ class SecondWelcomePage extends StatelessWidget {
                 Row(
                   children: [
                     const SizedBox(width: 10),
-                   const  CircleAvatar(
+                    const CircleAvatar(
                       backgroundImage: AssetImage('images/todolist.png'),
                       radius: 30,
                     ),
@@ -138,8 +134,7 @@ class SecondWelcomePage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Center(
-                    child: Text(
-                        AppLocalizations.of(context)!.welcome8,
+                    child: Text(AppLocalizations.of(context)!.welcome8,
                         style: GoogleFonts.buenard(
                             fontSize: 24,
                             color: Colors.yellow,

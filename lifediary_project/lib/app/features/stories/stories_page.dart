@@ -59,8 +59,8 @@ class _StoriesPageState extends State<StoriesPage> {
                   if (state.status == Status.loading) {
                     return const Center(child: CircularProgressIndicator());
                   }
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                  return ListView(
+                    // mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(10.0),
