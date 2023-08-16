@@ -50,8 +50,8 @@ class WaterPageState extends State<WaterPage> {
                 image: DecorationImage(
                     image: AssetImage("images/water6.jpg"), fit: BoxFit.cover),
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+              child: ListView(
+                // mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Center(
                     child: Padding(
@@ -62,6 +62,7 @@ class WaterPageState extends State<WaterPage> {
                             fontSize: 18,
                             color: Colors.yellow[400],
                             fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
                       ),
                     ),
                   ),
@@ -82,7 +83,7 @@ class WaterPageState extends State<WaterPage> {
                         ),
                         hintText: AppLocalizations.of(context)!.water_height,
                         hintStyle: TextStyle(
-                          fontSize: 20.0,
+                          fontSize: 15,
                           color: Colors.yellow[400],
                         ),
                       ),
@@ -106,92 +107,107 @@ class WaterPageState extends State<WaterPage> {
                         ),
                         hintText: AppLocalizations.of(context)!.water_weight,
                         hintStyle: TextStyle(
-                          fontSize: 20.0,
+                          fontSize: 15,
                           color: Colors.yellow[400],
                         ),
                       ),
                     ),
                   ),
                   const SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: () {
-                      if (heightController.text.isEmpty ||
-                          weightController.text.isEmpty) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            behavior: SnackBarBehavior.floating,
-                            backgroundColor: Colors.red,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            content: Padding(
-                              padding: const EdgeInsets.all(8),
-                              child: Row(
-                                children: [
-                                  const Icon(Icons.error, color: Colors.white),
-                                  const SizedBox(width: 8),
-                                  Text(
-                                    AppLocalizations.of(context)!.change_data,
-                                    style: const TextStyle(color: Colors.white),
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            if (heightController.text.isEmpty ||
+                                weightController.text.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  behavior: SnackBarBehavior.floating,
+                                  backgroundColor: Colors.red,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
                                   ),
-                                ],
-                              ),
+                                  content: Padding(
+                                    padding: const EdgeInsets.all(8),
+                                    child: Row(
+                                      children: [
+                                        const Icon(Icons.error,
+                                            color: Colors.white),
+                                        const SizedBox(width: 8),
+                                        Text(
+                                          AppLocalizations.of(context)!
+                                              .change_data,
+                                          style: const TextStyle(
+                                              color: Colors.white),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
+                              return;
+                            }
+
+                            // Sprawdzenie, czy dane w heightController i weightController są liczbami
+                            if (double.tryParse(heightController.text) ==
+                                    null ||
+                                double.tryParse(weightController.text) ==
+                                    null) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  behavior: SnackBarBehavior.floating,
+                                  backgroundColor: Colors.red,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  content: Padding(
+                                    padding: const EdgeInsets.all(8),
+                                    child: Row(
+                                      children: [
+                                        const Icon(Icons.error,
+                                            color: Colors.white),
+                                        const SizedBox(width: 8),
+                                        Text(
+                                          AppLocalizations.of(context)!.count_2,
+                                          style: const TextStyle(
+                                              color: Colors.white),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
+                              return;
+                            }
+
+                            // Obliczenia i zapis do Cubit
+                            setState(() {
+                              isAnswered = true;
+                              result =
+                                  (30 * double.parse(weightController.text))
+                                      .toInt();
+                              glassResult = (result / glass).floor();
+                              answer = glassResult.toString();
+                              context.read<WaterCubit>().saveGlasses(answer);
+                            });
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.indigo[700],
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
                             ),
                           ),
-                        );
-                        return;
-                      }
-
-                      // Sprawdzenie, czy dane w heightController i weightController są liczbami
-                      if (double.tryParse(heightController.text) == null ||
-                          double.tryParse(weightController.text) == null) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            behavior: SnackBarBehavior.floating,
-                            backgroundColor: Colors.red,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            content: Padding(
-                              padding: const EdgeInsets.all(8),
-                              child: Row(
-                                children: [
-                                  const Icon(Icons.error, color: Colors.white),
-                                  const SizedBox(width: 8),
-                                  Text(
-                                    AppLocalizations.of(context)!.count_2,
-                                    style: const TextStyle(color: Colors.white),
-                                  ),
-                                ],
-                              ),
-                            ),
+                          child: Text(
+                            AppLocalizations.of(context)!.count,
+                            style: GoogleFonts.buenard(
+                                fontSize: 20,
+                                color: Colors.yellow,
+                                fontWeight: FontWeight.bold),
                           ),
-                        );
-                        return;
-                      }
-
-                      // Obliczenia i zapis do Cubit
-                      setState(() {
-                        isAnswered = true;
-                        result =
-                            (30 * double.parse(weightController.text)).toInt();
-                        glassResult = (result / glass).floor();
-                        answer = glassResult.toString();
-                        context.read<WaterCubit>().saveGlasses(answer);
-                      });
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.indigo[700],
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                    child: Text(
-                      AppLocalizations.of(context)!.count,
-                      style: GoogleFonts.buenard(
-                          fontSize: 20,
-                          color: Colors.yellow,
-                          fontWeight: FontWeight.bold),
+                        ),
+                      ],
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -206,7 +222,7 @@ class WaterPageState extends State<WaterPage> {
                               '${AppLocalizations.of(context)!.drink_1} $result ${AppLocalizations.of(context)!.drink_2}',
                               style: GoogleFonts.buenard(
                                   fontSize: 26,
-                                  color: const Color.fromARGB(255, 12, 40, 225),
+                                  color: Colors.yellow[400],
                                   fontWeight: FontWeight.bold),
                               textAlign: TextAlign.center,
                             ),
@@ -214,7 +230,7 @@ class WaterPageState extends State<WaterPage> {
                               '${AppLocalizations.of(context)!.drink_3} $glassResult ${AppLocalizations.of(context)!.drink_4}',
                               style: GoogleFonts.buenard(
                                   fontSize: 26,
-                                  color: const Color.fromARGB(255, 12, 40, 225),
+                                  color: Colors.yellow[400],
                                   fontWeight: FontWeight.bold),
                               textAlign: TextAlign.center,
                             )

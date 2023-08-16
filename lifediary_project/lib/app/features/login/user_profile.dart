@@ -49,6 +49,7 @@ class _UserProfileState extends State<UserProfile> {
                     fontWeight: FontWeight.bold,
                     fontSize: 24,
                   ),
+                  textAlign: TextAlign.center,
                 ),
                 centerTitle: true,
                 backgroundColor: Colors.black87,
@@ -189,6 +190,7 @@ class _UserViewState extends State<UserView> {
                 fontWeight: FontWeight.bold,
                 fontSize: 24,
               ),
+              textAlign: TextAlign.center,
             ),
             const SizedBox(height: 20),
             if (widget.userModel != null) ...[

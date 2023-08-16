@@ -182,7 +182,7 @@ class _AddPageBodyState extends State<_AddPageBody> {
             label: Text(
               AppLocalizations.of(context)!.diary_add_title,
               style: GoogleFonts.buenard(
-                  fontSize: 22,
+                  fontSize: 20,
                   color: Colors.yellow[400],
                   fontWeight: FontWeight.bold),
             ),
@@ -197,7 +197,7 @@ class _AddPageBodyState extends State<_AddPageBody> {
                 });
               },
               style: GoogleFonts.buenard(
-                fontSize: 20,
+                fontSize: 16,
                 color: Colors.yellow[400],
                 fontWeight: FontWeight.bold,
               ),
@@ -217,14 +217,13 @@ class _AddPageBodyState extends State<_AddPageBody> {
                 hintText: AppLocalizations.of(context)!.forexample2,
                 labelText: AppLocalizations.of(context)!.diary_add_title,
                 labelStyle: GoogleFonts.buenard(
-                  fontSize: 22,
+                  fontSize: 16,
                   color: Colors.yellow[400],
                   fontWeight: FontWeight.bold,
                 ),
                 hintStyle: GoogleFonts.buenard(
-                  fontSize: 20,
+                  fontSize: 16,
                   color: Colors.yellow[400],
-                  fontWeight: FontWeight.bold,
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20),
@@ -281,7 +280,7 @@ class _AddPageBodyState extends State<_AddPageBody> {
                   ? AppLocalizations.of(context)!.training_add_photo3
                   : AppLocalizations.of(context)!.training_add_photo2,
               style: GoogleFonts.buenard(
-                  fontSize: 22,
+                  fontSize: 20,
                   color: Colors.yellow[400],
                   fontWeight: FontWeight.bold),
             ),
@@ -327,7 +326,7 @@ class _AddPageBodyState extends State<_AddPageBody> {
               widget.selectedDateFormatted ??
                   AppLocalizations.of(context)!.diary_add_data,
               style: GoogleFonts.buenard(
-                  fontSize: 22,
+                  fontSize: 20,
                   color: Colors.yellow[400],
                   fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,

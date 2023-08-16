@@ -178,6 +178,7 @@ class MyAccountPageContent extends StatelessWidget {
                                   fontSize: 20,
                                   color: Colors.yellow[400],
                                 ),
+                                textAlign: TextAlign.center,
                               ),
                             ),
                           ),

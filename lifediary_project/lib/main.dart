@@ -14,8 +14,5 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   ); //dss
-  runApp(DevicePreview(
-    builder: (context) => const MyApp(),
-    enabled: !kReleaseMode,
-  ));
+  runApp(const MyApp());
 }

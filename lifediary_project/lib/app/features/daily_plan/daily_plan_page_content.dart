@@ -207,16 +207,16 @@ class TimeContainer extends StatelessWidget {
     final formattedHourString =
         '${hourString.substring(0, 2)}:${hourString.substring(2)}';
     return Container(
-        width: 90,
-        height: 94,
+        width: 100,
+        height: 100,
         color: Colors.yellow[400],
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(10),
         margin: const EdgeInsets.only(top: 10),
         child: Center(
           child: Text(
             (formattedHourString),
             style: GoogleFonts.buenard(
-                fontSize: 20,
+                fontSize: 18,
                 color: Colors.indigo[700],
                 fontWeight: FontWeight.bold),
           ),

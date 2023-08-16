@@ -15,20 +15,23 @@ class SecondWelcomePage extends StatelessWidget {
         child: Center(
           child: Padding(
             padding: const EdgeInsets.only(top: 25.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+            child: ListView(
+              // mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const SizedBox(
                   height: 10,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(14.0),
-                  child: Text(
-                    AppLocalizations.of(context)!.welcome2,
-                    style: GoogleFonts.buenard(
-                        fontSize: 24,
-                        color: Colors.yellow[400],
-                        fontWeight: FontWeight.bold),
+                  child: Center(
+                    child: Text(
+                      AppLocalizations.of(context)!.welcome2,
+                      style: GoogleFonts.buenard(
+                          fontSize: 24,
+                          color: Colors.yellow[400],
+                          fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ),
                 Row(

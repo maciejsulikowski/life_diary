@@ -187,7 +187,7 @@ class _AddPhotoBodyState extends State<_AddPhotoBody> {
             label: Text(
               AppLocalizations.of(context)!.training_add_title,
               style: GoogleFonts.buenard(
-                  fontSize: 22,
+                  fontSize: 20,
                   color: Colors.yellow[400],
                   fontWeight: FontWeight.bold),
             ),
@@ -223,17 +223,17 @@ class _AddPhotoBodyState extends State<_AddPhotoBody> {
                 label: Text(
                   AppLocalizations.of(context)!.training_add_title,
                   style: GoogleFonts.buenard(
-                      fontSize: 22,
+                      fontSize: 20,
                       color: Colors.yellow[400],
                       fontWeight: FontWeight.bold),
                 ),
                 labelStyle: GoogleFonts.buenard(
-                  fontSize: 22,
+                  fontSize: 20,
                   color: Colors.yellow[400],
                   fontWeight: FontWeight.bold,
                 ),
                 hintStyle: GoogleFonts.buenard(
-                    fontSize: 22,
+                    fontSize: 16,
                     color: Colors.yellow[400],
                     fontWeight: FontWeight.bold),
                 enabledBorder: OutlineInputBorder(
@@ -298,7 +298,7 @@ class _AddPhotoBodyState extends State<_AddPhotoBody> {
                           ? AppLocalizations.of(context)!.training_add_photo3
                           : AppLocalizations.of(context)!.training_add_photo1,
                       style: GoogleFonts.buenard(
-                          fontSize: 22,
+                          fontSize: 20,
                           color: Colors.yellow[400],
                           fontWeight: FontWeight.bold),
                     ),
@@ -354,7 +354,7 @@ class _AddPhotoBodyState extends State<_AddPhotoBody> {
                           ? AppLocalizations.of(context)!.training_add_photo3
                           : AppLocalizations.of(context)!.training_add_photo2,
                       style: GoogleFonts.buenard(
-                          fontSize: 22,
+                          fontSize: 20,
                           color: Colors.yellow[400],
                           fontWeight: FontWeight.bold),
                     ),
@@ -404,7 +404,7 @@ class _AddPhotoBodyState extends State<_AddPhotoBody> {
               widget.selectedDateFormatted ??
                   AppLocalizations.of(context)!.training_add_data,
               style: GoogleFonts.buenard(
-                  fontSize: 22,
+                  fontSize: 20,
                   color: Colors.yellow[400],
                   fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
