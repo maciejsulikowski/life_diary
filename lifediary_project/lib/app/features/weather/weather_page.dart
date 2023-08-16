@@ -131,72 +131,75 @@ class _WeatherPageState extends State<WeatherPage> {
                       if (isWeatherHide == false) ...[
                         Padding(
                           padding: const EdgeInsets.all(10.0),
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: TextField(
-                                      controller: controller,
-                                      style: TextStyle(
-                                        color: Colors.yellow[400],
-                                        fontSize: 22,
-                                        fontFamily:
-                                            GoogleFonts.buenard().fontFamily,
-                                      ),
-                                      decoration: InputDecoration(
-                                        hintText: AppLocalizations.of(context)!
-                                            .check_city,
-                                        hintStyle: TextStyle(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: TextField(
+                                        controller: controller,
+                                        style: TextStyle(
                                           color: Colors.yellow[400],
                                           fontSize: 22,
                                           fontFamily:
                                               GoogleFonts.buenard().fontFamily,
                                         ),
-                                        border: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color:
-                                                Color.fromRGBO(255, 238, 88, 1),
+                                        decoration: InputDecoration(
+                                          hintText:
+                                              AppLocalizations.of(context)!
+                                                  .check_city,
+                                          hintStyle: TextStyle(
+                                            color: Colors.yellow[400],
+                                            fontSize: 22,
+                                            fontFamily: GoogleFonts.buenard()
+                                                .fontFamily,
                                           ),
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Colors.yellow,
+                                          border: OutlineInputBorder(
+                                            borderSide: const BorderSide(
+                                              color: Color.fromRGBO(
+                                                  255, 238, 88, 1),
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(20),
                                           ),
-                                          borderRadius:
-                                              BorderRadius.circular(20),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: const BorderSide(
+                                              color: Colors.yellow,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  const SizedBox(width: 20),
-                                  ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.indigo[700],
-                                      padding: EdgeInsets.zero,
-                                    ),
-                                    onPressed: () {
-                                      context
-                                          .read<WeatherCubit>()
-                                          .getWeatherModel(
-                                              city: controller.text);
-                                    },
-                                    child: Align(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        '🔎',
-                                        style: TextStyle(
-                                          color: Colors.yellow[400],
-                                          fontSize: 16,
+                                    const SizedBox(width: 20),
+                                    ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.indigo[700],
+                                        padding: EdgeInsets.zero,
+                                      ),
+                                      onPressed: () {
+                                        context
+                                            .read<WeatherCubit>()
+                                            .getWeatherModel(
+                                                city: controller.text);
+                                      },
+                                      child: Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          '🔎',
+                                          style: TextStyle(
+                                            color: Colors.yellow[400],
+                                            fontSize: 16,
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ],

@@ -40,9 +40,12 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     const Icon(Icons.error, color: Colors.white),
                     const SizedBox(width: 8),
-                    Text(
-                      state.errorMessage ?? 'ds',
-                      style: const TextStyle(color: Colors.white),
+                    Expanded(
+                      child: Text(
+                        state.errorMessage ?? '',
+                        style: const TextStyle(color: Colors.white),
+                        softWrap: true,
+                      ),
                     ),
                   ],
                 ),

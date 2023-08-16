@@ -14,5 +14,10 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   ); //dss
-  runApp(const MyApp());
+  runApp(
+    const MaterialApp(
+      title: 'Life Diary',
+      home: MyApp(),
+    ),
+  );
 }
