@@ -13,10 +13,11 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
-  ); //dss
+  ); 
   runApp(
     const MaterialApp(
       title: 'Life Diary',
+      debugShowCheckedModeBanner: false,
       home: MyApp(),
     ),
   );

@@ -63,7 +63,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '187894505069',
     projectId: 'lifediary-project-5882',
     storageBucket: 'lifediary-project-5882.appspot.com',
-    iosClientId: '187894505069-53p82jn1ebac5l912pk8d4etaid11tvi.apps.googleusercontent.com',
-    iosBundleId: 'com.maciejsulikowski.lifediaryProject',
+    iosClientId:
+        '187894505069-53p82jn1ebac5l912pk8d4etaid11tvi.apps.googleusercontent.com',
+    iosBundleId: 'com.maciejsulikowskii.lifediaryProject',
   );
 }

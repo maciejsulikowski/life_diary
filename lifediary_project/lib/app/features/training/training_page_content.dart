@@ -152,7 +152,6 @@ class ListViewItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return InkWell(
       onTap: () {
         Navigator.of(context).push(
@@ -178,7 +177,7 @@ class ListViewItem extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                  height: 300,
+                  height: 350,
                   decoration: BoxDecoration(
                     color: Colors.black12,
                     image: DecorationImage(
