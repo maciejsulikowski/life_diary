@@ -117,7 +117,6 @@ class MyListTileItemWidget extends StatefulWidget {
 class _MyListTileItemWidgetState extends State<MyListTileItemWidget> {
   late String text;
   late TextEditingController controller;
-  double minHeight = 100;
 
   @override
   void initState() {
@@ -128,66 +127,52 @@ class _MyListTileItemWidgetState extends State<MyListTileItemWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      constraints: const BoxConstraints(minHeight: 100),
-      child: IntrinsicHeight(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            TimeContainer(
-              currentHour: widget.currentHour,
-            ),
-            Expanded(
-              child: Stack(
-                children: [
-                  SingleChildScrollView(
-                    child: PartOfPlanning(
-                      controller: controller =
-                          TextEditingController(text: widget.itemModel?.text),
+    return IntrinsicHeight(
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          TimeContainer(
+            currentHour: widget.currentHour,
+          ),
+          Expanded(
+            child: Stack(
+              alignment: Alignment.centerRight,
+              children: [
+                PartOfPlanning(
+                  controller: controller =
+                      TextEditingController(text: widget.itemModel?.text),
+                ),
+                SizedBox(
+                  height: 30,
+                  width: 30,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.black87,
+                      padding: EdgeInsets.zero,
                     ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Positioned(
-                        right: 0,
-                        child: Align(
-                          alignment: Alignment.centerRight,
-                          child: SizedBox(
-                            width: 30,
-                            height: 30,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.black87,
-                                padding: EdgeInsets.zero,
-                              ),
-                              onPressed: () {
-                                context.read<DailyPlanCubit>().addplan(
-                                      controller.text,
-                                      widget.currentHour.toString(),
-                                    );
-                              },
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  '✓',
-                                  style: TextStyle(
-                                    color: Colors.yellow[400],
-                                    fontSize: 16,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
+                    onPressed: () {
+                      context.read<DailyPlanCubit>().addplan(
+                            controller.text,
+                            widget.currentHour.toString(),
+                          );
+                    },
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        '✓',
+                        style: TextStyle(
+                          color: Colors.yellow[400],
+                          fontSize: 16,
                         ),
                       ),
-                    ],
-                  )
-                ],
-              ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

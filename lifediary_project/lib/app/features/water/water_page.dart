@@ -34,6 +34,7 @@ class WaterPageState extends State<WaterPage> {
       child: BlocBuilder<WaterCubit, WaterState>(
         builder: (context, state) {
           return Scaffold(
+            resizeToAvoidBottomInset: true,
             appBar: AppBar(
               title: Text(
                 AppLocalizations.of(context)!.water,
@@ -46,11 +47,13 @@ class WaterPageState extends State<WaterPage> {
               backgroundColor: Colors.black87,
             ),
             body: Container(
+              height: double.infinity,
               decoration: const BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage("images/water6.jpg"), fit: BoxFit.cover),
               ),
               child: ListView(
+                shrinkWrap: true,
                 // mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Center(
@@ -114,129 +117,120 @@ class WaterPageState extends State<WaterPage> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ElevatedButton(
-                          onPressed: () {
-                            if (heightController.text.isEmpty ||
-                                weightController.text.isEmpty) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  behavior: SnackBarBehavior.floating,
-                                  backgroundColor: Colors.red,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  content: Padding(
-                                    padding: const EdgeInsets.all(8),
-                                    child: Row(
-                                      children: [
-                                        const Icon(Icons.error,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          if (heightController.text.isEmpty ||
+                              weightController.text.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                behavior: SnackBarBehavior.floating,
+                                backgroundColor: Colors.red,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                content: Padding(
+                                  padding: const EdgeInsets.all(8),
+                                  child: Row(
+                                    children: [
+                                      const Icon(Icons.error,
+                                          color: Colors.white),
+                                      const SizedBox(width: 8),
+                                      Text(
+                                        AppLocalizations.of(context)!
+                                            .change_data,
+                                        style: const TextStyle(
                                             color: Colors.white),
-                                        const SizedBox(width: 8),
-                                        Text(
-                                          AppLocalizations.of(context)!
-                                              .change_data,
-                                          style: const TextStyle(
-                                              color: Colors.white),
-                                        ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              );
-                              return;
-                            }
+                              ),
+                            );
+                            return;
+                          }
 
-                            // Sprawdzenie, czy dane w heightController i weightController są liczbami
-                            if (double.tryParse(heightController.text) ==
-                                    null ||
-                                double.tryParse(weightController.text) ==
-                                    null) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  behavior: SnackBarBehavior.floating,
-                                  backgroundColor: Colors.red,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  content: Padding(
-                                    padding: const EdgeInsets.all(8),
-                                    child: Row(
-                                      children: [
-                                        const Icon(Icons.error,
+                          // Sprawdzenie, czy dane w heightController i weightController są liczbami
+                          if (double.tryParse(heightController.text) == null ||
+                              double.tryParse(weightController.text) == null) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                behavior: SnackBarBehavior.floating,
+                                backgroundColor: Colors.red,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                content: Padding(
+                                  padding: const EdgeInsets.all(8),
+                                  child: Row(
+                                    children: [
+                                      const Icon(Icons.error,
+                                          color: Colors.white),
+                                      const SizedBox(width: 8),
+                                      Text(
+                                        AppLocalizations.of(context)!.count_2,
+                                        style: const TextStyle(
                                             color: Colors.white),
-                                        const SizedBox(width: 8),
-                                        Text(
-                                          AppLocalizations.of(context)!.count_2,
-                                          style: const TextStyle(
-                                              color: Colors.white),
-                                        ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              );
-                              return;
-                            }
+                              ),
+                            );
+                            return;
+                          }
 
-                            // Obliczenia i zapis do Cubit
-                            setState(() {
-                              isAnswered = true;
-                              result =
-                                  (30 * double.parse(weightController.text))
-                                      .toInt();
-                              glassResult = (result / glass).floor();
-                              answer = glassResult.toString();
-                              context.read<WaterCubit>().saveGlasses(answer);
-                            });
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.indigo[700],
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                          ),
-                          child: Text(
-                            AppLocalizations.of(context)!.count,
-                            style: GoogleFonts.buenard(
-                                fontSize: 20,
-                                color: Colors.yellow,
-                                fontWeight: FontWeight.bold),
+                          // Obliczenia i zapis do Cubit
+                          setState(() {
+                            isAnswered = true;
+                            result = (30 * double.parse(weightController.text))
+                                .toInt();
+                            glassResult = (result / glass).floor();
+                            answer = glassResult.toString();
+                            context.read<WaterCubit>().saveGlasses(answer);
+                          });
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.indigo[700],
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
                           ),
                         ),
-                      ],
-                    ),
+                        child: Text(
+                          AppLocalizations.of(context)!.count,
+                          style: GoogleFonts.buenard(
+                              fontSize: 20,
+                              color: Colors.yellow,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 20),
                   if (isAnswered == true) ...[
-                    Expanded(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              '${AppLocalizations.of(context)!.drink_1} $result ${AppLocalizations.of(context)!.drink_2}',
-                              style: GoogleFonts.buenard(
-                                  fontSize: 26,
-                                  color: Colors.yellow[400],
-                                  fontWeight: FontWeight.bold),
-                              textAlign: TextAlign.center,
-                            ),
-                            Text(
-                              '${AppLocalizations.of(context)!.drink_3} $glassResult ${AppLocalizations.of(context)!.drink_4}',
-                              style: GoogleFonts.buenard(
-                                  fontSize: 26,
-                                  color: Colors.yellow[400],
-                                  fontWeight: FontWeight.bold),
-                              textAlign: TextAlign.center,
-                            )
-                          ],
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          '${AppLocalizations.of(context)!.drink_1} $result ${AppLocalizations.of(context)!.drink_2}',
+                          style: GoogleFonts.buenard(
+                              fontSize: 26,
+                              color: Colors.yellow[400],
+                              fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
                         ),
-                      ),
+                        Text(
+                          '${AppLocalizations.of(context)!.drink_3} $glassResult ${AppLocalizations.of(context)!.drink_4}',
+                          style: GoogleFonts.buenard(
+                              fontSize: 26,
+                              color: Colors.yellow[400],
+                              fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        )
+                      ],
                     ),
                   ]
                 ],

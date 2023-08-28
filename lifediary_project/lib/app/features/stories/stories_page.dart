@@ -64,17 +64,15 @@ class _StoriesPageState extends State<StoriesPage> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(10.0),
-                        child: Expanded(
-                          child: Column(
-                            children: [
-                              for (final story in state.stories) ...[
-                                RandomQuoteContainer(
-                                  storiesModel: story,
-                                ),
-                              ],
-                              const SizedBox(height: 20),
+                        child: Column(
+                          children: [
+                            for (final story in state.stories) ...[
+                              RandomQuoteContainer(
+                                storiesModel: story,
+                              ),
                             ],
-                          ),
+                            const SizedBox(height: 20),
+                          ],
                         ),
                       ),
                     ],
@@ -111,12 +109,11 @@ class RandomQuoteContainer extends StatelessWidget {
                 Stack(
                   alignment: Alignment.center,
                   children: [
-                    if (storiesModel.picture != null)
-                      CircleAvatar(
-                        radius: 80,
-                        backgroundColor: Colors.black,
-                        backgroundImage: NetworkImage(storiesModel.picture),
-                      ),
+                    CircleAvatar(
+                      radius: 80,
+                      backgroundColor: Colors.black,
+                      backgroundImage: NetworkImage(storiesModel.picture),
+                    ),
                     if (state.status == Status.loading)
                       const CircleAvatar(
                         radius: 60,
