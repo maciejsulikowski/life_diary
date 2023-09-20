@@ -21,11 +21,16 @@ A mobile application supporting user's workout organization and process, where o
   
   <img src="lifediary_gif_3.gif" width="20%" height="20%">
 
+</div>
+
+<div gap: 50px;">
+
   <img src="lifediary_gif_4.gif" width="20%" height="20%">
   
   <img src="lifediary_gif_5.gif" width="20%" height="20%">
   
   <img src="lifediary_gif_6.gif" width="20%" height="20%">
+  
 </div>
 
 ## You can download here:
