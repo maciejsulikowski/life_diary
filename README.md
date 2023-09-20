@@ -8,9 +8,17 @@ A mobile application supporting user's workout organization and process, where o
 
 ## Features
 
-- **Random Quote Generator**: Click a button, and Day Quote will instantly provide you with a new, inspiring quote to kickstart your day.
+- **Random Quote**: Click a button, and Day Quote will instantly provide you with a new, inspiring quote to kickstart your day.
 
-- **Search Authors**: Search your favourite authors in SearchBar.
+- **Weather**: Check the current weather and stay informed.
+
+- **Diary**: Create your own diary and enjoy it.
+
+- **Training**:  Add your photos and track your progress.
+ 
+- **ToDoList**: Make and manage tasks and use them.
+- 
+- **DayPlan**: Create your daily plan and have everything at your fingertips.
 
 ## Gif's
 
