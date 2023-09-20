@@ -17,7 +17,7 @@ A mobile application supporting user's workout organization and process, where o
 - **Training**:  Add your photos and track your progress.
  
 - **ToDoList**: Make and manage tasks and use them.
-- 
+ 
 - **DayPlan**: Create your daily plan and have everything at your fingertips.
 
 ## Gif's
