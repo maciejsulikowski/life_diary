@@ -14,6 +14,8 @@ A mobile application supporting user's workout organization and process, where o
 
 - **Diary**: Create your own diary and enjoy it.
 
+- **Water**: Check your preferences about water.
+
 - **Training**:  Add your photos and track your progress.
  
 - **ToDoList**: Make and manage tasks and use them.
