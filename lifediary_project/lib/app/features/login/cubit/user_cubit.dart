@@ -17,24 +17,20 @@ class UserCubit extends Cubit<UserState> {
     emit(UserState(
       status: Status.loading,
     ));
-    _streamSubscription = _userRepository.getUserData().listen(
-      (userModel) {
-        try {
-          emit(
-            UserState(
-                userModel: userModel, status: Status.success, isSaved: false),
-          );
-        } catch (error) {
-          emit(
-            UserState(
-              status: Status.error,
-              isSaved: false,
-              errorMessage: error.toString(),
-            ),
-          );
-        }
-      },
-    );
+    _streamSubscription = _userRepository.getUserData().listen((userModel) {
+      emit(
+        UserState(userModel: userModel, status: Status.success, isSaved: false),
+      );
+    })
+      ..onError((error) {
+        emit(
+          UserState(
+            status: Status.error,
+            isSaved: false,
+            errorMessage: error.toString(),
+          ),
+        );
+      });
   }
 
   Future<void> add(

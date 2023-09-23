@@ -30,8 +30,9 @@ class TrainingCubit extends Cubit<TrainingState> {
 
   Future<void> getPhotoWithID(String id) async {
     emit(TrainingState(status: Status.loading));
-    final photoModel = await _photosRepository.getphotos(id: id);
+
     try {
+      final photoModel = await _photosRepository.getphotos(id: id);
       emit(
         TrainingState(
           photosModel: photoModel,

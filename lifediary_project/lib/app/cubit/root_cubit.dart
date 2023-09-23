@@ -28,7 +28,6 @@ class RootCubit extends Cubit<RootState> {
       RootState(
         user: null,
         status: Status.loading,
-        errorMessage: '',
       ),
     );
 
@@ -37,13 +36,13 @@ class RootCubit extends Cubit<RootState> {
         RootState(
           user: user,
           status: Status.success,
-          errorMessage: '',
         ),
       );
     })
       ..onError((error) {
         emit(
           RootState(
+            status: Status.error,
             user: null,
             errorMessage: error.toString(),
           ),
@@ -51,22 +50,18 @@ class RootCubit extends Cubit<RootState> {
       });
   }
 
-
-
   Future<void> createAccount(
     TextEditingController email,
     TextEditingController password,
   ) async {
     emit(RootState(
       status: Status.loading,
-      errorMessage: '',
     ));
     try {
       await rootRepository.createAccount(
         email: email.text,
         password: password.text,
       );
-
       emit(RootState(
         status: Status.success,
       ));
@@ -103,7 +98,6 @@ class RootCubit extends Cubit<RootState> {
   ) async {
     emit(RootState(
       status: Status.loading,
-      errorMessage: '',
     ));
     try {
       await rootRepository.signIn(
@@ -141,10 +135,6 @@ class RootCubit extends Cubit<RootState> {
       ));
     }
   }
-
-  // void resetError() {
-  //   emit(state.copyWith(status: Status.loading, errorMessage: 'ds'));
-  // }
 
   Future<void> signOut() async {
     await rootRepository.signOut();

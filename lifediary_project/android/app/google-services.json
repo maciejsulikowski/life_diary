@@ -9,6 +9,42 @@
       "client_info": {
         "mobilesdk_app_id": "1:187894505069:android:3b1f89d28f5cf98a8f2964",
         "android_client_info": {
+          "package_name": "com.maciejsulikowski.lifediary_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "187894505069-q1t8rma5ithu90dpk2i6o5bf5kqtjp6r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_X1q6FaxhmC_iLt76lNze6FZ6rCbgUx8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "187894505069-q1t8rma5ithu90dpk2i6o5bf5kqtjp6r.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "187894505069-53p82jn1ebac5l912pk8d4etaid11tvi.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.maciejsulikowski.lifediaryProject"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:187894505069:android:4d51421fbb6bcc638f2964",
+        "android_client_info": {
           "package_name": "com.maciejsulikowskii.lifediary_project"
         }
       },
@@ -29,6 +65,13 @@
             {
               "client_id": "187894505069-q1t8rma5ithu90dpk2i6o5bf5kqtjp6r.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "187894505069-53p82jn1ebac5l912pk8d4etaid11tvi.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.maciejsulikowski.lifediaryProject"
+              }
             }
           ]
         }

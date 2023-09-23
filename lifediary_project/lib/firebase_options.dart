@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -28,10 +25,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -49,9 +43,18 @@ class DefaultFirebaseOptions {
     }
   }
 
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyCeprw2g9Vap0MW3r3c4iYBDHSji8pH2rM',
+    appId: '1:187894505069:web:60771e5ded8f7f908f2964',
+    messagingSenderId: '187894505069',
+    projectId: 'lifediary-project-5882',
+    authDomain: 'lifediary-project-5882.firebaseapp.com',
+    storageBucket: 'lifediary-project-5882.appspot.com',
+  );
+
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyA_X1q6FaxhmC_iLt76lNze6FZ6rCbgUx8',
-    appId: '1:187894505069:android:3b1f89d28f5cf98a8f2964',
+    appId: '1:187894505069:android:4d51421fbb6bcc638f2964',
     messagingSenderId: '187894505069',
     projectId: 'lifediary-project-5882',
     storageBucket: 'lifediary-project-5882.appspot.com',
@@ -59,12 +62,19 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyAtB9hUDbI3dwr7L2irO8kdS4g_TgEp6dQ',
-    appId: '1:187894505069:ios:4e857b797a01f0908f2964',
+    appId: '1:187894505069:ios:ad87f692b3544ed28f2964',
     messagingSenderId: '187894505069',
     projectId: 'lifediary-project-5882',
     storageBucket: 'lifediary-project-5882.appspot.com',
-    iosClientId:
-        '187894505069-53p82jn1ebac5l912pk8d4etaid11tvi.apps.googleusercontent.com',
+    iosBundleId: 'com.maciejsulikowskii.lifediaryProject',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyAtB9hUDbI3dwr7L2irO8kdS4g_TgEp6dQ',
+    appId: '1:187894505069:ios:ad87f692b3544ed28f2964',
+    messagingSenderId: '187894505069',
+    projectId: 'lifediary-project-5882',
+    storageBucket: 'lifediary-project-5882.appspot.com',
     iosBundleId: 'com.maciejsulikowskii.lifediaryProject',
   );
 }

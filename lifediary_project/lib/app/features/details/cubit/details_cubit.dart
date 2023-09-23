@@ -58,9 +58,9 @@ class DetailsCubit extends Cubit<DetailsState> {
     Delta title,
   ) async {
     emit(DetailsState(status: Status.loading));
-    await _itemsRepository.addtext(id, title);
-    final itemModel = await _itemsRepository.get(id: id);
     try {
+      await _itemsRepository.addtext(id, title);
+      final itemModel = await _itemsRepository.get(id: id);
       emit(
         DetailsState(
           itemModel: itemModel,
@@ -70,7 +70,6 @@ class DetailsCubit extends Cubit<DetailsState> {
       );
     } catch (error) {
       emit(DetailsState(
-          itemModel: null,
           status: Status.error,
           errorMessage: error.toString()));
     }
