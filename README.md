@@ -4,7 +4,7 @@ A mobile application supporting user's workout organization and process, where o
 
 ## Test Coverage
 
-<img src="test_coverage_day_quote.PNG" width="100%" height="100%">
+<img src="lifediary_test_coverage.PNG" width="100%" height="100%">
 
 ## Features
 
